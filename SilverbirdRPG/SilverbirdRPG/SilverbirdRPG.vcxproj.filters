@@ -13,5 +13,238 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\Algorithm">
+      <UniqueIdentifier>{c12adc33-0f61-4c6e-82c8-8b70bd96d744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Client">
+      <UniqueIdentifier>{d258dbd7-81f7-47e2-82c2-a47bd3b5b383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Extensions">
+      <UniqueIdentifier>{567d2172-3563-4261-8109-c5a9e728bd77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Script">
+      <UniqueIdentifier>{c20702a6-fef7-4892-8007-b9378d397eff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Script\Tokens">
+      <UniqueIdentifier>{654c9d59-6e6d-45b6-bcf2-c1b3b7632621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Server">
+      <UniqueIdentifier>{0879709d-846d-4cae-8d3c-1e91a4956a2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Network">
+      <UniqueIdentifier>{8be7859d-df42-4de4-8528-3dff223a4e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Shared">
+      <UniqueIdentifier>{83142f30-d9ce-43dd-b200-2edbdef84dbe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dirent.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="aBase.h">
+      <Filter>Headerdateien\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="aContainer.h">
+      <Filter>Headerdateien\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="aException.h">
+      <Filter>Headerdateien\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="aRandom.h">
+      <Filter>Headerdateien\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="aSingelton.h">
+      <Filter>Headerdateien\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="aString.h">
+      <Filter>Headerdateien\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="cCamera.h">
+      <Filter>Headerdateien\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="cChunk.h">
+      <Filter>Headerdateien\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="cChunkLayer.h">
+      <Filter>Headerdateien\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="cClient.h">
+      <Filter>Headerdateien\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="cField.h">
+      <Filter>Headerdateien\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="cFieldFactory.h">
+      <Filter>Headerdateien\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="cFocusable.h">
+      <Filter>Headerdateien\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameState.h">
+      <Filter>Headerdateien\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="cWorld.h">
+      <Filter>Headerdateien\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="eExtendable.h">
+      <Filter>Headerdateien\Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="ksCode.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksObject.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksScript.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksSyntax.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksToken.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksBrackets.h">
+      <Filter>Headerdateien\Script\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="ksFunctionCall.h">
+      <Filter>Headerdateien\Script\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="ksIdentifier.h">
+      <Filter>Headerdateien\Script\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="sServer.h">
+      <Filter>Headerdateien\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="sChunk.h">
+      <Filter>Headerdateien\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="sChunkLayer.h">
+      <Filter>Headerdateien\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="sPlayer.h">
+      <Filter>Headerdateien\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="sPlayerManager.h">
+      <Filter>Headerdateien\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="nMessageServer.h">
+      <Filter>Headerdateien\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="nNetworkIdentification.h">
+      <Filter>Headerdateien\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="sWorld.h">
+      <Filter>Headerdateien\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkInputHandler.h">
+      <Filter>Headerdateien\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkStringManager.h">
+      <Filter>Headerdateien\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="PluginManagement.h">
+      <Filter>Headerdateien\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManagement.h">
+      <Filter>Headerdateien\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Headerdateien\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="SyncTime.h">
+      <Filter>Headerdateien\Shared</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Headerdateien</Filter>
+    </ClCompile>
+    <ClCompile Include="aString.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="cCamera.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="cChunk.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="cChunkLayer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="cClient.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="cField.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="cFieldFactory.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="cFocusable.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="cGameState.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="cWorld.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ksCode.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ksObject.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ksScript.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ksToken.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkStringManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="nMessageServer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="nNetworkIdentification.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="PluginManagement.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManagement.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="sChunk.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="sChunkLayer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="sServer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="sWorld.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SyncTime.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Server.cd" />
+    <None Include="Script.cd" />
+    <None Include="Extensions.cd" />
+    <None Include="Client.cd" />
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="testSkript.txt" />
   </ItemGroup>
 </Project>

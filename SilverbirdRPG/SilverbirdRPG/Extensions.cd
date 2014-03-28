@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="kg::eExtendable">
+    <Position X="0.5" Y="0.5" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAABAABAAAAAAAEAAgQIAQAAAAA=</HashCode>
+      <FileName>eExtendable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kg::eExtension">
+    <Position X="0.5" Y="3.5" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAgAAAAAIABQABAAAEAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>eExtension.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Typedef Name="kg::eArgs" Collapsed="true">
+    <Position X="0.5" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>eExtension.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

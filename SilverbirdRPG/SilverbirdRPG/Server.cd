@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="kg::sChunk">
+    <Position X="0.5" Y="10" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>sChunk.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kg::sChunkLayer">
+    <Position X="0.5" Y="6.75" Width="8" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAABAAAACAAAAAAgAACAAAAAAAmAQA=</HashCode>
+      <FileName>sChunkLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kg::sPlayer">
+    <Position X="11.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>sPlayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kg::sPlayerManager">
+    <Position X="11.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>sPlayerManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kg::sServer">
+    <Position X="0.5" Y="0.5" Width="9.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACECAAAAAAQAAABACAAAAAAAAAEAAAAAAQEAAA=</HashCode>
+      <FileName>sServer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kg::sWorld">
+    <Position X="0.5" Y="3.75" Width="7.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAQAEAAAAAAAAACAAAAAQAAACAAAAAAAEAQA=</HashCode>
+      <FileName>sWorld.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

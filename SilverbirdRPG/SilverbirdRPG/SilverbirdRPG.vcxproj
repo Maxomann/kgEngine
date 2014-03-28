@@ -64,6 +64,83 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="aBase.h" />
+    <ClInclude Include="aContainer.h" />
+    <ClInclude Include="aException.h" />
+    <ClInclude Include="aRandom.h" />
+    <ClInclude Include="aSingelton.h" />
+    <ClInclude Include="aString.h" />
+    <ClInclude Include="cCamera.h" />
+    <ClInclude Include="cChunk.h" />
+    <ClInclude Include="cChunkLayer.h" />
+    <ClInclude Include="cClient.h" />
+    <ClInclude Include="cField.h" />
+    <ClInclude Include="cFieldFactory.h" />
+    <ClInclude Include="cFocusable.h" />
+    <ClInclude Include="cGameState.h" />
+    <ClInclude Include="cWorld.h" />
+    <ClInclude Include="dirent.h" />
+    <ClInclude Include="eExtendable.h" />
+    <ClInclude Include="Factory.h" />
+    <ClInclude Include="ksBrackets.h" />
+    <ClInclude Include="ksCode.h" />
+    <ClInclude Include="ksFunctionCall.h" />
+    <ClInclude Include="ksIdentifier.h" />
+    <ClInclude Include="ksObject.h" />
+    <ClInclude Include="ksScript.h" />
+    <ClInclude Include="ksSyntax.h" />
+    <ClInclude Include="ksToken.h" />
+    <ClInclude Include="NetworkInputHandler.h" />
+    <ClInclude Include="NetworkStringManager.h" />
+    <ClInclude Include="nMessageServer.h" />
+    <ClInclude Include="nNetworkIdentification.h" />
+    <ClInclude Include="PluginManagement.h" />
+    <ClInclude Include="ResourceManagement.h" />
+    <ClInclude Include="sChunk.h" />
+    <ClInclude Include="sChunkLayer.h" />
+    <ClInclude Include="sPlayer.h" />
+    <ClInclude Include="sPlayerManager.h" />
+    <ClInclude Include="sServer.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="sWorld.h" />
+    <ClInclude Include="SyncTime.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="aString.cpp" />
+    <ClCompile Include="cCamera.cpp" />
+    <ClCompile Include="cChunk.cpp" />
+    <ClCompile Include="cChunkLayer.cpp" />
+    <ClCompile Include="cClient.cpp" />
+    <ClCompile Include="cField.cpp" />
+    <ClCompile Include="cFieldFactory.cpp" />
+    <ClCompile Include="cFocusable.cpp" />
+    <ClCompile Include="cGameState.cpp" />
+    <ClCompile Include="cWorld.cpp" />
+    <ClCompile Include="ksCode.cpp" />
+    <ClCompile Include="ksObject.cpp" />
+    <ClCompile Include="ksScript.cpp" />
+    <ClCompile Include="ksToken.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="NetworkStringManager.cpp" />
+    <ClCompile Include="nMessageServer.cpp" />
+    <ClCompile Include="nNetworkIdentification.cpp" />
+    <ClCompile Include="PluginManagement.cpp" />
+    <ClCompile Include="ResourceManagement.cpp" />
+    <ClCompile Include="sChunk.cpp" />
+    <ClCompile Include="sChunkLayer.cpp" />
+    <ClCompile Include="sServer.cpp" />
+    <ClCompile Include="sWorld.cpp" />
+    <ClCompile Include="SyncTime.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="Client.cd" />
+    <None Include="Extensions.cd" />
+    <None Include="Script.cd" />
+    <None Include="Server.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="testSkript.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
