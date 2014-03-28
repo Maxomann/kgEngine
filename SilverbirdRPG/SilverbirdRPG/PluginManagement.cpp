@@ -16,7 +16,7 @@ namespace kg
 		if( cDir == NULL )
 		{
 			closedir( cDir );
-			throw(std::string( "PluginManagement::PluginManagement could not open client plugin dir." ));
+			REPORT_ERROR_FILEACCESS("PluginManagement::PluginManagement could not open client plugin dir.");
 		}
 
 		while( (ent = readdir( cDir )) != NULL )
