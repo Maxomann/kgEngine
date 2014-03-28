@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SilverbirdRPG", "SilverbirdRPG\SilverbirdRPG.vcxproj", "{9B46A5F8-D042-46E0-8A47-334E969E865A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B46A5F8-D042-46E0-8A47-334E969E865A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9B46A5F8-D042-46E0-8A47-334E969E865A}.Debug|Win32.Build.0 = Debug|Win32
+		{9B46A5F8-D042-46E0-8A47-334E969E865A}.Release|Win32.ActiveCfg = Release|Win32
+		{9B46A5F8-D042-46E0-8A47-334E969E865A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
