@@ -133,7 +133,6 @@
     <ClCompile Include="SyncTime.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="Client.cd" />
     <None Include="Extensions.cd" />
     <None Include="Script.cd" />

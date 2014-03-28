@@ -242,7 +242,6 @@
     <None Include="Script.cd" />
     <None Include="Extensions.cd" />
     <None Include="Client.cd" />
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="testSkript.txt" />
