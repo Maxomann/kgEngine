@@ -22,20 +22,20 @@
     <Filter Include="Headerdateien\Extensions">
       <UniqueIdentifier>{567d2172-3563-4261-8109-c5a9e728bd77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headerdateien\Script">
-      <UniqueIdentifier>{c20702a6-fef7-4892-8007-b9378d397eff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\Script\Tokens">
-      <UniqueIdentifier>{654c9d59-6e6d-45b6-bcf2-c1b3b7632621}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\Server">
-      <UniqueIdentifier>{0879709d-846d-4cae-8d3c-1e91a4956a2c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headerdateien\Network">
       <UniqueIdentifier>{8be7859d-df42-4de4-8528-3dff223a4e91}</UniqueIdentifier>
     </Filter>
     <Filter Include="Headerdateien\Shared">
       <UniqueIdentifier>{83142f30-d9ce-43dd-b200-2edbdef84dbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Server">
+      <UniqueIdentifier>{0879709d-846d-4cae-8d3c-1e91a4956a2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Script">
+      <UniqueIdentifier>{c20702a6-fef7-4892-8007-b9378d397eff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Script\Tokens">
+      <UniqueIdentifier>{654c9d59-6e6d-45b6-bcf2-c1b3b7632621}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
