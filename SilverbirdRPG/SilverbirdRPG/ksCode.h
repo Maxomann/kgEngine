@@ -15,16 +15,16 @@ namespace kg
 		ksTokenMap m_tokens;
 
 		void m_constructTokens( const ksTokenConstructorMap& tokenConstructors );
+		void m_generateSplitCode( const std::string& code );
 
 	public:
 		ksCode( const ksTokenConstructorMap& tokenConstructors,
 				std::vector<ksCode>& subCodeContainer,
 				const std::string& code );
+		ksCode( const ksTokenConstructorMap& tokenConstructors,
+				std::vector<ksCode>& subCodeContainer,
+				const std::vector<std::string> splitCode );
 
 		void execute( const ksReferenceContainer& refCon );
-
-#ifdef _DEBUG
-		const std::string toString()const;
-#endif
 	};
 }

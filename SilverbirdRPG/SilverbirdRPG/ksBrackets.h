@@ -31,7 +31,8 @@ namespace kg
 			static const char TOKEN = '(';
 			static const int PRIORITY = 0;
 
-			virtual bool construct( const std::string& thisToken,
+			virtual bool construct( const ksTokenConstructorMap& tokenConstructors,
+									const std::string& thisToken,
 									ksTokenMap& constructedTokens,
 									std::vector<std::string>& splitCode,
 									int currentLine,
@@ -76,7 +77,8 @@ namespace kg
 			static const char TOKEN = ')';
 			static const int PRIORITY = 0;
 
-			virtual bool construct( const std::string& thisToken,
+			virtual bool construct( const ksTokenConstructorMap& tokenConstructors,
+									const std::string& thisToken,
 									ksTokenMap& constructedTokens,
 									std::vector<std::string>& splitCode,
 									int currentLine,

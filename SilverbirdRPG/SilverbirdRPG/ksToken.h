@@ -28,7 +28,8 @@ namespace kg
 	public:
 
 		//returns true if Token has been constructed
-		virtual bool construct( const std::string& thisToken,
+		virtual bool construct( const ksTokenConstructorMap& tokenConstructors,
+								const std::string& thisToken,
 								ksTokenMap& constructedTokens,
 								std::vector<std::string>& splitCode,
 								int currentLine,

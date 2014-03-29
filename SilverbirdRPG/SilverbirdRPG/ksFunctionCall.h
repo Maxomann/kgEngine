@@ -35,7 +35,8 @@ namespace kg
 		public:
 			static const int PRIORITY = 11;
 
-			virtual bool construct( const std::string& thisToken,
+			virtual bool construct( const ksTokenConstructorMap& tokenConstructors,
+									const std::string& thisToken,
 									ksTokenMap& constructedTokens,
 									std::vector<std::string>& splitCode,
 									int currentLine,
