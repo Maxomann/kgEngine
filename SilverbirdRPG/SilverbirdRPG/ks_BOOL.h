@@ -6,10 +6,10 @@ namespace kg
 {
 	namespace ksToken
 	{
-		class T_BOOL : public ksToken
+		class BOOL : public ksToken
 		{
 		public:
-			T_BOOL( const int endOfToken )
+			BOOL( const int endOfToken )
 				: ksToken( endOfToken )
 			{ }
 
@@ -24,7 +24,7 @@ namespace kg
 			}
 		};
 
-		class TOKEN_NAME_CONSTRUCTOR : public ksTokenConstructor
+		class BOOL_CONSTRUCTOR : public ksTokenConstructor
 		{
 		public:
 			virtual bool construct( const ksTokenConstructorMap& tokenConstructors,

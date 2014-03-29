@@ -153,14 +153,14 @@
     <ClInclude Include="SyncTime.h">
       <Filter>Headerdateien\Shared</Filter>
     </ClInclude>
-    <ClInclude Include="ksStaticToken.h">
-      <Filter>Headerdateien\Script\Tokens</Filter>
-    </ClInclude>
-    <ClInclude Include="ksT_BOOL.h">
-      <Filter>Headerdateien\Script\Tokens</Filter>
-    </ClInclude>
     <ClInclude Include="ksBool.h">
       <Filter>Headerdateien\Script\CppTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="ks_BOOL.h">
+      <Filter>Headerdateien\Script\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="ks_StaticToken.h">
+      <Filter>Headerdateien\Script\Tokens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
