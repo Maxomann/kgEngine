@@ -39,8 +39,7 @@ namespace kg
 									const std::string& thisToken,
 									ksTokenMap& constructedTokens,
 									std::vector<std::string>& splitCode,
-									int currentLine,
-									int bracketCount )const
+									int currentLine )const
 			{
 				auto it = begin( constructedTokens );
 				for( int i = 0; i < currentLine + 1; ++i )

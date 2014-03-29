@@ -32,8 +32,7 @@ namespace kg
 								const std::string& thisToken,
 								ksTokenMap& constructedTokens,
 								std::vector<std::string>& splitCode,
-								int currentLine,
-								int bracketCount )const = 0;
+								int currentLine )const = 0;
 
 		//lowest priotity will be executed first
 		virtual const unsigned int getPriority()const = 0;

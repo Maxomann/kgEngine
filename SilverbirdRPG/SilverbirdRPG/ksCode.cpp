@@ -20,8 +20,6 @@ kg::ksCode::ksCode( const ksTokenConstructorMap& tokenConstructors,
 
 void kg::ksCode::m_constructTokens( const ksTokenConstructorMap& tokenConstructors )
 {
-	int bracketCount = 0;
-
 	for( const std::pair<int, std::vector<std::shared_ptr<ksTokenConstructor>>>& priority : tokenConstructors )
 	{
 		for( int currentLine = 0; currentLine < m_splitCode.size(); currentLine++ )
@@ -33,8 +31,7 @@ void kg::ksCode::m_constructTokens( const ksTokenConstructorMap& tokenConstructo
 					m_splitCode[currentLine],
 					m_tokens,
 					m_splitCode,
-					currentLine ,
-					bracketCount ) )
+					currentLine ) )
 				{
 					currentLine = m_tokens[currentLine]->getEndOfToken();
 					break;//

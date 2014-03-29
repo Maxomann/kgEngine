@@ -42,8 +42,7 @@ namespace kg
 									const std::string& thisToken,
 									ksTokenMap& constructedTokens,
 									std::vector<std::string>& splitCode,
-									int currentLine,
-									int bracketCount )const
+									int currentLine )const
 			{
 				if( constructedTokens[currentLine] == nullptr )
 				{
