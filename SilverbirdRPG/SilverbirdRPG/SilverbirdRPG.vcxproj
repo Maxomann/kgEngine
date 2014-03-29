@@ -105,6 +105,7 @@
     <ClInclude Include="nMessageServer.h" />
     <ClInclude Include="nNetworkIdentification.h" />
     <ClInclude Include="PluginManagement.h" />
+    <ClInclude Include="StaticToken.h" />
     <ClInclude Include="ResourceManagement.h" />
     <ClInclude Include="sChunk.h" />
     <ClInclude Include="sChunkLayer.h" />
