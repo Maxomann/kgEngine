@@ -108,15 +108,6 @@
     <ClInclude Include="ksToken.h">
       <Filter>Headerdateien\Script</Filter>
     </ClInclude>
-    <ClInclude Include="ksBrackets.h">
-      <Filter>Headerdateien\Script\Tokens</Filter>
-    </ClInclude>
-    <ClInclude Include="ksFunctionCall.h">
-      <Filter>Headerdateien\Script\Tokens</Filter>
-    </ClInclude>
-    <ClInclude Include="ksIdentifier.h">
-      <Filter>Headerdateien\Script\Tokens</Filter>
-    </ClInclude>
     <ClInclude Include="sServer.h">
       <Filter>Headerdateien\Server</Filter>
     </ClInclude>

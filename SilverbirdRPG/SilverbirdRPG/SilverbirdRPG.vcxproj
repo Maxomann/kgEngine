@@ -95,10 +95,7 @@
     <ClInclude Include="dirent.h" />
     <ClInclude Include="eExtendable.h" />
     <ClInclude Include="Factory.h" />
-    <ClInclude Include="ksBrackets.h" />
     <ClInclude Include="ksCode.h" />
-    <ClInclude Include="ksFunctionCall.h" />
-    <ClInclude Include="ksIdentifier.h" />
     <ClInclude Include="ksObject.h" />
     <ClInclude Include="ksScript.h" />
     <ClInclude Include="ksSyntax.h" />

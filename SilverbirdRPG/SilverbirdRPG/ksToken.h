@@ -45,4 +45,9 @@ namespace kg
 		IDENTIFIER,
 		FUNCTION_CALL
 	};
+
+	enum TOKEN_PRIORITY
+	{
+
+	};
 }
