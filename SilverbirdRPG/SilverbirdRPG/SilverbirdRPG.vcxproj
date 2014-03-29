@@ -97,6 +97,7 @@
     <ClInclude Include="Factory.h" />
     <ClInclude Include="ksBool.h" />
     <ClInclude Include="ksCode.h" />
+    <ClInclude Include="ksFunction.h" />
     <ClInclude Include="ksObject.h" />
     <ClInclude Include="ksScript.h" />
     <ClInclude Include="ksSyntax.h" />

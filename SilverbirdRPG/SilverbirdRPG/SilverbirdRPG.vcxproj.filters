@@ -162,6 +162,9 @@
     <ClInclude Include="ks_StaticToken.h">
       <Filter>Headerdateien\Script\Tokens</Filter>
     </ClInclude>
+    <ClInclude Include="ksFunction.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

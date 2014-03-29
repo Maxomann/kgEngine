@@ -40,7 +40,7 @@ int main()
 
 		//Plugins
 
-		//Subcode mit hilfe von Tokens realisieren
+		//TypeCheck before functionCall memberFunctionInterface!!!
 
 		//TODO: SMARTPOINTER!; PlayerManager;
 		// pass Camera in evry draw function;
