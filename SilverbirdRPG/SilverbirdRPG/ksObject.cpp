@@ -14,7 +14,7 @@ std::shared_ptr<kg::ksObject> kg::ksParent::callMemberFunction( const std::share
 		if( retVal != nullptr )
 			return retVal;
 	}
-	return std::shared_ptr<kg::ksObject>();
+	return nullptr;
 }
 
 const std::string& kg::ksParent::getType() const
@@ -23,13 +23,15 @@ const std::string& kg::ksParent::getType() const
 }
 
 void kg::ksParent::registerMemberFunction( const std::string& name,
-										   ksMemberFunction& function )
+										   const ksMemberFunction& function )
 {
 	m_memberFunctions[name].push_back( function );
 }
 
-kg::ksObject::ksObject( const ksParent& parent )
-:r_parent( parent )
+kg::ksObject::ksObject( const std::shared_ptr<void>& cppObject,
+						const ksParent& parent )
+:r_parent( parent ),
+m_cppObject(cppObject)
 { }
 
 std::shared_ptr<kg::ksObject> kg::ksObject::callMemberFunction( const std::string& name,

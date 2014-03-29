@@ -37,6 +37,9 @@
     <Filter Include="Headerdateien\Script\Tokens">
       <UniqueIdentifier>{654c9d59-6e6d-45b6-bcf2-c1b3b7632621}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Script\CppTypes">
+      <UniqueIdentifier>{7962a881-c573-4441-b89e-e7328988d43a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dirent.h">
@@ -150,8 +153,14 @@
     <ClInclude Include="SyncTime.h">
       <Filter>Headerdateien\Shared</Filter>
     </ClInclude>
-    <ClInclude Include="StaticToken.h">
+    <ClInclude Include="ksStaticToken.h">
       <Filter>Headerdateien\Script\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="ksT_BOOL.h">
+      <Filter>Headerdateien\Script\Tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="ksBool.h">
+      <Filter>Headerdateien\Script\CppTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

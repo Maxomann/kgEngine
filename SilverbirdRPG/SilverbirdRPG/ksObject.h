@@ -21,7 +21,7 @@ namespace kg
 													  const ksObjectVector& arguments )const;
 
 		void registerMemberFunction( const std::string& name,
-									 ksMemberFunction& function );
+									 const ksMemberFunction& function );
 
 		const std::string& getType()const;
 	};
@@ -30,15 +30,36 @@ namespace kg
 	{
 		const ksParent& r_parent;
 
-		std::shared_ptr<void> m_cppObject;
+		const std::shared_ptr<void> m_cppObject;
 
 	public:
-		ksObject( const ksParent& parent );
+		ksObject( const std::shared_ptr<void>& cppObject,
+				  const ksParent& parent );
 
 		//returns nullptr on fail
 		std::shared_ptr<ksObject> callMemberFunction( const std::string& name,
 													  const ksObjectVector& arguments );
 
 		const std::string& getType()const;
+
+		template< class T >
+		std::shared_ptr<T> toCppObject();
 	};
+
+	template< class T >
+	std::shared_ptr<T> ksObject::toCppObject()
+	{
+		return std::static_pointer_cast< T >(m_cppObject);
+	}
+
+
+
+	namespace ksFunctions
+	{
+		static const std::string Constructor = "CONSTRUCTOR";
+	}
+	namespace ksTypes
+	{
+		static const std::string Bool = "bool";
+	}
 }

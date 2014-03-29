@@ -95,6 +95,7 @@
     <ClInclude Include="dirent.h" />
     <ClInclude Include="eExtendable.h" />
     <ClInclude Include="Factory.h" />
+    <ClInclude Include="ksBool.h" />
     <ClInclude Include="ksCode.h" />
     <ClInclude Include="ksObject.h" />
     <ClInclude Include="ksScript.h" />
@@ -105,7 +106,7 @@
     <ClInclude Include="nMessageServer.h" />
     <ClInclude Include="nNetworkIdentification.h" />
     <ClInclude Include="PluginManagement.h" />
-    <ClInclude Include="StaticToken.h" />
+    <ClInclude Include="ksStaticToken.h" />
     <ClInclude Include="ResourceManagement.h" />
     <ClInclude Include="sChunk.h" />
     <ClInclude Include="sChunkLayer.h" />
@@ -115,6 +116,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sWorld.h" />
     <ClInclude Include="SyncTime.h" />
+    <ClInclude Include="ksT_BOOL.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aString.cpp" />

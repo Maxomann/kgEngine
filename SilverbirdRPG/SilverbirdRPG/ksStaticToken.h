@@ -31,12 +31,12 @@ namespace kg
 		{
 			const int m_priority;
 			const int m_id;
-			const char m_token;
+			const std::string m_token;
 
 		public:
 			StaticTokenConstructor( const int priority,
 									const int id,
-									const char token )
+									const std::string token )
 									:m_priority(priority),
 									m_id(id),
 									m_token( token )
@@ -48,7 +48,7 @@ namespace kg
 									std::vector<std::string>& splitCode,
 									int currentLine ) const
 			{
-				if( thisToken == std::string{ m_token } && constructedTokens[currentLine]==nullptr )
+				if( thisToken == m_token && constructedTokens[currentLine]==nullptr )
 				{
 					constructedTokens[currentLine] = std::make_shared<StaticToken>( m_id, currentLine );
 					return true;
