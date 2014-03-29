@@ -4,7 +4,7 @@
 
 namespace kg
 {
-	namespace token
+	namespace ksToken
 	{
 		class T_BOOL : public ksToken
 		{
