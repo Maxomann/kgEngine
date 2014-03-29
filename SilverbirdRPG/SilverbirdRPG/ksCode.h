@@ -10,16 +10,15 @@ namespace kg
 	class ksCode
 	{
 		std::vector<std::string> m_splitCode;
-		std::vector<ksCode> m_subCode;
+		std::vector<ksCode>& r_subCode;
 
 		ksTokenMap m_tokens;
 
 		void m_constructTokens( const ksTokenConstructorMap& tokenConstructors );
-		void m_genereateSubCode( const ksTokenConstructorMap& tokenConstructors,
-								 std::string& code );
 
 	public:
 		ksCode( const ksTokenConstructorMap& tokenConstructors,
+				std::vector<ksCode>& subCodeContainer,
 				const std::string& code );
 
 		void execute( const ksReferenceContainer& refCon );

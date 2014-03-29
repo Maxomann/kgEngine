@@ -27,7 +27,6 @@ namespace kg
 	template< class T >
 	const std::shared_ptr<T>& kg::eExtendable::getExtension()const
 	{
-		return std::static_pointer_cast< T >(m_extensions.at(typeid(T).hash_code()));
+		return std::static_pointer_cast< T >(m_extensions.at( typeid(T).hash_code() ));
 	}
-
 }

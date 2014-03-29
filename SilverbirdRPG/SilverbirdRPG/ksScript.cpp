@@ -2,7 +2,6 @@
 
 using namespace kg;
 
-
 kg::ksScript::ksScript( ksTokenConstructorMap& tokenConstructors,
 						ksFunctionMap& availableFunctions,
 						ksParentMap& availableCppObjectTypes )
@@ -10,7 +9,6 @@ kg::ksScript::ksScript( ksTokenConstructorMap& tokenConstructors,
 						r_availableCppObjectTypes( availableCppObjectTypes ),
 						r_tokenConstructors( tokenConstructors )
 {
-
 }
 
 bool kg::ksScript::loadFromFile( const std::string& path )
@@ -43,7 +41,6 @@ bool kg::ksScript::loadFromFile( const std::string& path )
 	}
 	else
 		return false;
-
 }
 
 bool kg::ksScript::loadFromString( const std::string& code )
@@ -59,8 +56,8 @@ bool kg::ksScript::loadFromString( const std::string& code )
 
 void kg::ksScript::interpret()
 {
-
 	ksCode code( r_tokenConstructors,
+				 m_subCode,
 				 m_code );
 
 	ksReferenceContainer refCon( r_availableFunctions,
@@ -74,6 +71,3 @@ bool kg::ksScript::isLoaded()
 {
 	return m_code != "";
 }
-
-
-

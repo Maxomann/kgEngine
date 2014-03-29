@@ -1,15 +1,15 @@
 #include "ksCode.h"
 
 kg::ksCode::ksCode( const ksTokenConstructorMap& tokenConstructors,
+					std::vector<ksCode>& subCodeContainer,
 					const std::string& code )
+					: r_subCode(subCodeContainer)
 {
-	auto codeCopy = code;
-	m_genereateSubCode( tokenConstructors, codeCopy );
 
 	std::string temp;
 	bool isInString = false;
 	bool lastWasAlpha = false;
-	for( const auto& el : codeCopy )
+	for( const auto& el : code )
 	{
 		if( isInString )
 		{
@@ -83,6 +83,7 @@ void kg::ksCode::m_constructTokens( const ksTokenConstructorMap& tokenConstructo
 			{
 				if( constructor->construct( m_splitCode[currentLine],
 					m_tokens,
+					m_splitCode,
 					currentLine,
 					bracketCount ) )
 				{
@@ -105,48 +106,48 @@ const std::string kg::ksCode::toString() const
 }
 #endif
 
-void kg::ksCode::m_genereateSubCode( const ksTokenConstructorMap& tokenConstructors,
-									 std::string& code )
-{
-	std::string newSubcode;
-	std::string mainCode;
-
-	int codeCount = 0;
-	int eckigeKlammerCount = 0;
-
-	for( const auto&el : code )
-	{
-		if( el == '{' )
-		{
-			eckigeKlammerCount++;
-		}
-		else if( el == '}' )
-		{
-			eckigeKlammerCount--;
-
-			if( eckigeKlammerCount == NULL )
-			{
-				m_subCode.emplace_back( tokenConstructors,
-										newSubcode );
-				newSubcode.clear();
-
-				mainCode += "#";
-				mainCode += std::to_string( codeCount );
-				codeCount++;
-			}
-		}
-		else if( eckigeKlammerCount == NULL )
-		{
-			mainCode += el;
-		}
-		else
-		{
-			newSubcode += el;
-		}
-	}
-
-	code = mainCode;
-}
+//void kg::ksCode::m_genereateSubCode( const ksTokenConstructorMap& tokenConstructors,
+//									 std::string& code )
+//{
+//	std::string newSubcode;
+//	std::string mainCode;
+//
+//	int codeCount = 0;
+//	int eckigeKlammerCount = 0;
+//
+//	for( const auto&el : code )
+//	{
+//		if( el == '{' )
+//		{
+//			eckigeKlammerCount++;
+//		}
+//		else if( el == '}' )
+//		{
+//			eckigeKlammerCount--;
+//
+//			if( eckigeKlammerCount == NULL )
+//			{
+//				r_subCode.emplace_back( tokenConstructors,
+//										newSubcode );
+//				newSubcode.clear();
+//
+//				mainCode += "#";
+//				mainCode += std::to_string( codeCount );
+//				codeCount++;
+//			}
+//		}
+//		else if( eckigeKlammerCount == NULL )
+//		{
+//			mainCode += el;
+//		}
+//		else
+//		{
+//			newSubcode += el;
+//		}
+//	}
+//
+//	code = mainCode;
+//}
 
 void kg::ksCode::execute( const ksReferenceContainer& refCon )
 {

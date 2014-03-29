@@ -30,6 +30,7 @@ namespace kg
 		//returns true if Token has been constructed
 		virtual bool construct( const std::string& thisToken,
 								ksTokenMap& constructedTokens,
+								std::vector<std::string>& splitCode,
 								int currentLine,
 								int bracketCount )const = 0;
 

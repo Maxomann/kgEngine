@@ -18,8 +18,7 @@ namespace kg
 					r_networkStringManager( &networkStringManager ),
 					r_syncTime( &syncTime ),
 					m_positionInChunks( positionInChunks )
-	{
-	}
+	{ }
 	cChunk::~cChunk()
 	{ }
 	const sf::Vector2i cChunk::getPositionInChunks()const
@@ -79,9 +78,7 @@ namespace kg
 	//	}
 	//}
 	void cChunk::update()
-	{
-	}
+	{ }
 	void cChunk::draw()
-	{
-	}
+	{ }
 }

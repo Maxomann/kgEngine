@@ -40,8 +40,9 @@ namespace kg
 
 			virtual bool construct( const std::string& thisToken,
 									ksTokenMap& constructedTokens,
+									std::vector<std::string>& splitCode,
 									int currentLine,
-									int bracketCount ) const
+									int bracketCount )const
 			{
 				if( constructedTokens[currentLine] == nullptr )
 				{

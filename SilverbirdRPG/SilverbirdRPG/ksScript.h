@@ -15,6 +15,7 @@ namespace kg
 		ksParentMap& r_availableCppObjectTypes;
 
 		ksObjectMap m_stack;
+		std::vector<ksCode> m_subCode;
 
 		std::string m_code;
 

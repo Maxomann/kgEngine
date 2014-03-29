@@ -33,8 +33,9 @@ namespace kg
 
 			virtual bool construct( const std::string& thisToken,
 									ksTokenMap& constructedTokens,
+									std::vector<std::string>& splitCode,
 									int currentLine,
-									int bracketCount ) const
+									int bracketCount )const
 			{
 				if( thisToken.at( 0 ) == TOKEN )
 				{
@@ -77,8 +78,9 @@ namespace kg
 
 			virtual bool construct( const std::string& thisToken,
 									ksTokenMap& constructedTokens,
+									std::vector<std::string>& splitCode,
 									int currentLine,
-									int bracketCount ) const
+									int bracketCount )const
 			{
 				if( thisToken.at( 0 ) == TOKEN )
 				{

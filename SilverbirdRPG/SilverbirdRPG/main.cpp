@@ -49,7 +49,6 @@ int main()
 
 		system( "pause" );
 
-
 		//Plugins
 
 		//Subcode mit hilfe von Tokens realisieren
