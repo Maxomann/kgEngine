@@ -24,20 +24,27 @@ void kg::ksCode::m_constructTokens( const ksTokenConstructorMap& tokenConstructo
 	{
 		for( int currentLine = 0; currentLine < m_splitCode.size(); currentLine++ )
 		{
-			for( const std::shared_ptr<ksTokenConstructor>& constructor : priority.second )
+			if( m_tokens[currentLine] == nullptr )
 			{
-				if( constructor->construct(
-					tokenConstructors,
-					m_splitCode[currentLine],
-					m_tokens,
-					m_splitCode,
-					currentLine ) )
+				for( const std::shared_ptr<ksTokenConstructor>& constructor : priority.second )
 				{
-					currentLine = m_tokens[currentLine]->getEndOfToken();
-					break;//
+					if( constructor->construct(
+						tokenConstructors,
+						m_splitCode[currentLine],
+						m_tokens,
+						m_splitCode,
+						currentLine ) )
+					{
+						currentLine = m_tokens[currentLine]->getEndOfToken();
+						break;//
+					}
 				}
+				//break here
 			}
-			//break here
+			else
+			{
+				currentLine = m_tokens[currentLine]->getEndOfToken();
+			}
 		}
 	}
 }
@@ -89,11 +96,24 @@ void kg::ksCode::execute( const ksReferenceContainer& refCon )
 {
 	int position = 0;
 
-	while( position < m_tokens.rbegin()->first )
+	if( m_tokens.size() > NULL )
 	{
-		auto& token = m_tokens.at( position );
-		token->execute( refCon );
-		position = token->getEndOfToken() + 1;//next step
+		while( position < m_tokens.rbegin()->first )
+		{
+			auto& token = m_tokens.at( position );
+			token->execute( refCon );
+			position = token->getEndOfToken() + 1;//next step
+		}
+	}
+	else
+	{
+		std::string code;
+		for( const auto& el : m_splitCode )
+		{
+			code += el;
+			code += "\n";
+		}
+		REPORT_ERROR_SCRIPT( "No token constructed" + "\n#m_splitCode:\n" + code );
 	}
 }
 

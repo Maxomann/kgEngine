@@ -11,9 +11,6 @@
 #include "aException.h"
 #include "eExtendable.h"
 #include "ksCode.h"
-#include "ksBrackets.h"
-#include "ksFunctionCall.h"
-#include "ksIdentifier.h"
 #include "ksScript.h"
 
 using namespace std;
@@ -30,14 +27,6 @@ int main()
 	try
 	{
 		ksTokenConstructorMap tokenConstructors;
-		tokenConstructors[token::BracketOpenConstructor::PRIORITY]
-			.push_back( std::make_shared<token::BracketOpenConstructor>() );
-		tokenConstructors[token::BracketCloseConstructor::PRIORITY]
-			.push_back( std::make_shared<token::BracketCloseConstructor>() );
-		tokenConstructors[token::FunctionCallConstructor::PRIORITY]
-			.push_back( std::make_shared<token::FunctionCallConstructor>() );
-		tokenConstructors[token::IdentifierConstructor::PRIORITY]
-			.push_back( std::make_shared<token::IdentifierConstructor>() );
 
 		ksParentMap availableCppObjectTypes;
 		ksFunctionMap availableFunctions;
