@@ -16,10 +16,12 @@ namespace kg
 
 
 
-	template<typename F> class MemberFunctionWrapper;
+	template<typename F> class FunctionWrapper;
 
+
+	//Member Function
 	template<class Obj, class Ret, typename ... Args>
-	class MemberFunctionWrapper<Ret( Obj::* )(Args...)>
+	class FunctionWrapper<Ret( Obj::* )(Args...)>
 	{
 		typedef Ret( Obj::*MemberFunction )(Args...);
 		const MemberFunction m_memberfunction;
@@ -33,7 +35,7 @@ namespace kg
 				(*static_cast< typename std::remove_reference<Args>::type* >(args.at( Is ).get())...);
 		}
 	public:
-		MemberFunctionWrapper( MemberFunction memFn ) : m_memberfunction( memFn )
+		FunctionWrapper( MemberFunction memFn ) : m_memberfunction( memFn )
 		{ }
 
 		void call( std::shared_ptr<void>& obj,
@@ -41,6 +43,31 @@ namespace kg
 		{
 			assert( args.size() == sizeof...(Args) );
 			call( obj, args, make_index_sequence<sizeof...(Args)>() );
+		}
+
+	};
+
+	//Non member funtion
+	template<class Ret, typename ... Args>
+	class FunctionWrapper<Ret( * )(Args...)>
+	{
+		typedef Ret( *Function )(Args...);
+		const Function m_function;
+
+		template <std::size_t ... Is>
+		void call( const std::vector<std::shared_ptr<void>>& args,
+				   index_sequence<Is...> )
+		{
+			m_function( *static_cast< typename std::remove_reference<Args>::type* >(args.at( Is ).get())... );
+		}
+	public:
+		FunctionWrapper( Function memFn ) : m_function( memFn )
+		{ }
+
+		void call( const std::vector<std::shared_ptr<void>>& args )
+		{
+			assert( args.size() == sizeof...(Args) );
+			call( args, make_index_sequence<sizeof...(Args)>() );
 		}
 
 	};
