@@ -19,6 +19,7 @@
 #include<fstream>
 #include<functional>
 #include<memory.h>
+#include<cassert>
 #include<cctype>
 #include"dirent.h"
 //divide: struct dirent->d_type / DIRENT_CONST
