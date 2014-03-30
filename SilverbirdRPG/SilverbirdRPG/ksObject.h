@@ -42,7 +42,7 @@ namespace kg
 
 		const std::string& getType()const;
 
-		template< class T >
+		template< class T=void >
 		std::shared_ptr<T> toCppObject();
 	};
 
