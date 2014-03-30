@@ -61,7 +61,7 @@ namespace kg
 			m_function( *static_cast< typename std::remove_reference<Args>::type* >(args.at( Is ).get())... );
 		}
 	public:
-		FunctionWrapper( Function memFn ) : m_function( memFn )
+		FunctionWrapper( Function func ) : m_function( func )
 		{ }
 
 		void call( const std::vector<std::shared_ptr<void>>& args )
