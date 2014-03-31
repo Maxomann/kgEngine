@@ -32,8 +32,11 @@ namespace kg
 
 		const std::shared_ptr<void> m_cppObject;
 
+		const size_t m_cppTypeHash;
+
 	public:
 		ksObject( const std::shared_ptr<void>& cppObject,
+				  const size_t& cppObjectTypeHash,
 				  const ksParent& parent );
 
 		//returns nullptr on fail
@@ -41,6 +44,8 @@ namespace kg
 													  const ksObjectVector& arguments );
 
 		const std::string& getType()const;
+
+		const size_t& getCppTypeHash()const;
 
 		template< class T=void >
 		std::shared_ptr<T> toCppObject();
