@@ -29,9 +29,11 @@ void kg::ksParent::registerMemberFunction( const std::string& name,
 }
 
 kg::ksObject::ksObject( const std::shared_ptr<void>& cppObject,
+						const size_t& cppObjectTypeHash,
 						const ksParent& parent )
 :r_parent( parent ),
-m_cppObject(cppObject)
+m_cppObject(cppObject),
+m_cppTypeHash(cppObjectTypeHash)
 { }
 
 std::shared_ptr<kg::ksObject> kg::ksObject::callMemberFunction( const std::string& name,
@@ -43,4 +45,9 @@ std::shared_ptr<kg::ksObject> kg::ksObject::callMemberFunction( const std::strin
 const std::string& kg::ksObject::getType() const
 {
 	return r_parent.getType();
+}
+
+const size_t& kg::ksObject::getCppTypeHash() const
+{
+	return m_cppTypeHash;
 }
