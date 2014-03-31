@@ -6,6 +6,12 @@
 #include "ksToken.h"
 #include "aException.h"
 
+// Hallo
+// Das
+// ist
+// ein
+// Test
+
 namespace kg
 {
 	class ksCode
