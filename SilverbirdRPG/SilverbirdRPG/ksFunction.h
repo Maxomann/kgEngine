@@ -17,6 +17,7 @@ namespace kg
 
 	template<typename F> class FunctionWrapper;
 
+
 	//NON MEMBER FUNCTION
 	//FunctionWrapper<decltype(foo)> wrapper( foo );
 	template<class Ret, typename ... Args>
