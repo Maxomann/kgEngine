@@ -13,7 +13,7 @@ namespace kg
 				: ksToken( endOfToken )
 			{ }
 
-			virtual std::shared_ptr<ksObject> execute( const ksReferenceContainer& refCon ) const
+			virtual std::shared_ptr<ksClassInstance> execute( const ksReferenceContainer& refCon ) const
 			{
 				throw std::logic_error( "The method or operation is not implemented." );
 			}

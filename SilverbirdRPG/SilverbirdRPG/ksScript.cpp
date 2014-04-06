@@ -3,9 +3,9 @@
 using namespace kg;
 
 kg::ksScript::ksScript( ksTokenConstructorMap& tokenConstructors,
-						ksFunctionMap& availableFunctions,
+						//ksFunctionMap& availableFunctions,
 						ksParentMap& availableCppObjectTypes )
-						:r_availableFunctions( availableFunctions ),
+						://r_availableFunctions( availableFunctions ),
 						r_availableCppObjectTypes( availableCppObjectTypes ),
 						r_tokenConstructors( tokenConstructors )
 {
@@ -60,7 +60,7 @@ void kg::ksScript::interpret()
 				 m_subCode,
 				 m_code );
 
-	ksReferenceContainer refCon( r_availableFunctions,
+	ksReferenceContainer refCon( //r_availableFunctions,
 								 r_availableCppObjectTypes,
 								 m_stack );
 

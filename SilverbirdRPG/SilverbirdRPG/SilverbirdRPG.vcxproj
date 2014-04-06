@@ -98,7 +98,8 @@
     <ClInclude Include="ksBool.h" />
     <ClInclude Include="ksCode.h" />
     <ClInclude Include="ksFunction.h" />
-    <ClInclude Include="ksObject.h" />
+    <ClInclude Include="ksFunctionWrapper.h" />
+    <ClInclude Include="ksClass.h" />
     <ClInclude Include="ksScript.h" />
     <ClInclude Include="ksSyntax.h" />
     <ClInclude Include="ksToken.h" />
@@ -131,7 +132,8 @@
     <ClCompile Include="cGameState.cpp" />
     <ClCompile Include="cWorld.cpp" />
     <ClCompile Include="ksCode.cpp" />
-    <ClCompile Include="ksObject.cpp" />
+    <ClCompile Include="ksClass.cpp" />
+    <ClCompile Include="ksFunction.cpp" />
     <ClCompile Include="ksScript.cpp" />
     <ClCompile Include="ksToken.cpp" />
     <ClCompile Include="main.cpp" />

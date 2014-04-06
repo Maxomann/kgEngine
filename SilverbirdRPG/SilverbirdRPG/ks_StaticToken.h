@@ -16,7 +16,7 @@ namespace kg
 				m_id(id)
 			{ }
 
-			virtual std::shared_ptr<ksObject> execute( const ksReferenceContainer& refCon ) const
+			virtual std::shared_ptr<ksClassInstance> execute( const ksReferenceContainer& refCon ) const
 			{
 				return nullptr;
 			}

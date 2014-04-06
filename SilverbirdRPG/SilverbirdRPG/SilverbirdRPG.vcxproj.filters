@@ -99,9 +99,6 @@
     <ClInclude Include="ksCode.h">
       <Filter>Headerdateien\Script</Filter>
     </ClInclude>
-    <ClInclude Include="ksObject.h">
-      <Filter>Headerdateien\Script</Filter>
-    </ClInclude>
     <ClInclude Include="ksScript.h">
       <Filter>Headerdateien\Script</Filter>
     </ClInclude>
@@ -162,6 +159,12 @@
     <ClInclude Include="ks_StaticToken.h">
       <Filter>Headerdateien\Script\Tokens</Filter>
     </ClInclude>
+    <ClInclude Include="ksClass.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksFunctionWrapper.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
     <ClInclude Include="ksFunction.h">
       <Filter>Headerdateien\Script</Filter>
     </ClInclude>
@@ -203,9 +206,6 @@
     <ClCompile Include="ksCode.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="ksObject.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="ksScript.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -240,6 +240,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="SyncTime.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ksClass.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ksFunction.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

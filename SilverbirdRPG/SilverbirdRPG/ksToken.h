@@ -3,7 +3,7 @@
 #pragma once
 #include "stdafx.h"
 #include "ksSyntax.h"
-#include "ksObject.h"
+#include "ksClass.h"
 #include "aException.h"
 
 namespace kg
@@ -19,7 +19,7 @@ namespace kg
 		//returns the last line number of this token
 		unsigned int getEndOfToken()const;
 
-		virtual std::shared_ptr<ksObject> execute( const ksReferenceContainer& refCon )const = 0;
+		virtual std::shared_ptr<ksClassInstance> execute( const ksReferenceContainer& refCon )const = 0;
 
 		virtual const int getID()const = 0;
 	};

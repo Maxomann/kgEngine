@@ -16,7 +16,7 @@
 using namespace std;
 using namespace kg;
 
-std::shared_ptr<ksObject> func( const ksObjectVector& vec )
+std::shared_ptr<ksClassInstance> func( const ksObjectVector& vec )
 {
 	cout << "FunctionCall Success" << endl;
 	return nullptr;
@@ -29,10 +29,10 @@ int main()
 		ksTokenConstructorMap tokenConstructors;
 
 		ksParentMap availableCppObjectTypes;
-		ksFunctionMap availableFunctions;
-		availableFunctions["TestFunc"] = func;
+		//ksFunctionMap availableFunctions;
+		//availableFunctions["TestFunc"] = func;
 
-		ksScript script( tokenConstructors, availableFunctions, availableCppObjectTypes );
+		ksScript script( tokenConstructors, availableCppObjectTypes );
 		script.loadFromFile( "testSkript.txt" );
 		script.interpret();
 
