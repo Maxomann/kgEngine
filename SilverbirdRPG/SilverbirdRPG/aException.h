@@ -8,3 +8,4 @@
 #define REPORT_ERROR(message)(TEMPLATE_ERROR("undefined",message))
 #define REPORT_ERROR_FILEACCESS(message)(TEMPLATE_ERROR("file access", message))
 #define REPORT_ERROR_SCRIPT(message) (TEMPLATE_ERROR("skript",message))
+#define REPORT_ERROR_NOT_IMPLEMENTED() (TEMPLATE_ERROR("Not Implemented",""));
