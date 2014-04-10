@@ -23,12 +23,16 @@ namespace kg
 	{
 	public:
 		virtual void call( const std::vector<std::shared_ptr<void>>& args )const = 0;
+		virtual size_t getSignatureHash()const=0;
+		virtual const std::string getSignature()const = 0;
 	};
 	class ksMemberFunctionWrapperInterface
 	{
 	public:
 		virtual void call( std::shared_ptr<void>& obj,
 						   const std::vector<std::shared_ptr<void>>& args )const = 0;
+		virtual size_t getSignatureHash()const = 0;
+		virtual const std::string getSignature()const = 0;
 	};
 
 
@@ -56,6 +60,16 @@ namespace kg
 		{
 			assert( args.size() == sizeof...(Args) );
 			call( args, make_index_sequence<sizeof...(Args)>() );
+		}
+
+		virtual size_t getSignatureHash() const
+		{
+			return typeid(m_function).hash_code();
+		}
+
+		virtual const std::string getSignature() const
+		{
+			return typeid(m_function).name();
 		}
 
 	};
@@ -86,6 +100,16 @@ namespace kg
 		{
 			assert( args.size() == sizeof...(Args) );
 			call( obj, args, make_index_sequence<sizeof...(Args)>() );
+		}
+
+		virtual size_t getSignatureHash() const
+		{
+			return typeid(m_function).hash_code();
+		}
+
+		virtual const std::string getSignature() const
+		{
+			return typeid(m_function).name();
 		}
 
 	};
