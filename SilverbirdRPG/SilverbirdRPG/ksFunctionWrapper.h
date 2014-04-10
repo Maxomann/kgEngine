@@ -3,9 +3,9 @@
 #pragma once
 #include "stdafx.h"
 
+
 namespace kg
 {
-
 
 
 	template <std::size_t...> struct index_sequence
@@ -29,7 +29,7 @@ namespace kg
 	class ksMemberFunctionWrapperInterface
 	{
 	public:
-		virtual void call( std::shared_ptr<void>& obj,
+		virtual void call( const std::shared_ptr<void>& obj,
 						   const std::vector<std::shared_ptr<void>>& args )const = 0;
 		virtual size_t getSignatureHash()const = 0;
 		virtual const std::string getSignature()const = 0;
@@ -91,11 +91,11 @@ namespace kg
 			m_function( *static_cast< Obj* >(obj.get()), *static_cast< typename std::remove_reference<Args...>::type* >(args.at( Is ).get())... );
 		}
 	public:
-		//std::mem_fn( func ) is used to bypass a VisualStudio bug
+		//std::mem_fn( func ) is used to work around a VisualStudio bug
 		ksFunctionWrapper( const FuncPasser& func ) : m_function( std::mem_fn( func ) )
 		{ }
 
-		void call( std::shared_ptr<void>& obj,
+		void call( const std::shared_ptr<void>& obj,
 				   const std::vector<std::shared_ptr<void>>& args )const
 		{
 			assert( args.size() == sizeof...(Args) );

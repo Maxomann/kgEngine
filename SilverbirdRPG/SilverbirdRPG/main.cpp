@@ -12,29 +12,28 @@
 #include "eExtendable.h"
 #include "ksCode.h"
 #include "ksScript.h"
+#include "ksFunction.h"
 
 using namespace std;
 using namespace kg;
 
-std::shared_ptr<ksClassInstance> func( const ksObjectVector& vec )
+void func( const ksObjectVector& vec )
 {
 	cout << "FunctionCall Success" << endl;
-	return nullptr;
+}
+void func( int i )
+{
+	cout << i << endl;
 }
 
 int main()
 {
 	try
 	{
-		ksTokenConstructorMap tokenConstructors;
-
-		ksParentMap availableCppObjectTypes;
-		//ksFunctionMap availableFunctions;
-		//availableFunctions["TestFunc"] = func;
-
-		ksScript script( tokenConstructors, availableCppObjectTypes );
-		script.loadFromFile( "testSkript.txt" );
-		script.interpret();
+		cout << typeid(std::function<void( int )>( (void( *)(int))&func )).name() << endl;
+		cout << typeid(std::function<void( int )>( (void( *)(int))&func )).hash_code() << endl;
+		cout << typeid(std::function<void( const ksObjectVector& )>( (void( *)(const ksObjectVector&))&func )).name() << endl;
+		cout << typeid(std::function<void( const ksObjectVector& )>( (void( *)(const ksObjectVector&))&func )).hash_code() << endl;
 
 		system( "pause" );
 

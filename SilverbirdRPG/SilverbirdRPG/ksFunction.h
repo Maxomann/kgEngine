@@ -29,13 +29,15 @@ namespace kg
 
 		const std::string& getName()const;
 
+		//parameterTypes witout qualifiers!
 		void registerOverload( const std::vector<std::string>& parameterTypes,
 							   const std::shared_ptr<ksFunctionWrapperInterface>& function );
+		//parameterTypes witout qualifiers!
 		void registerOverload( const std::vector<std::string>& parameterTypes,
 							   const std::shared_ptr<ksScriptFunctionOverload>& function );
 
 		//args have to be IN ORDER of signature you want to call
-		void call( std::vector<std::shared_ptr<ksClassInstance>> args )const;
+		void call( const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 	};
 
 }

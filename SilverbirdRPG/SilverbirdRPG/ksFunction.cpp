@@ -24,7 +24,7 @@ void kg::ksFunctionMaster::registerOverload( const std::vector<std::string>& par
 	m_scriptOverloads[parameterTypes] = function;
 }
 
-void kg::ksFunctionMaster::call( std::vector<std::shared_ptr<ksClassInstance>> args ) const
+void kg::ksFunctionMaster::call( const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
 {
 	//get parameterTypes from args
 	std::vector<std::string> parameterTypes;
@@ -40,7 +40,7 @@ void kg::ksFunctionMaster::call( std::vector<std::shared_ptr<ksClassInstance>> a
 		if( el.first == parameterTypes )
 		{
 			//execute function
-			//possible overloads with same signature will be ignored
+			//registred overloads with same signature will be ignored
 			std::vector<std::shared_ptr<void>> argsConverted;
 			for( const auto& obj : args )
 				argsConverted.push_back( std::shared_ptr<void>( obj->getCppInstance() ) );
@@ -66,4 +66,9 @@ void kg::ksFunctionMaster::call( std::vector<std::shared_ptr<ksClassInstance>> a
 	}
 	REPORT_ERROR_SCRIPT( "could not find overload with argumentSignature: " + argumentSignature + "in function" +m_name);
 
+}
+
+std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( const std::vector<std::shared_ptr<ksClassInstance>>& parameters ) const
+{
+	REPORT_ERROR_NOT_IMPLEMENTED();
 }
