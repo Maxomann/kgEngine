@@ -10,7 +10,7 @@ namespace kg
 	class ksTokenConstructor;
 	class ksCode;
 	class ksClassWrapper;
-	class ksClassMaster;
+	class ksClassMasterInterface;
 
 	typedef std::vector<std::shared_ptr<ksClassInstance>> ksObjectVector;
 	typedef std::vector<ksCode> ksCodeOperationVector;
@@ -26,9 +26,6 @@ namespace kg
 	//typedef std::function< std::shared_ptr<ksClassInstance>( const ksObjectVector& arguments )> ksFunction;
 
 	/*typedef std::map<std::string, ksFunction> ksFunctionMap;*/
-
-	typedef std::map<std::string, ksClassMaster> ksClassMasterToTypeMap;
-	typedef std::map<size_t, ksClassMaster*> ksClassMasterToHashMap;
 
 	struct ksReferenceContainer
 	{
