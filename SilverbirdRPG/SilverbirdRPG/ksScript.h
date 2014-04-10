@@ -11,7 +11,6 @@ namespace kg
 	class ksScript
 	{
 		ksTokenConstructorMap& r_tokenConstructors;
-		//ksFunctionMap& r_availableFunctions;
 		ksParentMap& r_availableCppObjectTypes;
 
 		ksObjectMap m_stack;
@@ -21,7 +20,6 @@ namespace kg
 
 	public:
 		ksScript( ksTokenConstructorMap& tokenConstructors,
-				  //ksFunctionMap& availableFunctions,
 				  ksParentMap& availableCppObjectTypes );
 
 		bool loadFromFile( const std::string& path );

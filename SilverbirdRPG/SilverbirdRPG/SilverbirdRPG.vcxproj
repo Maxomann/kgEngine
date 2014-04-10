@@ -103,7 +103,6 @@
     <ClInclude Include="ksScript.h" />
     <ClInclude Include="ksSyntax.h" />
     <ClInclude Include="ksToken.h" />
-    <ClInclude Include="ksType.h" />
     <ClInclude Include="NetworkInputHandler.h" />
     <ClInclude Include="NetworkStringManager.h" />
     <ClInclude Include="nMessageServer.h" />
