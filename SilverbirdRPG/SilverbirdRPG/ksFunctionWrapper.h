@@ -22,15 +22,15 @@ namespace kg
 	class ksFunctionWrapperInterface
 	{
 	public:
-		virtual void call( const std::vector<std::shared_ptr<void>>& args )const = 0;
-		virtual size_t getSignatureHash()const=0;
+		virtual std::pair<size_t, std::shared_ptr<void>> call( const std::vector<std::shared_ptr<void>>& args )const = 0;
+		virtual size_t getSignatureHash()const = 0;
 		virtual const std::string getSignature()const = 0;
 	};
 	class ksMemberFunctionWrapperInterface
 	{
 	public:
-		virtual void call( const std::shared_ptr<void>& obj,
-						   const std::vector<std::shared_ptr<void>>& args )const = 0;
+		virtual std::pair<size_t, std::shared_ptr<void>> call( const std::shared_ptr<void>& obj,
+															   const std::vector<std::shared_ptr<void>>& args )const = 0;
 		virtual size_t getSignatureHash()const = 0;
 		virtual const std::string getSignature()const = 0;
 	};
@@ -40,6 +40,7 @@ namespace kg
 
 	//NON MEMBER FUNCTION
 	//FunctionWrapper<decltype(foo)> wrapper( foo );
+	// // Returning refs or pointers is NOT ALLOWED
 	template<class Ret, typename ... Args>
 	class ksFunctionWrapper<Ret( Args... )> : public ksFunctionWrapperInterface
 	{
@@ -47,19 +48,20 @@ namespace kg
 		const FuncContainer m_function;
 
 		template <std::size_t ... Is>
-		void call( const std::vector<std::shared_ptr<void>>& args,
-				   index_sequence<Is...> )const
+		std::pair<size_t, std::shared_ptr<void>> call( const std::vector<std::shared_ptr<void>>& args,
+													   index_sequence<Is...> )const
 		{
-			m_function( *static_cast< typename std::remove_reference<Args...>::type* >(args.at( Is ).get())... );
+			auto retVal = std::make_shared<Ret>( m_function( *static_cast< typename std::remove_reference<Args...>::type* >(args.at( Is ).get())... ) );
+			return std::make_pair( typeid(Ret).hash_code(), retVal );
 		}
 	public:
 		ksFunctionWrapper( const FuncContainer& func ) : m_function( func )
 		{ }
 
-		void call( const std::vector<std::shared_ptr<void>>& args )const
+		std::pair<size_t, std::shared_ptr<void>> call( const std::vector<std::shared_ptr<void>>& args )const
 		{
 			assert( args.size() == sizeof...(Args) );
-			call( args, make_index_sequence<sizeof...(Args)>() );
+			return call( args, make_index_sequence<sizeof...(Args)>() );
 		}
 
 		virtual size_t getSignatureHash() const
@@ -76,6 +78,7 @@ namespace kg
 
 	//MEMBER FUNCTION
 	//FunctionWrapper<decltype(&Foo::foo)> wrapper( &Foo::foo );
+	// Returning refs or pointers is NOT ALLOWED
 	template<class Obj, class Ret, typename ... Args>
 	class ksFunctionWrapper<Ret( Obj::* )(Args...)> : public ksMemberFunctionWrapperInterface
 	{
@@ -84,22 +87,23 @@ namespace kg
 		const FuncContainer m_function;
 
 		template <std::size_t ... Is>
-		void call( std::shared_ptr<void>& obj,
-				   const std::vector<std::shared_ptr<void>>& args,
-				   index_sequence<Is...> )const
+		std::pair<size_t, std::shared_ptr<void>> call( std::shared_ptr<void>& obj,
+													   const std::vector<std::shared_ptr<void>>& args,
+													   index_sequence<Is...> )const
 		{
-			m_function( *static_cast< Obj* >(obj.get()), *static_cast< typename std::remove_reference<Args...>::type* >(args.at( Is ).get())... );
+			auto retVal = std::make_shared<Ret>( m_function( *static_cast< Obj* >(obj.get()), *static_cast< typename std::remove_reference<Args...>::type* >(args.at( Is ).get())... ) );
+			return std::make_pair( typeid(Ret).hash_code(), retVal );
 		}
 	public:
 		//std::mem_fn( func ) is used to work around a VisualStudio bug
 		ksFunctionWrapper( const FuncPasser& func ) : m_function( std::mem_fn( func ) )
 		{ }
 
-		void call( const std::shared_ptr<void>& obj,
-				   const std::vector<std::shared_ptr<void>>& args )const
+		std::pair<size_t, std::shared_ptr<void>> call( const std::shared_ptr<void>& obj,
+													   const std::vector<std::shared_ptr<void>>& args )const
 		{
 			assert( args.size() == sizeof...(Args) );
-			call( obj, args, make_index_sequence<sizeof...(Args)>() );
+			return call( obj, args, make_index_sequence<sizeof...(Args)>() );
 		}
 
 		virtual size_t getSignatureHash() const

@@ -24,7 +24,7 @@ void kg::ksFunctionMaster::registerOverload( const std::vector<std::string>& par
 	m_scriptOverloads[parameterTypes] = function;
 }
 
-void kg::ksFunctionMaster::call( const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
+std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
 {
 	//get parameterTypes from args
 	std::vector<std::string> parameterTypes;
@@ -45,7 +45,7 @@ void kg::ksFunctionMaster::call( const std::vector<std::shared_ptr<ksClassInstan
 			for( const auto& obj : args )
 				argsConverted.push_back( std::shared_ptr<void>( obj->getCppInstance() ) );
 
-			el.second->call( argsConverted );
+			return el.second->call( argsConverted );
 		}
 	}
 
@@ -54,7 +54,7 @@ void kg::ksFunctionMaster::call( const std::vector<std::shared_ptr<ksClassInstan
 	{
 		if( el.first == parameterTypes )
 		{
-			el.second->call( args );
+			return std::make_pair(NULL, std::static_pointer_cast<void>(el.second->call( args )));
 		}
 	}
 

@@ -24,15 +24,26 @@ namespace kg
 		void registerMemberFunction( const std::vector<std::string>& parameterTypes,
 									 const std::shared_ptr<ksMemberFunctionWrapperInterface>& function );
 
-		void callMemberFunction( const std::vector<std::string>& parameterTypes,
-															 const std::shared_ptr<void>& cppObj,
-															 const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+		//args have to be IN ORDER of signature you want to call
+		// RETURN_VALUE:
+		// if pair.first==NULL:
+		//		pair.second = std::shared_ptr<ksClassInstance>
+		// if pair.first!=NULL:
+		//		pair.first=hash
+		//		pair.second = std::shared_ptr<void>
+		//		TODO: lib.getType( retVal.first )->createInstance( retVal.second );
+		//	
+		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::vector<std::string>& parameterTypes,
+																	 const std::shared_ptr<void>& cppObj,
+																	 const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 
 		const std::string& getType()const;
 
 		//check with m_typeHash
 		template<class T>
 		std::shared_ptr<ksClassInstance> createInstance( T* instance )const;
+
+		std::shared_ptr<ksClassInstance> createInstance( const std::shared_ptr<void>& instance )const;
 
 		//creates new Instance
 		virtual std::shared_ptr<ksClassInstance> createNewInstance()const = 0;
@@ -48,26 +59,35 @@ namespace kg
 
 		std::shared_ptr<ksClassInstance> createNewInstance()const
 		{
-			return new ksClassInstance( *this, std::static_pointer_cast< void >(std::make_shared<T>()) );
+			return std::make_shared<ksClassInstance>( *this, std::static_pointer_cast< void >(std::make_shared<T>()) );
 		};
 	};
 
 	class ksClassInstance
 	{
-		ksClassMasterInterface& r_master;
+		const ksClassMasterInterface& r_master;
 
 		std::shared_ptr<void> m_instance;
 
 	public:
-		ksClassInstance( ksClassMasterInterface& master, const std::shared_ptr<void>& instance );
+		ksClassInstance( const ksClassMasterInterface& master, const std::shared_ptr<void>& instance );
 
 		const std::string& getType()const;
 
 		template<class T = void>
 		const std::shared_ptr<void>& getCppInstance()const;
 
-		void callMemberFunction( const std::vector<std::string>& parameterTypes,
-															 const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+		//args have to be IN ORDER of signature you want to call
+		// RETURN_VALUE:
+		// if pair.first==NULL:
+		//		pair.second = std::shared_ptr<ksClassInstance>
+		// if pair.first!=NULL:
+		//		pair.first=hash
+		//		pair.second = std::shared_ptr<void>
+		//		TODO: lib.getType( retVal.first )->createInstance( retVal.second );
+		//	
+		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::vector<std::string>& parameterTypes,
+																	 const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 	};
 
 	template<class T>

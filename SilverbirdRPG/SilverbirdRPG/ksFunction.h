@@ -37,7 +37,15 @@ namespace kg
 							   const std::shared_ptr<ksScriptFunctionOverload>& function );
 
 		//args have to be IN ORDER of signature you want to call
-		void call( const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+		// RETURN_VALUE:
+		// if pair.first==NULL:
+		//		pair.second = std::shared_ptr<ksClassInstance>
+		// if pair.first!=NULL:
+		//		pair.first=hash
+		//		pair.second = std::shared_ptr<void>
+		//		TODO: lib.getType( retVal.first )->createInstance( retVal.second );
+		//		
+		std::pair<size_t, std::shared_ptr<void>> call( const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 	};
 
 }

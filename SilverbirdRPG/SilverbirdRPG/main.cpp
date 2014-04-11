@@ -30,10 +30,6 @@ int main()
 {
 	try
 	{
-		cout << typeid(std::function<void( int )>( (void( *)(int))&func )).name() << endl;
-		cout << typeid(std::function<void( int )>( (void( *)(int))&func )).hash_code() << endl;
-		cout << typeid(std::function<void( const ksObjectVector& )>( (void( *)(const ksObjectVector&))&func )).name() << endl;
-		cout << typeid(std::function<void( const ksObjectVector& )>( (void( *)(const ksObjectVector&))&func )).hash_code() << endl;
 
 		system( "pause" );
 
