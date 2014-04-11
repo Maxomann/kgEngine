@@ -40,7 +40,7 @@ namespace kg
 
 	//NON MEMBER FUNCTION
 	//FunctionWrapper<decltype(foo)> wrapper( foo );
-	// // Returning refs or pointers is NOT ALLOWED
+	// Returning POINTERS in wrapped function is NOT ALLOWED
 	template<class Ret, typename ... Args>
 	class ksFunctionWrapper<Ret( Args... )> : public ksFunctionWrapperInterface
 	{
@@ -78,7 +78,7 @@ namespace kg
 
 	//MEMBER FUNCTION
 	//FunctionWrapper<decltype(&Foo::foo)> wrapper( &Foo::foo );
-	// Returning refs or pointers is NOT ALLOWED
+	// Returning POINTERS in wrapped function is NOT ALLOWED
 	template<class Obj, class Ret, typename ... Args>
 	class ksFunctionWrapper<Ret( Obj::* )(Args...)> : public ksMemberFunctionWrapperInterface
 	{

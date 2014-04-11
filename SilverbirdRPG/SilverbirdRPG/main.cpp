@@ -30,6 +30,8 @@ int main()
 {
 	try
 	{
+		cout << typeid(int).hash_code() << endl;
+		cout << typeid(int&).hash_code() << endl;
 
 		system( "pause" );
 
