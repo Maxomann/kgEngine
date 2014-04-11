@@ -11,14 +11,14 @@ m_name( name )
 }
 
 void kg::ksClassMasterInterface::registerMemberFunction( const std::vector<std::string>& parameterTypes,
-												const std::shared_ptr<ksMemberFunctionWrapperInterface>& function )
+														 const std::shared_ptr<ksMemberFunctionWrapperInterface>& function )
 {
 	m_memberFunctions[parameterTypes] = function;
 }
 
 void kg::ksClassMasterInterface::callMemberFunction( const std::vector<std::string>& parameterTypes,
-											const std::shared_ptr<void>& cppObj,
-											const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
+																					 const std::shared_ptr<void>& cppObj,
+																					 const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
 {
 	std::vector<std::shared_ptr<void>> argsConverted;
 	for( const auto& obj : args )
@@ -34,8 +34,8 @@ const std::string& kg::ksClassMasterInterface::getType() const
 
 kg::ksClassInstance::ksClassInstance( ksClassMasterInterface& master,
 									  const std::shared_ptr<void>& instance )
-									  :m_instance(m_instance),
-									  r_master(master)
+									  :m_instance( m_instance ),
+									  r_master( master )
 {
 
 }
@@ -46,7 +46,7 @@ const std::string& kg::ksClassInstance::getType() const
 }
 
 void kg::ksClassInstance::callMemberFunction( const std::vector<std::string>& parameterTypes,
-											  const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
+																			  const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
 {
-	return r_master.callMemberFunction( parameterTypes, m_instance, args );
+	r_master.callMemberFunction( parameterTypes, m_instance, args );
 }

@@ -9,6 +9,8 @@
 namespace kg
 {
 
+	class ksClassInstance;
+
 	class ksClassMasterInterface
 	{
 		const std::string m_name;
@@ -23,8 +25,8 @@ namespace kg
 									 const std::shared_ptr<ksMemberFunctionWrapperInterface>& function );
 
 		void callMemberFunction( const std::vector<std::string>& parameterTypes,
-								 const std::shared_ptr<void>& cppObj,
-								 const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+															 const std::shared_ptr<void>& cppObj,
+															 const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 
 		const std::string& getType()const;
 
@@ -65,7 +67,7 @@ namespace kg
 		const std::shared_ptr<void>& getCppInstance()const;
 
 		void callMemberFunction( const std::vector<std::string>& parameterTypes,
-								 const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+															 const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 	};
 
 	template<class T>

@@ -168,6 +168,9 @@
     <ClInclude Include="ksFunction.h">
       <Filter>Headerdateien\Script</Filter>
     </ClInclude>
+    <ClInclude Include="ksLibrary.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -246,6 +249,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ksFunction.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ksLibrary.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
