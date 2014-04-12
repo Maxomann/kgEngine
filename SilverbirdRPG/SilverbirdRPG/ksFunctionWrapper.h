@@ -98,6 +98,8 @@ namespace kg
 		//std::mem_fn( func ) is used to work around a VisualStudio bug
 		ksFunctionWrapper( const FuncPasser& func ) : m_function( std::mem_fn( func ) )
 		{ }
+		ksFunctionWrapper( const FuncContainer& func ) :m_function( func )
+		{ }
 
 		std::pair<size_t, std::shared_ptr<void>> call( const std::shared_ptr<void>& obj,
 													   const std::vector<std::shared_ptr<void>>& args )const
@@ -181,6 +183,54 @@ namespace kg
 	public:
 		//std::mem_fn( func ) is used to work around a VisualStudio bug
 		ksFunctionWrapper( const FuncPasser& func ) : m_function( std::mem_fn( func ) )
+		{ }
+		ksFunctionWrapper( const FuncContainer& func ) :m_function( func )
+		{ }
+
+		std::pair<size_t, std::shared_ptr<void>> call( const std::shared_ptr<void>& obj,
+													   const std::vector<std::shared_ptr<void>>& args )const
+		{
+			assert( args.size() == sizeof...(Args) );
+			return call( obj, args, make_index_sequence<sizeof...(Args)>() );
+		}
+
+		virtual size_t getSignatureHash() const
+		{
+			return typeid(m_function).hash_code();
+		}
+
+		virtual const std::string getSignature() const
+		{
+			return typeid(m_function).name();
+		}
+
+	};
+
+
+	// CONST MEMBER FUNCTION
+	// RETURN_TYPE: void
+	// FunctionWrapper<decltype(&Foo::foo)> wrapper( &Foo::foo );
+	// Returning POINTERS in wrapped function is NOT ALLOWED
+	template<class Obj, typename ... Args>
+	class ksFunctionWrapper<void(Obj::*)(Args...)const> : public ksMemberFunctionWrapperInterface
+	{
+		typedef void(Obj::*FuncPasser)(Args...)const;
+		typedef std::function< void( Obj&, Args... ) > FuncContainer;
+		const FuncContainer m_function;
+
+		template <std::size_t ... Is>
+		std::pair<size_t, std::shared_ptr<void>> call( const std::shared_ptr<void>& obj,
+													   const std::vector<std::shared_ptr<void>>& args,
+													   index_sequence<Is...> )const
+		{
+			m_function( *static_cast< Obj* >(obj.get()), *static_cast< typename std::remove_reference<Args...>::type* >(args.at( Is ).get())... );
+			return std::make_pair( typeid(void).hash_code(), std::shared_ptr<void>() );
+		}
+	public:
+		//std::mem_fn( func ) is used to work around a VisualStudio bug
+		ksFunctionWrapper( const FuncPasser& func ) : m_function( std::mem_fn( func ) )
+		{ }
+		ksFunctionWrapper( const FuncContainer& func ) :m_function( func )
 		{ }
 
 		std::pair<size_t, std::shared_ptr<void>> call( const std::shared_ptr<void>& obj,
