@@ -42,7 +42,7 @@ std::shared_ptr<kg::ksClassInstance> kg::ksClassMasterInterface::createInstance(
 
 kg::ksClassInstance::ksClassInstance( const ksClassMasterInterface& master,
 									  const std::shared_ptr<void>& instance )
-									  :m_instance( m_instance ),
+									  :m_instance( instance ),
 									  r_master( master )
 {
 
