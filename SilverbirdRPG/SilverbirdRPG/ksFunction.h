@@ -14,7 +14,7 @@ namespace kg
 		//TODO
 	public:
 
-		std::shared_ptr<ksClassInstance> call(const std::vector<std::shared_ptr<ksClassInstance>>& parameters)const;
+		std::shared_ptr<ksClassInstance> call( const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
 	};
 
 	class ksFunctionMaster
@@ -25,7 +25,7 @@ namespace kg
 		std::map<std::vector<std::string>, std::shared_ptr<ksScriptFunctionOverload>> m_scriptOverloads;
 
 	public:
-		ksFunctionMaster(const std::string& name);
+		ksFunctionMaster( const std::string& name );
 
 		const std::string& getName()const;
 
@@ -33,8 +33,8 @@ namespace kg
 		void registerOverload( const std::vector<std::string>& parameterTypes,
 							   const std::shared_ptr<ksFunctionWrapperInterface>& function );
 		//parameterTypes witout qualifiers!
-		void registerOverload( const std::vector<std::string>& parameterTypes,
-							   const std::shared_ptr<ksScriptFunctionOverload>& function );
+		void registerScriptOverload( const std::vector<std::string>& parameterTypes,
+									 const std::shared_ptr<ksScriptFunctionOverload>& function );
 
 		//args have to be IN ORDER of signature you want to call
 		// RETURN_VALUE:
@@ -49,5 +49,14 @@ namespace kg
 		//		
 		std::pair<size_t, std::shared_ptr<void>> call( const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 	};
+
+	template< class Ret, typename...Args >
+	void ksRegisterFunction( ksFunctionMaster& functionMaster,
+							 const std::vector<std::string>& parameterTypes,
+							 Ret( *function )(Args...) )
+	{
+		functionMaster.registerOverload( parameterTypes,
+										 std::make_shared<ksFunctionWrapper<Ret(Args...)>>( function ) );
+	}
 
 }
