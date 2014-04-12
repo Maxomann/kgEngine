@@ -4,6 +4,8 @@
 #include "stdafx.h"
 #include "ksClass.h"
 #include "ksFunction.h"
+#include "ksFunctionWrapper.h"
+#include "aException.h"
 
 namespace kg
 {
