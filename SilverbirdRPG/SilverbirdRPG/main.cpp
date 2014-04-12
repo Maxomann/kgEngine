@@ -21,11 +21,17 @@ using namespace kg;
 class Foo
 {
 public:
-	void someFunction()
+	int someFunction( bool b )const
 	{
 		cout << "Win!" << endl;
+		return 500;
 	}
 };
+
+void bar( const std::string& str )
+{
+
+}
 
 int main()
 {
@@ -33,15 +39,15 @@ int main()
 	{
 		ksLibrary lib;
 
-		auto fooMaster = std::make_shared<ksClassMaster<Foo>>( "Foo", typeid(Foo).hash_code() );
-		fooMaster->registerMemberFunction( "someFunction",
-		{ },
-		std::make_shared<ksFunctionWrapper<decltype(&Foo::someFunction)>>( &Foo::someFunction ) );
+		auto fooMaster = ksCreateClassMaster<Foo>( "Foo" );
+		ksRegisterMemberFunction( fooMaster, "someFunction", { "int" }, &Foo::someFunction );
 
 		lib.registerType<Foo>( fooMaster );
+		lib.registerType<int>( ksCreateClassMaster<int>("int") );
 
 		auto fooInstance = fooMaster->createNewInstance();
-		fooInstance->callMemberFunction( "someFunction", { }, { } );
+		auto retVal = fooInstance->callMemberFunction( "someFunction", { "int" }, { lib.getType<int>()->createInstance( std::make_shared<int>( 555 ) ) } );
+		
 
 
 		system( "pause" );

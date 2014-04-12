@@ -125,7 +125,7 @@ namespace kg
 	void ksRegisterMemberFunction( std::shared_ptr<ksClassMasterInterface>& classMaster,
 								   const std::string& name,
 								   const std::vector<std::string>& parameterTypes,
-								   Ret( Obj::*function )(Args...)const )
+								   Ret( Obj::*function  )(Args...)const )
 	{
 		classMaster->registerMemberFunction( name,
 											 parameterTypes,
