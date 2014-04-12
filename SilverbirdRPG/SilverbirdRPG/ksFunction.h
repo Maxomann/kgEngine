@@ -44,6 +44,8 @@ namespace kg
 		//		pair.first=hash
 		//		pair.second = std::shared_ptr<void>
 		//		TODO: lib.getType( retVal.first )->createInstance( retVal.second );
+		//		EXCEPTION:
+		//			if pair.second==nullptr: return type is void
 		//		
 		std::pair<size_t, std::shared_ptr<void>> call( const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 	};

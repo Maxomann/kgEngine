@@ -17,21 +17,17 @@
 using namespace std;
 using namespace kg;
 
-void func( const ksObjectVector& vec )
+
+class Foo
 {
-	cout << "FunctionCall Success" << endl;
-}
-void func( int i )
-{
-	cout << i << endl;
-}
+	
+};
 
 int main()
 {
 	try
 	{
-		cout << typeid(int).hash_code() << endl;
-		cout << typeid(int&).hash_code() << endl;
+		
 
 		system( "pause" );
 
