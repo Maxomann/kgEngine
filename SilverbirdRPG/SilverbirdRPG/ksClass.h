@@ -100,4 +100,38 @@ namespace kg
 		return m_instance;
 	}
 
+
+
+	template<class T>
+	std::shared_ptr<ksClassMasterInterface> ksCreateClassMaster( const std::string& name )
+	{
+		return std::make_shared<ksClassMaster<T>>( name, typeid(T).hash_code() );
+	}
+
+	//Non const member function
+	template<class Obj, class Ret, typename ... Args>
+	void ksRegisterMemberFunction( std::shared_ptr<ksClassMasterInterface>& classMaster,
+								   const std::string& name,
+								   const std::vector<std::string>& parameterTypes,
+								   Ret( Obj::*function )(Args...) )
+	{
+		classMaster->registerMemberFunction( name,
+											 parameterTypes,
+											 std::make_shared<ksFunctionWrapper<decltype(function)>>( function ) );
+	}
+
+	//Const member function
+	template<class Obj, class Ret, typename ... Args>
+	void ksRegisterMemberFunction( std::shared_ptr<ksClassMasterInterface>& classMaster,
+								   const std::string& name,
+								   const std::vector<std::string>& parameterTypes,
+								   Ret( Obj::*function )(Args...)const )
+	{
+		classMaster->registerMemberFunction( name,
+											 parameterTypes,
+											 std::make_shared<ksFunctionWrapper<decltype(function)>>( function ) );
+	}
+	
+
 }
+
