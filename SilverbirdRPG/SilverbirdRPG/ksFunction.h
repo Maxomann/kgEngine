@@ -33,8 +33,8 @@ namespace kg
 		void registerOverload( const std::vector<std::string>& parameterTypes,
 							   const std::shared_ptr<ksFunctionWrapperInterface>& function );
 		//parameterTypes witout qualifiers!
-		void registerScriptOverload( const std::vector<std::string>& parameterTypes,
-									 const std::shared_ptr<ksScriptFunctionOverload>& function );
+		void registerOverload( const std::vector<std::string>& parameterTypes,
+							   const std::shared_ptr<ksScriptFunctionOverload>& function );
 
 		//args have to be IN ORDER of signature you want to call
 		// RETURN_VALUE:
@@ -56,7 +56,7 @@ namespace kg
 							 Ret( *function )(Args...) )
 	{
 		functionMaster.registerOverload( parameterTypes,
-										 std::make_shared<ksFunctionWrapper<Ret(Args...)>>( function ) );
+										 std::make_shared<ksFunctionWrapper<Ret( Args... )>>( function ) );
 	}
 
 }

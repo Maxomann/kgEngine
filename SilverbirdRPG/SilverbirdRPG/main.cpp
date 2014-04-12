@@ -21,16 +21,19 @@ using namespace kg;
 class Foo
 {
 public:
-	int someFunction( bool b )const
+	int someFunction( int i )const
 	{
-		cout << "Win!" << endl;
-		return 500;
+		cout << "Foo!" << endl;
+		cout << i << endl;
+		return i+1;
 	}
 };
 
-void bar( const std::string& str )
+std::string bar( const std::string& i )
 {
-
+	cout << "Foo!" << endl;
+	cout << i << endl;
+	return i + "XxX";
 }
 
 int main()
@@ -42,13 +45,37 @@ int main()
 		auto fooMaster = ksCreateClassMaster<Foo>( "Foo" );
 		ksRegisterMemberFunction( fooMaster, "someFunction", { "int" }, &Foo::someFunction );
 
+		ksFunctionMaster barMaster( "bar" );
+		ksRegisterFunction( barMaster, { "int" }, &bar );
+
 		lib.registerType<Foo>( fooMaster );
-		lib.registerType<int>( ksCreateClassMaster<int>("int") );
+		lib.registerType<int>( ksCreateClassMaster<int>( "int" ) );
+		lib.registerType<string>( ksCreateClassMaster<string>( "string" ) );
+
 
 		auto fooInstance = fooMaster->createNewInstance();
-		auto retVal = fooInstance->callMemberFunction( "someFunction", { "int" }, { lib.getType<int>()->createInstance( std::make_shared<int>( 555 ) ) } );
-		
+		auto fooRetVal = fooInstance->callMemberFunction( "someFunction", { "int" }, { lib.getType<int>()->createInstance( std::make_shared<int>( 555 ) ) } );
+		if( fooRetVal.first == NULL )
+		{
+			cout << "ReturnType: void" << endl;
+		}
+		else
+		{
+			cout << fooRetVal.first << endl;
+			cout << *static_pointer_cast<int>(fooRetVal.second) << endl;
+		}
 
+		ksRegisterFunction( barMaster, { "string" }, &bar );
+		auto barRetVal = barMaster.call( { lib.getType<string>()->createInstance( std::make_shared<string>( "test" ) ) } );
+		if( barRetVal.first == NULL )
+		{
+			cout << "ReturnType: void" << endl;
+		}
+		else
+		{
+			cout << barRetVal.first << endl;
+			cout << *static_pointer_cast< string >(barRetVal.second) << endl;
+		}
 
 		system( "pause" );
 
