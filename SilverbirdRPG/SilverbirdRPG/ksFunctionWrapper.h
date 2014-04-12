@@ -137,7 +137,7 @@ namespace kg
 													   index_sequence<Is...> )const
 		{
 			m_function( *static_cast< typename std::remove_reference<Args...>::type* >(args.at( Is ).get())... );
-			return std::make_pair( typeid(void).hash_code(), std::shared_ptr<void>() );
+			return std::make_pair( NULL, std::shared_ptr<void>() );
 		}
 	public:
 		ksFunctionWrapper( const FuncContainer& func ) : m_function( func )
@@ -178,7 +178,7 @@ namespace kg
 													   index_sequence<Is...> )const
 		{
 			m_function( *static_cast< Obj* >(obj.get()), *static_cast< typename std::remove_reference<Args...>::type* >(args.at( Is ).get())... );
-			return std::make_pair( typeid(void).hash_code(), std::shared_ptr<void>() );
+			return std::make_pair( NULL, std::shared_ptr<void>() );
 		}
 	public:
 		//std::mem_fn( func ) is used to work around a VisualStudio bug
@@ -268,7 +268,7 @@ namespace kg
 													   index_sequence<Is...> )const
 		{
 			m_function( *static_cast< Obj* >(obj.get()), *static_cast< typename std::remove_reference<Args...>::type* >(args.at( Is ).get())... );
-			return std::make_pair( typeid(void).hash_code(), std::shared_ptr<void>() );
+			return std::make_pair( NULL, std::shared_ptr<void>() );
 		}
 	public:
 		//std::mem_fn( func ) is used to work around a VisualStudio bug
