@@ -87,7 +87,7 @@ namespace kg
 		const FuncContainer m_function;
 
 		template <std::size_t ... Is>
-		std::pair<size_t, std::shared_ptr<void>> call( std::shared_ptr<void>& obj,
+		std::pair<size_t, std::shared_ptr<void>> call( const std::shared_ptr<void>& obj,
 													   const std::vector<std::shared_ptr<void>>& args,
 													   index_sequence<Is...> )const
 		{
@@ -171,7 +171,7 @@ namespace kg
 		const FuncContainer m_function;
 
 		template <std::size_t ... Is>
-		std::pair<size_t, std::shared_ptr<void>> call( std::shared_ptr<void>& obj,
+		std::pair<size_t, std::shared_ptr<void>> call( const std::shared_ptr<void>& obj,
 													   const std::vector<std::shared_ptr<void>>& args,
 													   index_sequence<Is...> )const
 		{

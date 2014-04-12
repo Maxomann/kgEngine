@@ -12,7 +12,7 @@
 #include "eExtendable.h"
 #include "ksCode.h"
 #include "ksScript.h"
-#include "ksFunction.h"
+#include "ksLibrary.h"
 
 using namespace std;
 using namespace kg;
@@ -20,14 +20,29 @@ using namespace kg;
 
 class Foo
 {
-	
+public:
+	void someFunction()
+	{
+		cout << "Win!" << endl;
+	}
 };
 
 int main()
 {
 	try
 	{
-		
+		ksLibrary lib;
+
+		auto fooMaster = std::make_shared<ksClassMaster<Foo>>( "Foo", typeid(Foo).hash_code() );
+		fooMaster->registerMemberFunction( "someFunction",
+		{ },
+		std::make_shared<ksFunctionWrapper<decltype(&Foo::someFunction)>>( &Foo::someFunction ) );
+
+		lib.registerType<Foo>( fooMaster );
+
+		auto fooInstance = fooMaster->createNewInstance();
+		fooInstance->callMemberFunction( "someFunction", { }, { } );
+
 
 		system( "pause" );
 

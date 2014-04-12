@@ -16,12 +16,12 @@ namespace kg
 		const std::string m_name;
 		const size_t m_typeHash;
 
-		std::map < std::vector<std::string>, std::shared_ptr<ksMemberFunctionWrapperInterface>> m_memberFunctions;
+		std::map<std::string, std::map < std::vector<std::string>, std::shared_ptr<ksMemberFunctionWrapperInterface>>> m_memberFunctions;
 
 	public:
 		ksClassMasterInterface( const std::string& name, const size_t& typeHash );
 
-		void registerMemberFunction( const std::vector<std::string>& parameterTypes,
+		void registerMemberFunction( const std::string& name, const std::vector<std::string>& parameterTypes,
 									 const std::shared_ptr<ksMemberFunctionWrapperInterface>& function );
 
 		//args have to be IN ORDER of signature you want to call
@@ -33,9 +33,7 @@ namespace kg
 		//		pair.second = std::shared_ptr<void>
 		//		TODO: lib.getType( retVal.first )->createInstance( retVal.second );
 		//	
-		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::vector<std::string>& parameterTypes,
-																	 const std::shared_ptr<void>& cppObj,
-																	 const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::string& name, const std::vector<std::string>& parameterTypes, const std::shared_ptr<void>& cppObj, const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 
 		const std::string& getType()const;
 
@@ -86,8 +84,7 @@ namespace kg
 		//		pair.second = std::shared_ptr<void>
 		//		TODO: lib.getType( retVal.first )->createInstance( retVal.second );
 		//	
-		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::vector<std::string>& parameterTypes,
-																	 const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::string& name, const std::vector<std::string>& parameterTypes, const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 	};
 
 	template<class T>
