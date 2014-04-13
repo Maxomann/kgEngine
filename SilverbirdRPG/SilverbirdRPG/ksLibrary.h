@@ -9,7 +9,7 @@
 
 namespace kg
 {
-	struct ksLibrary
+	class ksLibrary
 	{
 		std::map<std::string, std::shared_ptr<ksClassMasterInterface>> m_availableTypesByName;
 		std::map<size_t, std::shared_ptr<ksClassMasterInterface>> m_availableTypesByHash;
