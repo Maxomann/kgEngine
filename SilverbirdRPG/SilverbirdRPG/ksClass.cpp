@@ -5,8 +5,8 @@
 
 kg::ksClassMasterInterface::ksClassMasterInterface( const std::string& name,
 													const size_t& typeHash )
-:m_typeHash( typeHash ),
-m_name( name )
+													:m_typeHash( typeHash ),
+													m_name( name )
 {
 
 }
@@ -18,16 +18,27 @@ void kg::ksClassMasterInterface::registerMemberFunction( const std::string& name
 	m_memberFunctions[name][parameterTypes] = function;
 }
 
-std::pair<size_t, std::shared_ptr<void>> kg::ksClassMasterInterface::callMemberFunction(const std::string& name,
+std::pair<size_t, std::shared_ptr<void>> kg::ksClassMasterInterface::callMemberFunction( const std::string& name,
 																						 const std::vector<std::string>& parameterTypes,
 																						 const std::shared_ptr<void>& cppObj,
-																						 const std::vector<std::shared_ptr<ksClassInstance>>& args) const
+																						 const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
 {
-	std::vector<std::shared_ptr<void>> argsConverted;
-	for( const auto& obj : args )
-		argsConverted.push_back( std::shared_ptr<void>( obj->getCppInstance() ) );
+	try
+	{
+		std::vector<std::shared_ptr<void>> argsConverted;
+		for( const auto& obj : args )
+			argsConverted.push_back( std::shared_ptr<void>( obj->getCppInstance() ) );
 
-	return m_memberFunctions.at(name).at( parameterTypes )->call( cppObj, argsConverted );
+		return m_memberFunctions.at( name ).at( parameterTypes )->call( cppObj, argsConverted );
+	}
+	catch( std::exception& e )
+	{
+		std::string parameters;
+		for( const auto& el : parameterTypes )
+			parameters+=( el+"," );
+
+		REPORT_ERROR_SCRIPT( "callMemberFunction() wrong function call\n#name: "+name+"\n#parameterTypes: "+parameters );
+	}
 }
 
 const std::string& kg::ksClassMasterInterface::getType() const
@@ -53,7 +64,7 @@ const std::string& kg::ksClassInstance::getType() const
 	return r_master.getType();
 }
 
-std::pair<size_t, std::shared_ptr<void>> kg::ksClassInstance::callMemberFunction(const std::string& name, const std::vector<std::string>& parameterTypes, const std::vector<std::shared_ptr<ksClassInstance>>& args) const
+std::pair<size_t, std::shared_ptr<void>> kg::ksClassInstance::callMemberFunction( const std::string& name, const std::vector<std::string>& parameterTypes, const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
 {
-	return r_master.callMemberFunction(name, parameterTypes, m_instance , args );
+	return r_master.callMemberFunction( name, parameterTypes, m_instance, args );
 }
