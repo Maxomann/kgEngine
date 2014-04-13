@@ -40,7 +40,16 @@ int main()
 {
 	try
 	{
-		
+		ksLibrary lib;
+		lib.registerType<int>( ksCreateClassMaster<int>( "int" ) );
+
+		auto fooMaster=ksCreateClassMaster<Foo>( "Foo" );
+		ksRegisterMemberFunction( fooMaster, "someFunction", { "int" }, &Foo::someFunction );
+
+		lib.registerType<Foo>( fooMaster );
+
+		auto fooInst = lib.getType<int>()->createNewInstance();
+		fooInst->callMemberFunction( "someFunction", { "int" }, { lib.getType<int>()->createInstance( new int( 33 ) ) } );
 
 		system( "pause" );
 
