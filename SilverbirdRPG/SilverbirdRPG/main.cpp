@@ -48,7 +48,7 @@ int main()
 
 		lib.registerType<Foo>( fooMaster );
 
-		auto fooInst = lib.getType<int>()->createNewInstance();
+		auto fooInst = lib.getType<Foo>()->createNewInstance();
 		fooInst->callMemberFunction( "someFunction", { "int" }, { lib.getType<int>()->createInstance( new int( 33 ) ) } );
 
 		system( "pause" );

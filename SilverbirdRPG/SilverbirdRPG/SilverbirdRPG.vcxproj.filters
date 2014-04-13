@@ -34,11 +34,8 @@
     <Filter Include="Headerdateien\Script">
       <UniqueIdentifier>{c20702a6-fef7-4892-8007-b9378d397eff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headerdateien\Script\Tokens">
-      <UniqueIdentifier>{654c9d59-6e6d-45b6-bcf2-c1b3b7632621}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headerdateien\Script\CppTypes">
-      <UniqueIdentifier>{7962a881-c573-4441-b89e-e7328988d43a}</UniqueIdentifier>
+    <Filter Include="Headerdateien\Script\ObjectSystem">
+      <UniqueIdentifier>{8a8aa92f-f32e-415c-9643-47c32a034c4b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,26 +147,17 @@
     <ClInclude Include="SyncTime.h">
       <Filter>Headerdateien\Shared</Filter>
     </ClInclude>
-    <ClInclude Include="ksBool.h">
-      <Filter>Headerdateien\Script\CppTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="ks_BOOL.h">
-      <Filter>Headerdateien\Script\Tokens</Filter>
-    </ClInclude>
-    <ClInclude Include="ks_StaticToken.h">
-      <Filter>Headerdateien\Script\Tokens</Filter>
-    </ClInclude>
     <ClInclude Include="ksClass.h">
-      <Filter>Headerdateien\Script</Filter>
-    </ClInclude>
-    <ClInclude Include="ksFunctionWrapper.h">
-      <Filter>Headerdateien\Script</Filter>
+      <Filter>Headerdateien\Script\ObjectSystem</Filter>
     </ClInclude>
     <ClInclude Include="ksFunction.h">
-      <Filter>Headerdateien\Script</Filter>
+      <Filter>Headerdateien\Script\ObjectSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ksFunctionWrapper.h">
+      <Filter>Headerdateien\Script\ObjectSystem</Filter>
     </ClInclude>
     <ClInclude Include="ksLibrary.h">
-      <Filter>Headerdateien\Script</Filter>
+      <Filter>Headerdateien\Script\ObjectSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
