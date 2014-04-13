@@ -151,12 +151,6 @@
     <ClCompile Include="SyncTime.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Client.cd" />
-    <None Include="Extensions.cd" />
-    <None Include="Script.cd" />
-    <None Include="Server.cd" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="testSkript.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -256,12 +256,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Server.cd" />
-    <None Include="Script.cd" />
-    <None Include="Extensions.cd" />
-    <None Include="Client.cd" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="testSkript.txt" />
   </ItemGroup>
 </Project>
