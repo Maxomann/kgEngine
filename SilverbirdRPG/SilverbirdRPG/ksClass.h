@@ -91,7 +91,7 @@ namespace kg
 	std::shared_ptr<ksClassInstance>
 		ksClassMasterInterface::createInstance( T* instance ) const
 	{
-			return new ksClassInstance( *this, std::static_pointer_cast< void >(std::shared_ptr<T>( instance )) );
+			return std::make_shared<ksClassInstance>( *this, std::static_pointer_cast< void >(std::shared_ptr<T>( instance )) );
 	}
 
 	template<class T/*=void*/>
