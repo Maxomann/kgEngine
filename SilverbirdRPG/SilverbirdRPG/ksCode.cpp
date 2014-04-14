@@ -1,183 +1,143 @@
 #include "ksCode.h"
 
-kg::ksCode::ksCode( const ksTokenConstructorMap& tokenConstructors,
-					std::vector<ksCode>& subCodeContainer,
-					const std::string& code )
-					: r_subCode( subCodeContainer )
-{
-	m_generateSplitCode( code );
-	m_constructTokens( tokenConstructors );
-}
 
-kg::ksCode::ksCode( const ksTokenConstructorMap& tokenConstructors,
-					std::vector<ksCode>& subCodeContainer,
-					const std::vector<std::string> splitCode )
-					:r_subCode(subCodeContainer),
-					m_splitCode(splitCode)
+namespace kg
 {
-	m_constructTokens( tokenConstructors );
-}
-
-void kg::ksCode::m_constructTokens( const ksTokenConstructorMap& tokenConstructors )
-{
-	for( const std::pair<int, std::vector<std::shared_ptr<ksTokenConstructor>>>& priority : tokenConstructors )
+	static void pushTokenWithId( ksSplitCodeVector& splitCode,
+								 const std::string& temp,
+								 const ksRawTokenMap& rawTokens )
 	{
-		for( int currentLine = 0; currentLine < m_splitCode.size(); currentLine++ )
+		for( const auto& el : rawTokens )
 		{
-			if( m_tokens[currentLine] == nullptr )
+			if( el.first == temp )
+				splitCode.push_back( std::make_pair( temp, el.second ) );
+			return;
+		}
+		splitCode.push_back( std::make_pair( temp, TOKEN_ID::IDENTIFIER ) );
+	}
+
+	kg::ksSplitCodeVector ksCode::m_generateSplitCode( const ksRawTokenMap& rawTokens, const std::string& code ) const
+	{
+		ksSplitCodeVector splitCode;
+
+		std::string temp;
+		bool isInString = false;
+		bool lastWasAlpha = false;
+		for( const auto& el : code )
+		{
+			if( isInString )
 			{
-				for( const std::shared_ptr<ksTokenConstructor>& constructor : priority.second )
+				if( el == '"' )
 				{
-					if( constructor->construct(
-						tokenConstructors,
-						m_splitCode[currentLine],
-						m_tokens,
-						m_splitCode,
-						currentLine ) )
+					isInString = false;
+					pushTokenWithId( splitCode, temp, rawTokens );
+					temp.clear();
+					pushTokenWithId( splitCode, "\"", rawTokens );
+				}
+				else
+				{
+					temp.push_back( el );
+				}
+			}
+			else if( el == '"' )
+			{
+				isInString = true;
+				if( temp.size() > 0 )
+					pushTokenWithId( splitCode, temp, rawTokens );
+				temp.clear();
+				pushTokenWithId( splitCode, "\"", rawTokens );
+			}
+			else if( std::isalpha( el ) || el == '_' )
+			{
+				if( !lastWasAlpha )
+				{
+					if( temp.size() > 0 )
 					{
-						currentLine = m_tokens[currentLine]->getEndOfToken();
-						break;//
+						pushTokenWithId( splitCode, temp, rawTokens );
+						temp.clear();
 					}
 				}
-				//break here
-			}
-			else
-			{
-				currentLine = m_tokens[currentLine]->getEndOfToken();
-			}
-		}
-	}
-}
-
-//void kg::ksCode::m_genereateSubCode( const ksTokenConstructorMap& tokenConstructors,
-//									 std::string& code )
-//{
-//	std::string newSubcode;
-//	std::string mainCode;
-//
-//	int codeCount = 0;
-//	int eckigeKlammerCount = 0;
-//
-//	for( const auto&el : code )
-//	{
-//		if( el == '{' )
-//		{
-//			eckigeKlammerCount++;
-//		}
-//		else if( el == '}' )
-//		{
-//			eckigeKlammerCount--;
-//
-//			if( eckigeKlammerCount == NULL )
-//			{
-//				r_subCode.emplace_back( tokenConstructors,
-//										newSubcode );
-//				newSubcode.clear();
-//
-//				mainCode += "#";
-//				mainCode += std::to_string( codeCount );
-//				codeCount++;
-//			}
-//		}
-//		else if( eckigeKlammerCount == NULL )
-//		{
-//			mainCode += el;
-//		}
-//		else
-//		{
-//			newSubcode += el;
-//		}
-//	}
-//
-//	code = mainCode;
-//}
-
-void kg::ksCode::execute( const ksReferenceContainer& refCon )
-{
-	int position = 0;
-
-	if( m_tokens.size() > NULL )
-	{
-		while( position < m_tokens.rbegin()->first )
-		{
-			auto& token = m_tokens.at( position );
-			token->execute( refCon );
-			position = token->getEndOfToken() + 1;//next step
-		}
-	}
-	else
-	{
-		std::string code;
-		for( const auto& el : m_splitCode )
-		{
-			code += el;
-			code += "\n";
-		}
-		REPORT_ERROR_SCRIPT( "No token constructed" + "\n#m_splitCode:\n" + code );
-	}
-}
-
-void kg::ksCode::m_generateSplitCode( const std::string& code )
-{
-	std::string temp;
-	bool isInString = false;
-	bool lastWasAlpha = false;
-	for( const auto& el : code )
-	{
-		if( isInString )
-		{
-			if( el == '"' )
-			{
-				isInString = false;
-				m_splitCode.push_back( temp );
-				temp.clear();
-				m_splitCode.push_back( "\"" );
-			}
-			else
-			{
 				temp.push_back( el );
+				lastWasAlpha = true;
 			}
-		}
-		else if( el == '"' )
-		{
-			isInString = true;
-			if( temp.size() > 0 )
-				m_splitCode.push_back( temp );
-			temp.clear();
-			m_splitCode.push_back( "\"" );
-		}
-		else if( std::isalpha( el ) || el == '_' )
-		{
-			if( !lastWasAlpha )
+			else if( std::isspace( el ) )
 			{
 				if( temp.size() > 0 )
 				{
-					m_splitCode.push_back( temp );
+					pushTokenWithId( splitCode, temp, rawTokens );
 					temp.clear();
 				}
 			}
-			temp.push_back( el );
-			lastWasAlpha = true;
-		}
-		else if( std::isspace( el ) )
-		{
-			if( temp.size() > 0 )
+			else
 			{
-				m_splitCode.push_back( temp );
-				temp.clear();
+				if( temp.size() > 0 )
+				{
+					pushTokenWithId( splitCode, temp, rawTokens );
+					temp.clear();
+				}
+				std::string str;
+				str.push_back( el );
+				pushTokenWithId( splitCode, str, rawTokens );
+				lastWasAlpha = false;
 			}
 		}
-		else
+
+		return splitCode;
+	}
+
+	ksCode::ksCode( const ksTokenConstructorPriorityMap& tokenConstructors,
+					const ksRawTokenMap& rawTokens,
+					ksCodeVector& subCodeContainer,
+					const std::string& code )
+	{
+		m_constructTokens( tokenConstructors, m_generateSplitCode( rawTokens, code ) );
+	}
+
+	ksCode::ksCode( const ksTokenConstructorPriorityMap& tokenConstructors,
+					ksCodeVector& subCodeContainer,
+					const ksSplitCodeVector& code )
+	{
+		m_constructTokens( tokenConstructors, code );
+	}
+
+	void ksCode::m_constructTokens( const ksTokenConstructorPriorityMap& tokenConstructors,
+									const ksSplitCodeVector& splitCode )
+	{
+		for( const std::pair<int, std::vector<std::shared_ptr<ksTokenConstructor>>>& priority : tokenConstructors )
 		{
-			if( temp.size() > 0 )
+			for( unsigned int currentLine = 0; currentLine < splitCode.size(); )
 			{
-				m_splitCode.push_back( temp );
-				temp.clear();
+				if( m_constructedTokens[currentLine] == nullptr )
+				{
+					for( const std::shared_ptr<ksTokenConstructor>& constructor : priority.second )
+					{
+						if( constructor->construct(splitCode, m_constructedTokens, currentLine))
+						{
+							currentLine = m_constructedTokens[currentLine]->getLastLine()+1;
+							break;//
+						}
+					}
+					//break here
+				}
+				else
+				{
+					currentLine = m_constructedTokens[currentLine]->getLastLine()+1;
+				}
 			}
-			std::string str;
-			str.push_back( el );
-			m_splitCode.push_back( str );
-			lastWasAlpha = false;
 		}
 	}
+
+	void ksCode::execute( const ksReferenceContainer& refCon ) const
+	{
+		for( int currentLine = 0; currentLine<=m_constructedTokens.rbegin()->first; )
+		{
+			auto& token = m_constructedTokens.at( currentLine );
+			
+			//not expected to return anything
+			token->execute( refCon );
+
+			currentLine = token->getLastLine() + 1;
+		}
+	}
+
 }

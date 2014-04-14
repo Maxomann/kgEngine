@@ -1,31 +1,33 @@
-//_______CODE_H_______//
+//_______CODE_______//
 
 #pragma once
 #include "stdafx.h"
 #include "ksSyntax.h"
 #include "ksToken.h"
-#include "aException.h"
 
 namespace kg
 {
 	class ksCode
 	{
-		std::vector<std::string> m_splitCode;
-		std::vector<ksCode>& r_subCode;
+		ksTokenMap m_constructedTokens;
 
-		ksTokenMap m_tokens;
+		ksSplitCodeVector m_generateSplitCode( const ksRawTokenMap& rawTokens,
+											   const std::string& code )const;
 
-		void m_constructTokens( const ksTokenConstructorMap& tokenConstructors );
-		void m_generateSplitCode( const std::string& code );
+		void m_constructTokens( const ksTokenConstructorPriorityMap& tokenConstructors,
+								const ksSplitCodeVector& splitCode );
 
 	public:
-		ksCode( const ksTokenConstructorMap& tokenConstructors,
-				std::vector<ksCode>& subCodeContainer,
+		ksCode( const ksTokenConstructorPriorityMap& tokenConstructors,
+				const ksRawTokenMap& rawTokens,
+				ksCodeVector& subCodeContainer,
 				const std::string& code );
-		ksCode( const ksTokenConstructorMap& tokenConstructors,
-				std::vector<ksCode>& subCodeContainer,
-				const std::vector<std::string> splitCode );
 
-		void execute( const ksReferenceContainer& refCon );
+		ksCode( const ksTokenConstructorPriorityMap& tokenConstructors,
+				ksCodeVector& subCodeContainer,
+				const ksSplitCodeVector& code );
+
+		//TODO
+		void execute( const ksReferenceContainer& refCon )const;
 	};
 }

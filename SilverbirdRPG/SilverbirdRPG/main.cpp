@@ -10,8 +10,6 @@
 #include "sServer.h"
 #include "aException.h"
 #include "eExtendable.h"
-#include "ksCode.h"
-#include "ksScript.h"
 #include "ksLibrary.h"
 
 using namespace std;

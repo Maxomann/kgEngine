@@ -1,10 +1,11 @@
 #include "ksToken.h"
 
-kg::ksToken::ksToken( const int endOfToken )
-:m_endOfToken( endOfToken )
+
+kg::ksToken::ksToken( int lastLineOfToken )
+:m_lastlineOfToken( lastLineOfToken )
 { }
 
-unsigned int kg::ksToken::getEndOfToken() const
+int kg::ksToken::getLastLine() const
 {
-	return m_endOfToken;
+	return m_lastlineOfToken;
 }

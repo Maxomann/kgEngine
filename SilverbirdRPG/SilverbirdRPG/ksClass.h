@@ -2,7 +2,6 @@
 
 #pragma once
 #include "stdafx.h"
-#include "ksSyntax.h"
 #include "ksFunctionWrapper.h"
 #include "aException.h"
 

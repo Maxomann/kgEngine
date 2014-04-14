@@ -96,12 +96,12 @@
     <ClInclude Include="eExtendable.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="ksCode.h" />
+    <ClInclude Include="ksSyntax.h" />
     <ClInclude Include="ksFunction.h" />
     <ClInclude Include="ksFunctionWrapper.h" />
     <ClInclude Include="ksClass.h" />
-    <ClInclude Include="ksScript.h" />
+    <ClInclude Include="ksScript_old.h" />
     <ClInclude Include="ksLibrary.h" />
-    <ClInclude Include="ksSyntax.h" />
     <ClInclude Include="ksToken.h" />
     <ClInclude Include="NetworkInputHandler.h" />
     <ClInclude Include="NetworkStringManager.h" />
@@ -133,7 +133,7 @@
     <ClCompile Include="ksClass.cpp" />
     <ClCompile Include="ksFunction.cpp" />
     <ClCompile Include="ksLibrary.cpp" />
-    <ClCompile Include="ksScript.cpp" />
+    <ClCompile Include="ksScript_old.cpp" />
     <ClCompile Include="ksToken.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetworkStringManager.cpp" />
