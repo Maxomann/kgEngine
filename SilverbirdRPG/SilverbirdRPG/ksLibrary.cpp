@@ -32,4 +32,10 @@ namespace kg
 	{
 		return m_subCode.at( position );
 	}
+
+	void kg::ksLibrary::registerType( const std::shared_ptr<ksClassMasterInterface>& type )
+	{
+		m_availableTypesByName[type->getType()] = type;
+		m_availableTypesByHash[type->getHash()] = type;
+	}
 }

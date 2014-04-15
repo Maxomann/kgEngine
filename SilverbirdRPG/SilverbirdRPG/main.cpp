@@ -15,28 +15,36 @@
 using namespace std;
 using namespace kg;
 
-class Foo
+int foo( const std::string& something )
+{
+	return 6;
+}
+
+class Bar
 {
 public:
-	int someFunction( int i )const
+	double doSomething( int a )
 	{
-		cout << "Foo!" << endl;
-		cout << i << endl;
-		return i + 1;
+		return 5.65324643 + (double)a;
 	}
 };
-
-std::string bar( const std::string& i )
-{
-	cout << "Foo!" << endl;
-	cout << i << endl;
-	return i + "XxX";
-}
 
 int main()
 {
 	try
 	{
+		ksLibrary lib;
+
+		auto fooFunction = ksCreateFunctionMaster( "foo" );
+		ksRegisterOverload( fooFunction, { "string" }, &foo );
+
+		auto barClass = ksCreateClassMaster<Bar>( "Bar" );
+		ksRegisterMemberFunction( barClass, "doSomething", { "int" }, &Bar::doSomething );
+
+		lib.registerFunction( fooFunction );
+		lib.registerType( barClass );
+		
+
 		system( "pause" );
 
 		//Plugins

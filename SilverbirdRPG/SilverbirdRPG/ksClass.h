@@ -34,6 +34,7 @@ namespace kg
 		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::string& name, const std::vector<std::string>& parameterTypes, const std::shared_ptr<void>& cppObj, const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 
 		const std::string& getType()const;
+		virtual size_t getHash()const=0;
 
 		//check with m_typeHash
 		template<class T>
@@ -57,6 +58,12 @@ namespace kg
 		{
 			return std::make_shared<ksClassInstance>( *this, std::static_pointer_cast< void >(std::make_shared<T>()) );
 		};
+
+		virtual size_t getHash() const
+		{
+			return typeid(T).hash_code();
+		}
+
 	};
 
 	class ksClassInstance
@@ -96,35 +103,5 @@ namespace kg
 	const std::shared_ptr<void>& kg::ksClassInstance::getCppInstance() const
 	{
 		return m_instance;
-	}
-
-	template<class T>
-	std::shared_ptr<ksClassMasterInterface> ksCreateClassMaster( const std::string& name )
-	{
-		return std::make_shared<ksClassMaster<T>>( name, typeid(T).hash_code() );
-	}
-
-	//Non const member function
-	template<class Obj, class Ret, typename ... Args>
-	void ksRegisterMemberFunction( std::shared_ptr<ksClassMasterInterface>& classMaster,
-								   const std::string& name,
-								   const std::vector<std::string>& parameterTypes,
-								   Ret( Obj::*function )(Args...) )
-	{
-		classMaster->registerMemberFunction( name,
-											 parameterTypes,
-											 std::make_shared<ksFunctionWrapper<decltype(function)>>( function ) );
-	}
-
-	//Const member function
-	template<class Obj, class Ret, typename ... Args>
-	void ksRegisterMemberFunction( std::shared_ptr<ksClassMasterInterface>& classMaster,
-								   const std::string& name,
-								   const std::vector<std::string>& parameterTypes,
-								   Ret( Obj::*function )(Args...)const )
-	{
-		classMaster->registerMemberFunction( name,
-											 parameterTypes,
-											 std::make_shared<ksFunctionWrapper<decltype(function)>>( function ) );
 	}
 }

@@ -57,13 +57,4 @@ namespace kg
 													   const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
 		//TODO
 	};
-
-	template< class Ret, typename...Args >
-	void ksRegisterFunction( ksFunctionMaster& functionMaster,
-							 const std::vector<std::string>& parameterTypes,
-							 Ret( *function )(Args...) )
-	{
-		functionMaster.registerOverload( parameterTypes,
-										 std::make_shared<ksFunctionWrapper<Ret( Args... )>>( function ) );
-	}
 }

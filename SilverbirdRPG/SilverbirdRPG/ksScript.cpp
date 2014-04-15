@@ -75,4 +75,21 @@ namespace kg
 		return m_isInterpreted;
 	}
 
+	void ksRegisterStandartTypes( ksLibrary& library )
+	{
+
+	}
+
+	void ksRunScript( ksLibrary& library, const std::string& path )
+	{
+		ksScript script( library );
+		script.loadFromFile( path );
+		script.interpret();
+	}
+
+	std::shared_ptr<ksFunctionMaster> ksCreateFunctionMaster( const std::string& name )
+	{
+		return std::make_shared<ksFunctionMaster>( name );
+	}
+
 }

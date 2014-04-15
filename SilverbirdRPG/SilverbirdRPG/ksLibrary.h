@@ -19,7 +19,6 @@ namespace kg
 		ksCodeVector m_subCode;
 
 	public:
-		template<class T>
 		void registerType( const std::shared_ptr<ksClassMasterInterface>& type );
 
 		template<class T>
@@ -45,10 +44,4 @@ namespace kg
 			return m_availableTypesByHash.at( typeid(T).hash_code() );
 	}
 
-	template<class T>
-	void kg::ksLibrary::registerType( const std::shared_ptr<ksClassMasterInterface>& type )
-	{
-		m_availableTypesByName[type->getType()] = type;
-		m_availableTypesByHash[typeid(T).hash_code()] = type;
-	}
 }
