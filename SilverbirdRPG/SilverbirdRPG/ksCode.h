@@ -9,8 +9,6 @@ namespace kg
 {
 	class ksCode
 	{
-		//TODO
-		std::vector<std::shared_ptr<ksClassInstance>> m_stack;
 
 		ksTokenMap m_constructedTokens;
 
