@@ -1,6 +1,5 @@
 #include "ksToken.h"
 
-
 kg::ksToken::ksToken( int lastLineOfToken )
 :m_lastlineOfToken( lastLineOfToken )
 { }

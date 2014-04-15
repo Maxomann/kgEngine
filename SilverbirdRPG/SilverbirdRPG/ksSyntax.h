@@ -28,8 +28,6 @@ namespace kg
 	// second: tokenConstructors with that priority
 	typedef std::map<int, std::vector<std::shared_ptr<ksTokenConstructor>>> ksTokenConstructorPriorityMap;
 
-
-
 	enum TOKEN_ID
 	{
 		SA_FUNCTION_BEGIN,

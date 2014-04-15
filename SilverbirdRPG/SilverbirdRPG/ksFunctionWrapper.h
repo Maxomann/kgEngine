@@ -3,11 +3,8 @@
 #pragma once
 #include "stdafx.h"
 
-
 namespace kg
 {
-
-
 	template <std::size_t...> struct index_sequence
 	{ };
 
@@ -17,7 +14,6 @@ namespace kg
 
 	template <std::size_t... Is>
 	struct make_index_sequence<0u, Is...> : index_sequence<Is...>{ };
-
 
 	class ksFunctionWrapperInterface
 	{
@@ -34,7 +30,6 @@ namespace kg
 		virtual size_t getSignatureHash()const = 0;
 		virtual const std::string getSignature()const = 0;
 	};
-
 
 	template<typename F> class ksFunctionWrapper;
 
@@ -73,7 +68,6 @@ namespace kg
 		{
 			return typeid(m_function).name();
 		}
-
 	};
 
 	//MEMBER FUNCTION
@@ -117,10 +111,7 @@ namespace kg
 		{
 			return typeid(m_function).name();
 		}
-
 	};
-
-
 
 	// NON MEMBER FUNCTION
 	// RETURN_TYPE: void
@@ -158,7 +149,6 @@ namespace kg
 		{
 			return typeid(m_function).name();
 		}
-
 	};
 
 	// MEMBER FUNCTION
@@ -166,9 +156,9 @@ namespace kg
 	// FunctionWrapper<decltype(&Foo::foo)> wrapper( &Foo::foo );
 	// Returning POINTERS in wrapped function is NOT ALLOWED
 	template<class Obj, typename ... Args>
-	class ksFunctionWrapper<void( Obj::* )(Args...)> : public ksMemberFunctionWrapperInterface
+	class ksFunctionWrapper<void(Obj::*)(Args...)> : public ksMemberFunctionWrapperInterface
 	{
-		typedef void( Obj::*FuncPasser )(Args...);
+		typedef void(Obj::*FuncPasser)(Args...);
 		typedef std::function< void( Obj&, Args... ) > FuncContainer;
 		const FuncContainer m_function;
 
@@ -203,9 +193,7 @@ namespace kg
 		{
 			return typeid(m_function).name();
 		}
-
 	};
-
 
 	// CONST MEMBER FUNCTION
 	// FunctionWrapper<decltype(&Foo::foo)> wrapper( &Foo::foo );
@@ -248,7 +236,6 @@ namespace kg
 		{
 			return typeid(m_function).name();
 		}
-
 	};
 
 	// MEMBER FUNCTION
@@ -293,6 +280,5 @@ namespace kg
 		{
 			return typeid(m_function).name();
 		}
-
 	};
 }

@@ -25,14 +25,17 @@ namespace kg
 		template<class T>
 		const std::shared_ptr<ksClassMasterInterface>& getType()const;
 
-		const std::shared_ptr<ksClassMasterInterface>& getType(const std::string& name)const;
-		const std::shared_ptr<ksClassMasterInterface>& getType(size_t hash)const;
+		const std::shared_ptr<ksClassMasterInterface>& getType( const std::string& name )const;
+		const std::shared_ptr<ksClassMasterInterface>& getType( size_t hash )const;
 
 		void registerFunction( const std::shared_ptr<ksFunctionMaster>& funcMaster );
 		const std::shared_ptr<ksFunctionMaster>& getFunction( const std::string& name );
 
 		int registerSubCode( const std::shared_ptr<ksCode>& subCode );
-		std::shared_ptr<ksCode>& getSubCode(int position);
+		std::shared_ptr<ksCode>& getSubCode( int position );
+
+		ksTokenConstructorPriorityMap tokenConstructors;
+		ksRawTokenMap rawTokens;
 	};
 
 	template<class T>
@@ -42,12 +45,10 @@ namespace kg
 			return m_availableTypesByHash.at( typeid(T).hash_code() );
 	}
 
-
 	template<class T>
 	void kg::ksLibrary::registerType( const std::shared_ptr<ksClassMasterInterface>& type )
 	{
 		m_availableTypesByName[type->getType()] = type;
 		m_availableTypesByHash[typeid(T).hash_code()] = type;
 	}
-
 }

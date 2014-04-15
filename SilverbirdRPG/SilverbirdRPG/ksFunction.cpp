@@ -1,6 +1,5 @@
 #include "ksFunction.h"
 
-
 kg::ksFunctionMaster::ksFunctionMaster( const std::string& name )
 : m_name( name )
 { }
@@ -31,7 +30,6 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( ksLibrary& 
 	std::vector<std::string> parameterTypes;
 	for( const auto& el : parameters )
 		parameterTypes.push_back( el->getType() );
-
 
 	//lookup for function
 
@@ -68,7 +66,6 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( ksLibrary& 
 		argumentSignature += ",";
 	}
 	REPORT_ERROR_SCRIPT( "could not find overload with argumentSignature: " + argumentSignature + "in function" + m_name );
-
 }
 
 std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( ksLibrary& library,
@@ -85,7 +82,7 @@ std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( ksLibra
 	}
 
 	return m_code->execute( library,
-						   parameterStack );
+							parameterStack );
 }
 
 kg::ksScriptFunctionOverload::ksScriptFunctionOverload( const std::vector<std::string>& parameterNamesLeftToRight,

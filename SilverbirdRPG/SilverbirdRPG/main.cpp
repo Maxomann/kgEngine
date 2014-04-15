@@ -10,11 +10,10 @@
 #include "sServer.h"
 #include "aException.h"
 #include "eExtendable.h"
-#include "ksLibrary.h"
+#include "ksScript.h"
 
 using namespace std;
 using namespace kg;
-
 
 class Foo
 {
@@ -23,7 +22,7 @@ public:
 	{
 		cout << "Foo!" << endl;
 		cout << i << endl;
-		return i+1;
+		return i + 1;
 	}
 };
 
@@ -38,17 +37,6 @@ int main()
 {
 	try
 	{
-		ksLibrary lib;
-		lib.registerType<int>( ksCreateClassMaster<int>( "int" ) );
-
-		auto fooMaster=ksCreateClassMaster<Foo>( "Foo" );
-		ksRegisterMemberFunction( fooMaster, "someFunction", { "int" }, &Foo::someFunction );
-
-		lib.registerType<Foo>( fooMaster );
-
-		auto fooInst = lib.getType<Foo>()->createNewInstance();
-		fooInst->callMemberFunction( "someFunction", { "int" }, { lib.getType<int>()->createInstance( new int( 33 ) ) } );
-
 		system( "pause" );
 
 		//Plugins

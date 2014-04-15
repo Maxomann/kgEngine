@@ -1,14 +1,10 @@
 #include "ksClass.h"
 
-
-
-
 kg::ksClassMasterInterface::ksClassMasterInterface( const std::string& name,
 													const size_t& typeHash )
 													:m_typeHash( typeHash ),
 													m_name( name )
 {
-
 }
 
 void kg::ksClassMasterInterface::registerMemberFunction( const std::string& name,
@@ -35,9 +31,9 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksClassMasterInterface::callMemberF
 	{
 		std::string parameters;
 		for( const auto& el : parameterTypes )
-			parameters+=( el+"," );
+			parameters += (el + ",");
 
-		REPORT_ERROR_SCRIPT( "callMemberFunction() wrong function call\n#name: "+name+"\n#parameterTypes: "+parameters );
+		REPORT_ERROR_SCRIPT( "callMemberFunction() wrong function call\n#name: " + name + "\n#parameterTypes: " + parameters );
 	}
 }
 
@@ -56,7 +52,6 @@ kg::ksClassInstance::ksClassInstance( const ksClassMasterInterface& master,
 									  :m_instance( instance ),
 									  r_master( master )
 {
-
 }
 
 const std::string& kg::ksClassInstance::getType() const

@@ -16,7 +16,7 @@ namespace kg
 								int line )const = 0;
 
 		// 0=highest priority
-		virtual int getPriority()const=0;
+		virtual int getPriority()const = 0;
 	};
 
 	class ksToken
@@ -34,7 +34,6 @@ namespace kg
 
 		int getLastLine()const;
 
-		virtual int getID()const=0;
+		virtual int getID()const = 0;
 	};
-
 }

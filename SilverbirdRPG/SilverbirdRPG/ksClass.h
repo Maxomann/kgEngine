@@ -7,7 +7,6 @@
 
 namespace kg
 {
-
 	class ksClassInstance;
 
 	class ksClassMasterInterface
@@ -31,7 +30,7 @@ namespace kg
 		//		pair.first=hash
 		//		pair.second = std::shared_ptr<void>
 		//		TODO: lib.getType( retVal.first )->createInstance( retVal.second );
-		//	
+		//
 		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::string& name, const std::vector<std::string>& parameterTypes, const std::shared_ptr<void>& cppObj, const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 
 		const std::string& getType()const;
@@ -82,7 +81,7 @@ namespace kg
 		//		pair.first=hash
 		//		pair.second = std::shared_ptr<void>
 		//		TODO: lib.getType( retVal.first )->createInstance( retVal.second );
-		//	
+		//
 		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::string& name, const std::vector<std::string>& parameterTypes, const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 	};
 
@@ -98,8 +97,6 @@ namespace kg
 	{
 		return m_instance;
 	}
-
-
 
 	template<class T>
 	std::shared_ptr<ksClassMasterInterface> ksCreateClassMaster( const std::string& name )
@@ -124,13 +121,10 @@ namespace kg
 	void ksRegisterMemberFunction( std::shared_ptr<ksClassMasterInterface>& classMaster,
 								   const std::string& name,
 								   const std::vector<std::string>& parameterTypes,
-								   Ret( Obj::*function  )(Args...)const )
+								   Ret( Obj::*function )(Args...)const )
 	{
 		classMaster->registerMemberFunction( name,
 											 parameterTypes,
 											 std::make_shared<ksFunctionWrapper<decltype(function)>>( function ) );
 	}
-	
-
 }
-

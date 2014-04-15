@@ -6,7 +6,6 @@
 #include "aException.h"
 #include "ksCode.h"
 
-
 namespace kg
 {
 	class ksLibrary;
@@ -53,7 +52,7 @@ namespace kg
 		//		TODO: lib.getType( retVal.first )->createInstance( retVal.second );
 		//		EXCEPTION:
 		//			if pair.second==nullptr: return type is void
-		//		
+		//
 		std::pair<size_t, std::shared_ptr<void>> call( ksLibrary& library,
 													   const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
 		//TODO
@@ -67,5 +66,4 @@ namespace kg
 		functionMaster.registerOverload( parameterTypes,
 										 std::make_shared<ksFunctionWrapper<Ret( Args... )>>( function ) );
 	}
-
 }

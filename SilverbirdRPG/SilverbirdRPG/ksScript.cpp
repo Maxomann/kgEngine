@@ -3,12 +3,8 @@
 namespace kg
 {
 
-	ksScript::ksScript( ksLibrary& library,
-						const ksTokenConstructorPriorityMap& tokenConstructors,
-						const ksRawTokenMap& rawTokens )
-						: r_tokenConstructors( tokenConstructors ),
-						r_rawTokens( rawTokens ),
-						r_library(library)
+	ksScript::ksScript( ksLibrary& library )
+		: r_library( library )
 	{
 
 	}
@@ -37,7 +33,7 @@ namespace kg
 			file.close();
 
 			//refresh internal code
-			m_code = code;
+			std::swap( m_code, code );
 
 			m_isInterpreted = false;
 			return true;
@@ -65,8 +61,8 @@ namespace kg
 
 	void ksScript::interpret()
 	{
-		ksCode code(r_tokenConstructors,
-					 r_rawTokens,
+		ksCode code( r_library.tokenConstructors,
+					 r_library.rawTokens,
 					 m_code
 					 );
 		code.execute( r_library, m_stack );

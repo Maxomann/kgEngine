@@ -1,6 +1,5 @@
 #include "ksCode.h"
 
-
 namespace kg
 {
 	static void pushTokenWithId( ksSplitCodeVector& splitCode,
@@ -109,9 +108,9 @@ namespace kg
 				{
 					for( const std::shared_ptr<ksTokenConstructor>& constructor : priority.second )
 					{
-						if( constructor->construct(splitCode, m_constructedTokens, currentLine))
+						if( constructor->construct( splitCode, m_constructedTokens, currentLine ) )
 						{
-							currentLine = m_constructedTokens[currentLine]->getLastLine()+1;
+							currentLine = m_constructedTokens[currentLine]->getLastLine() + 1;
 							break;//
 						}
 					}
@@ -119,7 +118,7 @@ namespace kg
 				}
 				else
 				{
-					currentLine = m_constructedTokens[currentLine]->getLastLine()+1;
+					currentLine = m_constructedTokens[currentLine]->getLastLine() + 1;
 				}
 			}
 		}
@@ -127,13 +126,13 @@ namespace kg
 
 	std::shared_ptr<kg::ksClassInstance> ksCode::execute( ksLibrary& library,
 														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack ) const
-{
+	{
 		std::shared_ptr<ksClassInstance> returnValue = nullptr;
 
-		for( int currentLine = 0; currentLine<=m_constructedTokens.rbegin()->first; )
+		for( int currentLine = 0; currentLine <= m_constructedTokens.rbegin()->first; )
 		{
 			auto& token = m_constructedTokens.at( currentLine );
-			
+
 			//not expected to return anything
 			token->execute( library,
 							stack,
@@ -143,7 +142,5 @@ namespace kg
 		}
 
 		return returnValue;
-
 	}
-
 }

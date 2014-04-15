@@ -9,7 +9,6 @@ namespace kg
 {
 	class ksCode
 	{
-
 		ksTokenMap m_constructedTokens;
 
 		ksSplitCodeVector m_generateSplitCode( const ksRawTokenMap& rawTokens,

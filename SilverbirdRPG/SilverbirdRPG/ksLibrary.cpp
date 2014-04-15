@@ -2,7 +2,6 @@
 
 namespace kg
 {
-
 	const std::shared_ptr<kg::ksClassMasterInterface>& kg::ksLibrary::getType( const std::string& name ) const
 	{
 		return m_availableTypesByName.at( name );
@@ -33,5 +32,4 @@ namespace kg
 	{
 		return m_subCode.at( position );
 	}
-
 }
