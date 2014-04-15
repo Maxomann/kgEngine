@@ -81,6 +81,8 @@ namespace kg
 			}
 		}
 
+		if( splitCode.size() == NULL )
+			REPORT_ERROR_SCRIPT( "splitCode.size() == 0" );
 		return splitCode;
 	}
 
@@ -125,8 +127,11 @@ namespace kg
 	}
 
 	std::shared_ptr<kg::ksClassInstance> ksCode::execute( ksLibrary& library,
-														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack ) const
+														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack )const
 	{
+		if( m_constructedTokens.size() == NULL )
+			REPORT_ERROR_SCRIPT( "m_constructedTokens.size()==0" );
+
 		std::shared_ptr<ksClassInstance> returnValue = nullptr;
 
 		for( int currentLine = 0; currentLine <= m_constructedTokens.rbegin()->first; )

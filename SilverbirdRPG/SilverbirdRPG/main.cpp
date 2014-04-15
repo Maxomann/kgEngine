@@ -44,6 +44,7 @@ int main()
 		lib.registerFunction( fooFunction );
 		lib.registerType( barClass );
 		
+		ksRunScript( lib, "./testSkript.txt" );
 
 		system( "pause" );
 

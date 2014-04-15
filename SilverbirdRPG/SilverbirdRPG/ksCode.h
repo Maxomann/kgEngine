@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "ksSyntax.h"
 #include "ksToken.h"
+#include "aException.h"
 
 namespace kg
 {
