@@ -127,17 +127,27 @@ namespace kg
 		}
 	}
 
-	void ksCode::execute( const ksReferenceContainer& refCon ) const
-	{
+	std::shared_ptr<kg::ksClassInstance> ksCode::execute( ksLibrary& library,
+														  const std::map<std::string, ksFunctionMaster>& availableFunctions,
+														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack ) const
+{
+		std::shared_ptr<ksClassInstance> returnValue = nullptr;
+
 		for( int currentLine = 0; currentLine<=m_constructedTokens.rbegin()->first; )
 		{
 			auto& token = m_constructedTokens.at( currentLine );
 			
 			//not expected to return anything
-			token->execute( refCon );
+			token->execute( library,
+							stack,
+							availableFunctions,
+							returnValue );
 
 			currentLine = token->getLastLine() + 1;
 		}
+
+		return returnValue;
+
 	}
 
 }

@@ -118,6 +118,6 @@ int main()
 	{
 		cout << ex.what() << endl;
 		system( "pause" );
-		return -1;
+		return -999;
 	}
 };

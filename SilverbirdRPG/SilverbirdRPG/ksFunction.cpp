@@ -24,11 +24,13 @@ void kg::ksFunctionMaster::registerOverload( const std::vector<std::string>& par
 	m_scriptOverloads[parameterTypes] = function;
 }
 
-std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call(const ksReferenceContainer& refCon, const std::vector<std::shared_ptr<ksClassInstance>>& args) const
+std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( ksLibrary& library,
+																	 const std::map<std::string, ksFunctionMaster>& availableFunctions,
+																	 const std::vector<std::shared_ptr<ksClassInstance>>& parameters ) const
 {
 	//get parameterTypes from args
 	std::vector<std::string> parameterTypes;
-	for( const auto& el : args )
+	for( const auto& el : parameters )
 		parameterTypes.push_back( el->getType() );
 
 
@@ -42,7 +44,7 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call(const ksRefe
 			//execute function
 			//registred overloads with same signature will be ignored
 			std::vector<std::shared_ptr<void>> argsConverted;
-			for( const auto& obj : args )
+			for( const auto& obj : parameters )
 				argsConverted.push_back( std::shared_ptr<void>( obj->getCppInstance() ) );
 
 			return el.second->call( argsConverted );
@@ -54,13 +56,15 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call(const ksRefe
 	{
 		if( el.first == parameterTypes )
 		{
-			return std::make_pair( NULL, std::static_pointer_cast< void >(el.second->call( refCon, args )) );
+			return std::make_pair( NULL, std::static_pointer_cast< void >(el.second->call( library,
+				availableFunctions,
+				parameters )) );
 		}
 	}
 
 	//create error message
 	std::string argumentSignature;
-	for( const auto& el : args )
+	for( const auto& el : parameters )
 	{
 		argumentSignature += el->getType();
 		argumentSignature += ",";
@@ -69,24 +73,27 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call(const ksRefe
 
 }
 
-std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( const ksReferenceContainer& refCon,
+std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( ksLibrary& library,
+																		 const std::map<std::string, ksFunctionMaster>& availableFunctions,
 																		 const std::vector<std::shared_ptr<ksClassInstance>>& parameters ) const
 {
+	std::map<std::string, std::shared_ptr<ksClassInstance>> parameterStack;
+
 	//put argumets on stack
 	auto myIt = m_parameterNamesLeftToRight.begin();
 	for( auto parIt = parameters.begin(); parIt != parameters.end(); ++parIt )
 	{
-		refCon.parameterStack[*myIt] = *parIt;
+		parameterStack[*myIt] = *parIt;
 		++myIt;
 	}
 
-	m_code.execute( refCon );
-
-	return refCon.returnValue;
+	return m_code.execute( library,
+						   availableFunctions,
+						   parameterStack );
 }
 
 kg::ksScriptFunctionOverload::ksScriptFunctionOverload( const std::vector<std::string>& parameterNamesLeftToRight,
 														const ksCode& code )
-:m_code( code ),
-m_parameterNamesLeftToRight(parameterNamesLeftToRight)
+														:m_code( code ),
+														m_parameterNamesLeftToRight( parameterNamesLeftToRight )
 { }

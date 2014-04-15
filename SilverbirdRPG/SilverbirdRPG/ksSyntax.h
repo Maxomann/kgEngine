@@ -10,6 +10,7 @@ namespace kg
 	class ksTokenConstructor;
 	class ksClassInstance;
 	class ksLibrary;
+	class ksFunctionMaster;
 
 	// first: token
 	// second: tokenId
@@ -26,18 +27,6 @@ namespace kg
 	// first: priority
 	// second: tokenConstructors with that priority
 	typedef std::map<int, std::vector<std::shared_ptr<ksTokenConstructor>>> ksTokenConstructorPriorityMap;
-
-
-
-	struct ksReferenceContainer
-	{
-		std::map<std::string, std::shared_ptr<ksClassInstance>>& parameterStack;
-
-		//for ksScript internal functions to return a value
-		std::shared_ptr<ksClassInstance> returnValue;
-
-		ksLibrary& library;
-	};
 
 
 

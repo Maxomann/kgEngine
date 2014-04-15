@@ -30,6 +30,8 @@ namespace kg
 				ksCodeVector& subCodeContainer,
 				const ksSplitCodeVector& code );
 
-		void execute( const ksReferenceContainer& refCon )const;
+		std::shared_ptr<kg::ksClassInstance> execute( ksLibrary& library,
+													  const std::map<std::string, ksFunctionMaster>& availableFunctions,
+													  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack )const;
 	};
 }

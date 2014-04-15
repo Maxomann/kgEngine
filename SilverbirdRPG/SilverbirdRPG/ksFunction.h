@@ -9,6 +9,7 @@
 
 namespace kg
 {
+	class ksLibrary;
 
 	class ksScriptFunctionOverload
 	{
@@ -18,7 +19,9 @@ namespace kg
 		ksScriptFunctionOverload( const std::vector<std::string>& parameterNamesLeftToRight, const ksCode& code );
 
 		//TODO
-		std::shared_ptr<ksClassInstance> call( const ksReferenceContainer& refCon, const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
+		std::shared_ptr<ksClassInstance> call( ksLibrary& library,
+											   const std::map<std::string, ksFunctionMaster>& availableFunctions,
+											   const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
 	};
 
 	class ksFunctionMaster
@@ -51,7 +54,9 @@ namespace kg
 		//		EXCEPTION:
 		//			if pair.second==nullptr: return type is void
 		//		
-		std::pair<size_t, std::shared_ptr<void>> call( const ksReferenceContainer& refCon, const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+		std::pair<size_t, std::shared_ptr<void>> call( ksLibrary& library,
+													   const std::map<std::string, ksFunctionMaster>& availableFunctions,
+													   const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
 		//TODO
 	};
 

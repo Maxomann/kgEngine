@@ -27,7 +27,11 @@ namespace kg
 		ksToken( int lastLineOfToken );
 
 		//return nullptr if returnType==void
-		virtual std::shared_ptr<ksClassInstance> execute( const ksReferenceContainer& refCon )const=0;
+		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library,
+														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack,
+														  const std::map<std::string, ksFunctionMaster>& availableFunctions,
+														  //only change if this is the return statement
+														  std::shared_ptr<ksClassInstance>& functionReturnValue )const = 0;
 
 		int getLastLine()const;
 
