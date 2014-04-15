@@ -147,9 +147,6 @@
     <ClInclude Include="ksLibrary.h">
       <Filter>Headerdateien\Script\ObjectSystem</Filter>
     </ClInclude>
-    <ClInclude Include="ksScript_old.h">
-      <Filter>Headerdateien\Script</Filter>
-    </ClInclude>
     <ClInclude Include="ksCode.h">
       <Filter>Headerdateien\Script</Filter>
     </ClInclude>
@@ -157,6 +154,9 @@
       <Filter>Headerdateien\Script</Filter>
     </ClInclude>
     <ClInclude Include="ksToken.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ksScript.h">
       <Filter>Headerdateien\Script</Filter>
     </ClInclude>
   </ItemGroup>
@@ -233,13 +233,13 @@
     <ClCompile Include="ksLibrary.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="ksScript_old.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="ksCode.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ksToken.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ksScript.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

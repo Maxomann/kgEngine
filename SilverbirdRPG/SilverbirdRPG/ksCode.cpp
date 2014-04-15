@@ -87,17 +87,15 @@ namespace kg
 
 	ksCode::ksCode( const ksTokenConstructorPriorityMap& tokenConstructors,
 					const ksRawTokenMap& rawTokens,
-					ksCodeVector& subCodeContainer,
 					const std::string& code )
 	{
 		m_constructTokens( tokenConstructors, m_generateSplitCode( rawTokens, code ) );
 	}
 
 	ksCode::ksCode( const ksTokenConstructorPriorityMap& tokenConstructors,
-					ksCodeVector& subCodeContainer,
-					const ksSplitCodeVector& code )
+					const ksSplitCodeVector& splitCode )
 	{
-		m_constructTokens( tokenConstructors, code );
+		m_constructTokens( tokenConstructors, splitCode );
 	}
 
 	void ksCode::m_constructTokens( const ksTokenConstructorPriorityMap& tokenConstructors,
@@ -128,7 +126,6 @@ namespace kg
 	}
 
 	std::shared_ptr<kg::ksClassInstance> ksCode::execute( ksLibrary& library,
-														  const std::map<std::string, ksFunctionMaster>& availableFunctions,
 														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack ) const
 {
 		std::shared_ptr<ksClassInstance> returnValue = nullptr;
@@ -140,7 +137,6 @@ namespace kg
 			//not expected to return anything
 			token->execute( library,
 							stack,
-							availableFunctions,
 							returnValue );
 
 			currentLine = token->getLastLine() + 1;

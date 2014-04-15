@@ -25,7 +25,6 @@ void kg::ksFunctionMaster::registerOverload( const std::vector<std::string>& par
 }
 
 std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( ksLibrary& library,
-																	 const std::map<std::string, ksFunctionMaster>& availableFunctions,
 																	 const std::vector<std::shared_ptr<ksClassInstance>>& parameters ) const
 {
 	//get parameterTypes from args
@@ -57,7 +56,6 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( ksLibrary& 
 		if( el.first == parameterTypes )
 		{
 			return std::make_pair( NULL, std::static_pointer_cast< void >(el.second->call( library,
-				availableFunctions,
 				parameters )) );
 		}
 	}
@@ -74,7 +72,6 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( ksLibrary& 
 }
 
 std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( ksLibrary& library,
-																		 const std::map<std::string, ksFunctionMaster>& availableFunctions,
 																		 const std::vector<std::shared_ptr<ksClassInstance>>& parameters ) const
 {
 	std::map<std::string, std::shared_ptr<ksClassInstance>> parameterStack;
@@ -87,13 +84,12 @@ std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( ksLibra
 		++myIt;
 	}
 
-	return m_code.execute( library,
-						   availableFunctions,
+	return m_code->execute( library,
 						   parameterStack );
 }
 
 kg::ksScriptFunctionOverload::ksScriptFunctionOverload( const std::vector<std::string>& parameterNamesLeftToRight,
-														const ksCode& code )
+														const std::shared_ptr<ksCode>& code )
 														:m_code( code ),
 														m_parameterNamesLeftToRight( parameterNamesLeftToRight )
 { }

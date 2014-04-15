@@ -15,6 +15,9 @@ namespace kg
 		std::map<size_t, std::shared_ptr<ksClassMasterInterface>> m_availableTypesByHash;
 
 		std::map<std::string, std::shared_ptr<ksFunctionMaster>> m_availableFunctions;
+
+		ksCodeVector m_subCode;
+
 	public:
 		template<class T>
 		void registerType( const std::shared_ptr<ksClassMasterInterface>& type );
@@ -27,6 +30,9 @@ namespace kg
 
 		void registerFunction( const std::shared_ptr<ksFunctionMaster>& funcMaster );
 		const std::shared_ptr<ksFunctionMaster>& getFunction( const std::string& name );
+
+		int registerSubCode( const std::shared_ptr<ksCode>& subCode );
+		std::shared_ptr<ksCode>& getSubCode(int position);
 	};
 
 	template<class T>

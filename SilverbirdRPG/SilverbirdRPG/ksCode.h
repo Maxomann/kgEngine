@@ -21,15 +21,12 @@ namespace kg
 	public:
 		ksCode( const ksTokenConstructorPriorityMap& tokenConstructors,
 				const ksRawTokenMap& rawTokens,
-				ksCodeVector& subCodeContainer,
 				const std::string& code );
 
 		ksCode( const ksTokenConstructorPriorityMap& tokenConstructors,
-				ksCodeVector& subCodeContainer,
-				const ksSplitCodeVector& code );
+				const ksSplitCodeVector& splitCode );
 
 		std::shared_ptr<kg::ksClassInstance> execute( ksLibrary& library,
-													  const std::map<std::string, ksFunctionMaster>& availableFunctions,
 													  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack )const;
 	};
 }

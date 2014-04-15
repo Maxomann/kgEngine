@@ -29,7 +29,6 @@ namespace kg
 		//return nullptr if returnType==void
 		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library,
 														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack,
-														  const std::map<std::string, ksFunctionMaster>& availableFunctions,
 														  //only change if this is the return statement
 														  std::shared_ptr<ksClassInstance>& functionReturnValue )const = 0;
 

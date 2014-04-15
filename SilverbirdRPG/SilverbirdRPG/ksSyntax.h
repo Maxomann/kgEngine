@@ -16,7 +16,7 @@ namespace kg
 	// second: tokenId
 	typedef std::map<std::string, int> ksRawTokenMap;
 
-	typedef std::vector<ksCode> ksCodeVector;
+	typedef std::vector<std::shared_ptr<ksCode>> ksCodeVector;
 
 	typedef std::vector<std::pair<std::string, int>> ksSplitCodeVector;
 
