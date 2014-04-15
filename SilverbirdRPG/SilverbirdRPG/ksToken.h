@@ -3,7 +3,6 @@
 #pragma once
 #include "stdafx.h"
 #include "ksSyntax.h"
-#include "ksLibrary.h"
 
 namespace kg
 {

@@ -4,6 +4,7 @@
 #include "ksFunctionWrapper.h"
 #include "ksClass.h"
 #include "aException.h"
+#include "ksCode.h"
 
 
 namespace kg
@@ -11,10 +12,13 @@ namespace kg
 
 	class ksScriptFunctionOverload
 	{
-		//TODO
+		const ksCode m_code;
+		const std::vector<std::string> m_parameterNamesLeftToRight;
 	public:
+		ksScriptFunctionOverload( const std::vector<std::string>& parameterNamesLeftToRight, const ksCode& code );
 
-		std::shared_ptr<ksClassInstance> call( const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
+		//TODO
+		std::shared_ptr<ksClassInstance> call( const ksReferenceContainer& refCon, const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
 	};
 
 	class ksFunctionMaster
@@ -47,7 +51,8 @@ namespace kg
 		//		EXCEPTION:
 		//			if pair.second==nullptr: return type is void
 		//		
-		std::pair<size_t, std::shared_ptr<void>> call( const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+		std::pair<size_t, std::shared_ptr<void>> call( const ksReferenceContainer& refCon, const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+		//TODO
 	};
 
 	template< class Ret, typename...Args >

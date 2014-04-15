@@ -24,7 +24,7 @@ void kg::ksFunctionMaster::registerOverload( const std::vector<std::string>& par
 	m_scriptOverloads[parameterTypes] = function;
 }
 
-std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
+std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call(const ksReferenceContainer& refCon, const std::vector<std::shared_ptr<ksClassInstance>>& args) const
 {
 	//get parameterTypes from args
 	std::vector<std::string> parameterTypes;
@@ -54,21 +54,39 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( const std::
 	{
 		if( el.first == parameterTypes )
 		{
-			return std::make_pair(NULL, std::static_pointer_cast<void>(el.second->call( args )));
+			return std::make_pair( NULL, std::static_pointer_cast< void >(el.second->call( refCon, args )) );
 		}
 	}
 
+	//create error message
 	std::string argumentSignature;
 	for( const auto& el : args )
 	{
 		argumentSignature += el->getType();
 		argumentSignature += ",";
 	}
-	REPORT_ERROR_SCRIPT( "could not find overload with argumentSignature: " + argumentSignature + "in function" +m_name);
+	REPORT_ERROR_SCRIPT( "could not find overload with argumentSignature: " + argumentSignature + "in function" + m_name );
 
 }
 
-std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( const std::vector<std::shared_ptr<ksClassInstance>>& parameters ) const
+std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( const ksReferenceContainer& refCon,
+																		 const std::vector<std::shared_ptr<ksClassInstance>>& parameters ) const
 {
-	REPORT_ERROR_NOT_IMPLEMENTED();
+	//put argumets on stack
+	auto myIt = m_parameterNamesLeftToRight.begin();
+	for( auto parIt = parameters.begin(); parIt != parameters.end(); ++parIt )
+	{
+		refCon.parameterStack[*myIt] = *parIt;
+		++myIt;
+	}
+
+	m_code.execute( refCon );
+
+	return refCon.returnValue;
 }
+
+kg::ksScriptFunctionOverload::ksScriptFunctionOverload( const std::vector<std::string>& parameterNamesLeftToRight,
+														const ksCode& code )
+:m_code( code ),
+m_parameterNamesLeftToRight(parameterNamesLeftToRight)
+{ }

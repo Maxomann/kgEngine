@@ -9,6 +9,9 @@ namespace kg
 {
 	class ksCode
 	{
+		//TODO
+		std::vector<std::shared_ptr<ksClassInstance>> m_stack;
+
 		ksTokenMap m_constructedTokens;
 
 		ksSplitCodeVector m_generateSplitCode( const ksRawTokenMap& rawTokens,
@@ -27,7 +30,6 @@ namespace kg
 				ksCodeVector& subCodeContainer,
 				const ksSplitCodeVector& code );
 
-		//TODO
 		void execute( const ksReferenceContainer& refCon )const;
 	};
 }

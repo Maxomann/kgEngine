@@ -8,6 +8,8 @@ namespace kg
 	class ksCode;
 	class ksToken;
 	class ksTokenConstructor;
+	class ksClassInstance;
+	class ksLibrary;
 
 	// first: token
 	// second: tokenId
@@ -29,7 +31,12 @@ namespace kg
 
 	struct ksReferenceContainer
 	{
+		std::map<std::string, std::shared_ptr<ksClassInstance>>& parameterStack;
 
+		//for ksScript internal functions to return a value
+		std::shared_ptr<ksClassInstance> returnValue;
+
+		ksLibrary& library;
 	};
 
 
