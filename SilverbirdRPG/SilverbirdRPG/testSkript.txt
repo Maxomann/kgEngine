@@ -1,3 +1,4 @@
-TestFunc()
-TestFunc()
-TestFunc()
+function( const void myFunction )
+{
+	myTest+2;
+}

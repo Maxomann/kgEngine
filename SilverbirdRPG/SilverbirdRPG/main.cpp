@@ -34,6 +34,7 @@ int main()
 	try
 	{
 		ksLibrary lib;
+		ksRegisterStandartTypes( lib );
 
 		auto fooFunction = ksCreateFunctionMaster( "foo" );
 		ksRegisterOverload( fooFunction, { "string" }, &foo );

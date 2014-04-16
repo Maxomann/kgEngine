@@ -9,10 +9,12 @@ namespace kg
 		for( const auto& el : rawTokens )
 		{
 			if( el.first == temp )
+			{
 				splitCode.push_back( std::make_pair( temp, el.second ) );
-			return;
+				return;
+			}
 		}
-		splitCode.push_back( std::make_pair( temp, TOKEN_ID::IDENTIFIER ) );
+		splitCode.push_back( std::make_pair( temp, ksRAW_TOKEN_ID::_IDENTIFIER ) );
 	}
 
 	kg::ksSplitCodeVector ksCode::m_generateSplitCode( const ksRawTokenMap& rawTokens, const std::string& code ) const
@@ -29,7 +31,7 @@ namespace kg
 				if( el == '"' )
 				{
 					isInString = false;
-					pushTokenWithId( splitCode, temp, rawTokens );
+					splitCode.push_back( std::make_pair( temp, ksRAW_TOKEN_ID::_VALUE_STRING ) );
 					temp.clear();
 					pushTokenWithId( splitCode, "\"", rawTokens );
 				}
