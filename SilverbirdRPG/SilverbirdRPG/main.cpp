@@ -36,16 +36,9 @@ int main()
 		ksLibrary lib;
 		ksRegisterStandartTypes( lib );
 
-		auto fooFunction = ksCreateFunctionMaster( "foo" );
-		ksRegisterOverload( fooFunction, { "string" }, &foo );
-
-		auto barClass = ksCreateClassMaster<Bar>( "Bar" );
-		ksRegisterMemberFunction( barClass, "doSomething", { "int" }, &Bar::doSomething );
-
-		lib.registerFunction( fooFunction );
-		lib.registerType( barClass );
+		for( const auto&el : ksCode::generateSplitCode( lib.rawTokens, "function(int a, bool b){const std::string str = \"Hallo\";}" ) )
+			cout << el.first << endl;
 		
-		ksRunScript( lib, "./testSkript.txt" );
 
 		system( "pause" );
 

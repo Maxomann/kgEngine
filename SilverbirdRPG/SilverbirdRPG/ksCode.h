@@ -12,9 +12,6 @@ namespace kg
 	{
 		ksTokenMap m_constructedTokens;
 
-		ksSplitCodeVector m_generateSplitCode( const ksRawTokenMap& rawTokens,
-											   const std::string& code )const;
-
 		void m_constructTokens( const ksTokenConstructorPriorityMap& tokenConstructors,
 								const ksSplitCodeVector& splitCode );
 
@@ -25,6 +22,9 @@ namespace kg
 
 		ksCode( const ksTokenConstructorPriorityMap& tokenConstructors,
 				const ksSplitCodeVector& splitCode );
+
+		static ksSplitCodeVector generateSplitCode( const ksRawTokenMap& rawTokens,
+													const std::string& code );
 
 		std::shared_ptr<kg::ksClassInstance> execute( ksLibrary& library,
 													  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack )const;

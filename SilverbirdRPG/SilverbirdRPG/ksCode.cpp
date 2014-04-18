@@ -2,10 +2,33 @@
 
 namespace kg
 {
+	namespace key
+	{
+		static enum
+		{
+			alphabetic,//abc...
+			digit,//123...
+			mathLogic,//+ - * / < > ! = :
+			space,
+			other
+		};
+	}
+	namespace status
+	{
+		static enum
+		{
+			inString,
+			other
+		};
+	}
+
 	static void pushTokenWithId( ksSplitCodeVector& splitCode,
 								 const std::string& temp,
 								 const ksRawTokenMap& rawTokens )
 	{
+		if( temp == "" )
+			return;
+
 		for( const auto& el : rawTokens )
 		{
 			if( el.first == temp )
@@ -17,71 +40,117 @@ namespace kg
 		splitCode.push_back( std::make_pair( temp, ksRAW_TOKEN_ID::_IDENTIFIER ) );
 	}
 
-	kg::ksSplitCodeVector ksCode::m_generateSplitCode( const ksRawTokenMap& rawTokens, const std::string& code ) const
+	static void setLastKey( const char ch, int& k )
 	{
+		if( std::isalpha( ch ) )
+			k = key::alphabetic;
+		else if( isdigit( ch ) )
+			k = key::digit;
+		else if( ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '<' || ch == '>' || ch == '!' || ch == '=' || ch == ':' )
+			k = key::mathLogic;
+		else if( std::isspace( ch ) )
+			k = key::space;
+		else
+			k = key::other;
+	}
+
+	kg::ksSplitCodeVector ksCode::generateSplitCode( const ksRawTokenMap& rawTokens, const std::string& code )
+	{
+
 		ksSplitCodeVector splitCode;
+		int lastKey = key::other;
+		int stat=status::other;
 
 		std::string temp;
-		bool isInString = false;
-		bool lastWasAlpha = false;
-		for( const auto& el : code )
+
+		for( const char& el : code )
 		{
-			if( isInString )
+			if( stat == status::inString )
 			{
-				if( el == '"' )
+				//endString
+				if( el == '\"' )
 				{
-					isInString = false;
-					splitCode.push_back( std::make_pair( temp, ksRAW_TOKEN_ID::_VALUE_STRING ) );
+					splitCode.push_back( std::make_pair( temp, ksRAW_TOKEN_ID::_IDENTIFIER ) );
 					temp.clear();
-					pushTokenWithId( splitCode, "\"", rawTokens );
+					stat = status::other;
+					lastKey = key::other;
+					temp.push_back( el );
 				}
 				else
 				{
 					temp.push_back( el );
 				}
 			}
-			else if( el == '"' )
+			else//status==other
 			{
-				isInString = true;
-				if( temp.size() > 0 )
-					pushTokenWithId( splitCode, temp, rawTokens );
-				temp.clear();
-				pushTokenWithId( splitCode, "\"", rawTokens );
-			}
-			else if( std::isalpha( el ) || el == '_' )
-			{
-				if( !lastWasAlpha )
+				//beginString
+				if( el == '\"' )
 				{
-					if( temp.size() > 0 )
+					pushTokenWithId( splitCode, temp, rawTokens );
+					temp.clear();
+					splitCode.push_back( std::make_pair( "\"", ksRAW_TOKEN_ID::_STRING ) );
+					stat = status::inString;
+				}
+				else
+				{
+					//not inString and not beginString
+					switch( lastKey )
 					{
+					case key::alphabetic:
+						setLastKey( el, lastKey );
+						if( lastKey == key::alphabetic || lastKey == key::digit )
+							//stays alphabetic even if it is a number
+							temp.push_back( el );
+						else
+						{
+							pushTokenWithId( splitCode, temp, rawTokens );
+							temp.clear();
+							//el cannot be alphabetic or digit here
+							if( lastKey != key::space )
+								temp.push_back( el );
+						}
+						break;
+					case key::digit:
+						setLastKey( el, lastKey );
+						if( lastKey == key::digit )
+							temp.push_back( el );
+						else
+						{
+							pushTokenWithId( splitCode, temp, rawTokens );
+							temp.clear();
+							if( lastKey != key::space )
+								temp.push_back( el );
+						}
+						break;
+					case key::mathLogic:
+						setLastKey( el, lastKey );
+						if( lastKey == key::mathLogic )
+							temp.push_back( el );
+						else
+						{
+							pushTokenWithId( splitCode, temp, rawTokens );
+							temp.clear();
+							if( lastKey != key::space )
+								temp.push_back( el );
+						}
+						break;
+					case key::space:
+						setLastKey( el, lastKey );
+						if( lastKey != key::space )
+							temp.push_back( el );
+						break;
+					case key::other:
+						setLastKey( el, lastKey );
 						pushTokenWithId( splitCode, temp, rawTokens );
 						temp.clear();
+						if( lastKey != key::space )
+							temp.push_back( el );
+						break;
 					}
 				}
-				temp.push_back( el );
-				lastWasAlpha = true;
-			}
-			else if( std::isspace( el ) )
-			{
-				if( temp.size() > 0 )
-				{
-					pushTokenWithId( splitCode, temp, rawTokens );
-					temp.clear();
-				}
-			}
-			else
-			{
-				if( temp.size() > 0 )
-				{
-					pushTokenWithId( splitCode, temp, rawTokens );
-					temp.clear();
-				}
-				std::string str;
-				str.push_back( el );
-				pushTokenWithId( splitCode, str, rawTokens );
-				lastWasAlpha = false;
 			}
 		}
+
 
 		if( splitCode.size() == NULL )
 			REPORT_ERROR_SCRIPT( "splitCode.size() == 0" );
@@ -92,7 +161,7 @@ namespace kg
 					const ksRawTokenMap& rawTokens,
 					const std::string& code )
 	{
-		m_constructTokens( tokenConstructors, m_generateSplitCode( rawTokens, code ) );
+		m_constructTokens( tokenConstructors, generateSplitCode( rawTokens, code ) );
 	}
 
 	ksCode::ksCode( const ksTokenConstructorPriorityMap& tokenConstructors,

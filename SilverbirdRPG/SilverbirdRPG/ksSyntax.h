@@ -39,8 +39,6 @@ namespace kg
 		_QUALIFIER,			// const
 		_DOT,				// .
 		_STRING,			// "
-		_VALUE_STRING,		// string value
-		_VALUE_NUMBER,		// integer value (no float)
 		_EQUAL,				// =
 		_BANG,				// !
 		_ADD,				// +
