@@ -18,7 +18,6 @@ namespace kg
 		ksScriptFunctionOverload( const std::vector<std::string>& parameterNamesLeftToRight,
 								  const std::shared_ptr<ksCode>& code );
 
-		//TODO
 		std::shared_ptr<ksClassInstance> call( ksLibrary& library,
 											   const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
 	};
@@ -55,6 +54,5 @@ namespace kg
 		//
 		std::pair<size_t, std::shared_ptr<void>> call( ksLibrary& library,
 													   const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
-		//TODO
 	};
 }

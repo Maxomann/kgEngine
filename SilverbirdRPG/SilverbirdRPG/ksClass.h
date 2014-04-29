@@ -38,7 +38,7 @@ namespace kg
 
 		//check with m_typeHash
 		template<class T>
-		std::shared_ptr<ksClassInstance> createInstance( T* instance )const;
+		std::shared_ptr<ksClassInstance> createInstance( const std::shared_ptr<T>& instance )const;
 
 		std::shared_ptr<ksClassInstance> createInstance( const std::shared_ptr<void>& instance )const;
 
@@ -94,9 +94,14 @@ namespace kg
 
 	template<class T>
 	std::shared_ptr<ksClassInstance>
-		ksClassMasterInterface::createInstance( T* instance ) const
+		ksClassMasterInterface::createInstance( const std::shared_ptr<T>& instance ) const
 	{
-			return std::make_shared<ksClassInstance>( *this, std::static_pointer_cast< void >(std::shared_ptr<T>( instance )) );
+			if( typeid(T).hash_code()==m_typeHash)
+				return std::make_shared<ksClassInstance>( *this, std::static_pointer_cast< void >( instance ) );
+			else
+			{
+				REPORT_ERROR_SCRIPT( "wrong type" );
+			}
 	}
 
 	template<class T/*=void*/>

@@ -117,6 +117,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="sWorld.h" />
     <ClInclude Include="SyncTime.h" />
+    <ClInclude Include="test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aString.cpp" />

@@ -1,4 +1,8 @@
-function( const void myFunction )
-{
-	myTest+2;
-}
+A
+Hallo
+B 2435235
+A
+Wie_geht_es_dir
+PPP
+A
+Z

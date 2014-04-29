@@ -11,6 +11,7 @@ namespace kg
 	public:
 		// return true on success
 		// construct the token in tokenMap[line]
+		// put a pointer to the token in tokenMap[lastLineOfToken]
 		virtual bool construct( const ksSplitCodeVector& splitCode,
 								ksTokenMap& tokenMap,
 								int line )const = 0;
@@ -21,10 +22,12 @@ namespace kg
 
 	class ksToken
 	{
-		const int m_lastlineOfToken;
+		const int m_lastLineOfToken=-1;
+
+		const int m_firstLineOfToken = -1;
 
 	public:
-		ksToken( int lastLineOfToken );
+		ksToken( int firstLineOfToken, int lastLineOfToken );
 
 		//return nullptr if returnType==void
 		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library,
@@ -33,6 +36,7 @@ namespace kg
 														  std::shared_ptr<ksClassInstance>& functionReturnValue )const = 0;
 
 		int getLastLine()const;
+		int getFirstLine()const;
 
 		virtual int getID()const = 0;
 	};

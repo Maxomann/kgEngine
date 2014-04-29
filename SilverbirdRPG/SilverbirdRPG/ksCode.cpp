@@ -42,7 +42,7 @@ namespace kg
 
 	static void setLastKey( const char ch, int& k )
 	{
-		if( std::isalpha( ch ) )
+		if( std::isalpha( ch ) || ch == '_' )
 			k = key::alphabetic;
 		else if( isdigit( ch ) )
 			k = key::digit;
@@ -183,7 +183,7 @@ namespace kg
 					{
 						if( constructor->construct( splitCode, m_constructedTokens, currentLine ) )
 						{
-							currentLine = m_constructedTokens[currentLine]->getLastLine() + 1;
+							currentLine = m_constructedTokens[currentLine]->getLastLine();
 							break;//
 						}
 					}
@@ -191,8 +191,11 @@ namespace kg
 				}
 				else
 				{
-					currentLine = m_constructedTokens[currentLine]->getLastLine() + 1;
+					currentLine = m_constructedTokens[currentLine]->getLastLine();
 				}
+				if( m_constructedTokens[currentLine] == nullptr )
+					m_constructedTokens.erase( currentLine );
+				currentLine++;
 			}
 		}
 	}
@@ -205,16 +208,25 @@ namespace kg
 
 		std::shared_ptr<ksClassInstance> returnValue = nullptr;
 
-		for( int currentLine = 0; currentLine <= m_constructedTokens.rbegin()->first; )
+		for( int currentLine = 0; currentLine <= m_constructedTokens.rbegin()->first && returnValue == nullptr; )
 		{
-			auto& token = m_constructedTokens.at( currentLine );
+			try
+			{
+				auto& token = m_constructedTokens.at( currentLine );//catch here
+				if( token == nullptr )
+					REPORT_ERROR_SCRIPT( "m_constructedTokens.at( " + std::to_string( currentLine ) + " )" + "is nullptr" );
 
-			//not expected to return anything
-			token->execute( library,
-							stack,
-							returnValue );
+				//not expected to return anything
+				token->execute( library,
+								stack,
+								returnValue );
 
-			currentLine = token->getLastLine() + 1;
+				currentLine = token->getLastLine() + 1;
+			}
+			catch (std::exception& e)
+			{
+				REPORT_ERROR_SCRIPT( "SyntaxError!" );
+			}
 		}
 
 		return returnValue;

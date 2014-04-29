@@ -11,6 +11,7 @@
 #include "aException.h"
 #include "eExtendable.h"
 #include "ksScript.h"
+#include "test.h"
 
 using namespace std;
 using namespace kg;
@@ -31,13 +32,12 @@ public:
 
 int main()
 {
-	try
-	{
 		ksLibrary lib;
 		ksRegisterStandartTypes( lib );
+		lib.tokenConstructors[0].push_back( std::make_shared<AConstructor>() );
+		lib.tokenConstructors[0].push_back( std::make_shared<BConstructor>() );
 
-		for( const auto&el : ksCode::generateSplitCode( lib.rawTokens, "function(int a, bool b){const std::string str = \"Hallo\";}" ) )
-			cout << el.first << endl;
+		ksRunScript( lib, "testSkript.txt" );
 		
 
 		system( "pause" );
@@ -104,11 +104,4 @@ int main()
 			delete el;
 
 		return 0;
-	}
-	catch( const std::exception& ex )
-	{
-		cout << ex.what() << endl;
-		system( "pause" );
-		return -999;
-	}
 };

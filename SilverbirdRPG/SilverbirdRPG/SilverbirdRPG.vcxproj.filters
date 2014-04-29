@@ -37,6 +37,9 @@
     <Filter Include="Headerdateien\Script\ObjectSystem">
       <UniqueIdentifier>{8a8aa92f-f32e-415c-9643-47c32a034c4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Script\StandartLibrary">
+      <UniqueIdentifier>{db6ab8b9-123c-4227-b9a7-2ec24cbf2489}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dirent.h">
@@ -158,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="ksScript.h">
       <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>Headerdateien\Script\StandartLibrary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
