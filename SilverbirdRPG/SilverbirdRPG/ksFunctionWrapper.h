@@ -35,7 +35,7 @@ namespace kg
 
 	//NON MEMBER FUNCTION
 	//FunctionWrapper<decltype(foo)> wrapper( foo );
-	// Returning POINTERS in wrapped function is NOT ALLOWED
+	// Returning POINTERS in wrapped function is NOT VALID
 	template<class Ret, typename ... Args>
 	class ksFunctionWrapper<Ret( Args... )> : public ksFunctionWrapperInterface
 	{
@@ -72,7 +72,7 @@ namespace kg
 
 	//MEMBER FUNCTION
 	//FunctionWrapper<decltype(&Foo::foo)> wrapper( &Foo::foo );
-	// Returning POINTERS in wrapped function is NOT ALLOWED
+	// Returning POINTERS in wrapped function is NOT VALID
 	template<class Obj, class Ret, typename ... Args>
 	class ksFunctionWrapper<Ret( Obj::* )(Args...)> : public ksMemberFunctionWrapperInterface
 	{
@@ -116,7 +116,7 @@ namespace kg
 	// NON MEMBER FUNCTION
 	// RETURN_TYPE: void
 	// FunctionWrapper<decltype(foo)> wrapper( foo );
-	// Returning POINTERS in wrapped function is NOT ALLOWED
+	// Returning POINTERS in wrapped function is NOT VALID
 	template<typename ... Args>
 	class ksFunctionWrapper<void( Args... )> : public ksFunctionWrapperInterface
 	{
@@ -154,7 +154,7 @@ namespace kg
 	// MEMBER FUNCTION
 	// RETURN_TYPE: void
 	// FunctionWrapper<decltype(&Foo::foo)> wrapper( &Foo::foo );
-	// Returning POINTERS in wrapped function is NOT ALLOWED
+	// Returning POINTERS in wrapped function is NOT VALID
 	template<class Obj, typename ... Args>
 	class ksFunctionWrapper<void(Obj::*)(Args...)> : public ksMemberFunctionWrapperInterface
 	{
@@ -197,7 +197,7 @@ namespace kg
 
 	// CONST MEMBER FUNCTION
 	// FunctionWrapper<decltype(&Foo::foo)> wrapper( &Foo::foo );
-	// Returning POINTERS in wrapped function is NOT ALLOWED
+	// Returning POINTERS in wrapped function is NOT VALID
 	template<class Obj, class Ret, typename ... Args>
 	class ksFunctionWrapper<Ret( Obj::* )(Args...)const> : public ksMemberFunctionWrapperInterface
 	{
@@ -241,7 +241,7 @@ namespace kg
 	// MEMBER FUNCTION
 	// RETURN_TYPE: void
 	// FunctionWrapper<decltype(&Foo::foo)> wrapper( &Foo::foo );
-	// Returning POINTERS in wrapped function is NOT ALLOWED
+	// Returning POINTERS in wrapped function is NOT VALID
 	template<class Obj, typename ... Args>
 	class ksFunctionWrapper<void(Obj::*)(Args...)const> : public ksMemberFunctionWrapperInterface
 	{

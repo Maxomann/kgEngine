@@ -22,16 +22,16 @@ namespace kg
 		return m_availableFunctions.at( name );
 	}
 
-	int kg::ksLibrary::registerSubCode( const std::shared_ptr<ksCode>& subCode )
-	{
-		m_subCode.push_back( subCode );
-		return m_subCode.size() - 1;
-	}
-
-	std::shared_ptr<ksCode>& kg::ksLibrary::getSubCode( int position )
-	{
-		return m_subCode.at( position );
-	}
+// 	int kg::ksLibrary::registerSubCode( const std::shared_ptr<ksCode>& subCode )
+// 	{
+// 		m_subCode.push_back( subCode );
+// 		return m_subCode.size() - 1;
+// 	}
+// 
+// 	std::shared_ptr<ksCode>& kg::ksLibrary::getSubCode( int position )
+// 	{
+// 		return m_subCode.at( position );
+// 	}
 
 	void kg::ksLibrary::registerType( const std::shared_ptr<ksClassMasterInterface>& type )
 	{

@@ -87,7 +87,7 @@ namespace kg
 		library.rawTokens["."] = ksRAW_TOKEN_ID::_DOT;
 		library.rawTokens["\""] = ksRAW_TOKEN_ID::_STRING;
 		library.rawTokens["="] = ksRAW_TOKEN_ID::_EQUAL;
-		library.rawTokens["!"] = ksRAW_TOKEN_ID::_BANG;
+		library.rawTokens["!"] = ksRAW_TOKEN_ID::_EXCLAMATION_MARK;
 		library.rawTokens["+"] = ksRAW_TOKEN_ID::_ADD;
 		library.rawTokens["-"] = ksRAW_TOKEN_ID::_SUBTRACT;
 		library.rawTokens["*"] = ksRAW_TOKEN_ID::_MULTIPLY;

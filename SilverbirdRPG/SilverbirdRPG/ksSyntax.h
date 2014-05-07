@@ -40,7 +40,7 @@ namespace kg
 		_DOT,				// .
 		_STRING,			// "
 		_EQUAL,				// =
-		_BANG,				// !
+		_EXCLAMATION_MARK,	// !
 		_ADD,				// +
 		_SUBTRACT,			// -
 		_MULTIPLY,			// *

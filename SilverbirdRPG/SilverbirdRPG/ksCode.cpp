@@ -59,7 +59,7 @@ namespace kg
 
 		ksSplitCodeVector splitCode;
 		int lastKey = key::other;
-		int stat=status::other;
+		int stat = status::other;
 
 		std::string temp;
 
@@ -210,23 +210,24 @@ namespace kg
 
 		for( int currentLine = 0; currentLine <= m_constructedTokens.rbegin()->first && returnValue == nullptr; )
 		{
+			std::shared_ptr<ksToken> token;
 			try
 			{
-				auto& token = m_constructedTokens.at( currentLine );//catch here
-				if( token == nullptr )
-					REPORT_ERROR_SCRIPT( "m_constructedTokens.at( " + std::to_string( currentLine ) + " )" + "is nullptr" );
-
-				//not expected to return anything
-				token->execute( library,
-								stack,
-								returnValue );
-
-				currentLine = token->getLastLine() + 1;
+				token = m_constructedTokens.at( currentLine );
 			}
-			catch (std::exception& e)
+			catch( std::exception& e )
 			{
-				REPORT_ERROR_SCRIPT( "SyntaxError!" );
+				REPORT_ERROR_SCRIPT( "SyntaxError!\nline: " + std::to_string(currentLine) );
 			}
+			if( token == nullptr )
+				REPORT_ERROR_SCRIPT( "m_constructedTokens.at( " + std::to_string( currentLine ) + " )" + "is nullptr" );
+
+			//not expected to return anything
+			token->execute( library,
+							stack,
+							returnValue );
+
+			currentLine = token->getLastLine() + 1;
 		}
 
 		return returnValue;

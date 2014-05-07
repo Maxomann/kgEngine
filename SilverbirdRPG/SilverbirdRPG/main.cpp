@@ -32,76 +32,83 @@ public:
 
 int main()
 {
-		ksLibrary lib;
-		ksRegisterStandartTypes( lib );
-		lib.tokenConstructors[0].push_back( std::make_shared<AConstructor>() );
-		lib.tokenConstructors[0].push_back( std::make_shared<BConstructor>() );
-
-		ksRunScript( lib, "testSkript.txt" );
-		
-
-		system( "pause" );
-
-		//Plugins
-
-		//TypeCheck before functionCall memberFunctionInterface!!!
-
-		//TODO: SMARTPOINTER!; PlayerManager;
-		// pass Camera in evry draw function;
-		// World::setActiveArea(const sf::IntRect& rectangle);
-		// SaveFile class;
-		// GameState in main();
-
-		sf::ContextSettings contextSettings;
-		contextSettings.antialiasingLevel = 8;
-
-		sf::RenderWindow window( sf::VideoMode( 1080, 720 ), "TestWindow", sf::Style::Default, contextSettings );
-		window.setVerticalSyncEnabled( true );
-
-		kg::ResourceManagement resm;
-		kg::PluginManagement pluginManagement( resm );
-		kg::nMessageServer messageServer;
-
-		std::vector<kg::NetworkInputHandler*> networkInputHandler;
-		networkInputHandler.push_back( new StandartNetworkInputHandler );
-
-		cClient client( window,
-						pluginManagement,
-						messageServer,
-						networkInputHandler,
-						nNetworkIdentification( sf::IpAddress::getLocalAddress(),
-						nMessageServer::STANDART_MESSAGE_PORT ) );
-
-		sServer server( true,
-						pluginManagement,
-						messageServer,
-						networkInputHandler );
-
-		sf::Event ev;
-
-		while( window.isOpen() )
+		try
 		{
-			window.clear( sf::Color::Green );
-
-			while( window.pollEvent( ev ) )
+			ksLibrary lib;
+			ksRegisterStandartTypes( lib );
+			lib.tokenConstructors[0].push_back( std::make_shared<AConstructor>() );
+			lib.tokenConstructors[0].push_back( std::make_shared<BConstructor>() );
+	
+			ksRunScript( lib, "testSkript.txt" );
+			
+	
+			system( "pause" );
+	
+			//Plugins
+	
+			//TypeCheck before functionCall memberFunctionInterface!!!
+	
+			//TODO: SMARTPOINTER!; PlayerManager;
+			// pass Camera in evry draw function;
+			// World::setActiveArea(const sf::IntRect& rectangle);
+			// SaveFile class;
+			// GameState in main();
+	
+			sf::ContextSettings contextSettings;
+			contextSettings.antialiasingLevel = 8;
+	
+			sf::RenderWindow window( sf::VideoMode( 1080, 720 ), "TestWindow", sf::Style::Default, contextSettings );
+			window.setVerticalSyncEnabled( true );
+	
+			kg::ResourceManagement resm;
+			kg::PluginManagement pluginManagement( resm );
+			kg::nMessageServer messageServer;
+	
+			std::vector<kg::NetworkInputHandler*> networkInputHandler;
+			networkInputHandler.push_back( new StandartNetworkInputHandler );
+	
+			cClient client( window,
+							pluginManagement,
+							messageServer,
+							networkInputHandler,
+							nNetworkIdentification( sf::IpAddress::getLocalAddress(),
+							nMessageServer::STANDART_MESSAGE_PORT ) );
+	
+			sServer server( true,
+							pluginManagement,
+							messageServer,
+							networkInputHandler );
+	
+			sf::Event ev;
+	
+			while( window.isOpen() )
 			{
-				switch( ev.type )
+				window.clear( sf::Color::Green );
+	
+				while( window.pollEvent( ev ) )
 				{
-				case sf::Event::Closed:
-					window.close();
-					break;
+					switch( ev.type )
+					{
+					case sf::Event::Closed:
+						window.close();
+						break;
+					}
 				}
+				messageServer.update();
+				server.update();
+				client.update();
+				client.draw();
+	
+				window.display();
 			}
-			messageServer.update();
-			server.update();
-			client.update();
-			client.draw();
-
-			window.display();
+	
+			for( const auto& el : networkInputHandler )
+				delete el;
 		}
-
-		for( const auto& el : networkInputHandler )
-			delete el;
-
+		catch (std::exception& e)
+		{
+			cout << e.what() << endl;
+			system( "pause" );
+		}
 		return 0;
 };

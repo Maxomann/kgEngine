@@ -22,7 +22,7 @@ namespace kg
 
 	class ksToken
 	{
-		const int m_lastLineOfToken=-1;
+		const int m_lastLineOfToken = -1;
 
 		const int m_firstLineOfToken = -1;
 
