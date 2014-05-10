@@ -12,9 +12,10 @@ namespace kg
 		// return true on success
 		// construct the token in tokenMap[line]
 		// put a pointer to the token in tokenMap[lastLineOfToken]
-		virtual bool construct( const ksSplitCodeVector& splitCode,
+		virtual bool construct( const ksTokenConstructorPriorityMap& tokenConstructors,
+								const ksSplitCodeVector& splitCode,
 								ksTokenMap& tokenMap,
-								int line )const = 0;
+								int line ) const = 0;
 
 		// 0=highest priority
 		virtual int getPriority()const = 0;

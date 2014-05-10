@@ -162,7 +162,7 @@
     <ClInclude Include="ksScript.h">
       <Filter>Headerdateien\Script</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
+    <ClInclude Include="ksSubcode.h">
       <Filter>Headerdateien\Script\StandartLibrary</Filter>
     </ClInclude>
   </ItemGroup>

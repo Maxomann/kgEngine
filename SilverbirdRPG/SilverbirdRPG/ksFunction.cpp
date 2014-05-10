@@ -54,6 +54,8 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( ksLibrary& 
 		if( el.first == parameterTypes )
 		{
 			return std::make_pair( NULL, std::static_pointer_cast< void >(el.second->call( library,
+				m_name,
+				el.first,
 				parameters )) );
 		}
 	}
@@ -69,6 +71,8 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( ksLibrary& 
 }
 
 std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( ksLibrary& library,
+																		 const std::string& functionName,
+																		 const std::vector<std::string>& functionSignature,
 																		 const std::vector<std::shared_ptr<ksClassInstance>>& parameters ) const
 {
 	std::map<std::string, std::shared_ptr<ksClassInstance>> parameterStack;
@@ -81,12 +85,25 @@ std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( ksLibra
 		++myIt;
 	}
 
-	return m_code->execute( library,
-							parameterStack );
+	auto retVal = m_code->execute( library,
+								   parameterStack );
+	if( retVal->getType() == "auto" || retVal->getType() == m_returnType )
+		return retVal;
+	else
+	{
+		std::string signature;
+		for( const auto& el : functionSignature )
+			signature += (el + ",");
+		REPORT_ERROR_SCRIPT( "return type not matching\nfunction name: " + functionName + "\nsignature: " + signature );
+	}
 }
 
-kg::ksScriptFunctionOverload::ksScriptFunctionOverload( const std::vector<std::string>& parameterNamesLeftToRight,
+kg::ksScriptFunctionOverload::ksScriptFunctionOverload( const std::string& returnType,
+														const std::vector<std::string>& parameterNamesLeftToRight,
 														const std::shared_ptr<ksCode>& code )
 														:m_code( code ),
-														m_parameterNamesLeftToRight( parameterNamesLeftToRight )
-{ }
+														m_parameterNamesLeftToRight( parameterNamesLeftToRight ),
+														m_returnType( returnType )
+{
+
+}

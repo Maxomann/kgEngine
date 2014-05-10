@@ -18,7 +18,7 @@ namespace kg
 
 	typedef std::vector<std::shared_ptr<ksCode>> ksCodeVector;
 
-	typedef std::vector<std::pair<std::string, int>> ksSplitCodeVector;
+	typedef std::vector<const std::pair<std::string, int>> ksSplitCodeVector;
 
 	// first: first line the token takes care of
 	// second: token
@@ -28,34 +28,48 @@ namespace kg
 	// second: tokenConstructors with that priority
 	typedef std::map<int, std::vector<std::shared_ptr<ksTokenConstructor>>> ksTokenConstructorPriorityMap;
 
-	enum ksRAW_TOKEN_ID
+	namespace ksRAW_TOKEN_ID
 	{
-		_FUNCTION_BEGIN,	// (
-		_FUNCTION_END,		// )
-		_EXPRESSION_END,	// ;
-		_KOMMA,				// ,
-		_OBJECT_BEGIN,		// {
-		_OBJECT_END,		// }
-		_QUALIFIER,			// const
-		_DOT,				// .
-		_STRING,			// "
-		_EQUAL,				// =
-		_EXCLAMATION_MARK,	// !
-		_ADD,				// +
-		_SUBTRACT,			// -
-		_MULTIPLY,			// *
-		_DIVIDE,			// /
-		_BIGGER,			// >
-		_SMALLER,			// <
-		_FUNCTION,			// function
-		_CALLBACK,			// callback
-		_IF,				// if
-		_WHILE,				// while
-		_FOR,				// for
-		_NEW,				// new
-		_RETURN,			// return
-		_IDENTIFIER			// 'evrything else'
-	};
+		enum
+		{
+			_FUNCTION_BEGIN,	// (
+			_FUNCTION_END,		// )
+			_EXPRESSION_END,	// ;
+			_KOMMA,				// ,
+			_OBJECT_BEGIN,		// {
+			_OBJECT_END,		// }
+			_QUALIFIER,			// const
+			_DOT,				// .
+			_STRING,			// "
+			_EQUAL,				// =
+			_EXCLAMATION_MARK,	// !
+			_ADD,				// +
+			_SUBTRACT,			// -
+			_MULTIPLY,			// *
+			_DIVIDE,			// /
+			_BIGGER,			// >
+			_SMALLER,			// <
+			_FUNCTION,			// function
+			_CALLBACK,			// callback
+			_IF,				// if
+			_WHILE,				// while
+			_FOR,				// for
+			_NEW,				// new
+			_RETURN,			// return
+			_IDENTIFIER			// 'evrything else'
+		};
+	}
+
+	namespace ksTOKEN_PRIORITY//also represents TOKEN_ID
+	{
+		enum
+		{
+			SUBCODE,
+			FUNCTION_DECLARATION,
+			FUNCTION_CALL,
+			RETURN_STATEMENT
+		};
+	}
 
 	//enum TOKEN_ID
 	//{

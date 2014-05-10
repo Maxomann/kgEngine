@@ -181,7 +181,7 @@ namespace kg
 				{
 					for( const std::shared_ptr<ksTokenConstructor>& constructor : priority.second )
 					{
-						if( constructor->construct( splitCode, m_constructedTokens, currentLine ) )
+						if( constructor->construct(tokenConstructors, splitCode, m_constructedTokens , currentLine ) )
 						{
 							currentLine = m_constructedTokens[currentLine]->getLastLine();
 							break;//

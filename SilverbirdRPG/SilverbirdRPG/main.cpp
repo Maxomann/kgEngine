@@ -11,7 +11,7 @@
 #include "aException.h"
 #include "eExtendable.h"
 #include "ksScript.h"
-#include "test.h"
+#include "ksSubcode.h"
 
 using namespace std;
 using namespace kg;
@@ -26,89 +26,80 @@ class Bar
 public:
 	double doSomething( int a )
 	{
-		return 5.65324643 + (double)a;
+		return 5.65324643 + ( double )a;
 	}
 };
 
 int main()
 {
-		try
+		ksLibrary lib;
+		ksRegisterStandartTypes( lib );
+		lib.tokenConstructors[ksTOKEN_PRIORITY::SUBCODE].push_back( std::make_shared<ksSubcodeConstructor>() );
+
+		ksRunScript( lib, "testSkript.txt" );
+
+
+		system( "pause" );
+
+		//Plugins
+
+		//TypeCheck before functionCall memberFunctionInterface!!!
+
+		//TODO: SMARTPOINTER!; PlayerManager;
+		// pass Camera in evry draw function;
+		// World::setActiveArea(const sf::IntRect& rectangle);
+		// SaveFile class;
+		// GameState in main();
+
+		sf::ContextSettings contextSettings;
+		contextSettings.antialiasingLevel = 8;
+
+		sf::RenderWindow window( sf::VideoMode( 1080, 720 ), "TestWindow", sf::Style::Default, contextSettings );
+		window.setVerticalSyncEnabled( true );
+
+		kg::ResourceManagement resm;
+		kg::PluginManagement pluginManagement( resm );
+		kg::nMessageServer messageServer;
+
+		std::vector<kg::NetworkInputHandler*> networkInputHandler;
+		networkInputHandler.push_back( new StandartNetworkInputHandler );
+
+		cClient client( window,
+						pluginManagement,
+						messageServer,
+						networkInputHandler,
+						nNetworkIdentification( sf::IpAddress::getLocalAddress(),
+						nMessageServer::STANDART_MESSAGE_PORT ) );
+
+		sServer server( true,
+						pluginManagement,
+						messageServer,
+						networkInputHandler );
+
+		sf::Event ev;
+
+		while( window.isOpen() )
 		{
-			ksLibrary lib;
-			ksRegisterStandartTypes( lib );
-			lib.tokenConstructors[0].push_back( std::make_shared<AConstructor>() );
-			lib.tokenConstructors[0].push_back( std::make_shared<BConstructor>() );
-	
-			ksRunScript( lib, "testSkript.txt" );
-			
-	
-			system( "pause" );
-	
-			//Plugins
-	
-			//TypeCheck before functionCall memberFunctionInterface!!!
-	
-			//TODO: SMARTPOINTER!; PlayerManager;
-			// pass Camera in evry draw function;
-			// World::setActiveArea(const sf::IntRect& rectangle);
-			// SaveFile class;
-			// GameState in main();
-	
-			sf::ContextSettings contextSettings;
-			contextSettings.antialiasingLevel = 8;
-	
-			sf::RenderWindow window( sf::VideoMode( 1080, 720 ), "TestWindow", sf::Style::Default, contextSettings );
-			window.setVerticalSyncEnabled( true );
-	
-			kg::ResourceManagement resm;
-			kg::PluginManagement pluginManagement( resm );
-			kg::nMessageServer messageServer;
-	
-			std::vector<kg::NetworkInputHandler*> networkInputHandler;
-			networkInputHandler.push_back( new StandartNetworkInputHandler );
-	
-			cClient client( window,
-							pluginManagement,
-							messageServer,
-							networkInputHandler,
-							nNetworkIdentification( sf::IpAddress::getLocalAddress(),
-							nMessageServer::STANDART_MESSAGE_PORT ) );
-	
-			sServer server( true,
-							pluginManagement,
-							messageServer,
-							networkInputHandler );
-	
-			sf::Event ev;
-	
-			while( window.isOpen() )
+			window.clear( sf::Color::Green );
+
+			while( window.pollEvent( ev ) )
 			{
-				window.clear( sf::Color::Green );
-	
-				while( window.pollEvent( ev ) )
+				switch( ev.type )
 				{
-					switch( ev.type )
-					{
-					case sf::Event::Closed:
-						window.close();
-						break;
-					}
+				case sf::Event::Closed:
+					window.close();
+					break;
 				}
-				messageServer.update();
-				server.update();
-				client.update();
-				client.draw();
-	
-				window.display();
 			}
-	
-			for( const auto& el : networkInputHandler )
-				delete el;
+			messageServer.update();
+			server.update();
+			client.update();
+			client.draw();
+
+			window.display();
 		}
-		catch (std::exception& e)
-		{
-			cout << e.what() << endl;
-			system( "pause" );
-		}
-		return 0;
+
+		for( const auto& el : networkInputHandler )
+			delete el;
+	return 0;
 };

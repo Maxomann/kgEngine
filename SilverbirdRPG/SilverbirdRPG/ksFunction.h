@@ -12,13 +12,17 @@ namespace kg
 
 	class ksScriptFunctionOverload
 	{
+		const std::string m_returnType;
 		const std::shared_ptr<ksCode> m_code;
 		const std::vector<std::string> m_parameterNamesLeftToRight;
 	public:
-		ksScriptFunctionOverload( const std::vector<std::string>& parameterNamesLeftToRight,
+		ksScriptFunctionOverload( const std::string& returnType,
+								  const std::vector<std::string>& parameterNamesLeftToRight,
 								  const std::shared_ptr<ksCode>& code );
 
 		std::shared_ptr<ksClassInstance> call( ksLibrary& library,
+											   const std::string& functionName,
+											   const std::vector<std::string>& functionSignature,
 											   const std::vector<std::shared_ptr<ksClassInstance>>& parameters )const;
 	};
 
