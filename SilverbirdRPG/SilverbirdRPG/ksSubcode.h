@@ -47,38 +47,29 @@ namespace kg
 				//by reference
 				std::vector< const std::pair<std::string, int>> subCode;
 
-				int bracketCount = 0;//counts { and }
+				int bracketCount = 1;//counts { and }
 
 				//iterate through code
-				for( int x = 0; true; ++x )
+				for( int x = 1; true; ++x )
 				{
-					bool isBracket = false;
-
 					const std::pair<std::string, int>& it = splitCode.at( line + x );
 					if( it.second == ksRAW_TOKEN_ID::_OBJECT_BEGIN )
 					{
 						bracketCount++;
-						isBracket = true;
 					}
 					if( it.second == ksRAW_TOKEN_ID::_OBJECT_END )
 					{
 						bracketCount--;
-						isBracket = true;
 					}
 					if( bracketCount == 0 )
 					{
 						tokenMap[line] = std::make_shared<ksSubcode>( line, line + x, tokenConstructors, subCode );
-						break;
+						return true;
 					}
-#ifdef _DEBUG
-					if( x > 50000 )
-						REPORT_ERROR_SCRIPT( "debug: x too high" );
-#endif
-					if(!isBracket )
-						subCode.push_back( it );
+					subCode.push_back( it );
 				}
 				
-				return true;
+				REPORT_ERROR_SCRIPT( "should not reach this point" );
 			}
 			else
 				return false;

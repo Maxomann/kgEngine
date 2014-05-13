@@ -217,7 +217,7 @@ namespace kg
 			}
 			catch( std::exception& e )
 			{
-				REPORT_ERROR_SCRIPT( "SyntaxError!\nline: " + std::to_string(currentLine) );
+				REPORT_ERROR_SCRIPT( "SyntaxError!\nline: " + std::to_string( currentLine ) );
 			}
 			if( token == nullptr )
 				REPORT_ERROR_SCRIPT( "m_constructedTokens.at( " + std::to_string( currentLine ) + " )" + "is nullptr" );
