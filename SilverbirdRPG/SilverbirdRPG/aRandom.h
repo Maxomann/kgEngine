@@ -14,7 +14,7 @@ namespace kg
 		inline aRandomGenerator_Int( const aRandomGenerator_Int< T >& obj )
 		{ };
 
-		static inline bool m_reSeed( random_device &rdv, std::mt19937 &rng )
+		static inline bool m_reSeed( std::random_device &rdv, std::mt19937 &rng )
 		{
 			rng.seed( rdv() );
 			return true;
@@ -24,7 +24,7 @@ namespace kg
 
 		static inline T getRandom()
 		{
-			static random_device rdv;
+			static std::random_device rdv;
 			static std::mt19937 rng;
 			static const bool b = aRandomGenerator_Int::m_reSeed( rdv, rng );
 
@@ -32,7 +32,7 @@ namespace kg
 		};
 		static inline T getRandom( T from, T to )
 		{
-			static random_device rdv;
+			static std::random_device rdv;
 			static std::mt19937 rng;
 			static const bool b = aRandomGenerator_Int::m_reSeed( rdv, rng );
 

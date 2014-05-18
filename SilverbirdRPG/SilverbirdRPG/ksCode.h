@@ -29,4 +29,5 @@ namespace kg
 		std::shared_ptr<kg::ksClassInstance> execute( ksLibrary& library,
 													  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack )const;
 	};
+
 }

@@ -42,6 +42,10 @@ namespace kg
 
 		std::shared_ptr<ksClassInstance> createInstance( const std::shared_ptr<void>& instance )const;
 
+		//check with m_typeHash
+		template<class T>
+		std::shared_ptr<ksClassInstance> createNewInstance( const T& instance )const;
+
 		//creates new Instance
 		virtual std::shared_ptr<ksClassInstance> createNewInstance()const = 0;
 	};
@@ -102,6 +106,18 @@ namespace kg
 			{
 				REPORT_ERROR_SCRIPT( "wrong type" );
 			}
+	}
+
+	template<class T>
+	std::shared_ptr<ksClassInstance>
+		kg::ksClassMasterInterface::createNewInstance( const T& instance ) const
+	{
+		if( typeid(T).hash_code() == m_typeHash )
+			return std::make_shared<ksClassInstance>( *this, std::make_shared<T>(instance) );
+		else
+		{
+			REPORT_ERROR_SCRIPT( "wrong type" );
+		}
 	}
 
 	template<class T/*=void*/>

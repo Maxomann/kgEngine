@@ -59,15 +59,16 @@ namespace kg
 		return m_code.size() != NULL;
 	}
 
-	void ksScript::interpret()
+	std::shared_ptr<ksClassInstance> ksScript::interpret()
 	{
 		ksCode code( r_library.tokenConstructors,
 					 r_library.rawTokens,
 					 m_code
 					 );
-		code.execute( r_library, m_stack );
-
 		m_isInterpreted = true;
+		
+		return code.execute( r_library, m_stack );
+
 	}
 
 	bool ksScript::isInterpreted() const
@@ -77,6 +78,9 @@ namespace kg
 
 	void ksRegisterStandartTypes( ksLibrary& library )
 	{
+		auto mInt = ksCreateClassMaster<int>( "int" );
+		library.registerType( mInt );
+
 		library.rawTokens["("] = ksRAW_TOKEN_ID::_FUNCTION_BEGIN;
 		library.rawTokens[")"] = ksRAW_TOKEN_ID::_FUNCTION_END;
 		library.rawTokens[";"] = ksRAW_TOKEN_ID::_EXPRESSION_END;
@@ -101,13 +105,14 @@ namespace kg
 		library.rawTokens["for"] = ksRAW_TOKEN_ID::_FOR;
 		library.rawTokens["new"] = ksRAW_TOKEN_ID::_NEW;
 		library.rawTokens["return"] = ksRAW_TOKEN_ID::_RETURN;
+		library.rawTokens["DUMMY"] = ksRAW_TOKEN_ID::_DUMMY;
 	}
 
-	void ksRunScript( ksLibrary& library, const std::string& path )
+	std::shared_ptr<ksClassInstance> ksRunScript( ksLibrary& library, const std::string& path )
 	{
 		ksScript script( library );
 		script.loadFromFile( path );
-		script.interpret();
+		return script.interpret();
 	}
 
 	std::shared_ptr<ksFunctionMaster> ksCreateFunctionMaster( const std::string& name )

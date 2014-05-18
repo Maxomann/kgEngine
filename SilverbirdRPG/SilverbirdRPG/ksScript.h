@@ -24,7 +24,7 @@ namespace kg
 		bool loadFromFile( const std::string& path );
 		bool loadFromString( const std::string& code );
 
-		void interpret();
+		std::shared_ptr<ksClassInstance> interpret();
 
 		bool isInterpreted()const;
 
@@ -35,7 +35,7 @@ namespace kg
 	///////////KS_SCRIPT HELPER_FUNCTIONS:
 
 	void ksRegisterStandartTypes( ksLibrary& library );
-	void ksRunScript( ksLibrary& library, const std::string& path );
+	std::shared_ptr<ksClassInstance> ksRunScript( ksLibrary& library, const std::string& path );
 
 	template<class T>
 	std::shared_ptr<ksClassMasterInterface> ksCreateClassMaster( const std::string& name )

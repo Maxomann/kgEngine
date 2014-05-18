@@ -56,6 +56,7 @@ namespace kg
 			_FOR,				// for
 			_NEW,				// new
 			_RETURN,			// return
+			_DUMMY,				// returns a dummy integer for test purposes
 			_IDENTIFIER			// 'evrything else'
 		};
 	}
@@ -65,9 +66,9 @@ namespace kg
 		enum
 		{
 			SUBCODE,
-			FUNCTION_DECLARATION,
-			FUNCTION_CALL,
-			RETURN_STATEMENT
+			RETURN_STATEMENT,			DUMMY,
+
+			FUNCTION_CALL
 		};
 	}
 

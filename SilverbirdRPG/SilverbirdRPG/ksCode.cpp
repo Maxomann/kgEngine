@@ -181,7 +181,7 @@ namespace kg
 				{
 					for( const std::shared_ptr<ksTokenConstructor>& constructor : priority.second )
 					{
-						if( constructor->construct(tokenConstructors, splitCode, m_constructedTokens , currentLine ) )
+						if( constructor->construct( tokenConstructors, splitCode, m_constructedTokens, currentLine ) )
 						{
 							currentLine = m_constructedTokens[currentLine]->getLastLine();
 							break;//
@@ -193,8 +193,8 @@ namespace kg
 				{
 					currentLine = m_constructedTokens[currentLine]->getLastLine();
 				}
-				if( m_constructedTokens[currentLine] == nullptr )
-					m_constructedTokens.erase( currentLine );
+				/*if( m_constructedTokens[currentLine] == nullptr )
+					m_constructedTokens.erase( currentLine );*/
 				currentLine++;
 			}
 		}
@@ -204,32 +204,42 @@ namespace kg
 														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack )const
 	{
 		if( m_constructedTokens.size() == NULL )
-			REPORT_ERROR_SCRIPT( "m_constructedTokens.size()==0" );
+			return nullptr;
+		/*REPORT_ERROR_SCRIPT( "m_constructedTokens.size()==0" );*/
 
 		std::shared_ptr<ksClassInstance> returnValue = nullptr;
 
 		for( int currentLine = 0; currentLine <= m_constructedTokens.rbegin()->first && returnValue == nullptr; )
 		{
 			std::shared_ptr<ksToken> token;
+#ifndef _DEBUG
 			try
 			{
+#endif
 				token = m_constructedTokens.at( currentLine );
+#ifndef _DEBUG
 			}
 			catch( std::exception& e )
 			{
 				REPORT_ERROR_SCRIPT( "SyntaxError!\nline: " + std::to_string( currentLine ) );
 			}
-			if( token == nullptr )
-				REPORT_ERROR_SCRIPT( "m_constructedTokens.at( " + std::to_string( currentLine ) + " )" + "is nullptr" );
+#endif
+			/*if( token == nullptr )
+				REPORT_ERROR_SCRIPT( "m_constructedTokens.at( " + std::to_string( currentLine ) + " )" + "is nullptr" );*/
 
-			//not expected to return anything
-			token->execute( library,
-							stack,
-							returnValue );
 
-			currentLine = token->getLastLine() + 1;
+			if( token!=nullptr )
+			{
+				//not expected to return anything
+				token->execute( library,
+								stack,
+								returnValue );
+
+				currentLine = token->getLastLine() + 1;
+			}
 		}
 
 		return returnValue;
 	}
+
 }

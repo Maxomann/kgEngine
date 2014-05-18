@@ -165,6 +165,15 @@
     <ClInclude Include="ksSubcode.h">
       <Filter>Headerdateien\Script\StandartLibrary</Filter>
     </ClInclude>
+    <ClInclude Include="ksFunctionCall.h">
+      <Filter>Headerdateien\Script\StandartLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="ksReturnValue.h">
+      <Filter>Headerdateien\Script\StandartLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="ksDummy.h">
+      <Filter>Headerdateien\Script\StandartLibrary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

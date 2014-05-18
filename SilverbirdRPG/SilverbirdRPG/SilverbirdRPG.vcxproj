@@ -68,6 +68,7 @@
       <StringPooling>true</StringPooling>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <CompileAsManaged>false</CompileAsManaged>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -96,7 +97,10 @@
     <ClInclude Include="dirent.h" />
     <ClInclude Include="eExtendable.h" />
     <ClInclude Include="Factory.h" />
+    <ClInclude Include="ksDummy.h" />
+    <ClInclude Include="ksFunctionCall.h" />
     <ClInclude Include="ksCode.h" />
+    <ClInclude Include="ksReturnValue.h" />
     <ClInclude Include="ksScript.h" />
     <ClInclude Include="ksSyntax.h" />
     <ClInclude Include="ksFunction.h" />

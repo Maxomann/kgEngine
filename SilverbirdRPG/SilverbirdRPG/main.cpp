@@ -12,6 +12,8 @@
 #include "eExtendable.h"
 #include "ksScript.h"
 #include "ksSubcode.h"
+#include "ksDummy.h"
+#include "ksReturnValue.h"
 
 using namespace std;
 using namespace kg;
@@ -35,9 +37,18 @@ int main()
 		ksLibrary lib;
 		ksRegisterStandartTypes( lib );
 		lib.tokenConstructors[ksTOKEN_PRIORITY::SUBCODE].push_back( std::make_shared<ksSubcodeConstructor>() );
+		lib.tokenConstructors[ksTOKEN_PRIORITY::DUMMY].push_back( std::make_shared<ksDummyConstructor>() );
+		lib.tokenConstructors[ksTOKEN_PRIORITY::RETURN_STATEMENT].push_back( std::make_shared<ksReturnStatementConstructor>() );
 
-		ksRunScript( lib, "testSkript.txt" );
+		while( true )
+		{
+			auto retVal = ksRunScript( lib, "testSkript.txt" );
 
+			if( retVal != nullptr )
+				cout << *std::static_pointer_cast< int >(retVal->getCppInstance<int>()) << endl;
+			else
+				cout << "error" << endl;
+		}
 
 		system( "pause" );
 
