@@ -16,6 +16,7 @@
 #include "ksReturnStatement.h"
 #include "ksFunctionCall.h"
 #include "ksGetFromStack.h"
+#include "ksMemberOperator.h"
 
 using namespace std;
 using namespace kg;
@@ -44,6 +45,7 @@ int main()
 	lib.tokenConstructors[ksTOKEN_PRIORITY::DUMMY].push_back( std::make_shared<ksDummyConstructor>() );
 	lib.tokenConstructors[ksTOKEN_PRIORITY::RETURN_STATEMENT].push_back( std::make_shared<ksReturnStatementConstructor>() );
 	lib.tokenConstructors[ksTOKEN_PRIORITY::GET_FROM_STACK].push_back( std::make_shared<ksGetFromStackConstructor>() );
+	lib.tokenConstructors[ksTOKEN_PRIORITY::OPERATOR_MEMBER].push_back( std::make_shared<ksMemberOperatorConstructor>() );
 
 	auto fooMaster = ksCreateFunctionMaster( "foo" );
 	ksRegisterOverload( fooMaster, std::vector < std::string > {"int"}, &foo );
