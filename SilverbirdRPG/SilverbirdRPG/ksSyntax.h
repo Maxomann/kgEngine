@@ -66,9 +66,9 @@ namespace kg
 		enum
 		{
 			SUBCODE,
-			RETURN_STATEMENT,			DUMMY,
-
-			FUNCTION_CALL
+			RETURN_STATEMENT,
+			FUNCTION_CALL,
+			DUMMY
 		};
 	}
 

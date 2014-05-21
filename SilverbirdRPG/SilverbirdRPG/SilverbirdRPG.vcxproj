@@ -100,7 +100,7 @@
     <ClInclude Include="ksDummy.h" />
     <ClInclude Include="ksFunctionCall.h" />
     <ClInclude Include="ksCode.h" />
-    <ClInclude Include="ksReturnValue.h" />
+    <ClInclude Include="ksReturnStatement.h" />
     <ClInclude Include="ksScript.h" />
     <ClInclude Include="ksSyntax.h" />
     <ClInclude Include="ksFunction.h" />

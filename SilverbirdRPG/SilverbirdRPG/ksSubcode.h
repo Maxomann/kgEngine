@@ -15,7 +15,7 @@ namespace kg
 				   int lastLineOfToken,
 				   const ksTokenConstructorPriorityMap& tokenConstructors,
 				   ksSplitCodeVector& subCode )
-			: ksToken( firstLineOfToken, lastLineOfToken ),
+			: ksToken( firstLineOfToken, lastLineOfToken, lastLineOfToken ),
 			m_subCode( tokenConstructors, subCode )
 		{ }
 
@@ -63,7 +63,9 @@ namespace kg
 					}
 					if( bracketCount == 0 )
 					{
-						tokenMap[line] = std::make_shared<ksSubcode>( line, line + x, tokenConstructors, subCode );
+						auto obj = std::make_shared<ksSubcode>( line, line + x, tokenConstructors, subCode );
+						tokenMap[line] = obj;
+						tokenMap[line + x] = obj;
 						return true;
 					}
 					subCode.push_back( it );

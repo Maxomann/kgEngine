@@ -168,10 +168,10 @@
     <ClInclude Include="ksFunctionCall.h">
       <Filter>Headerdateien\Script\StandartLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="ksReturnValue.h">
+    <ClInclude Include="ksDummy.h">
       <Filter>Headerdateien\Script\StandartLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="ksDummy.h">
+    <ClInclude Include="ksReturnStatement.h">
       <Filter>Headerdateien\Script\StandartLibrary</Filter>
     </ClInclude>
   </ItemGroup>

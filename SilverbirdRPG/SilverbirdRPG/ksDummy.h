@@ -11,7 +11,7 @@ namespace kg
 	{
 	public:
 		ksDummy( int firstLineOfToken, int lastLineOfToken )
-			: ksToken( firstLineOfToken, lastLineOfToken )
+			: ksToken( firstLineOfToken, lastLineOfToken, lastLineOfToken )
 		{ }
 
 		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library,
@@ -25,7 +25,6 @@ namespace kg
 		{
 			return ksTOKEN_PRIORITY::DUMMY;
 		}
-
 	};
 
 	class ksDummyConstructor : public ksTokenConstructor

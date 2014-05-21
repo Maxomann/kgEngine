@@ -183,7 +183,7 @@ namespace kg
 					{
 						if( constructor->construct( tokenConstructors, splitCode, m_constructedTokens, currentLine ) )
 						{
-							currentLine = m_constructedTokens[currentLine]->getLastLine();
+							currentLine = m_constructedTokens[currentLine]->getlastLineWhileConstruction();
 							break;//
 						}
 					}
@@ -191,7 +191,7 @@ namespace kg
 				}
 				else
 				{
-					currentLine = m_constructedTokens[currentLine]->getLastLine();
+					currentLine = m_constructedTokens[currentLine]->getlastLineWhileConstruction();
 				}
 				/*if( m_constructedTokens[currentLine] == nullptr )
 					m_constructedTokens.erase( currentLine );*/
@@ -209,7 +209,7 @@ namespace kg
 
 		std::shared_ptr<ksClassInstance> returnValue = nullptr;
 
-		for( int currentLine = 0; currentLine <= m_constructedTokens.rbegin()->first && returnValue == nullptr; )
+		for( int currentLine = 0; currentLine <= m_constructedTokens.rbegin()->first && returnValue == nullptr; currentLine++ )
 		{
 			std::shared_ptr<ksToken> token;
 #ifndef _DEBUG
@@ -235,7 +235,7 @@ namespace kg
 								stack,
 								returnValue );
 
-				currentLine = token->getLastLine() + 1;
+				currentLine = token->getLastLine();
 			}
 		}
 

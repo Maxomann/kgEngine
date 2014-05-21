@@ -10,6 +10,7 @@ namespace kg
 {
 	class ksCode
 	{
+	protected:
 		ksTokenMap m_constructedTokens;
 
 		void m_constructTokens( const ksTokenConstructorPriorityMap& tokenConstructors,
