@@ -4,8 +4,6 @@
 #include "ksToken.h"
 #include "ksLibrary.h"
 
-//#include "ksSubcode.h"
-
 namespace kg
 {
 	class ksReturnStatement : public ksToken

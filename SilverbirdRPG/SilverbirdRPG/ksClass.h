@@ -93,7 +93,7 @@ namespace kg
 		//		pair.second = std::shared_ptr<void>
 		//		TODO: lib.getType( retVal.first )->createInstance( retVal.second );
 		//
-		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::string& name, const std::vector<std::string>& parameterTypes, const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
+		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::string& name, const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 	};
 
 	template<class T>

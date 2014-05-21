@@ -86,6 +86,7 @@ namespace kg
 																	 std::vector<std::reference_wrapper<std::shared_ptr<ksToken>>>() );
 						tokenMap[line - 1] = obj;
 						tokenMap[line] = obj;
+						tokenMap[line + 1] = obj;//last line
 						return true;
 					}
 					//args
@@ -125,6 +126,7 @@ namespace kg
 
 						tokenMap[line - 1] = obj;
 						tokenMap[line] = obj;
+						tokenMap[lastLine] = obj;
 						return true;
 					}
 				}

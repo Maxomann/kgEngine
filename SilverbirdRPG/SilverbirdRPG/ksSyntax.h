@@ -68,7 +68,9 @@ namespace kg
 			SUBCODE,
 			RETURN_STATEMENT,
 			FUNCTION_CALL,
-			DUMMY
+			OPERATOR_MEMBER,
+			DUMMY,
+			GET_FROM_STACK
 		};
 	}
 

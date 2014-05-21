@@ -59,7 +59,11 @@ const std::string& kg::ksClassInstance::getType() const
 	return r_master.getType();
 }
 
-std::pair<size_t, std::shared_ptr<void>> kg::ksClassInstance::callMemberFunction( const std::string& name, const std::vector<std::string>& parameterTypes, const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
+std::pair<size_t, std::shared_ptr<void>> kg::ksClassInstance::callMemberFunction( const std::string& name, const std::vector<std::shared_ptr<ksClassInstance>>& args ) const
 {
+	std::vector<std::string> parameterTypes;
+	for( const auto& el : args )
+		parameterTypes.push_back( el->getType() );
+
 	return r_master.callMemberFunction( name, parameterTypes, m_instance, args );
 }

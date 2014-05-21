@@ -174,6 +174,12 @@
     <ClInclude Include="ksReturnStatement.h">
       <Filter>Headerdateien\Script\StandartLibrary</Filter>
     </ClInclude>
+    <ClInclude Include="ksGetFromStack.h">
+      <Filter>Headerdateien\Script\StandartLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="ksMemberOperator.h">
+      <Filter>Headerdateien\Script\StandartLibrary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
