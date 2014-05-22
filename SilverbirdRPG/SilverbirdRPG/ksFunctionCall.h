@@ -3,6 +3,7 @@
 #pragma once
 #include "ksToken.h"
 #include "ksLibrary.h"
+#include "ksPlaceholder.h"
 
 namespace kg
 {
@@ -14,10 +15,9 @@ namespace kg
 	public:
 		ksFunctionCall( int firstLineOfToken,
 						int lastLineOfToken,
-						int lastLineWhileConstruction,
 						const std::string& functionName,
 						const std::vector<std::reference_wrapper<std::shared_ptr<ksToken>>> args )
-						: ksToken( firstLineOfToken, lastLineOfToken, lastLineWhileConstruction ),
+						: ksToken( firstLineOfToken, lastLineOfToken ),
 						m_functionName( functionName ),
 						m_args( args )
 		{ }
@@ -83,7 +83,6 @@ namespace kg
 					{
 						auto obj = std::make_shared<ksFunctionCall>( line - 1,
 																	 line + 1,
-																	 line + 1,
 																	 splitCode.at( line - 1 ).first,
 																	 std::vector<std::reference_wrapper<std::shared_ptr<ksToken>>>() );
 						tokenMap[line - 1] = obj;
@@ -121,14 +120,13 @@ namespace kg
 						}
 
 						auto obj = std::make_shared<ksFunctionCall>( line - 1,
-																	 lastLine,
 																	 line,
 																	 splitCode.at( line - 1 ).first,
 																	 argRefs );
 
 						tokenMap[line - 1] = obj;
 						tokenMap[line] = obj;
-						tokenMap[lastLine] = obj;
+						tokenMap[lastLine] = std::make_shared<ksPlaceholder>( lastLine, lastLine, obj );
 						return true;
 					}
 				}

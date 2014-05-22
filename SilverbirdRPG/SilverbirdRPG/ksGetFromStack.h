@@ -12,7 +12,7 @@ namespace kg
 
 	public:
 		ksGetFromStack( int firstLineOfToken, int lastLineOfToken, const std::string& objectName )
-			: ksToken( firstLineOfToken, lastLineOfToken, lastLineOfToken ),
+			: ksToken( firstLineOfToken, lastLineOfToken ),
 			m_name(objectName)
 		{ }
 

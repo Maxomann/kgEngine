@@ -11,7 +11,7 @@ namespace kg
 	{
 	public:
 		ksDummy( int firstLineOfToken, int lastLineOfToken )
-			: ksToken( firstLineOfToken, lastLineOfToken, lastLineOfToken )
+			: ksToken( firstLineOfToken, lastLineOfToken )
 		{ }
 
 		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library,

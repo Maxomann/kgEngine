@@ -12,7 +12,7 @@ namespace kg
 
 	public:
 		ksString( int firstLineOfToken, int lastLineOfToken, const std::string& str )
-			: ksToken( firstLineOfToken, lastLineOfToken, lastLineOfToken ),
+			: ksToken( firstLineOfToken, lastLineOfToken ),
 			m_str(str)
 		{ }
 
@@ -40,19 +40,10 @@ namespace kg
 								int line ) const
 		{
 			if( splitCode.at( line ).second == ksRAW_TOKEN_ID::_STRING )
-			{
-				std::string str;
-
-				int i = 0;
-				while( splitCode.at( line + i ).second != ksRAW_TOKEN_ID::_STRING )
-				{
-					str += splitCode.at( line + i ).first;
-					i++;
-				}
-				
-				auto obj = std::make_shared<ksString>( line, line + i + 1, str );
+			{		
+				auto obj = std::make_shared<ksString>( line, line + 2, splitCode.at(line+1).first );
 				tokenMap[line] = obj;
-				tokenMap[line + i + 1] = obj;
+				tokenMap[line + 2] = obj;
 				return true;
 			}
 			return false;

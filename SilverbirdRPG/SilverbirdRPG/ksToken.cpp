@@ -1,9 +1,8 @@
 #include "ksToken.h"
 
-kg::ksToken::ksToken( int firstLineOfToken, int lastLineOfToken, int lastLineWhileConstruction )
+kg::ksToken::ksToken( int firstLineOfToken, int lastLineOfToken )
 :m_lastLineOfToken( lastLineOfToken ),
-m_firstLineOfToken(firstLineOfToken),
-m_lastLineWhileConstruction(lastLineWhileConstruction)
+m_firstLineOfToken(firstLineOfToken)
 { }
 
 int kg::ksToken::getLastLine() const
@@ -14,9 +13,4 @@ int kg::ksToken::getLastLine() const
 int kg::ksToken::getFirstLine() const
 {
 	return m_firstLineOfToken;
-}
-
-int kg::ksToken::getlastLineWhileConstruction() const
-{
-	return m_lastLineWhileConstruction;
 }

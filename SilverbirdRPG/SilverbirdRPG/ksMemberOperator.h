@@ -16,11 +16,10 @@ namespace kg
 	public:
 		ksMemberOperator( int firstLineOfToken,
 						  int lastLineOfToken,
-						  int lastLineWhileConstruction,
 						  const std::string& functionName,
 						  std::shared_ptr<ksToken>& lhs,
 						  const std::vector<std::reference_wrapper<std::shared_ptr<ksToken>>> args )
-						  : ksToken( firstLineOfToken, lastLineOfToken, lastLineWhileConstruction ),
+						  : ksToken( firstLineOfToken, lastLineOfToken ),
 						  m_functionName( functionName ),
 						  m_args( args ),
 						  m_lhs( lhs )
@@ -84,7 +83,6 @@ namespace kg
 				{
 					auto obj = std::make_shared<ksMemberOperator>( line,
 																   line + 3,
-																   line + 3,
 																   splitCode.at( line + 1 ).first,
 																   tokenMap[line - 1],
 																   std::vector<std::reference_wrapper<std::shared_ptr<ksToken>>>() );
@@ -122,14 +120,13 @@ namespace kg
 					}
 
 					auto obj = std::make_shared<ksMemberOperator>( line,
-																   lastLine,
 																   line + 2,
 																   splitCode.at( line + 1 ).first,
 																   tokenMap[line - 1],
 																   argRefs );
 
 					tokenMap[line] = obj;
-					tokenMap[lastLine] = obj;
+					tokenMap[lastLine] = std::make_shared<ksPlaceholder>( lastLine, lastLine, obj );
 					return true;
 				}
 			}

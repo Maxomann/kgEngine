@@ -27,10 +27,8 @@ namespace kg
 
 		const int m_firstLineOfToken = -1;
 
-		const int m_lastLineWhileConstruction = -1;
-
 	public:
-		ksToken( int firstLineOfToken, int lastLineOfToken, int lastLineWhileConstruction );
+		ksToken( int firstLineOfToken, int lastLineOfToken );
 
 		//return nullptr if returnType==void
 		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library,
@@ -40,7 +38,6 @@ namespace kg
 
 		int getLastLine()const;
 		int getFirstLine()const;
-		int getlastLineWhileConstruction()const;
 
 		virtual int getID()const = 0;
 	};

@@ -71,7 +71,8 @@ namespace kg
 			OPERATOR_MEMBER,
 			DUMMY,
 			STRING,
-			GET_FROM_STACK
+			GET_FROM_STACK,
+			PLACEHOLDER
 		};
 	}
 

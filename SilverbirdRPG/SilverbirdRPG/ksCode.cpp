@@ -183,7 +183,7 @@ namespace kg
 					{
 						if( constructor->construct( tokenConstructors, splitCode, m_constructedTokens, currentLine ) )
 						{
-							currentLine = m_constructedTokens[currentLine]->getlastLineWhileConstruction();
+							currentLine = m_constructedTokens[currentLine]->getLastLine();
 							break;//
 						}
 					}
@@ -191,7 +191,7 @@ namespace kg
 				}
 				else
 				{
-					currentLine = m_constructedTokens[currentLine]->getlastLineWhileConstruction();
+					currentLine = m_constructedTokens[currentLine]->getLastLine();
 				}
 				/*if( m_constructedTokens[currentLine] == nullptr )
 					m_constructedTokens.erase( currentLine );*/

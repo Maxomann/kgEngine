@@ -15,7 +15,7 @@ namespace kg
 				   int lastLineOfToken,
 				   const ksTokenConstructorPriorityMap& tokenConstructors,
 				   ksSplitCodeVector& subCode )
-			: ksToken( firstLineOfToken, lastLineOfToken, lastLineOfToken ),
+			: ksToken( firstLineOfToken, lastLineOfToken ),
 			m_subCode( tokenConstructors, subCode )
 		{ }
 

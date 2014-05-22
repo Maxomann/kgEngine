@@ -14,7 +14,7 @@ namespace kg
 		ksReturnStatement( int firstLineOfToken,
 						   int lastLineOfToken,
 						   std::shared_ptr<ksToken>& retVal )
-						   : ksToken( firstLineOfToken, lastLineOfToken, lastLineOfToken ),
+						   : ksToken( firstLineOfToken, lastLineOfToken ),
 						   m_retVal( retVal )
 
 		{ }

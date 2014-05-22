@@ -183,6 +183,9 @@
     <ClInclude Include="ksString.h">
       <Filter>Headerdateien\Script\StandartLibrary</Filter>
     </ClInclude>
+    <ClInclude Include="ksPlaceholder.h">
+      <Filter>Headerdateien\Script\StandartLibrary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
