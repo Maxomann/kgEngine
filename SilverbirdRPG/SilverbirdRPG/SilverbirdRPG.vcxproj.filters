@@ -180,6 +180,9 @@
     <ClInclude Include="ksMemberOperator.h">
       <Filter>Headerdateien\Script\StandartLibrary</Filter>
     </ClInclude>
+    <ClInclude Include="ksString.h">
+      <Filter>Headerdateien\Script\StandartLibrary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

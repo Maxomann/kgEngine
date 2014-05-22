@@ -58,6 +58,7 @@ namespace kg
 					return library.getType( funcRetVal.first )->createInstance( funcRetVal.second );
 				}
 			}
+			return nullptr;
 		}
 
 		virtual int getID() const
@@ -84,8 +85,8 @@ namespace kg
 					auto obj = std::make_shared<ksMemberOperator>( line,
 																   line + 3,
 																   line + 3,
-																   tokenMap[line-1],
 																   splitCode.at( line + 1 ).first,
+																   tokenMap[line - 1],
 																   std::vector<std::reference_wrapper<std::shared_ptr<ksToken>>>() );
 					tokenMap[line] = obj;
 					tokenMap[line + 3] = obj;//last line
@@ -123,8 +124,8 @@ namespace kg
 					auto obj = std::make_shared<ksMemberOperator>( line,
 																   lastLine,
 																   line + 2,
-																   tokenMap[line - 1],
 																   splitCode.at( line + 1 ).first,
+																   tokenMap[line - 1],
 																   argRefs );
 
 					tokenMap[line] = obj;
@@ -132,6 +133,7 @@ namespace kg
 					return true;
 				}
 			}
+			return false;
 		}
 
 		virtual int getPriority() const

@@ -37,16 +37,21 @@ namespace kg
 		virtual size_t getHash()const=0;
 
 		//check with m_typeHash
+		//does NOT copy instance!
 		template<class T>
 		std::shared_ptr<ksClassInstance> createInstance( const std::shared_ptr<T>& instance )const;
 
+		//does NOT copy instance!
+		//does NOT check the type of instance!
 		std::shared_ptr<ksClassInstance> createInstance( const std::shared_ptr<void>& instance )const;
 
 		//check with m_typeHash
+		//copies instance!
 		template<class T>
 		std::shared_ptr<ksClassInstance> createNewInstance( const T& instance )const;
 
 		//creates new Instance
+		//calls default constructor
 		virtual std::shared_ptr<ksClassInstance> createNewInstance()const = 0;
 	};
 

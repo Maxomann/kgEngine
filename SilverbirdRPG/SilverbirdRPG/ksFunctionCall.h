@@ -54,6 +54,8 @@ namespace kg
 					return library.getType( funcRetVal.first )->createInstance( funcRetVal.second );
 				}
 			}
+
+			return nullptr;
 		}
 
 		virtual int getID() const

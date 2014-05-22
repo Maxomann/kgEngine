@@ -104,6 +104,7 @@
     <ClInclude Include="ksMemberOperator.h" />
     <ClInclude Include="ksReturnStatement.h" />
     <ClInclude Include="ksScript.h" />
+    <ClInclude Include="ksString.h" />
     <ClInclude Include="ksSyntax.h" />
     <ClInclude Include="ksFunction.h" />
     <ClInclude Include="ksFunctionWrapper.h" />

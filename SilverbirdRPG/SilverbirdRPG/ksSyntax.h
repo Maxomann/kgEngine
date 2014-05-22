@@ -70,6 +70,7 @@ namespace kg
 			FUNCTION_CALL,
 			OPERATOR_MEMBER,
 			DUMMY,
+			STRING,
 			GET_FROM_STACK
 		};
 	}

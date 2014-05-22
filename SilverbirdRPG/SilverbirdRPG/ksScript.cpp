@@ -81,6 +81,9 @@ namespace kg
 		auto mInt = ksCreateClassMaster<int>( "int" );
 		library.registerType( mInt );
 
+		auto mStr = ksCreateClassMaster<std::string>( "string" );
+		library.registerType( mStr );
+
 		library.rawTokens["("] = ksRAW_TOKEN_ID::_FUNCTION_BEGIN;
 		library.rawTokens[")"] = ksRAW_TOKEN_ID::_FUNCTION_END;
 		library.rawTokens[";"] = ksRAW_TOKEN_ID::_EXPRESSION_END;
