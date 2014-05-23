@@ -26,20 +26,22 @@ namespace kg
 		{ }
 
 		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library,
+														  const std::map<int, std::shared_ptr<ksToken>>& constructedTokens,
 														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack,
-														  std::shared_ptr<ksClassInstance>& functionReturnValue ) const
+														  /*only change if this is the return statement */ std::shared_ptr<ksClassInstance>& functionReturnValue )const
 		{
 			std::vector<std::shared_ptr<ksClassInstance>> finalArgs;
 			for( auto& el : m_args )
 			{
 				finalArgs.push_back(
 					el.get()->execute( library,
-					stack,
+					constructedTokens,
+					stack ,
 					functionReturnValue )
 					);
 			}
 
-			auto funcRetVal = m_lhs->execute( library, stack, functionReturnValue )->callMemberFunction( m_functionName, finalArgs );
+			auto funcRetVal = m_lhs->execute( library, constructedTokens, stack, functionReturnValue )->callMemberFunction(m_functionName, finalArgs );
 
 			if( funcRetVal.first == NULL )
 			{
@@ -67,6 +69,12 @@ namespace kg
 
 	};
 
+	////
+	//
+	// LeftHandSide Token has to be contructed for this to work!!!
+	// 
+	////
+
 	class ksMemberOperatorConstructor : public ksTokenConstructor
 	{
 	public:
@@ -81,11 +89,14 @@ namespace kg
 				//no args
 				if( splitCode.at( line + 3 ).second == ksRAW_TOKEN_ID::_FUNCTION_END )
 				{
-					auto obj = std::make_shared<ksMemberOperator>( line,
+					int firstLine = tokenMap[line - 1]->getFirstLine();
+					auto obj = std::make_shared<ksMemberOperator>( firstLine,
 																   line + 3,
 																   splitCode.at( line + 1 ).first,
 																   tokenMap[line - 1],
 																   std::vector<std::reference_wrapper<std::shared_ptr<ksToken>>>() );
+
+					tokenMap[firstLine] = std::make_shared<ksPlaceholder>(firstLine, firstLine, obj);
 					tokenMap[line] = obj;
 					tokenMap[line + 3] = obj;//last line
 					return true;
@@ -119,12 +130,14 @@ namespace kg
 						}
 					}
 
-					auto obj = std::make_shared<ksMemberOperator>( line,
+					int firstLine = tokenMap[line - 1]->getFirstLine();
+					auto obj = std::make_shared<ksMemberOperator>( firstLine,
 																   line + 2,
 																   splitCode.at( line + 1 ).first,
 																   tokenMap[line - 1],
 																   argRefs );
 
+					tokenMap[firstLine] = std::make_shared<ksPlaceholder>( firstLine, firstLine, obj );
 					tokenMap[line] = obj;
 					tokenMap[lastLine] = std::make_shared<ksPlaceholder>( lastLine, lastLine, obj );
 					return true;

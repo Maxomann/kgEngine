@@ -68,10 +68,12 @@ namespace kg
 			SUBCODE,
 			RETURN_STATEMENT,
 			FUNCTION_CALL,
-			OPERATOR_MEMBER,
 			DUMMY,
 			STRING,
 			GET_FROM_STACK,
+
+			//Down from here evrything that need LeftHandSide constructed to work
+			OPERATOR_MEMBER,
 			PLACEHOLDER
 		};
 	}

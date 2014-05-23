@@ -1,16 +1,15 @@
-//_______ksDummy_______//
+//_______ksNew_______//
 
 #pragma once
 #include "ksToken.h"
 #include "ksLibrary.h"
-#include "aRandom.h"
 
 namespace kg
 {
-	class ksDummy : public ksToken
+	class ksNew : public ksToken
 	{
 	public:
-		ksDummy( int firstLineOfToken, int lastLineOfToken )
+		ksNew( int firstLineOfToken, int lastLineOfToken )
 			: ksToken( firstLineOfToken, lastLineOfToken )
 		{ }
 
@@ -18,16 +17,22 @@ namespace kg
 														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack,
 														  /*only change if this is the return statement */ std::shared_ptr<ksClassInstance>& functionReturnValue )const
 		{
-			return library.getType<int>()->createNewInstance( aRandomGenerator_Int<int>::getRandom() );
+			throw std::logic_error( "The method or operation is not implemented." );
 		}
 
 		virtual int getID() const
 		{
-			return ksTOKEN_PRIORITY::DUMMY;
+			throw std::logic_error( "The method or operation is not implemented." );
 		}
+
 	};
 
-	class ksDummyConstructor : public ksTokenConstructor
+	// new type name;
+	// new type name( args );
+	// 
+	// new int i;
+	// new obj o( 33, 525 );
+	class ksNewConstructor : public ksTokenConstructor
 	{
 	public:
 
@@ -36,18 +41,24 @@ namespace kg
 								ksTokenMap& tokenMap,
 								int line ) const
 		{
-			if( splitCode.at( line ).second == ksRAW_TOKEN_ID::_DUMMY )
+			if( splitCode.at( line ).second == ksRAW_TOKEN_ID::_NEW )
 			{
-				tokenMap[line] = std::make_shared<ksDummy>( line, line );
-				return true;
+				//no constructor args
+				if( splitCode.at( line + 3 ).second != ksRAW_TOKEN_ID::_FUNCTION_BEGIN )
+				{
+
+				}
+				//with args
+				else
+				{
+
+				}
 			}
-			else
-				return false;
 		}
 
 		virtual int getPriority() const
 		{
-			return ksTOKEN_PRIORITY::DUMMY;
+			throw std::logic_error( "The method or operation is not implemented." );
 		}
 
 	};

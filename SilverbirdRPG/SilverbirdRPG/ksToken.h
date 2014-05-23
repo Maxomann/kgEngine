@@ -32,9 +32,9 @@ namespace kg
 
 		//return nullptr if returnType==void
 		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library,
+														  const std::map<int, std::shared_ptr<ksToken>>& constructedTokens,
 														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack,
-														  //only change if this is the return statement
-														  std::shared_ptr<ksClassInstance>& functionReturnValue )const = 0;
+														  /*only change if this is the return statement */ std::shared_ptr<ksClassInstance>& functionReturnValue )const = 0;
 
 		int getLastLine()const;
 		int getFirstLine()const;

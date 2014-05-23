@@ -228,11 +228,12 @@ namespace kg
 				REPORT_ERROR_SCRIPT( "m_constructedTokens.at( " + std::to_string( currentLine ) + " )" + "is nullptr" );*/
 
 
-			if( token!=nullptr )
+			if( token!=nullptr && token->getID() != ksTOKEN_PRIORITY::PLACEHOLDER )
 			{
 				//not expected to return anything
 				token->execute( library,
-								stack,
+								m_constructedTokens,
+								stack ,
 								returnValue );
 
 				currentLine = token->getLastLine();

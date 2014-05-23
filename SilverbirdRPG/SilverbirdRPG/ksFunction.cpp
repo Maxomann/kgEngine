@@ -67,7 +67,8 @@ std::pair<size_t, std::shared_ptr<void>> kg::ksFunctionMaster::call( ksLibrary& 
 		argumentSignature += el->getType();
 		argumentSignature += ",";
 	}
-	REPORT_ERROR_SCRIPT( "could not find overload with argumentSignature: " + argumentSignature + "in function" + m_name );
+	argumentSignature.pop_back();
+	REPORT_ERROR_SCRIPT( "could not find overload with argumentSignature: " + argumentSignature + "for function" + m_name );
 }
 
 std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( ksLibrary& library,

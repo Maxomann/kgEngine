@@ -1,2 +1,2 @@
-foo("Hoffentlich klappt das");
-return foo("a");
+foo(DUMMY);
+return DUMMY;

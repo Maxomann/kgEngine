@@ -22,16 +22,17 @@ namespace kg
 						m_args( args )
 		{ }
 
-		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library,
+		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library, const std::map<int, std::shared_ptr<ksToken>>& constructedTokens,
 														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack,
-														  std::shared_ptr<ksClassInstance>& functionReturnValue ) const
+														  /*only change if this is the return statement */ std::shared_ptr<ksClassInstance>& functionReturnValue )const
 		{
 			std::vector<std::shared_ptr<ksClassInstance>> finalArgs;
 			for( auto& el : m_args )
 			{
 				finalArgs.push_back(
 					el.get()->execute( library,
-					stack,
+					constructedTokens,
+					stack ,
 					functionReturnValue )
 					);
 			}
