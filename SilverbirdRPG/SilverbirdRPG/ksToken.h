@@ -19,6 +19,7 @@ namespace kg
 
 		// 0=highest priority
 		virtual int getPriority()const = 0;
+
 	};
 
 	class ksToken

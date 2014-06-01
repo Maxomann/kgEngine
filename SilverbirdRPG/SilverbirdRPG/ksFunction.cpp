@@ -88,6 +88,7 @@ std::shared_ptr<kg::ksClassInstance> kg::ksScriptFunctionOverload::call( ksLibra
 
 	auto retVal = m_code->execute( library,
 								   parameterStack );
+
 	if( retVal->getType() == "auto" || retVal->getType() == m_returnType )
 		return retVal;
 	else

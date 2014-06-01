@@ -1,2 +1,2 @@
-foo(DUMMY);
+foo("Moin").hallo();
 return DUMMY;

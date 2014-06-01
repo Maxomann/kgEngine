@@ -189,6 +189,9 @@
     <ClInclude Include="ksNew.h">
       <Filter>Headerdateien\Script\StandartLibrary</Filter>
     </ClInclude>
+    <ClInclude Include="ksHelper.h">
+      <Filter>Headerdateien\Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -270,6 +273,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ksScript.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ksHelper.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

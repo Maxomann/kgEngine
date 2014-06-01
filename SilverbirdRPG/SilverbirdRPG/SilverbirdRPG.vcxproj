@@ -101,6 +101,7 @@
     <ClInclude Include="ksFunctionCall.h" />
     <ClInclude Include="ksCode.h" />
     <ClInclude Include="ksGetFromStack.h" />
+    <ClInclude Include="ksHelper.h" />
     <ClInclude Include="ksMemberOperator.h" />
     <ClInclude Include="ksNew.h" />
     <ClInclude Include="ksPlaceholder.h" />
@@ -143,6 +144,7 @@
     <ClCompile Include="ksCode.cpp" />
     <ClCompile Include="ksClass.cpp" />
     <ClCompile Include="ksFunction.cpp" />
+    <ClCompile Include="ksHelper.cpp" />
     <ClCompile Include="ksLibrary.cpp" />
     <ClCompile Include="ksScript.cpp" />
     <ClCompile Include="ksToken.cpp" />
