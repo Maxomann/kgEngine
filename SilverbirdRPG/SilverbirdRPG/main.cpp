@@ -18,6 +18,7 @@
 #include "ksGetFromStack.h"
 #include "ksMemberOperator.h"
 #include "ksString.h"
+#include "ksHelper.h"
 
 using namespace std;
 using namespace kg;
