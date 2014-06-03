@@ -13,6 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9B46A5F8-D042-46E0-8A47-334E969E865A}</ProjectGuid>
     <RootNamespace>SilverbirdRPG</RootNamespace>
+    <ProjectName>SilverbirdRPG</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -79,12 +80,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="aBase.h" />
-    <ClInclude Include="aContainer.h" />
-    <ClInclude Include="aException.h" />
-    <ClInclude Include="aRandom.h" />
-    <ClInclude Include="aSingelton.h" />
-    <ClInclude Include="aString.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cChunk.h" />
     <ClInclude Include="cChunkLayer.h" />
@@ -131,7 +126,6 @@
     <ClInclude Include="SyncTime.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="aString.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cChunk.cpp" />
     <ClCompile Include="cChunkLayer.cpp" />

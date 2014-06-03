@@ -1,7 +1,7 @@
 //_______ALGORITHM_STRING_CPP_______//
 
 #pragma once
-#include "aString.h"
+#include "../aString.h"
 
 namespace kg
 {

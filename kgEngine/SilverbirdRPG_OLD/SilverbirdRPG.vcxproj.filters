@@ -48,24 +48,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="aBase.h">
-      <Filter>Headerdateien\Algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="aContainer.h">
-      <Filter>Headerdateien\Algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="aException.h">
-      <Filter>Headerdateien\Algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="aRandom.h">
-      <Filter>Headerdateien\Algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="aSingelton.h">
-      <Filter>Headerdateien\Algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="aString.h">
-      <Filter>Headerdateien\Algorithm</Filter>
-    </ClInclude>
     <ClInclude Include="cCamera.h">
       <Filter>Headerdateien\Client</Filter>
     </ClInclude>
@@ -196,9 +178,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Headerdateien</Filter>
-    </ClCompile>
-    <ClCompile Include="aString.cpp">
-      <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="cCamera.cpp">
       <Filter>Quelldateien</Filter>
