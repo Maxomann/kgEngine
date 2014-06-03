@@ -5,6 +5,7 @@
 #include "ksCode.h"
 #include "aException.h"
 #include "ksLibrary.h"
+#include "ksScript.h"
 
 namespace kg
 {
