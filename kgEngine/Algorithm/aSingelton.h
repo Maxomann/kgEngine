@@ -1,11 +1,12 @@
 //_______SINGELTON_H_______//
 
 #pragma once
+#include "stdafx.h"
 
 namespace kg
 {
 	template< class T >
-	struct aSingelton
+	struct SCRIPT_API aSingelton
 	{
 		static T& getInstance()
 		{

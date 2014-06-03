@@ -2,11 +2,12 @@
 
 #pragma once
 #include<random>
+#include "stdafx.h"
 
 namespace kg
 {
 	template< class T = int >
-	class aRandomGenerator_Int
+	class SCRIPT_API aRandomGenerator_Int
 	{
 	protected:
 		inline aRandomGenerator_Int()

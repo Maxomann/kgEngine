@@ -1,6 +1,7 @@
 //_______CONTAINER_H_______//
 
 #pragma once
+#include "stdafx.h"
 
 namespace kg
 {
@@ -33,7 +34,7 @@ namespace kg
 	//////////////////////////////////////////////////
 
 	template< class T >
-	class aSwapContainer
+	class SCRIPT_API aSwapContainer
 	{
 	public:
 		inline aSwapContainer() : m_activeContainer( &m_one )

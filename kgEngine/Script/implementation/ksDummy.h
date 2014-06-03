@@ -1,8 +1,8 @@
 //_______ksDummy_______//
 
 #pragma once
-#include "ksToken.h"
-#include "ksLibrary.h"
+#include "../ksToken.h"
+#include "../objectSystem/ksLibrary.h"
 #include "aRandom.h"
 
 namespace kg

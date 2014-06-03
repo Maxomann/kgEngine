@@ -3,7 +3,7 @@
 #include "../stdafx.h"
 #include "ksFunctionWrapper.h"
 #include "ksClass.h"
-#include "aException.h"
+#include <aException.h>
 #include "../ksCode.h"
 
 namespace kg

@@ -1,6 +1,7 @@
 //_______ALGORITHM_BASE_H_______//
 
 #pragma once
+#include "stdafx.h"
 
 namespace kg
 {
@@ -17,7 +18,7 @@ namespace kg
 	//////////////////////////////////////////////////
 
 	template< class T >
-	class aIsEqualTo
+	class SCRIPT_API aIsEqualTo
 	{
 	public:
 		inline aIsEqualTo( T one ) : m_one( one )

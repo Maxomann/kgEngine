@@ -1,8 +1,8 @@
 //_______ksNew_______//
 
 #pragma once
-#include "ksToken.h"
-#include "ksLibrary.h"
+#include "../ksToken.h"
+#include "../objectSystem/ksLibrary.h"
 
 namespace kg
 {
