@@ -10,8 +10,6 @@ namespace kg
 {
 	class ksCode
 	{
-		std::vector<std::shared_ptr<int>> testVector;
-
 	protected:
 		ksTokenMap m_constructedTokens;
 
