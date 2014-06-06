@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script", "Script\Script.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Algorithm", "Algorithm\Algorithm.vcxproj", "{CF7E5350-6F12-494A-8E91-F642EC0FC034}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Plugin", "Plugin\Plugin.vcxproj", "{F4488F1E-7171-457A-8B02-A457D9DA0095}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -24,6 +26,10 @@ Global
 		{CF7E5350-6F12-494A-8E91-F642EC0FC034}.Debug|Win32.Build.0 = Debug|Win32
 		{CF7E5350-6F12-494A-8E91-F642EC0FC034}.Release|Win32.ActiveCfg = Release|Win32
 		{CF7E5350-6F12-494A-8E91-F642EC0FC034}.Release|Win32.Build.0 = Release|Win32
+		{F4488F1E-7171-457A-8B02-A457D9DA0095}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F4488F1E-7171-457A-8B02-A457D9DA0095}.Debug|Win32.Build.0 = Debug|Win32
+		{F4488F1E-7171-457A-8B02-A457D9DA0095}.Release|Win32.ActiveCfg = Release|Win32
+		{F4488F1E-7171-457A-8B02-A457D9DA0095}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

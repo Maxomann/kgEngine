@@ -37,7 +37,7 @@ namespace kg
 				return;
 			}
 		}
-		splitCode.push_back( std::make_pair( temp, ksRAW_TOKEN_ID::_IDENTIFIER ) );
+		splitCode.push_back( std::make_pair( temp, ksRAW_TOKEN_ID::IDENTIFIER ) );
 	}
 
 	static void setLastKey( const char ch, int& k )
@@ -70,7 +70,7 @@ namespace kg
 				//endString
 				if( el == '\"' )
 				{
-					splitCode.push_back( std::make_pair( temp, ksRAW_TOKEN_ID::_IDENTIFIER ) );
+					splitCode.push_back( std::make_pair( temp, ksRAW_TOKEN_ID::IDENTIFIER ) );
 					temp.clear();
 					stat = status::other;
 					lastKey = key::other;
@@ -88,7 +88,7 @@ namespace kg
 				{
 					pushTokenWithId( splitCode, temp, rawTokens );
 					temp.clear();
-					splitCode.push_back( std::make_pair( "\"", ksRAW_TOKEN_ID::_STRING ) );
+					splitCode.push_back( std::make_pair( "\"", ksRAW_TOKEN_ID::STRING ) );
 					stat = status::inString;
 				}
 				else

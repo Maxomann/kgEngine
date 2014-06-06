@@ -32,32 +32,32 @@ namespace kg
 	{
 		enum
 		{
-			_FUNCTION_BEGIN,	// (
-			_FUNCTION_END,		// )
-			_EXPRESSION_END,	// ;
-			_KOMMA,				// ,
-			_OBJECT_BEGIN,		// {
-			_OBJECT_END,		// }
-			_QUALIFIER,			// const
-			_DOT,				// .
-			_STRING,			// "
-			_EQUAL,				// =
-			_EXCLAMATION_MARK,	// !
-			_ADD,				// +
-			_SUBTRACT,			// -
-			_MULTIPLY,			// *
-			_DIVIDE,			// /
-			_BIGGER,			// >
-			_SMALLER,			// <
-			_FUNCTION,			// function
-			_CALLBACK,			// callback
-			_IF,				// if
-			_WHILE,				// while
-			_FOR,				// for
-			_NEW,				// new
-			_RETURN,			// return
-			_DUMMY,				// returns a dummy integer for test purposes
-			_IDENTIFIER			// 'evrything else'
+			FUNCTION_BEGIN,		// (
+			FUNCTION_END,		// )
+			EXPRESSION_END,		// ;
+			KOMMA,				// ,
+			OBJECT_BEGIN,		// {
+			OBJECT_END,			// }
+			QUALIFIER,			// const
+			DOT,				// .
+			STRING,				// "
+			EQUAL,				// =
+			EXCLAMATION_MARK,	// !
+			ADD,				// +
+			SUBTRACT,			// -
+			MULTIPLY,			// *
+			DIVIDE,				// /
+			BIGGER,				// >
+			SMALLER,			// <
+			FUNCTION,			// function
+			FUNCTION_CALLBACK,	// callback
+			IF,					// if
+			WHILE,				// while
+			FOR,				// for
+			NEW,				// new
+			RETURN,				// return
+			DUMMY,				// returns a dummy integer for test purposes
+			IDENTIFIER			// 'evrything else'
 		};
 	}
 
@@ -71,8 +71,6 @@ namespace kg
 			DUMMY,
 			STRING,
 			GET_FROM_STACK,
-
-			//Down from here evrything that need LeftHandSide constructed to work
 			OPERATOR_MEMBER,
 			PLACEHOLDER
 		};

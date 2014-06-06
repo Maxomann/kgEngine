@@ -15,11 +15,11 @@ namespace kg
 				   int lastLineOfToken,
 				   const ksTokenConstructorPriorityMap& tokenConstructors,
 				   ksSplitCodeVector& subCode )
-			: ksToken( firstLineOfToken, lastLineOfToken ),
-			m_subCode( tokenConstructors, subCode )
+				   : ksToken( firstLineOfToken, lastLineOfToken ),
+				   m_subCode( tokenConstructors, subCode )
 		{ }
 
-		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library, const std::map<int, std::shared_ptr<ksToken>>& constructedTokens,
+		virtual std::shared_ptr<ksClassInstance> execute( ksLibrary& library,
 														  std::map<std::string, std::shared_ptr<ksClassInstance>>& stack,
 														  /*only change if this is the return statement */ std::shared_ptr<ksClassInstance>& functionReturnValue )const
 		{
@@ -42,7 +42,7 @@ namespace kg
 								ksTokenMap& tokenMap,
 								int line ) const
 		{
-			if( splitCode.at( line ).second == ksRAW_TOKEN_ID::_OBJECT_BEGIN )
+			if( splitCode.at( line ).second == ksRAW_TOKEN_ID::OBJECT_BEGIN )
 			{
 				//by reference
 				std::vector< const std::pair<std::string, int>> subCode;
@@ -53,11 +53,11 @@ namespace kg
 				for( int x = 1; true; ++x )
 				{
 					const std::pair<std::string, int>& it = splitCode.at( line + x );
-					if( it.second == ksRAW_TOKEN_ID::_OBJECT_BEGIN )
+					if( it.second == ksRAW_TOKEN_ID::OBJECT_BEGIN )
 					{
 						bracketCount++;
 					}
-					if( it.second == ksRAW_TOKEN_ID::_OBJECT_END )
+					if( it.second == ksRAW_TOKEN_ID::OBJECT_END )
 					{
 						bracketCount--;
 					}
@@ -70,7 +70,7 @@ namespace kg
 					}
 					subCode.push_back( it );
 				}
-				
+
 				REPORT_ERROR_SCRIPT( "should not reach this point" );
 			}
 			else

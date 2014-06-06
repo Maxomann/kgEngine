@@ -71,31 +71,10 @@
     <ClInclude Include="ObjectSystem\ksLibrary.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="implementation\ksDummy.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="implementation\ksFunctionCall.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="implementation\ksGetFromStack.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="implementation\ksMemberOperator.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="implementation\ksNew.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="implementation\ksPlaceholder.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="implementation\ksReturnStatement.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="implementation\ksString.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="implementation\ksSubcode.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="implementation\ksReturnSatement.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
