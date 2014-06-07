@@ -232,8 +232,7 @@ namespace kg
 			{
 				//not expected to return anything
 				token->execute( library,
-								m_constructedTokens,
-								stack ,
+								stack,
 								returnValue );
 
 				currentLine = token->getLastLine();

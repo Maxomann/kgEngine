@@ -10,12 +10,12 @@
 #include "ksHelper.h"
 
 #include "implementation/ksSubcode.h"
-#include "implementation/ksDummy.h"
-#include "implementation/ksReturnStatement.h"
-#include "implementation/ksFunctionCall.h"
-#include "implementation/ksGetFromStack.h"
-#include "implementation/ksMemberOperator.h"
-#include "implementation/ksString.h"
+//#include "implementation/ksDummy.h"
+//#include "implementation/ksReturnStatement.h"
+//#include "implementation/ksFunctionCall.h"
+//#include "implementation/ksGetFromStack.h"
+//#include "implementation/ksMemberOperator.h"
+//#include "implementation/ksString.h"
 
 using namespace std;
 using namespace kg;
@@ -34,13 +34,13 @@ int main()
 	{
 		ksLibrary lib;
 		ksRegisterStandartTypes( lib );
-		lib.tokenConstructors[ksTOKEN_PRIORITY::SUBCODE].push_back( std::make_shared<ksSubcodeConstructor>() );
-		lib.tokenConstructors[ksTOKEN_PRIORITY::FUNCTION_CALL].push_back( std::make_shared<ksFunctionCallConstructor>() );
-		lib.tokenConstructors[ksTOKEN_PRIORITY::DUMMY].push_back( std::make_shared<ksDummyConstructor>() );
-		lib.tokenConstructors[ksTOKEN_PRIORITY::RETURN_STATEMENT].push_back( std::make_shared<ksReturnStatementConstructor>() );
-		lib.tokenConstructors[ksTOKEN_PRIORITY::GET_FROM_STACK].push_back( std::make_shared<ksGetFromStackConstructor>() );
-		lib.tokenConstructors[ksTOKEN_PRIORITY::OPERATOR_MEMBER].push_back( std::make_shared<ksMemberOperatorConstructor>() );
-		lib.tokenConstructors[ksTOKEN_PRIORITY::STRING].push_back( std::make_shared<ksStringConstructor>() );
+		//lib.tokenConstructors[ksTOKEN_PRIORITY::SUBCODE].push_back( std::make_shared<ksSubcodeConstructor>() );
+		//lib.tokenConstructors[ksTOKEN_PRIORITY::FUNCTION_CALL].push_back( std::make_shared<ksFunctionCallConstructor>() );
+		//lib.tokenConstructors[ksTOKEN_PRIORITY::DUMMY].push_back( std::make_shared<ksDummyConstructor>() );
+		//lib.tokenConstructors[ksTOKEN_PRIORITY::RETURN_STATEMENT].push_back( std::make_shared<ksReturnStatementConstructor>() );
+		//lib.tokenConstructors[ksTOKEN_PRIORITY::GET_FROM_STACK].push_back( std::make_shared<ksGetFromStackConstructor>() );
+		//lib.tokenConstructors[ksTOKEN_PRIORITY::OPERATOR_MEMBER].push_back( std::make_shared<ksMemberOperatorConstructor>() );
+		//lib.tokenConstructors[ksTOKEN_PRIORITY::STRING].push_back( std::make_shared<ksStringConstructor>() );
 
 		auto fooMaster = ksCreateFunctionMaster( "foo" );
 		ksRegisterOverload( fooMaster, std::vector < std::string > {"string"}, &foo );

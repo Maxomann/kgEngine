@@ -10,7 +10,7 @@ namespace kg
 {
 	class pPluginManager
 	{
-		std::map<size_t, std::unique_ptr<pExtensionAdderInterface>> m_extensionRegistrationHelpers;
+		std::unordered_map<size_t, std::unique_ptr<pExtensionAdderInterface>> m_extensionRegistrationHelpers;
 
 		pluma::Pluma m_pluma;
 

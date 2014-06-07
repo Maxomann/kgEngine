@@ -3,14 +3,14 @@
 #pragma once
 #include "stdafx.h"
 #include <aException.h>
-#include <map>
+#include <unordered_map>
 #include <memory>
 
 namespace kg
 {
 	class pExtendable
 	{
-		std::map<size_t, std::unique_ptr<void>> m_extensions;
+		std::unordered_map<size_t, std::unique_ptr<void>> m_extensions;
 
 	public:
 		// Extension must have standart constructor
