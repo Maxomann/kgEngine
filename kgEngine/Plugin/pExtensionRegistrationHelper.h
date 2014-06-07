@@ -9,20 +9,16 @@ namespace kg
 	class PLUGIN_API pExtensionAdderInterface
 	{
 	public:
-		virtual void registerExtension( pExtendable& extandable ) = 0;
+		virtual void registerExtension( pExtendable& extandable )const = 0;
 	};
 
 	template<class T>
 	class PLUGIN_API pExtensionAdder : pExtensionAdderInterface
 	{
 	public:
-		void registerExtension( pExtendable& extandable );
+		void registerExtension( pExtendable& extandable )const
+		{
+			extandable.addExtension<T>();
+		}
 	};
-
-	template<class T>
-	void kg::pExtensionAdder<T>::registerExtension( pExtendable& extandable )
-	{
-		extandable.addExtension<T>();
-	}
-
 }
