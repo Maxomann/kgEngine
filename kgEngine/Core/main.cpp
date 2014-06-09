@@ -10,10 +10,11 @@ using namespace kg;
 int main()
 {
 	pPluginManager pluginManager;
-	pluginManager.loadPlugins( "/plugins" );
+	//pluginManager.loadPlugins(  );
 
 	cCore application;
 	pluginManager.fillExtandable<cCore>( application );
+	pluginManager.addExtensionProvider<cCore, int>();
 
 	//Main loop
 	while( !application.shouldClose() )

@@ -18,6 +18,7 @@ namespace kg
 		std::unordered_map<size_t, std::shared_ptr<pExtension>> m_extensions;
 
 	public:
+		// T=type of class that derived from pExtension
 		template<class T>
 		PLUGIN_API void addExtension( std::shared_ptr<pExtension>& extension )
 		{
@@ -39,5 +40,23 @@ namespace kg
 				REPORT_ERROR_PLUGIN( "Extension class: " + typeid(T).name() + " is not available" );
 			}
 		}
+	};
+
+
+	class PLUGIN_API pExtensionProviderInterface
+	{
+	public:
+		virtual void addExtensionTo( pExtendable& extendable  )const = 0;
+	};
+
+	// T= class derived from pExtension
+	template<class T>
+	class PLUGIN_API pExtensionProvider : public pExtensionProviderInterface
+	{
+	public:
+		void addExtensionTo( pExtendable& extendable )const
+		{
+			extendable->addExtension<T>( std::make_shared<T>() );
+		};
 	};
 }
