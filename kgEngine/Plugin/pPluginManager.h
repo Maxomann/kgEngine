@@ -10,8 +10,6 @@ namespace kg
 	{
 		std::unordered_map<size_t, std::vector<std::unique_ptr<pExtensionProviderInterface>>> m_extensionProvider;
 
-		pluma::Pluma m_pluma;
-
 	public:
 		// T=type of class that the Provider should add Extensions to
 		template<class T>
@@ -26,11 +24,6 @@ namespace kg
 		{
 			for( const auto& el : m_extensionProvider[typeid(T).hash_code()] )
 				pExtendable.addExtension( el->construct() );
-		}
-
-		PLUGIN_API pluma::Pluma& getPluma()
-		{
-			return m_pluma;
 		}
 	};
 

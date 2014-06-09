@@ -4,7 +4,6 @@
 #include "stdafx.h"
 
 #include <memory>
-#include <Pluma/Pluma.hpp>
 
 namespace kg
 {
