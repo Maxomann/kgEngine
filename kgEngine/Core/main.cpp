@@ -2,10 +2,13 @@
 
 #pragma once
 #include <pPluginManager.h>
+#include <iostream>
 #include "cCore.h"
+#include "cCoreExtension.h"
 
 using namespace std;
 using namespace kg;
+
 
 int main()
 {
@@ -14,7 +17,7 @@ int main()
 
 	cCore application;
 	pluginManager.fillExtandable<cCore>( application );
-	pluginManager.addExtensionProvider<cCore, int>();
+
 
 	//Main loop
 	while( !application.shouldClose() )

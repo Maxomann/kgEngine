@@ -15,8 +15,7 @@ namespace kg
 			auto ptr = std::dynamic_pointer_cast< kg::cCoreExtension >(el.second);
 			if( ptr )
 			{
-				if( ptr->frame( *this ) )
-					close();
+				ptr->frame( *this );
 			}
 		}
 	}

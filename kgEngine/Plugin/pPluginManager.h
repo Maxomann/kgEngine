@@ -28,7 +28,7 @@ namespace kg
 				
 		}
 
-		void loadPlugins( const std::string& path )
+		PLUGIN_API void loadPlugins( const std::string& path )
 		{
 			throw std::logic_error( "The method or operation is not implemented." );
 		}

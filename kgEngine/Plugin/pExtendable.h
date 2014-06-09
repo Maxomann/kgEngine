@@ -29,11 +29,11 @@ namespace kg
 		// You must not store references to the given object
 		// the given object is the instance held by the Extension, NOT the Extension itself
 		template<class T>
-		PLUGIN_API T* getExtension()const
+		PLUGIN_API std::shared_ptr<T> getExtension()const
 		{
 			try
 			{
-				return static_cast<T>( m_extensions.at( typeid(T).hash_code() )->get() );
+				return static_pointer_cast<T>( m_extensions.at( typeid(T).hash_code() ) );
 			}
 			catch( std::out_of_range e )
 			{
@@ -56,7 +56,7 @@ namespace kg
 	public:
 		void addExtensionTo( pExtendable& extendable )const
 		{
-			extendable->addExtension<T>( std::make_shared<T>() );
+			extendable.addExtension<T>( std::static_pointer_cast<pExtension>( std::make_shared<T>() ) );
 		};
 	};
 }
