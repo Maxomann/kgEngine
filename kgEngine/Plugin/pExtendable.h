@@ -2,9 +2,9 @@
 
 #pragma once
 #include "stdafx.h"
-#include <aException.h>
 #include <unordered_map>
 #include <memory>
+#include <aException.h>
 
 namespace kg
 {

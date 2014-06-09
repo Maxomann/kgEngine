@@ -11,6 +11,16 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Algorithm", "Algorithm\Algorithm.vcxproj", "{CF7E5350-6F12-494A-8E91-F642EC0FC034}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Plugin", "Plugin\Plugin.vcxproj", "{F4488F1E-7171-457A-8B02-A457D9DA0095}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CF7E5350-6F12-494A-8E91-F642EC0FC034} = {CF7E5350-6F12-494A-8E91-F642EC0FC034}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F4488F1E-7171-457A-8B02-A457D9DA0095} = {F4488F1E-7171-457A-8B02-A457D9DA0095}
+		{CF7E5350-6F12-494A-8E91-F642EC0FC034} = {CF7E5350-6F12-494A-8E91-F642EC0FC034}
+		{3067ADBE-8FFB-4F13-AF7E-661B5FC42134} = {3067ADBE-8FFB-4F13-AF7E-661B5FC42134}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +54,14 @@ Global
 		{F4488F1E-7171-457A-8B02-A457D9DA0095}.Release|Win32.Build.0 = Release|Win32
 		{F4488F1E-7171-457A-8B02-A457D9DA0095}.Release|x64.ActiveCfg = Release|x64
 		{F4488F1E-7171-457A-8B02-A457D9DA0095}.Release|x64.Build.0 = Release|x64
+		{13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A}.Debug|Win32.Build.0 = Debug|Win32
+		{13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A}.Debug|x64.ActiveCfg = Debug|x64
+		{13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A}.Debug|x64.Build.0 = Debug|x64
+		{13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A}.Release|Win32.ActiveCfg = Release|Win32
+		{13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A}.Release|Win32.Build.0 = Release|Win32
+		{13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A}.Release|x64.ActiveCfg = Release|x64
+		{13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
