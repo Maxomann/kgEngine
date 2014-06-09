@@ -5,7 +5,7 @@
 
 namespace kg
 {
-	class cCore
+	class cCore : public pExtendable
 	{
 	public:
 
