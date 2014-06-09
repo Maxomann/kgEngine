@@ -22,7 +22,7 @@ namespace kg
 	class PLUGIN_API pExtensionProviderInterface
 	{
 	public:
-		virtual std::unique_ptr<pExtension> construct()const=0;
+		virtual std::shared_ptr<pExtension> construct()const=0;
 	};
 
 	// T= class derived from pExtension
@@ -30,9 +30,9 @@ namespace kg
 	class PLUGIN_API pExtensionProvider : public pExtensionProviderInterface
 	{
 	public:
-		std::unique_ptr<pExtension> construct()const
+		std::shared_ptr<pExtension> construct()const
 		{ 
-			return new T;
+			return std::make_shared< T >();
 		};
 	};
 }

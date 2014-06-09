@@ -25,6 +25,13 @@ namespace kg
 			for( const auto& el : m_extensionProvider[typeid(T).hash_code()] )
 				pExtendable.addExtension( el->construct() );
 		}
+
+		void loadPlugins( const std::string& path )
+		{
+			throw std::logic_error( "The method or operation is not implemented." );
+		}
+
+
 	};
 
 }

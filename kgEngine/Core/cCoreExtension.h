@@ -1,7 +1,7 @@
 //_______CORE_EXTENSION_______//
 
 #pragma once
-#include <pExtendable.h>
+#include "cCore.h"
 
 namespace kg
 {
@@ -9,6 +9,7 @@ namespace kg
 	{
 	public:
 		// this function is called every cycle in the main loop
-		virtual void frame( pExtendable& core )=0;
+		// return true to close the application
+		virtual bool frame( cCore& core )=0;
 	};
 }

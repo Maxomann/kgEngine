@@ -7,7 +7,12 @@ namespace kg
 {
 	class cCore : public pExtendable
 	{
-	public:
+		bool m_shouldClose=false;
 
+	public:
+		void frame();
+
+		bool shouldClose();
+		void close();
 	};
 }

@@ -15,11 +15,11 @@ namespace kg
 	class pExtendable
 	{
 	protected:
-		std::unordered_map<size_t, std::unique_ptr<pExtension>> m_extensions;
+		std::unordered_map<size_t, std::shared_ptr<pExtension>> m_extensions;
 
 	public:
 		template<class T>
-		PLUGIN_API void addExtension( std::unique_ptr<pExtension>& extension )
+		PLUGIN_API void addExtension( std::shared_ptr<pExtension>& extension )
 		{
 			m_extensions[typeid(T).hash_code()] = extension;
 		}
@@ -36,7 +36,7 @@ namespace kg
 			}
 			catch( std::out_of_range e )
 			{
-				//REPORT_ERROR_PLUGIN( "Extension class: " + typeid(T).name() + " is not available" );
+				REPORT_ERROR_PLUGIN( "Extension class: " + typeid(T).name() + " is not available" );
 			}
 		}
 	};
