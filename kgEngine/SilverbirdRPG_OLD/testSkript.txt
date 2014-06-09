@@ -1,0 +1,2 @@
+foo("Moin").hallo();
+return DUMMY;
