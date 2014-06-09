@@ -128,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pExtendable.h" />
-    <ClInclude Include="pExtensionRegistrationHelper.h" />
+    <ClInclude Include="pExtension.h" />
     <ClInclude Include="pPluginManager.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

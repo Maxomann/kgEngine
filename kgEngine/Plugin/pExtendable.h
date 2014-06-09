@@ -2,6 +2,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "pExtension.h"
 #include <unordered_map>
 #include <memory>
 #include <aException.h>
@@ -10,27 +11,27 @@ namespace kg
 {
 	class pExtendable
 	{
-		std::unordered_map<size_t, std::unique_ptr<void>> m_extensions;
+		std::unordered_map<size_t, std::unique_ptr<pExtension>> m_extensions;
 
 	public:
-		// Extension must have standart constructor
 		template<class T>
-		PLUGIN_API void addExtension()
+		PLUGIN_API void addExtension( std::unique_ptr<pExtension>& extension )
 		{
-			m_extensions[typeid(T).hash_code()] = std::make_unique<T>();
+			m_extensions[typeid(T).hash_code()] = extension;
 		}
 
-		// You must not save references or delete the reference given
+		// DON'T! delete the given pointer
+		// You must not store references to the given object
 		template<class T>
-		PLUGIN_API T& getExtension()const
+		PLUGIN_API T* getExtension()const
 		{
 			try
 			{
-				return *m_extensions.at( typeid(T).hash_code() );
+				return static_cast<T>( m_extensions.at( typeid(T).hash_code() )->get() );
 			}
 			catch( std::out_of_range e )
 			{
-				REPORT_ERROR_PLUGIN( "Extension for class: " + typeid(T).name() + " is not available" );
+				REPORT_ERROR_PLUGIN( "Extension class: " + typeid(T).name() + " is not available" );
 			}
 		}
 	};

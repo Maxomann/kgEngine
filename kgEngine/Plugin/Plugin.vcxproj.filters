@@ -24,7 +24,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="pExtensionRegistrationHelper.h">
+    <ClInclude Include="pExtension.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

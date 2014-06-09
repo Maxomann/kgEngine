@@ -2,32 +2,30 @@
 
 #pragma once
 #include "stdafx.h"
-#include "pExtensionRegistrationHelper.h"
-
-#include <Pluma/Pluma.hpp>
+#include "pExtendable.h"
 
 namespace kg
 {
 	class pPluginManager
 	{
-		std::unordered_map<size_t, std::unique_ptr<pExtensionAdderInterface>> m_extensionRegistrationHelpers;
+		std::unordered_map<size_t, std::vector<std::unique_ptr<pExtensionProviderInterface>>> m_extensionProvider;
 
 		pluma::Pluma m_pluma;
 
 	public:
-		// T=type of class that the adder should add Extensions to
+		// T=type of class that the Provider should add Extensions to
 		template<class T>
-		PLUGIN_API void addExtensionAdderForClass( std::unique_ptr<pExtensionAdderInterface>& adder )
+		PLUGIN_API void addExtensionProvider( std::unique_ptr<pExtensionProviderInterface>& provider )
 		{
-			m_extensionRegistrationHelpers[typeid(T).hash_code()] = adder;
+			m_extensionProvider[typeid(T).hash_code()].push_back( provider );
 		}
 
 		// T=type of class that derived from the passed extandable
 		template<class T>
 		PLUGIN_API void fillExtandable( pExtendable& extandable )const
 		{
-			for( const auto& el : m_extensionRegistrationHelpers )
-				el.second->registerExtension( extandable );
+			for( const auto& el : m_extensionProvider[typeid(T).hash_code()] )
+				pExtendable.addExtension( el->construct() );
 		}
 
 		PLUGIN_API pluma::Pluma& getPluma()
