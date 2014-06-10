@@ -1,6 +1,9 @@
 //_______CONTAINER_H_______//
 
 #pragma once
+#include <memory>
+#include <queue>
+#include <mutex>
 #include "stdafx.h"
 
 namespace kg
@@ -37,52 +40,49 @@ namespace kg
 	class SCRIPT_API aSwapContainer
 	{
 	public:
-		inline aSwapContainer() : m_activeContainer( &m_one )
-		{ };
 
 		inline void swap()
 		{
 			m_rwMutex.lock();
-			if( m_activeContainer == &m_one )
+			if( m_activeContainer.get() == m_one.get() )
 			{
-				m_one.clear();
-				m_activeContainer = &m_two;
+				m_one = std::make_shared<std::queue< T >>();
+				m_activeContainer = m_two;
 			}
 			else
 			{
-				m_two.clear();
-				m_activeContainer = &m_one;
+				m_two = std::make_shared<std::queue< T >>();
+				m_activeContainer = m_one;
 			}
 			m_rwMutex.unlock();
 		};
 
-		inline void push_back( T element )
+		inline void push_back( T& element )
 		{
 			m_rwMutex.lock();
-			if( m_activeContainer == &m_one )
+			if( m_activeContainer.get() == m_one.get() )
 			{
-				m_two.push_back( element );
+				m_two->push( element );
 			}
 			else
 			{
-				m_one.push_back( element );
+				m_one->push( element );
 			}
 			m_rwMutex.unlock();
 		};
 
-		inline std::vector< T > getContent()
+		inline std::shared_ptr<std::queue< T >> getContent()
 		{
 			m_rwMutex.lock();
-			std::vector< T > returnValue( *m_activeContainer );
+			auto retVal = m_activeContainer;
 			m_rwMutex.unlock();
-			return returnValue;
+			return retVal;
 		};
 
 	private:
-		std::vector< T > *m_activeContainer;
-
-		std::vector< T > m_one;
-		std::vector< T > m_two;
+		std::shared_ptr<std::queue< T >> m_one = new std::queue< T >();
+		std::shared_ptr<std::queue< T >> m_two = new std::queue< T >();
+		std::shared_ptr<std::queue< T >> m_activeContainer = m_one;
 
 		std::mutex m_rwMutex;
 	};
