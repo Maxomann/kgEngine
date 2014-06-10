@@ -2,7 +2,6 @@
 
 namespace kg
 {
-
 	bool cCore::shouldClose()
 	{
 		return m_shouldClose;
@@ -24,5 +23,4 @@ namespace kg
 	{
 		m_shouldClose = true;
 	}
-
 }

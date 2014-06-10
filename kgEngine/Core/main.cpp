@@ -9,7 +9,6 @@
 using namespace std;
 using namespace kg;
 
-
 int main()
 {
 	pPluginManager pluginManager;
@@ -17,7 +16,6 @@ int main()
 
 	cCore application;
 	pluginManager.fillExtandable<cCore>( application );
-
 
 	//Main loop
 	while( !application.shouldClose() )

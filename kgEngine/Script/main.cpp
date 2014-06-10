@@ -20,13 +20,11 @@
 using namespace std;
 using namespace kg;
 
-
 int foo( std::string i )
 {
 	cout << "success" << i << endl;
 	return 500;
 }
-
 
 int main()
 {
@@ -46,7 +44,6 @@ int main()
 		ksRegisterOverload( fooMaster, std::vector < std::string > {"string"}, &foo );
 		lib.registerFunction( fooMaster );
 
-
 		auto retVal = ksRunScript( lib, "testSkript.txt" );
 
 		if( retVal != nullptr )
@@ -60,6 +57,4 @@ int main()
 	{
 		cout << e.what() << endl;
 	}
-
-
 }

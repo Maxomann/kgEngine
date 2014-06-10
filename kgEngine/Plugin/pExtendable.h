@@ -33,7 +33,7 @@ namespace kg
 		{
 			try
 			{
-				return static_pointer_cast<T>( m_extensions.at( typeid(T).hash_code() ) );
+				return static_pointer_cast< T >(m_extensions.at( typeid(T).hash_code() ));
 			}
 			catch( std::out_of_range e )
 			{
@@ -42,11 +42,10 @@ namespace kg
 		}
 	};
 
-
 	class PLUGIN_API pExtensionProviderInterface
 	{
 	public:
-		virtual void addExtensionTo( pExtendable& extendable  )const = 0;
+		virtual void addExtensionTo( pExtendable& extendable )const = 0;
 	};
 
 	// T= class derived from pExtension
@@ -56,7 +55,7 @@ namespace kg
 	public:
 		void addExtensionTo( pExtendable& extendable )const
 		{
-			extendable.addExtension<T>( std::static_pointer_cast<pExtension>( std::make_shared<T>() ) );
+			extendable.addExtension<T>( std::static_pointer_cast< pExtension >(std::make_shared<T>()) );
 		};
 	};
 }

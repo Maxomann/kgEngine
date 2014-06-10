@@ -16,7 +16,7 @@ namespace kg
 		template<class T, class EXTENSION>
 		PLUGIN_API void addExtensionProvider()
 		{
-			m_extensionProvider[typeid(T).hash_code()].push_back( std::static_pointer_cast<pExtensionProviderInterface>(std::make_shared<pExtensionProvider<EXTENSION>>()) );
+			m_extensionProvider[typeid(T).hash_code()].push_back( std::static_pointer_cast< pExtensionProviderInterface >(std::make_shared<pExtensionProvider<EXTENSION>>()) );
 		}
 
 		// T=type of class that derived from the passed extandable
@@ -25,10 +25,8 @@ namespace kg
 		{
 			for( const auto& el : m_extensionProvider[typeid(T).hash_code()] )
 				el->addExtensionTo( extandable );
-				
 		}
 
 		PLUGIN_API void loadPlugins( const std::string& path );
-
 	};
 }
