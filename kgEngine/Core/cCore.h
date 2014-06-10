@@ -2,6 +2,7 @@
 
 #pragma once
 #include <pPluginManager.h>
+#include <nNetworkManger.h>
 
 namespace kg
 {
@@ -10,7 +11,7 @@ namespace kg
 		bool m_shouldClose = false;
 
 	public:
-		void frame();
+		void frame( nNetworkManager& networkManger );
 
 		bool shouldClose();
 		void close();

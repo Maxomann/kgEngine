@@ -37,3 +37,45 @@ kg::nNetworkManager::nNetworkManager()
 	std::thread thread(&m_networkRecieverFunction, std::ref(m_connectionContainer), std::ref(m_messageContainer));
 	thread.detach();
 }
+
+void kg::nNetworkManager::initMessageHandlers()
+{
+	for( const auto& el : m_extensions )
+	{
+		auto ptr = std::dynamic_pointer_cast< kg::nMessageHandler >(el.second);
+		if( ptr )
+		{
+			m_messageHandler[ptr->getID()] = ptr;
+		}
+	}
+}
+
+void kg::nNetworkManager::frame( cCore& core )
+{
+	auto recievedData = m_messageContainer.getContent();
+
+	while( !recievedData->empty() )
+	{
+		std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& el = recievedData->front();
+		m_messageHandler[std::get<2>( el )]->handle( core, el );
+		recievedData->pop();
+	}
+
+	m_messageContainer.swap();
+}
+
+void kg::nNetworkManager::addConnection( sf::IpAddress& ip, sf::Uint16 port )
+{
+	networkMutex.lock();
+
+	auto& el = m_connectionContainer[port];
+	el.first.push_back( ip );
+	el.second.bind( port );
+
+	networkMutex.unlock();
+}
+
+void kg::nNetworkManager::sendMessage( std::shared_ptr<nMessage> message, sf::IpAddress& to, sf::Uint16 onPort )
+{
+	m_senderSocket.send( message->toPacket(), to, onPort );
+}

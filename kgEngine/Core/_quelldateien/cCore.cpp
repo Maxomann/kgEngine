@@ -7,14 +7,14 @@ namespace kg
 		return m_shouldClose;
 	}
 
-	void cCore::frame()
+	void cCore::frame( nNetworkManager& networkManger )
 	{
 		for( auto& el : m_extensions )
 		{
 			auto ptr = std::dynamic_pointer_cast< kg::cCoreExtension >(el.second);
 			if( ptr )
 			{
-				ptr->frame( *this );
+				ptr->frame( networkManger, *this );
 			}
 		}
 	}

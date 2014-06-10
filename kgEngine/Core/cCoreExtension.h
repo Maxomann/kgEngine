@@ -9,6 +9,6 @@ namespace kg
 	{
 	public:
 		// this function is called once every cycle in the main loop
-		virtual void frame( cCore& core ) = 0;
+		virtual void frame( nNetworkManager& networkManger, cCore& core ) = 0;
 	};
 }

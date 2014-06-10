@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="nMessage.h" />
     <ClInclude Include="nNetworkManger.h" />
   </ItemGroup>
   <ItemGroup>
@@ -78,11 +79,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\include;D:\Coding\SilverbirdRPG\kgEngine\Algorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\include;D:\Coding\SilverbirdRPG\kgEngine\Algorithm;D:\Coding\SilverbirdRPG\kgEngine\Plugin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Algorithm.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Algorithm.lib;Plugin.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\lib;D:\Coding\SilverbirdRPG\kgEngine\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -92,11 +93,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\include;D:\Coding\SilverbirdRPG\kgEngine\Algorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\include;D:\Coding\SilverbirdRPG\kgEngine\Algorithm;D:\Coding\SilverbirdRPG\kgEngine\Plugin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Algorithm.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Algorithm.lib;Plugin.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\kgEngine\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -110,13 +111,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\include;D:\Coding\SilverbirdRPG\kgEngine\Algorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\include;D:\Coding\SilverbirdRPG\kgEngine\Algorithm;D:\Coding\SilverbirdRPG\kgEngine\Plugin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Algorithm.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Algorithm.lib;Plugin.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\lib;D:\Coding\SilverbirdRPG\kgEngine\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -128,13 +129,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\include;D:\Coding\SilverbirdRPG\kgEngine\Algorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\include;D:\Coding\SilverbirdRPG\kgEngine\Algorithm;D:\Coding\SilverbirdRPG\kgEngine\Plugin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Algorithm.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Algorithm.lib;Plugin.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\kgEngine\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
     </Link>
