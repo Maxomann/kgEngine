@@ -37,11 +37,11 @@ namespace kg
 	//////////////////////////////////////////////////
 
 	template< class T >
-	class SCRIPT_API aSwapContainer
+	class aSwapContainer
 	{
 	public:
 
-		inline void swap()
+		SCRIPT_API void swap()
 		{
 			m_rwMutex.lock();
 			if( m_activeContainer.get() == m_one.get() )
@@ -57,7 +57,7 @@ namespace kg
 			m_rwMutex.unlock();
 		};
 
-		inline void push_back( T& element )
+		SCRIPT_API void push_back( T& element )
 		{
 			m_rwMutex.lock();
 			if( m_activeContainer.get() == m_one.get() )
@@ -71,7 +71,7 @@ namespace kg
 			m_rwMutex.unlock();
 		};
 
-		inline std::shared_ptr<std::queue< T >> getContent()
+		SCRIPT_API std::shared_ptr<std::queue< T >> getContent()
 		{
 			m_rwMutex.lock();
 			auto retVal = m_activeContainer;

@@ -1,25 +1,39 @@
 #include "../nNetworkManger.h"
 
-void kg::nNetworkManager::m_networkRecieverFunction()
+static std::mutex networkMutex;
+
+void kg::nNetworkManager::m_networkRecieverFunction( ConnectionContainer& connections, MessageContainer& messages )
 {
-	m_mutex.lock();
-	for( auto& el : m_connections )
+	while( true )
 	{
-		std::tuple<sf::IpAddress, sf::Uint16, int, std::string> info;
-		sf::Packet packet;
+		//std::cout << "Ich empfange Narchichten" << std::endl; //// to test if the thread works
+		networkMutex.lock();
+		for( auto& el : connections )
+		{
+			std::tuple<sf::IpAddress, sf::Uint16, int, std::string> info;
+			sf::Packet packet;
 
-		el.second.second.receive( packet, std::get<0>( info ), std::get<1>( info ) );
+			if( el.second.second.receive( packet, std::get<0>( info ), std::get<1>( info ) ) )
+			{
+				//erfolg
+			}
+			else
+			{
+				//fehler
+			}
 
-		packet >> std::get<2>( info ) >> std::get<3>( info );
+			packet >> std::get<2>( info ) >> std::get<3>( info );
 
-		m_messageContainer.push_back( info );
+			messages.push_back( info );
+		}
+		networkMutex.unlock();
 	}
-	m_mutex.unlock();
 }
 
 kg::nNetworkManager::nNetworkManager()
 {
 	// launch network reciever thread
 	// it will run until the application is closed
-	std::thread thread;
+	std::thread thread(&m_networkRecieverFunction, std::ref(m_connectionContainer), std::ref(m_messageContainer));
+	thread.detach();
 }
