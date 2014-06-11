@@ -5,7 +5,7 @@
 #include "ksClass.h"
 #include "ksFunction.h"
 #include "ksFunctionWrapper.h"
-#include <aException.h>
+#include <Algorithm/aException.h>
 
 namespace kg
 {

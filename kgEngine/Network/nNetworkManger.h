@@ -1,8 +1,7 @@
 //_______NETWORK_MANAGER_______//
 
 #pragma once
-//Include über <aContainer.h> nicht möglich
-#include "../Algorithm/aContainer.h"
+#include <Algorithm/aContainer.h>
 #include <mutex>
 #include <string>
 #include <thread>
@@ -10,6 +9,7 @@
 #include <tuple>
 #include <iostream>
 #include "nMessage.h"
+#include "stdafx.h"
 
 namespace kg
 {
@@ -33,14 +33,14 @@ namespace kg
 		static void m_networkRecieverFunction( ConnectionContainer& connections, MessageContainer& messages );
 
 	public:
-		nNetworkManager();
+		NETWORK_API nNetworkManager();
 
-		void addConnection( sf::IpAddress& ip, sf::Uint16 port );
+		NETWORK_API void addConnection( sf::IpAddress& ip, sf::Uint16 port );
 
-		void sendMessage( std::shared_ptr<nMessage> message, sf::IpAddress& to, sf::Uint16 onPort  );
+		NETWORK_API void sendMessage( std::shared_ptr<nMessage> message, sf::IpAddress& to, sf::Uint16 onPort );
 
-		void initMessageHandlers();
+		NETWORK_API void initMessageHandlers();
 
-		void frame( cCore& core );
+		NETWORK_API void frame( cCore& core );
 	};
 }

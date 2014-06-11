@@ -1,7 +1,8 @@
 //_______MAIN_______//
 
 #pragma once
-#include <pPluginManager.h>
+#include <Network/nNetworkManger.h>
+#include <Plugin/pPluginManager.h>
 #include <iostream>
 #include "cCore.h"
 #include "cCoreExtension.h"

@@ -2,14 +2,15 @@
 
 #pragma once
 #include <SFML/Network.hpp>
-#include <pExtendable.h>
+#include <Plugin/pExtendable.h>
+#include "stdafx.h"
 
 
 namespace kg
 {
 	class cCore;
 
-	class nMessage
+	class NETWORK_API nMessage
 	{
 	public:
 		virtual std::string getMessage()=0;
@@ -24,7 +25,7 @@ namespace kg
 		};
 	};
 
-	class nMessageHandler : public pExtension
+	class NETWORK_API nMessageHandler : public pExtension
 	{
 	public:
 		virtual void handle( cCore& core, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message )const = 0;

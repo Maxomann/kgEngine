@@ -1,8 +1,8 @@
 //_______CORE_______//
 
 #pragma once
-#include <pPluginManager.h>
-#include <nNetworkManger.h>
+#include <Network/nNetworkManger.h>
+#include <Plugin/pPluginManager.h>
 
 namespace kg
 {

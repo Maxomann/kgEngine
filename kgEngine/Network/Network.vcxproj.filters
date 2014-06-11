@@ -21,11 +21,11 @@
     <ClInclude Include="nMessage.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="_quelldateien\nNetworkManger.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>

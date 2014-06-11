@@ -3,7 +3,7 @@
 #pragma once
 #include "stdafx.h"
 #include "ksCode.h"
-#include "aException.h"
+#include <Algorithm/aException.h>
 #include "objectSystem/ksLibrary.h"
 
 namespace kg
