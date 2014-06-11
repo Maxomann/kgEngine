@@ -4,11 +4,21 @@
 #include "stdafx.h"
 #include "pExtendable.h"
 
+#ifdef _WIN32
+#include<windows.h>
+#endif // _WIN32
+
+
 namespace kg
 {
 	class pPluginManager
 	{
 		std::unordered_map<size_t, std::vector<std::shared_ptr<pExtensionProviderInterface>>> m_extensionProvider;
+
+
+		// Connect function used in DLL-Files
+		typedef void(*CONNECT)(pPluginManager&);
+
 
 	public:
 		// T=type of class that the Provider should add Extensions to
@@ -27,6 +37,6 @@ namespace kg
 				el->addExtensionTo( extandable );
 		}
 
-		PLUGIN_API void loadPlugins( const std::string& path );
+		PLUGIN_API void loadPluginsFromFile( const std::string& path );
 	};
 }

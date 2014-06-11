@@ -1,6 +1,20 @@
 #include "../pPluginManager.h"
 
-PLUGIN_API void kg::pPluginManager::loadPlugins( const std::string& path )
+PLUGIN_API void kg::pPluginManager::loadPluginsFromFile( const std::string& path )
 {
-	throw std::logic_error( "The method or operation is not implemented." );
+#ifdef _WIN32
+
+	HMODULE dllHandle = LoadLibrary( path.c_str() );
+	CONNECT connectFunction = ( CONNECT )GetProcAddress( dllHandle, "connect" );
+
+	if( connectFunction != NULL )
+	{
+		CONNECT( this );
+	}
+	else
+	{
+		REPORT_ERROR_PLUGIN( "connect function on file " + path + " failed!" );
+	}
+
+#endif // _WIN32
 }
