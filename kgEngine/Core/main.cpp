@@ -18,7 +18,8 @@ using namespace kg;
 int main()
 {
 	pPluginManager pluginManager;
-	//pluginManager.loadPlugins(  );
+	pluginManager.loadPluginsFromFile( "client.dll" );
+	pluginManager.loadPluginsFromFile( "server.dll" );
 
 	nNetworkManager networkManger;
 	pluginManager.fillExtandable<nNetworkManager>( networkManger );

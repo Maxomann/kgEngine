@@ -39,6 +39,7 @@ namespace kg
 
 		NETWORK_API void sendMessage( std::shared_ptr<nMessage> message, sf::IpAddress& to, sf::Uint16 onPort );
 
+		//the Handlers must have been added to the class by pExtension before calling this function
 		NETWORK_API void initMessageHandlers();
 
 		NETWORK_API void frame( cCore& core );
