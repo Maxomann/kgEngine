@@ -30,7 +30,7 @@ void kg::nNetworkManager::m_networkRecieverFunction( ConnectionContainer& connec
 	}
 }
 
-kg::nNetworkManager::nNetworkManager()
+NETWORK_API kg::nNetworkManager::nNetworkManager()
 {
 	// launch network reciever thread
 	// it will run until the application is closed
@@ -38,7 +38,7 @@ kg::nNetworkManager::nNetworkManager()
 	thread.detach();
 }
 
-void kg::nNetworkManager::initMessageHandlers()
+NETWORK_API void kg::nNetworkManager::initMessageHandlers()
 {
 	for( const auto& el : m_extensions )
 	{
@@ -50,7 +50,7 @@ void kg::nNetworkManager::initMessageHandlers()
 	}
 }
 
-void kg::nNetworkManager::frame( cCore& core )
+NETWORK_API void kg::nNetworkManager::frame( cCore& core )
 {
 	auto recievedData = m_messageContainer.getContent();
 
@@ -64,7 +64,7 @@ void kg::nNetworkManager::frame( cCore& core )
 	m_messageContainer.swap();
 }
 
-void kg::nNetworkManager::addConnection( sf::IpAddress& ip, sf::Uint16 port )
+NETWORK_API void kg::nNetworkManager::addConnection( sf::IpAddress& ip, sf::Uint16 port )
 {
 	networkMutex.lock();
 
@@ -75,7 +75,7 @@ void kg::nNetworkManager::addConnection( sf::IpAddress& ip, sf::Uint16 port )
 	networkMutex.unlock();
 }
 
-void kg::nNetworkManager::sendMessage( std::shared_ptr<nMessage> message, sf::IpAddress& to, sf::Uint16 onPort )
+NETWORK_API void kg::nNetworkManager::sendMessage( std::shared_ptr<nMessage> message, sf::IpAddress& to, sf::Uint16 onPort )
 {
 	m_senderSocket.send( message->toPacket(), to, onPort );
 }
