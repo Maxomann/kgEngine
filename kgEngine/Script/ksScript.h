@@ -29,5 +29,4 @@ namespace kg
 
 		bool isLoaded()const;
 	};
-
 }

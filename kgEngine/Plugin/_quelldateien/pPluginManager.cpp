@@ -5,16 +5,20 @@ PLUGIN_API void kg::pPluginManager::loadPluginsFromFile( const std::string& path
 #ifdef _WIN32
 
 	HMODULE dllHandle = LoadLibrary( path.c_str() );
-	CONNECT connectFunction = ( CONNECT )GetProcAddress( dllHandle, "connect" );
 
-	if( connectFunction != NULL )
+	if( !dllHandle )
 	{
-		CONNECT( this );
+		REPORT_ERROR_PLUGIN( "LoadLibrary() on file " + path + " failed!" );
 	}
-	else
+
+	CONNECT connectFunction = (CONNECT)GetProcAddress( dllHandle, "kgConnect" );
+
+	if( !connectFunction )
 	{
-		REPORT_ERROR_PLUGIN( "connect function on file " + path + " failed!" );
+		REPORT_ERROR_PLUGIN( "connect function in file " + path + " could not be loaded!" );
 	}
+	
+	connectFunction( *this );
 
 #endif // _WIN32
 }

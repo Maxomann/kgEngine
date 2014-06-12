@@ -4,17 +4,16 @@
 #include "stdafx.h"
 #include "pExtendable.h"
 
-
 namespace kg
 {
 	class pPluginManager
 	{
 		std::unordered_map<size_t, std::vector<std::shared_ptr<pExtensionProviderInterface>>> m_extensionProvider;
 
-
 		// Connect function used in DLL-Files
-		typedef void(*CONNECT)(pPluginManager&);
-
+		// The function in your DLL file has to look like this:
+		// extern "C" __declspec(dllexport) void kgConnect( pPluginManager& pluginManager )
+		typedef void( *CONNECT )(pPluginManager&);
 
 	public:
 		// T=type of class that the Provider should add Extensions to

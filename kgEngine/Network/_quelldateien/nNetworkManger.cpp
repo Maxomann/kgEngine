@@ -34,7 +34,7 @@ NETWORK_API kg::nNetworkManager::nNetworkManager()
 {
 	// launch network reciever thread
 	// it will run until the application is closed
-	std::thread thread(&m_networkRecieverFunction, std::ref(m_connectionContainer), std::ref(m_messageContainer));
+	std::thread thread( &m_networkRecieverFunction, std::ref( m_connectionContainer ), std::ref( m_messageContainer ) );
 	thread.detach();
 }
 

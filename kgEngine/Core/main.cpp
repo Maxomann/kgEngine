@@ -15,27 +15,36 @@
 using namespace std;
 using namespace kg;
 
+
 int main()
 {
-	pPluginManager pluginManager;
-	//pluginManager.loadPluginsFromFile( "client.dll" );
-	//pluginManager.loadPluginsFromFile( "server.dll" );
 
-	nNetworkManager networkManger;
-	pluginManager.fillExtandable<nNetworkManager>( networkManger );
-	networkManger.initMessageHandlers();
-
-	cCore application;
-	pluginManager.fillExtandable<cCore>( application );
-
-
-
-	//Main loop
-	while( !application.shouldClose() )
+	try
 	{
-		networkManger.frame( application );
-		application.frame( networkManger );
+		pPluginManager pluginManager;
+		pluginManager.loadPluginsFromFile( "Client.dll" );
+		pluginManager.loadPluginsFromFile( "Server.dll" );
+
+		nNetworkManager networkManger;
+		pluginManager.fillExtandable<nNetworkManager>( networkManger );
+		networkManger.initMessageHandlers();
+
+		cCore application;
+		pluginManager.fillExtandable<cCore>( application );
+
+		//Main loop
+		while( !application.shouldClose() )
+		{
+			networkManger.frame( application );
+			application.frame( networkManger );
+		}
 	}
+	catch( std::exception& e )
+	{
+		cout << e.what() << endl;
+		system( "pause" );
+	}
+
 
 	return 0;
 }

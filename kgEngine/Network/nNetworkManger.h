@@ -6,7 +6,6 @@
 
 namespace kg
 {
-
 	class nNetworkManager : public pExtendable
 	{
 		std::map<int, std::shared_ptr<nMessageHandler>> m_messageHandler;

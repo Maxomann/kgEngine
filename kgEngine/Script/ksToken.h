@@ -17,10 +17,8 @@ namespace kg
 								ksTokenMap& tokenMap,
 								int line ) const = 0;
 
-
 		// 0=highest priority
 		virtual int getPriority()const = 0;
-
 	};
 
 	class ksToken

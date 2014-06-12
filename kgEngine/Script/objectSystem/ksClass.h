@@ -34,7 +34,7 @@ namespace kg
 		std::pair<size_t, std::shared_ptr<void>> callMemberFunction( const std::string& name, const std::vector<std::string>& parameterTypes, const std::shared_ptr<void>& cppObj, const std::vector<std::shared_ptr<ksClassInstance>>& args )const;
 
 		const std::string& getType()const;
-		virtual size_t getHash()const=0;
+		virtual size_t getHash()const = 0;
 
 		//check with m_typeHash
 		//does NOT copy instance!
@@ -72,7 +72,6 @@ namespace kg
 		{
 			return typeid(T).hash_code();
 		}
-
 	};
 
 	class ksClassInstance
@@ -107,12 +106,12 @@ namespace kg
 	std::shared_ptr<ksClassInstance>
 		ksClassMasterInterface::createInstance( const std::shared_ptr<T>& instance ) const
 	{
-			if( typeid(T).hash_code()==m_typeHash)
-				return std::make_shared<ksClassInstance>( *this, std::static_pointer_cast< void >( instance ) );
-			else
-			{
-				REPORT_ERROR_SCRIPT( "wrong type" );
-			}
+		if( typeid(T).hash_code() == m_typeHash )
+			return std::make_shared<ksClassInstance>( *this, std::static_pointer_cast< void >(instance) );
+		else
+		{
+			REPORT_ERROR_SCRIPT( "wrong type" );
+		}
 	}
 
 	template<class T>
@@ -120,7 +119,7 @@ namespace kg
 		kg::ksClassMasterInterface::createNewInstance( const T& instance ) const
 	{
 		if( typeid(T).hash_code() == m_typeHash )
-			return std::make_shared<ksClassInstance>( *this, std::make_shared<T>(instance) );
+			return std::make_shared<ksClassInstance>( *this, std::make_shared<T>( instance ) );
 		else
 		{
 			REPORT_ERROR_SCRIPT( "wrong type" );
