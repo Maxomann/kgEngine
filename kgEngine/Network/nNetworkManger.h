@@ -1,13 +1,6 @@
 //_______NETWORK_MANAGER_______//
 
 #pragma once
-#include <Algorithm/aContainer.h>
-#include <mutex>
-#include <string>
-#include <thread>
-#include <unordered_map>
-#include <tuple>
-#include <iostream>
 #include "nMessage.h"
 #include "stdafx.h"
 

@@ -1,9 +1,6 @@
 //_______CONTAINER_H_______//
 
 #pragma once
-#include <memory>
-#include <queue>
-#include <mutex>
 #include "stdafx.h"
 
 namespace kg

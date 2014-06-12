@@ -4,10 +4,6 @@
 #include "stdafx.h"
 #include "pExtendable.h"
 
-#ifdef _WIN32
-#include<windows.h>
-#endif // _WIN32
-
 
 namespace kg
 {

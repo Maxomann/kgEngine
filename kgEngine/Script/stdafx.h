@@ -2,8 +2,8 @@
 
 #pragma once
 
-#ifndef STDAFX_H
-#define STDAFX_H
+#ifndef KS_STDAFX
+#define KS_STDAFX
 
 #include<iostream>
 
@@ -21,6 +21,7 @@
 #include<memory.h>
 #include<cassert>
 #include<cctype>
+#include <Algorithm/aException.h>
 //#include<dirent.h>
 //divide: struct dirent->d_type / DIRENT_CONST
 //1=Folder
@@ -35,4 +36,4 @@
 //To identify classes loaded over factory files
 #define FACTORY
 
-#endif
+#endif //KS_STDAFX

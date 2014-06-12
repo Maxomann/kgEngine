@@ -1,9 +1,6 @@
 //_______ALGORITHM_STRING_H_______//
 
 #pragma once
-#include <vector>
-#include <algorithm>
-#include <string>
 #include "aBase.h"
 #include "stdafx.h"
 

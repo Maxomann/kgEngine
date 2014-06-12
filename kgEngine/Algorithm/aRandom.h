@@ -1,7 +1,6 @@
 //_______ALGORITHM_RANDOM_H_______//
 
 #pragma once
-#include<random>
 #include "stdafx.h"
 
 namespace kg

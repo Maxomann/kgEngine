@@ -3,12 +3,8 @@
 #pragma once
 
 //Include über <aException.h> nicht möglich
-#include <Algorithm/aException.h>
-
 #include "stdafx.h"
 #include "pExtension.h"
-#include <unordered_map>
-#include <memory>
 
 namespace kg
 {

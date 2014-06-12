@@ -3,7 +3,6 @@
 #pragma once
 #include "stdafx.h"
 #include "ksCode.h"
-#include <Algorithm/aException.h>
 #include "objectSystem/ksLibrary.h"
 #include "ksScript.h"
 

@@ -1,8 +1,6 @@
 //_______MESSAGE_HANDLER_______//
 
 #pragma once
-#include <SFML/Network.hpp>
-#include <Plugin/pExtendable.h>
 #include "stdafx.h"
 
 
