@@ -33,4 +33,7 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="config_client.txt" />
+  </ItemGroup>
 </Project>

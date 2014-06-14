@@ -17,7 +17,6 @@ using namespace kg;
 
 int main()
 {
-
 	try
 	{
 		pPluginManager pluginManager;

@@ -36,9 +36,15 @@
     <ClInclude Include="stdafx.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="aDataByIdentifierFile.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_Quelldateien\aString.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\aDataByIdentifierFile.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

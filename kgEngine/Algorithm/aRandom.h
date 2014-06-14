@@ -6,7 +6,7 @@
 namespace kg
 {
 	template< class T = int >
-	class SCRIPT_API aRandomGenerator_Int
+	class ALGORITHM_API aRandomGenerator_Int
 	{
 	protected:
 		inline aRandomGenerator_Int()

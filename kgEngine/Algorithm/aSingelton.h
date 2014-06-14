@@ -6,7 +6,7 @@
 namespace kg
 {
 	template< class T >
-	struct SCRIPT_API aSingelton
+	struct ALGORITHM_API aSingelton
 	{
 		static T& getInstance()
 		{

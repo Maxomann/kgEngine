@@ -56,11 +56,11 @@ namespace kg
 		/// \see operation
 		///
 		//////////////////////////////////////////////////
-		std::vector< std::string > SCRIPT_API function( std::string toSplit, std::vector< char > atChars, aSplitString::operation op );
-		std::vector< std::string > SCRIPT_API function( std::string toSplit, char atChar_a, aSplitString::operation op );
-		std::vector< std::string > SCRIPT_API function( std::string toSplit, char atChar_a, char atChar_b, aSplitString::operation op );
-		std::vector< std::string > SCRIPT_API function( std::string toSplit, char atChar_a, char atChar_b, char atChar_c, aSplitString::operation op );
-		std::vector< std::string > SCRIPT_API function( std::string toSplit, char atChar_a, char atChar_b, char atChar_c, char atChar_d, aSplitString::operation op );
-		std::vector< std::string > SCRIPT_API function( std::string toSplit, char atChar_a, char atChar_b, char atChar_c, char atChar_d, char atChar_e, aSplitString::operation op );
+		std::vector< std::string > ALGORITHM_API function( std::string toSplit, std::vector< char > atChars, aSplitString::operation op );
+		std::vector< std::string > ALGORITHM_API function( std::string toSplit, char atChar_a, aSplitString::operation op );
+		std::vector< std::string > ALGORITHM_API function( std::string toSplit, char atChar_a, char atChar_b, aSplitString::operation op );
+		std::vector< std::string > ALGORITHM_API function( std::string toSplit, char atChar_a, char atChar_b, char atChar_c, aSplitString::operation op );
+		std::vector< std::string > ALGORITHM_API function( std::string toSplit, char atChar_a, char atChar_b, char atChar_c, char atChar_d, aSplitString::operation op );
+		std::vector< std::string > ALGORITHM_API function( std::string toSplit, char atChar_a, char atChar_b, char atChar_c, char atChar_d, char atChar_e, aSplitString::operation op );
 	};
 };//kg

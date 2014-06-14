@@ -10,4 +10,4 @@
 #define REPORT_ERROR_PLUGIN(message)(TEMPLATE_ERROR("plugin",message))
 
 #define REPORT_ERROR_FILEACCESS(message)(TEMPLATE_ERROR("file access", message))
-#define REPORT_ERROR_NOT_IMPLEMENTED() (TEMPLATE_ERROR("not implemented",""))
+#define REPORT_ERROR_NOT_IMPLEMENTED (TEMPLATE_ERROR("not implemented",""))

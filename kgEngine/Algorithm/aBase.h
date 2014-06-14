@@ -18,7 +18,7 @@ namespace kg
 	//////////////////////////////////////////////////
 
 	template< class T >
-	class SCRIPT_API aIsEqualTo
+	class ALGORITHM_API aIsEqualTo
 	{
 	public:
 		inline aIsEqualTo( T one ) : m_one( one )

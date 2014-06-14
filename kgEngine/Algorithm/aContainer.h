@@ -38,7 +38,7 @@ namespace kg
 	{
 	public:
 
-		SCRIPT_API void swap()
+		ALGORITHM_API void swap()
 		{
 			m_rwMutex.lock();
 			if( m_activeContainer.get() == m_one.get() )
@@ -54,7 +54,7 @@ namespace kg
 			m_rwMutex.unlock();
 		};
 
-		SCRIPT_API void push_back( T& element )
+		ALGORITHM_API void push_back( T& element )
 		{
 			m_rwMutex.lock();
 			if( m_activeContainer.get() == m_one.get() )
@@ -68,7 +68,7 @@ namespace kg
 			m_rwMutex.unlock();
 		};
 
-		SCRIPT_API std::shared_ptr<std::queue< T >> getContent()
+		ALGORITHM_API std::shared_ptr<std::queue< T >> getContent()
 		{
 			m_rwMutex.lock();
 			auto retVal = m_activeContainer;

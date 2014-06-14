@@ -4,10 +4,10 @@
 #define A_STDAFX
 
 #ifndef SCRIPT_API_EX
-#define SCRIPT_API __declspec(dllexport)
+#define ALGORITHM_API __declspec(dllexport)
 
 #else
-#define SCRIPT_API __declspec(dllimport)
+#define ALGORITHM_API __declspec(dllimport)
 
 #endif
 
@@ -20,5 +20,7 @@
 #include <queue>
 #include <mutex>
 #include <exception>
+#include <map>
+#include <fstream>
 
 #endif //A_STDAFX

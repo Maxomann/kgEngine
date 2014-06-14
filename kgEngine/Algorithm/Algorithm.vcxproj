@@ -121,12 +121,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="_quelldateien\aDataByIdentifierFile.cpp" />
     <ClCompile Include="_Quelldateien\aString.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aBase.h" />
     <ClInclude Include="aContainer.h" />
     <ClInclude Include="aException.h" />
+    <ClInclude Include="aDataByIdentifierFile.h" />
     <ClInclude Include="aRandom.h" />
     <ClInclude Include="aSingelton.h" />
     <ClInclude Include="aString.h" />
