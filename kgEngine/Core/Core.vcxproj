@@ -71,12 +71,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\include;D:\Coding\SilverbirdRPG\kgEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Coding\GitHub\SFML-2.1-VS2013-32bit\include;D:\Coding\GitHub\kgEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>Plugin.lib;Network.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\kgEngine\Debug;D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Coding\GitHub\kgEngine\Debug;D:\Coding\GitHub\SFML-2.1-VS2013-32bit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -105,14 +105,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\include;D:\Coding\SilverbirdRPG\kgEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Coding\GitHub\SFML-2.1-VS2013-32bit\include;D:\Coding\GitHub\kgEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Plugin.lib;Network.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\kgEngine\Release;D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Coding\GitHub\kgEngine\Release;D:\Coding\GitHub\SFML-2.1-VS2013-32bit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>

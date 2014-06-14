@@ -12,9 +12,9 @@ namespace kg
 
 	public:
 
-		ALGORITHM_API bool loadFromFile( const std::string& path );
+		ALGORITHM_API void loadFromFile( const std::string& path );
 
-		ALGORITHM_API bool writeToFile( const std::string& path );
+		ALGORITHM_API void writeToFile( const std::string& path );
 		ALGORITHM_API std::string toString()const;
 
 		ALGORITHM_API const std::string& getData( const std::string identifier )const;
