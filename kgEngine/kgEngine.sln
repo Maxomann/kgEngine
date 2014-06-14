@@ -43,8 +43,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Server\Server.vcx
 		{13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A} = {13D3DCEA-B243-4FF0-B7F9-F90D705CCE3A}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core_Plugins", "Core_Plugins", "{615A19AE-49E8-484E-8FE6-32E0C14BC13C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -108,9 +106,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{FF0621D2-5313-46B4-B03D-35E1F2072BA7} = {615A19AE-49E8-484E-8FE6-32E0C14BC13C}
-		{EFD55357-24E3-47A7-A1B4-49FAA3C7A4A6} = {615A19AE-49E8-484E-8FE6-32E0C14BC13C}
 	EndGlobalSection
 EndGlobal

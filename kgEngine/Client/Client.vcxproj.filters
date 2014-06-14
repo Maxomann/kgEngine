@@ -21,9 +21,15 @@
     <ClInclude Include="Client.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="MessageHandlers.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connect.h">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\Client.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

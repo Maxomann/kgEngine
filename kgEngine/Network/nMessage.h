@@ -6,6 +6,7 @@
 namespace kg
 {
 	class cCore;
+	class nNetworkManger;
 
 	class NETWORK_API nMessage
 	{
@@ -25,7 +26,7 @@ namespace kg
 	class NETWORK_API nMessageHandler : public pExtension
 	{
 	public:
-		virtual void handle( cCore& core, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message )const = 0;
+		virtual void handle( cCore& core, nNetworkManager& networkManger, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message )const = 0;
 
 		virtual int getMessageHandlerID()const = 0;
 	};

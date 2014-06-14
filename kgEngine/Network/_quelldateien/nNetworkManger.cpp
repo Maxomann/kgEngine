@@ -13,13 +13,10 @@ void kg::nNetworkManager::m_networkRecieverFunction( ConnectionContainer& connec
 			std::tuple<sf::IpAddress, sf::Uint16, int, std::string> info;
 			sf::Packet packet;
 
-			if( el.second.second.receive( packet, std::get<0>( info ), std::get<1>( info ) ) )
-			{
-				//erfolg
-			}
-			else
+			if( !el.second.second.receive( packet, std::get<0>( info ), std::get<1>( info ) ) )
 			{
 				//fehler
+				REPORT_ERROR_NETWORK( "sfml recieve Error" );
 			}
 
 			packet >> std::get<2>( info ) >> std::get<3>( info );
@@ -45,7 +42,7 @@ NETWORK_API void kg::nNetworkManager::initMessageHandlers()
 		auto ptr = std::dynamic_pointer_cast< kg::nMessageHandler >(el.second);
 		if( ptr )
 		{
-			m_messageHandler[ptr->getID()] = ptr;
+			m_messageHandler[ptr->getMessageHandlerID()] = ptr;
 		}
 	}
 }
@@ -57,7 +54,7 @@ NETWORK_API void kg::nNetworkManager::frame( cCore& core )
 	while( !recievedData->empty() )
 	{
 		std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& el = recievedData->front();
-		m_messageHandler[std::get<2>( el )]->handle( core, el );
+		m_messageHandler[std::get<2>( el )]->handle( core, *this, el );
 		recievedData->pop();
 	}
 
