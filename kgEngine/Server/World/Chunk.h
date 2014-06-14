@@ -7,7 +7,7 @@ namespace kg
 {
 	class Chunk
 	{
-		std::map< sf::Vector2i, int > m_fields;
+		std::map< std::pair<int,int>, int > m_fields;
 
 	public:
 		Chunk();
@@ -18,6 +18,6 @@ namespace kg
 
 		static const sf::Vector2i size;
 
-		const std::map< sf::Vector2i, int >& getFieldData()const;
+		const std::map< std::pair<int, int>, int >& getFieldData()const;
 	};
 }

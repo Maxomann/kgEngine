@@ -6,7 +6,7 @@
 namespace kg
 {
 	class cCore;
-	class nNetworkManger;
+	class nNetworkManager;
 
 	class NETWORK_API nMessage
 	{

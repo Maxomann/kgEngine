@@ -8,7 +8,7 @@ namespace kg
 {
 	class World
 	{
-		std::map<sf::Vector2i, Chunk> m_chunks;
+		std::map< std::pair<int, int>, Chunk> m_chunks;
 
 	public:
 
