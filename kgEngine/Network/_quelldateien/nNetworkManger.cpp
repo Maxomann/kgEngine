@@ -2,9 +2,9 @@
 
 static std::mutex networkMutex;
 
-void kg::nNetworkManager::m_networkRecieverFunction( ConnectionContainer& connections, MessageContainer& messages )
+void kg::nNetworkManager::m_networkRecieverFunction( ConnectionContainer& connections, MessageContainer& messages, bool& shouldTerminate )
 {
-	while( true )
+	while( !shouldTerminate )
 	{
 		//std::cout << "Ich empfange Narchichten" << std::endl; //// to test if the thread works
 		networkMutex.lock();
@@ -34,7 +34,7 @@ NETWORK_API kg::nNetworkManager::nNetworkManager()
 {
 	// launch network reciever thread
 	// it will run until the application is closed
-	std::thread thread( &m_networkRecieverFunction, std::ref( m_connectionContainer ), std::ref( m_messageContainer ) );
+	std::thread thread( &m_networkRecieverFunction, std::ref( m_connectionContainer ), std::ref( m_messageContainer ), std::ref( m_terminateNetworkThread ));
 	thread.detach();
 }
 
@@ -78,4 +78,9 @@ NETWORK_API void kg::nNetworkManager::addConnection( sf::IpAddress& ip, sf::Uint
 NETWORK_API void kg::nNetworkManager::sendMessage( std::shared_ptr<nMessage> message, sf::IpAddress& to, sf::Uint16 onPort )
 {
 	m_senderSocket.send( message->toPacket(), to, onPort );
+}
+
+NETWORK_API kg::nNetworkManager::~nNetworkManager()
+{
+	m_terminateNetworkThread = true;
 }

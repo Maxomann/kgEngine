@@ -2,7 +2,7 @@
 
 namespace kg
 {
-	bool cCore::shouldClose()
+	CORE_API bool cCore::shouldClose()
 	{
 		return m_shouldClose;
 	}
@@ -14,12 +14,12 @@ namespace kg
 			auto ptr = std::dynamic_pointer_cast< kg::cCoreExtension >(el.second);
 			if( ptr )
 			{
-				ptr->frame( networkManger, *this );
+				ptr->frame( *this, networkManger );
 			}
 		}
 	}
 
-	void cCore::close()
+	CORE_API void cCore::close()
 	{
 		m_shouldClose = true;
 	}

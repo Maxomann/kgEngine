@@ -1,8 +1,7 @@
 //_______MAIN_______//
 
 #pragma once
-#include <Network/nNetworkManger.h>
-#include <Plugin/pPluginManager.h>
+#include "stdafx.h"
 #include <iostream>
 #include "cCore.h"
 #include "cCoreExtension.h"
@@ -45,6 +44,8 @@ int main()
 		system( "pause" );
 	}
 
+	//to prevent mutex error
+	std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
 
 	return 0;
 }

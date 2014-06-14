@@ -1,8 +1,7 @@
 //_______CORE_______//
 
 #pragma once
-#include <Network/nNetworkManger.h>
-#include <Plugin/pPluginManager.h>
+#include "stdafx.h"
 
 namespace kg
 {
@@ -13,7 +12,7 @@ namespace kg
 	public:
 		void frame( nNetworkManager& networkManger );
 
-		bool shouldClose();
-		void close();
+		CORE_API bool shouldClose();
+		CORE_API void close();
 	};
 }

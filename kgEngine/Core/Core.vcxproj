@@ -76,7 +76,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>Plugin.lib;Network.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\lib;D:\Coding\SilverbirdRPG\kgEngine\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\kgEngine\Debug;D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -112,7 +112,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Plugin.lib;Network.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\lib;D:\Coding\SilverbirdRPG\kgEngine\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\kgEngine\Release;D:\Coding\SilverbirdRPG\SFML-2.1-VS2013-32bit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <SubSystem>Console</SubSystem>
@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="cCoreExtension.h" />
     <ClInclude Include="cCore.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

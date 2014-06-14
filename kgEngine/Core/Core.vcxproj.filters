@@ -29,5 +29,8 @@
     <ClInclude Include="cCore.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

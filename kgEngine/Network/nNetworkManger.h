@@ -8,6 +8,8 @@ namespace kg
 {
 	class nNetworkManager : public pExtendable
 	{
+		bool m_terminateNetworkThread = false;
+
 		std::map<int, std::shared_ptr<nMessageHandler>> m_messageHandler;
 
 		sf::UdpSocket m_senderSocket;
@@ -22,10 +24,11 @@ namespace kg
 		ConnectionContainer m_connectionContainer;
 		MessageContainer m_messageContainer;
 
-		static void m_networkRecieverFunction( ConnectionContainer& connections, MessageContainer& messages );
+		static void m_networkRecieverFunction( ConnectionContainer& connections, MessageContainer& messages, bool& shouldTerminate );
 
 	public:
 		NETWORK_API nNetworkManager();
+		NETWORK_API ~nNetworkManager();
 
 		NETWORK_API void addConnection( sf::IpAddress& ip, sf::Uint16 port );
 
