@@ -1,6 +1,6 @@
 #include "../aDataByIdentifierFile.h"
 
-ALGORITHM_API bool kg::aDataByIdentifierFile::loadFromFile( const std::string& path )
+ALGORITHM_API void kg::aDataByIdentifierFile::loadFromFile( const std::string& path )
 {
 	std::ifstream file;
 	file.open( path );
@@ -24,7 +24,7 @@ ALGORITHM_API bool kg::aDataByIdentifierFile::loadFromFile( const std::string& p
 		}
 	}
 
-	return false;
+	file.close();
 }
 
 ALGORITHM_API const std::string& kg::aDataByIdentifierFile::getData( const std::string identifier ) const
@@ -32,17 +32,33 @@ ALGORITHM_API const std::string& kg::aDataByIdentifierFile::getData( const std::
 	return m_data.at( identifier );
 }
 
-ALGORITHM_API bool kg::aDataByIdentifierFile::writeToFile( const std::string& path )
+ALGORITHM_API void kg::aDataByIdentifierFile::writeToFile( const std::string& path )
 {
-	REPORT_ERROR_NOT_IMPLEMENTED;
+	std::ofstream file;
+	file.open( path, std::ios_base::binary || std::ios_base::out );
+	if( !file.is_open() )
+		REPORT_ERROR_FILEACCESS( "could not open/create file: " + path );
+	
+	for( const auto& el : m_data )
+		file << el.first << ":" << el.second << "\n";
+
+	file.close();
 }
 
 ALGORITHM_API std::string kg::aDataByIdentifierFile::toString() const
 {
-	REPORT_ERROR_NOT_IMPLEMENTED;
+	std::string str;
+	for( const auto& el : m_data )
+	{
+		str += el.first;
+		str += ":";
+		str += el.second;
+		str += "\n";
+	}
+	return str;
 }
 
 ALGORITHM_API void kg::aDataByIdentifierFile::setData( const std::string& identifier, const std::string& data )
 {
-	REPORT_ERROR_NOT_IMPLEMENTED;
+	m_data[identifier] = data;
 }
