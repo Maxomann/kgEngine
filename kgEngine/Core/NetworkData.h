@@ -17,8 +17,13 @@ namespace kg
 	{
 		enum
 		{
-			CHUNK_DATA_ANSWER = MESSAGE_ID_CLIENT::LAST_ELEMENT+1,
+			CHUNK_DATA_REQUEST_ANSWER = MESSAGE_ID_CLIENT::LAST_ELEMENT + 1,
 			LAST_ELEMENT
 		};
 	}
+
+	static const char standartSplitChar = ';';
+
+	static const sf::Vector2i chunkSize = { 19, 19 };
+
 }

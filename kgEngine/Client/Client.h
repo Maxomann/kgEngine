@@ -2,6 +2,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "MessageHandlers.h"
 
 namespace kg
 {
@@ -10,6 +11,8 @@ namespace kg
 		sf::RenderWindow m_window;
 
 		aDataByIdentifierFile m_config_file;
+
+		bool send = true;
 
 	public:
 		Client();

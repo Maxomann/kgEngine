@@ -145,7 +145,7 @@
   <ItemGroup>
     <ClInclude Include="cCoreExtension.h" />
     <ClInclude Include="cCore.h" />
-    <ClInclude Include="NetworkIDs.h" />
+    <ClInclude Include="NetworkData.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

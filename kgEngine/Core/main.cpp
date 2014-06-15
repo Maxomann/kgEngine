@@ -27,6 +27,8 @@ int main()
 		pluginManager.fillExtandable<nNetworkManager>( networkManger );
 		networkManger.initMessageHandlers();
 
+		networkManger.addConnection( sf::IpAddress::LocalHost, 40000 );
+
 		cCore application;
 		pluginManager.fillExtandable<cCore>( application );
 
@@ -42,9 +44,6 @@ int main()
 		cout << e.what() << endl;
 		system( "pause" );
 	}
-
-	//to prevent mutex error
-	std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
 
 	return 0;
 }

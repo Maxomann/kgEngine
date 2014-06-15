@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="nMessage.h" />
     <ClInclude Include="nNetworkManger.h" />
+    <ClInclude Include="nTransferable.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

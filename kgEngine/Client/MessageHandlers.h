@@ -16,7 +16,7 @@ namespace kg
 
 		virtual std::string getMessage()
 		{
-			return std::to_string( m_position.x ) + ";" + std::to_string( m_position.y );
+			return std::to_string( m_position.x ) + standartSplitChar + std::to_string( m_position.y );
 		}
 
 		virtual int getID()
@@ -33,17 +33,17 @@ namespace kg
 
 		virtual void handle( cCore& core, nNetworkManager& networkManger, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const
 		{
-			throw std::logic_error( "The method or operation is not implemented." );
+			std::cout << std::get<3>( message ) << std::endl;
 		}
 
 		virtual int getMessageHandlerID() const
 		{
-			throw std::logic_error( "The method or operation is not implemented." );
+			return MESSAGE_ID_SERVER::CHUNK_DATA_REQUEST_ANSWER;
 		}
 
 		virtual std::string info() const
 		{
-			throw std::logic_error( "The method or operation is not implemented." );
+			return __CLASS__;
 		}
 
 	};

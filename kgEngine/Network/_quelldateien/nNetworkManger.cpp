@@ -13,15 +13,15 @@ void kg::nNetworkManager::m_networkRecieverFunction( ConnectionContainer& connec
 			std::tuple<sf::IpAddress, sf::Uint16, int, std::string> info;
 			sf::Packet packet;
 
-			if( !el.second.second.receive( packet, std::get<0>( info ), std::get<1>( info ) ) )
+			auto status = el.second.second.receive( packet, std::get<0>( info ), std::get<1>( info ) );
+			if( status == sf::Socket::Done )
 			{
-				//fehler
-				REPORT_ERROR_NETWORK( "sfml recieve Error" );
+				//sf::UdpSocket::recieve gives a wrong port
+				std::get<1>( info ) = el.second.second.getLocalPort();
+
+				packet >> std::get<2>( info ) >> std::get<3>( info );
+				messages.push_back( info );
 			}
-
-			packet >> std::get<2>( info ) >> std::get<3>( info );
-
-			messages.push_back( info );
 		}
 		networkMutex.unlock();
 	}
@@ -31,7 +31,7 @@ NETWORK_API kg::nNetworkManager::nNetworkManager()
 {
 	// launch network reciever thread
 	// it will run until the application is closed
-	std::thread thread( &m_networkRecieverFunction, std::ref( m_connectionContainer ), std::ref( m_messageContainer ), std::ref( m_terminateNetworkThread ));
+	std::thread thread( &m_networkRecieverFunction, std::ref( m_connectionContainer ), std::ref( m_messageContainer ), std::ref( m_terminateNetworkThread ) );
 	thread.detach();
 }
 
@@ -61,18 +61,19 @@ NETWORK_API void kg::nNetworkManager::frame( cCore& core )
 	m_messageContainer.swap();
 }
 
-NETWORK_API void kg::nNetworkManager::addConnection( sf::IpAddress& ip, sf::Uint16 port )
+NETWORK_API void kg::nNetworkManager::addConnection( const sf::IpAddress& ip, sf::Uint16 port )
 {
 	networkMutex.lock();
 
 	auto& el = m_connectionContainer[port];
 	el.first.push_back( ip );
 	el.second.bind( port );
+	el.second.setBlocking( false );
 
 	networkMutex.unlock();
 }
 
-NETWORK_API void kg::nNetworkManager::sendMessage( std::shared_ptr<nMessage> message, sf::IpAddress& to, sf::Uint16 onPort )
+NETWORK_API void kg::nNetworkManager::sendMessage( std::shared_ptr<nMessage> message, const sf::IpAddress& to, sf::Uint16 onPort )
 {
 	m_senderSocket.send( message->toPacket(), to, onPort );
 }
@@ -80,4 +81,7 @@ NETWORK_API void kg::nNetworkManager::sendMessage( std::shared_ptr<nMessage> mes
 NETWORK_API kg::nNetworkManager::~nNetworkManager()
 {
 	m_terminateNetworkThread = true;
+	while( !networkMutex.try_lock() )
+		;
+	networkMutex.unlock();
 }

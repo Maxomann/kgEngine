@@ -30,9 +30,9 @@ namespace kg
 		NETWORK_API nNetworkManager();
 		NETWORK_API ~nNetworkManager();
 
-		NETWORK_API void addConnection( sf::IpAddress& ip, sf::Uint16 port );
+		NETWORK_API void addConnection( const sf::IpAddress& ip, sf::Uint16 port );
 
-		NETWORK_API void sendMessage( std::shared_ptr<nMessage> message, sf::IpAddress& to, sf::Uint16 onPort );
+		NETWORK_API void sendMessage( std::shared_ptr<nMessage> message, const sf::IpAddress& to, sf::Uint16 onPort );
 
 		//the Handlers must have been added to the class by pExtension before calling this function
 		NETWORK_API void initMessageHandlers();

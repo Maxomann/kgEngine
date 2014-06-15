@@ -9,8 +9,11 @@
 
 #include <Core/cCoreExtension.h>
 #include <Plugin/pPluginManager.h>
-#include <Core/NetworkIDs.h>
+#include <Core/NetworkData.h>
+#include <Algorithm/aString.h>
+#include <Network/nTransferable.h>
 
+#include <string>
 #include <sstream>
 
 #include <SFML/Audio.hpp>

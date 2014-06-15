@@ -11,26 +11,18 @@ namespace kg
 		std::string m_message;
 
 	public:
-		ChunkDataRequestAnswer( Chunk& chunk )
-		{
-			for( int x = 0; x < Chunk::size.x; ++x )
-			{
-				for( int y = 0; y < Chunk::size.y; ++y )
-				{
-					//TODO
-					chunk.getField( sf::Vector2i( x, y ) );
-				}
-			}
-		}
+		ChunkDataRequestAnswer( const Chunk& chunk )
+			:m_message(chunk.toString())
+		{}
 
 		virtual std::string getMessage()
 		{
-			throw std::logic_error( "The method or operation is not implemented." );
+			return m_message;
 		}
 
 		virtual int getID()
 		{
-			throw std::logic_error( "The method or operation is not implemented." );
+			return MESSAGE_ID_SERVER::CHUNK_DATA_REQUEST_ANSWER;
 		}
 	};
 
@@ -40,14 +32,7 @@ namespace kg
 
 		virtual void handle( cCore& core, nNetworkManager& networkManger, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const
 		{
-			std::stringstream stream( std::get<3>(message));
-			std::string segment;
-			std::vector<std::string> seglist;
-
-			while( std::getline( stream, segment, '_' ) )
-			{
-				seglist.push_back( segment );
-			}
+			auto seglist = aSplitString::function( std::get<3>( message ), standartSplitChar, aSplitString::operation::REMOVE );
 			networkManger.sendMessage(
 				std::make_shared<ChunkDataRequestAnswer>( core.getExtension<Server>()->getWorld().getChunk( { atoi( seglist.at( 0 ).c_str() ), atoi( seglist.at( 1 ).c_str() ) } ) ),
 				std::get<0>( message ),
@@ -55,15 +40,15 @@ namespace kg
 				std::get<1>( message )
 				);
 		}
-
+		//POSITION HINZUFÜGEn!!!!!!!!!!!!!
 		virtual int getMessageHandlerID() const
 		{
-			throw std::logic_error( "The method or operation is not implemented." );
+			return MESSAGE_ID_CLIENT::CHUNK_DATA_REQUEST;
 		}
 
 		virtual std::string info() const
 		{
-			throw std::logic_error( "The method or operation is not implemented." );
+			return __CLASS__;
 		}
 
 	};

@@ -5,7 +5,7 @@
 
 namespace kg
 {
-	class Chunk
+	class Chunk : public nNetworkSendable
 	{
 		std::map< std::pair<int,int>, int > m_fields;
 
@@ -16,8 +16,9 @@ namespace kg
 
 		int getField( const sf::Vector2i position );
 
-		static const sf::Vector2i size;
-
 		const std::map< std::pair<int, int>, int >& getFieldData()const;
+
+		virtual std::string toString() const;
+
 	};
 }

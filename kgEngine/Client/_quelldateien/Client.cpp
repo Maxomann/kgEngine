@@ -17,6 +17,12 @@ kg::Client::Client()
 
 void kg::Client::frame( cCore& core, nNetworkManager& networkManger )
 {
+	if( send )
+	{
+		networkManger.sendMessage( std::make_shared<ChunkDataRequest>( sf::Vector2i( 0, 0 ) ), sf::IpAddress::LocalHost, 40000 );
+		send = false;
+	}
+
 	if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
 		core.close();
 
