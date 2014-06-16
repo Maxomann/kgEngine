@@ -9,7 +9,7 @@
 
 #include <Core/cCoreExtension.h>
 #include <Plugin/pPluginManager.h>
-#include <Core/NetworkData.h>
+#include <Core/SharedData.h>
 #include <Algorithm/aString.h>
 #include <Network/nTransferable.h>
 

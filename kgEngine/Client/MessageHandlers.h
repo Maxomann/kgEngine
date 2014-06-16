@@ -30,9 +30,23 @@ namespace kg
 	{
 	public:
 
-
 		virtual void handle( cCore& core, nNetworkManager& networkManger, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const
 		{
+			/*std::string chunkX;
+			std::string chunkY;
+
+			int pos = 0;
+			while( std::get<3>( message ).at( pos ) != standartSplitChar )
+			{
+				chunkX.push_back( std::get<3>( message ).at( pos ) );
+				pos++;
+			}
+			while( std::get<3>( message ).at( pos ) != standartSplitChar )
+			{
+				chunkY.push_back( std::get<3>( message ).at( pos ) );
+				pos++;
+			}*/
+
 			std::cout << std::get<3>( message ) << std::endl;
 		}
 

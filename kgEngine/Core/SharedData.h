@@ -26,4 +26,5 @@ namespace kg
 
 	static const sf::Vector2i chunkSize = { 19, 19 };
 
+	static const std::string resourceFolderPath = "Resource/";
 }

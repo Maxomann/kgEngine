@@ -11,9 +11,14 @@ namespace kg
 		std::string m_message;
 
 	public:
-		ChunkDataRequestAnswer( const Chunk& chunk )
-			:m_message(chunk.toString())
-		{}
+		ChunkDataRequestAnswer( const sf::Vector2i& position, const Chunk& chunk )
+		{
+			m_message += std::to_string( position.x );
+			m_message += standartSplitChar;
+			m_message += std::to_string( position.y );
+			m_message += standartSplitChar;
+			m_message += std::move( chunk.toString() );
+		}
 
 		virtual std::string getMessage()
 		{
@@ -33,14 +38,16 @@ namespace kg
 		virtual void handle( cCore& core, nNetworkManager& networkManger, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const
 		{
 			auto seglist = aSplitString::function( std::get<3>( message ), standartSplitChar, aSplitString::operation::REMOVE );
+			sf::Vector2i chunkPosition{ atoi( seglist.at( 0 ).c_str() ), atoi( seglist.at( 1 ).c_str() ) };
+
 			networkManger.sendMessage(
-				std::make_shared<ChunkDataRequestAnswer>( core.getExtension<Server>()->getWorld().getChunk( { atoi( seglist.at( 0 ).c_str() ), atoi( seglist.at( 1 ).c_str() ) } ) ),
+				std::make_shared<ChunkDataRequestAnswer>( chunkPosition, core.getExtension<Server>()->getWorld().getChunk( chunkPosition )),
 				std::get<0>( message ),
 				//return message on port where it was recieved
 				std::get<1>( message )
 				);
 		}
-		//POSITION HINZUFÜGEn!!!!!!!!!!!!!
+
 		virtual int getMessageHandlerID() const
 		{
 			return MESSAGE_ID_CLIENT::CHUNK_DATA_REQUEST;

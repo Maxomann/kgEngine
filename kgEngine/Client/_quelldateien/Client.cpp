@@ -13,15 +13,13 @@ kg::Client::Client()
 		m_window.setVerticalSyncEnabled( true );
 	else
 		m_window.setVerticalSyncEnabled( false );
+
+	m_resourceManagement.getResourceFromResourceFolder<ConfiguratedTexture>( "testimage.png" ).applyToSprite( m_sprite );
 }
 
 void kg::Client::frame( cCore& core, nNetworkManager& networkManger )
 {
-	if( send )
-	{
-		networkManger.sendMessage( std::make_shared<ChunkDataRequest>( sf::Vector2i( 0, 0 ) ), sf::IpAddress::LocalHost, 40000 );
-		send = false;
-	}
+	networkManger.sendMessage( std::make_shared<ChunkDataRequest>( sf::Vector2i( 0, 0 ) ), sf::IpAddress::getLocalAddress(), 42000 );
 
 	if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
 		core.close();
@@ -35,6 +33,8 @@ void kg::Client::frame( cCore& core, nNetworkManager& networkManger )
 
 	m_window.clear( sf::Color::Green );
 	//Do the Drawing inbetween here!
+	m_window.draw( m_sprite );
+
 	m_window.display();
 }
 

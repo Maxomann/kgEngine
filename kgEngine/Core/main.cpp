@@ -27,7 +27,7 @@ int main()
 		pluginManager.fillExtandable<nNetworkManager>( networkManger );
 		networkManger.initMessageHandlers();
 
-		networkManger.addConnection( sf::IpAddress::LocalHost, 40000 );
+		networkManger.addConnection( sf::IpAddress::getLocalAddress(), 42000 );
 
 		cCore application;
 		pluginManager.fillExtandable<cCore>( application );

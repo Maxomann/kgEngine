@@ -8,7 +8,7 @@
 #include <Plugin/pPluginManager.h>
 #include <Core/cCoreExtension.h>
 #include <Algorithm/aDataByIdentifierFile.h>
-#include <Core/NetworkData.h>
+#include <Core/SharedData.h>
 #include <Network/nNetworkManger.h>
 
 #include <SFML/Audio.hpp>

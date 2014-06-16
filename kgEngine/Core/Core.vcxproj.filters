@@ -32,7 +32,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkData.h">
+    <ClInclude Include="SharedData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
