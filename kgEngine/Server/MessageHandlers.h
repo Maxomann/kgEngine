@@ -17,7 +17,7 @@ namespace kg
 			m_message += standartSplitChar;
 			m_message += std::to_string( position.y );
 			m_message += standartSplitChar;
-			m_message += std::move( chunk.toString() );
+			m_message += std::move( chunk.nToString() );
 		}
 
 		virtual std::string getMessage()
@@ -35,12 +35,12 @@ namespace kg
 	{
 	public:
 
-		virtual void handle( cCore& core, nNetworkManager& networkManger, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const
+		virtual void handle( cCore& core, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const
 		{
 			auto seglist = aSplitString::function( std::get<3>( message ), standartSplitChar, aSplitString::operation::REMOVE );
 			sf::Vector2i chunkPosition{ atoi( seglist.at( 0 ).c_str() ), atoi( seglist.at( 1 ).c_str() ) };
 
-			networkManger.sendMessage(
+			core.networkManager.sendMessage(
 				std::make_shared<ChunkDataRequestAnswer>( chunkPosition, core.getExtension<Server>()->getWorld().getChunk( chunkPosition )),
 				std::get<0>( message ),
 				//return message on port where it was recieved

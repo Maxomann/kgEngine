@@ -2,6 +2,7 @@
 
 #pragma once
 #include "stdafx.h"
+#include "cResourceManagement.h"
 
 namespace kg
 {
@@ -10,9 +11,13 @@ namespace kg
 		bool m_shouldClose = false;
 
 	public:
-		void frame( nNetworkManager& networkManger );
+		void frame();
 
 		CORE_API bool shouldClose();
 		CORE_API void close();
+
+
+		nNetworkManager networkManager;
+		cResourceManagement resourceManagement;
 	};
 }

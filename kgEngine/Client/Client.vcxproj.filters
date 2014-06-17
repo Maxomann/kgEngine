@@ -21,13 +21,25 @@
     <ClInclude Include="Client.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="MessageHandlers.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManagement.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="ConfiguratedTexture.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="World\Chunk.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="World\World.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\Camera.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="World\Tile.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\MessageHandlers.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Messages.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -39,6 +51,18 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="_quelldateien\ConfiguratedTexture.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\Camera.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\Tile.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\Chunk.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\World.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

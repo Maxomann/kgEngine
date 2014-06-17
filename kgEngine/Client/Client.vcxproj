@@ -74,16 +74,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="_quelldateien\World.cpp" />
+    <ClCompile Include="_quelldateien\Chunk.cpp" />
+    <ClCompile Include="_quelldateien\Tile.cpp" />
+    <ClCompile Include="_quelldateien\Camera.cpp" />
     <ClCompile Include="_quelldateien\ConfiguratedTexture.cpp" />
     <ClCompile Include="_quelldateien\Client.cpp" />
     <ClCompile Include="connect.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera\Camera.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="ConfiguratedTexture.h" />
-    <ClInclude Include="MessageHandlers.h" />
-    <ClInclude Include="ResourceManagement.h" />
+    <ClInclude Include="Network\Messages.h" />
+    <ClInclude Include="World\Chunk.h" />
+    <ClInclude Include="Network\MessageHandlers.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="World\Tile.h" />
+    <ClInclude Include="World\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

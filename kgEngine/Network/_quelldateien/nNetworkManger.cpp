@@ -54,7 +54,7 @@ NETWORK_API void kg::nNetworkManager::frame( cCore& core )
 	while( !recievedData->empty() )
 	{
 		std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& el = recievedData->front();
-		m_messageHandler[std::get<2>( el )]->handle( core, *this, el );
+		m_messageHandler[std::get<2>( el )]->handle( core, el);
 		recievedData->pop();
 	}
 

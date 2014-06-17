@@ -17,7 +17,7 @@ namespace kg
 		ALGORITHM_API void writeToFile( const std::string& path );
 		ALGORITHM_API std::string toString()const;
 
-		ALGORITHM_API const std::string& getData( const std::string identifier )const;
+		ALGORITHM_API const std::string& getData( const std::string& identifier );
 		ALGORITHM_API void setData( const std::string& identifier, const std::string& data );
 	};
 

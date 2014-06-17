@@ -6,7 +6,7 @@
 namespace kg
 {
 
-	class ResourceManagement
+	class cResourceManagement
 	{
 	private:
 		std::unordered_map< std::string, std::unordered_map<size_t, std::shared_ptr<void>> >m_resources;
@@ -16,7 +16,7 @@ namespace kg
 		//Path begins with the location of the resource folder
 		//PATH: (Folder of main.exe)/ResourceWrappers + relativePath
 		template< class T >
-		T& getResourceFromResourceFolder( std::string relativePath )
+		CORE_API T& getResourceFromResourceFolder( std::string relativePath )
 		{
 			return getResource<T>( resourceFolderPath + relativePath );
 		}
@@ -29,7 +29,7 @@ namespace kg
 		//void bool T::loadFromFile(const std::string& path)
 		//YOU CAN INHERIT FROM SHARED::RESOURCE FOR THAT
 		template< class T >
-		T& getResource( std::string path )
+		CORE_API T& getResource( std::string path )
 		{
 			const size_t typeID = typeid(T).hash_code();
 

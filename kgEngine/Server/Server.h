@@ -13,7 +13,7 @@ namespace kg
 	public:
 		Server();
 
-		virtual void frame( cCore& core, nNetworkManager& networkManger );
+		virtual void frame( cCore& core );
 
 		virtual std::string info() const;
 

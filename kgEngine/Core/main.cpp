@@ -23,20 +23,18 @@ int main()
 		pluginManager.loadPluginsFromFile( "Client.dll" );
 		pluginManager.loadPluginsFromFile( "Server.dll" );
 
-		nNetworkManager networkManger;
-		pluginManager.fillExtandable<nNetworkManager>( networkManger );
-		networkManger.initMessageHandlers();
-
-		networkManger.addConnection( sf::IpAddress::getLocalAddress(), 42000 );
-
 		cCore application;
 		pluginManager.fillExtandable<cCore>( application );
+
+		pluginManager.fillExtandable<nNetworkManager>( application.networkManager );
+		application.networkManager.initMessageHandlers();
+
+		application.networkManager.addConnection( sf::IpAddress::getLocalAddress(), 42000 );
 
 		//Main loop
 		while( !application.shouldClose() )
 		{
-			networkManger.frame( application );
-			application.frame( networkManger );
+			application.frame();
 		}
 	}
 	catch( std::exception& e )

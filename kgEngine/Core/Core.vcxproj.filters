@@ -35,6 +35,9 @@
     <ClInclude Include="SharedData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="cResourceManagement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="config_client.txt" />

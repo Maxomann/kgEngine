@@ -27,9 +27,9 @@ ALGORITHM_API void kg::aDataByIdentifierFile::loadFromFile( const std::string& p
 	file.close();
 }
 
-ALGORITHM_API const std::string& kg::aDataByIdentifierFile::getData( const std::string identifier ) const
+ALGORITHM_API const std::string& kg::aDataByIdentifierFile::getData( const std::string& identifier )
 {
-	return m_data.at( identifier );
+	return m_data[ identifier ];
 }
 
 ALGORITHM_API void kg::aDataByIdentifierFile::writeToFile( const std::string& path )

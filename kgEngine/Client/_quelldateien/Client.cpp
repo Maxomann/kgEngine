@@ -8,21 +8,38 @@ kg::Client::Client()
 
 	//initialize the Client with the data from the config_file
 	m_window.create( sf::VideoMode( std::atoi( m_config_file.getData( "resx" ).c_str() ), std::atoi( m_config_file.getData( "resy" ).c_str() ) ), m_config_file.getData( "window_name" ) );
+	//camera
+	m_camera.init( sf::Vector2u( std::atoi( m_config_file.getData( "resx" ).c_str() ), std::atoi( m_config_file.getData( "resy" ).c_str() )) );
 	//vSynch
 	if( m_config_file.getData( "vsynch" ) == "true" )
 		m_window.setVerticalSyncEnabled( true );
 	else
 		m_window.setVerticalSyncEnabled( false );
 
-	m_resourceManagement.getResourceFromResourceFolder<ConfiguratedTexture>( "testimage.png" ).applyToSprite( m_sprite );
 }
 
-void kg::Client::frame( cCore& core, nNetworkManager& networkManger )
+void kg::Client::frame( cCore& core )
 {
-	networkManger.sendMessage( std::make_shared<ChunkDataRequest>( sf::Vector2i( 0, 0 ) ), sf::IpAddress::getLocalAddress(), 42000 );
+	core.networkManager.sendMessage( std::make_shared<ChunkDataRequest>( sf::Vector2i( 0, 0 ) ), sf::IpAddress::getLocalAddress(), 42000 );
+	core.networkManager.sendMessage( std::make_shared<ChunkDataRequest>( sf::Vector2i( 0, -1 ) ), sf::IpAddress::getLocalAddress(), 42000 );
+	core.networkManager.sendMessage( std::make_shared<ChunkDataRequest>( sf::Vector2i( -1, 0 ) ), sf::IpAddress::getLocalAddress(), 42000 );
+	core.networkManager.sendMessage( std::make_shared<ChunkDataRequest>( sf::Vector2i( -1, -1 ) ), sf::IpAddress::getLocalAddress(), 42000 );
+
 
 	if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
 		core.close();
+	if( sf::Keyboard::isKeyPressed( sf::Keyboard::Subtract ) )
+		m_camera.zoom( 2 );
+	if( sf::Keyboard::isKeyPressed( sf::Keyboard::Add ) )
+		m_camera.zoom( 0.5 );
+	if( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
+		m_camera.moveCenter( sf::Vector2i(0,-10));
+	if( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
+		m_camera.moveCenter( sf::Vector2i( 0, 10 ) );
+	if( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
+		m_camera.moveCenter( sf::Vector2i( -10, 0 ) );
+	if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
+		m_camera.moveCenter( sf::Vector2i( 10, 0 ) );
 
 	sf::Event event;
 	while( m_window.pollEvent( event ) )
@@ -31,14 +48,22 @@ void kg::Client::frame( cCore& core, nNetworkManager& networkManger )
 			core.close();
 	}
 
+
+	//Camera drawing here:
+	m_world.draw( m_camera );
+
 	m_window.clear( sf::Color::Green );
 	//Do the Drawing inbetween here!
-	m_window.draw( m_sprite );
-
+	m_camera.display( m_window );
 	m_window.display();
 }
 
 std::string kg::Client::info() const
 {
 	return "Build-in CLIENT plugin";
+}
+
+kg::World& kg::Client::getWorld()
+{
+	return m_world;
 }

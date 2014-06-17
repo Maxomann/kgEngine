@@ -24,7 +24,8 @@ namespace kg
 
 	static const char standartSplitChar = ';';
 
-	static const sf::Vector2i chunkSize = { 19, 19 };
+	static const int chunkSizeInTiles = 20;
+	static const int tileSizeInPixel = 50;
 
 	static const std::string resourceFolderPath = "Resource/";
 }

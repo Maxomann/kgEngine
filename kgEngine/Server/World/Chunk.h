@@ -18,7 +18,7 @@ namespace kg
 
 		const std::map< std::pair<int, int>, int >& getFieldData()const;
 
-		virtual std::string toString() const;
+		virtual std::string nToString() const;
 
 	};
 }

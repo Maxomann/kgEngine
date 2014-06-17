@@ -8,7 +8,7 @@ namespace kg
 
 	}
 
-	void kg::Server::frame( cCore& core, nNetworkManager& networkManger )
+	void kg::Server::frame( cCore& core )
 	{
 
 	}

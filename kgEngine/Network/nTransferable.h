@@ -5,17 +5,19 @@
 
 namespace kg
 {
+	class cResourceManagement;
+
 	//Tranferable over the network
 	class nNetworkSendable
 	{
 	public:
-		virtual std::string toString()const=0;
+		virtual std::string nToString()const=0;
 	};
 
 	class nNetworkConstructable
 	{
 	public:
-		virtual void fromString( const std::string& data ) = 0;
+		virtual void nFromString( cResourceManagement& resourceManagement, const std::string& data ) = 0;
 	};
 
 }

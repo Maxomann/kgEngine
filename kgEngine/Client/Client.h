@@ -2,25 +2,26 @@
 
 #pragma once
 #include "stdafx.h"
-#include "MessageHandlers.h"
-#include "ConfiguratedTexture.h"
-#include "ResourceManagement.h"
+#include "Network/Messages.h"
+#include "World/World.h"
 
 namespace kg
 {
 	class Client : public cCoreExtension
 	{
 		sf::RenderWindow m_window;
-		ResourceManagement m_resourceManagement;
+
+		Camera m_camera;
+		World m_world;
 
 		aDataByIdentifierFile m_config_file;
-
-		sf::Sprite m_sprite;
 
 	public:
 		Client();
 
-		void frame( cCore& core, nNetworkManager& networkManger );
+		World& getWorld();
+
+		void frame( cCore& core );
 
 		virtual std::string info() const;
 
