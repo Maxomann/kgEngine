@@ -12,7 +12,7 @@ namespace kg
 		std::map<std::pair<int, int>, Chunk> m_chunks;
 
 	public:
-		Chunk& getChunk( cResourceManagement& resourceManagement, const sf::Vector2i& positionInChunks );
+		Chunk& getChunk( cCore& core, const sf::Vector2i& positionInChunks );
 
 		void frame( cCore& core );
 

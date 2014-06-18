@@ -3,8 +3,8 @@
 namespace kg
 {
 
-	Chunk::Chunk( cResourceManagement& resourceManagement, sf::Vector2i positionInPixel )
-		:m_positionInPixel(positionInPixel)
+	Chunk::Chunk( cCore& core, sf::Vector2i positionInChunks )
+		:m_positionInChunks(positionInChunks)
 	{
 		//standart initialize fields
 		for( int x = 0; x < chunkSizeInTiles; ++x )
@@ -14,9 +14,9 @@ namespace kg
 			{
 				m_tiles.at( x ).push_back(
 					Tile(
-					resourceManagement,
+					core,
 					0,
-					sf::Vector2i( m_positionInPixel.x + x*tileSizeInPixel, m_positionInPixel.y + y*tileSizeInPixel ))
+					sf::Vector2i( m_positionInChunks.x*chunkSizeInTiles*tileSizeInPixel + x*tileSizeInPixel, m_positionInChunks.y*chunkSizeInTiles*tileSizeInPixel + y*tileSizeInPixel ) )
 					);
 			}
 		}
@@ -29,7 +29,7 @@ namespace kg
 				tile.draw( camera );
 	}
 
-	void Chunk::nFromString( cResourceManagement& resourceManagement, const std::string& data )
+	void Chunk::nFromString( cCore& core, const std::string& data )
 {
 		auto seglist = aSplitString::function( data, standartSplitChar, aSplitString::operation::REMOVE );
 
@@ -40,7 +40,7 @@ namespace kg
 				auto& tile = m_tiles.at( x ).at( y );
 				int id = atoi( seglist.at( x*chunkSizeInTiles + y ).c_str());
 				if( id != tile.getID() )
-					tile = Tile( resourceManagement, id, sf::Vector2i( m_positionInPixel.x + x*tileSizeInPixel, m_positionInPixel.y + y*tileSizeInPixel ) );
+					tile = Tile( core, id, sf::Vector2i( m_positionInChunks.x + x*tileSizeInPixel, m_positionInChunks.y + y*tileSizeInPixel ) );
 			}
 		}
 	}

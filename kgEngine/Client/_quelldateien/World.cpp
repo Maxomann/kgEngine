@@ -2,7 +2,7 @@
 
 namespace kg
 {
-	Chunk& World::getChunk( cResourceManagement& resourceManagement, const sf::Vector2i& positionInChunks )
+	Chunk& World::getChunk( cCore& core, const sf::Vector2i& positionInChunks )
 	{
 		for( auto& el : m_chunks )
 		{
@@ -14,10 +14,8 @@ namespace kg
 
 		//Chunk needs to be constructed
 		m_chunks.emplace( std::make_pair( std::make_pair( positionInChunks.x, positionInChunks.y ),
-			Chunk( resourceManagement,
-			sf::Vector2i( positionInChunks.x*chunkSizeInTiles*tileSizeInPixel,
-			positionInChunks.y*chunkSizeInTiles*tileSizeInPixel
-			)
+			Chunk( core,
+			sf::Vector2i( positionInChunks.x, positionInChunks.y )
 			) ) );
 		return m_chunks.at( std::make_pair( positionInChunks.x, positionInChunks.y ) );
 	}
@@ -30,7 +28,7 @@ namespace kg
 
 	void World::frame( cCore& core )
 	{
-		
+
 	}
 
 }

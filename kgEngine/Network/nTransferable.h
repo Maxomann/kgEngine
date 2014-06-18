@@ -17,7 +17,7 @@ namespace kg
 	class nNetworkConstructable
 	{
 	public:
-		virtual void nFromString( cResourceManagement& resourceManagement, const std::string& data ) = 0;
+		virtual void nFromString( cCore& resourceManagement, const std::string& data ) = 0;
 	};
 
 }

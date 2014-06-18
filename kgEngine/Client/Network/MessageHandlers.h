@@ -32,7 +32,7 @@ namespace kg
 			}
 			str.erase( str.begin() );
 
-			core.getExtension<Client>()->getWorld().getChunk( core.resourceManagement, sf::Vector2i( atoi( chunkX.c_str() ), atoi( chunkY.c_str() ) ) );
+			core.getExtension<Client>()->getWorld().getChunk( core, sf::Vector2i( atoi( chunkX.c_str() ), atoi( chunkY.c_str() ) ) );
 		}
 
 		virtual int getMessageHandlerID() const

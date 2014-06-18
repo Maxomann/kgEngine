@@ -13,7 +13,7 @@ namespace kg
 		int m_id = -1;
 
 	public:
-		Tile( cResourceManagement& resourceManagement, int id, sf::Vector2i positionInPixel );
+		Tile( cCore& core, int id, sf::Vector2i positionInPixel );
 
 		int getID()const;
 

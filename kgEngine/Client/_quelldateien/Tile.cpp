@@ -4,10 +4,10 @@ namespace kg
 {
 
 
-	Tile::Tile( cResourceManagement& resourceManagement, int id, sf::Vector2i positionInPixel )
+	Tile::Tile( cCore& core, int id, sf::Vector2i positionInPixel )
 		:m_id(id)
 	{
-		auto& texture = resourceManagement.getResourceFromResourceFolder<sf::Texture>( "tile" + std::to_string( id )+".png" );
+		auto& texture = core.resourceManagement.getResourceFromResourceFolder<sf::Texture>( "tile" + std::to_string( id )+".png" );
 
 		m_sprite.setTexture( texture );
 		//scale the sprite to fit th global Dimensions
