@@ -23,14 +23,6 @@ namespace kg
 
 	void kg::Client::frame( cCore& core )
 	{
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::T ) )
-		{
-			m_world.getChunk( core, sf::Vector2i( 0, 0 ) );
-			m_world.getChunk( core, sf::Vector2i( -1, 0 ) );
-			m_world.getChunk( core, sf::Vector2i( 0, -1 ) );
-			m_world.getChunk( core, sf::Vector2i( -1, -1 ) );
-		}
-
 
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
 			core.close();
@@ -47,6 +39,8 @@ namespace kg
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
 			m_camera.moveCenter( sf::Vector2i( 10, 0 ) );
 
+
+		//SFML loop:
 		sf::Event event;
 		while( m_window.pollEvent( event ) )
 		{
@@ -55,11 +49,18 @@ namespace kg
 		}
 
 
+		//Call frame() here:
+		m_world.frame( core );
+		// Ensure, that all chunks which can be seen on the camera, are loaded
+		m_world.loadChunksInRectAndUnloadOther( core, { sf::IntRect( m_camera.getCameraRect() ) } );
+
+
 		//Camera drawing here:
 		m_world.draw( m_camera );
 
+
 		m_window.clear( sf::Color::Green );
-		//Do the Drawing inbetween here!
+		//window-drawing here:
 		m_camera.display( m_window );
 		m_window.display();
 	}

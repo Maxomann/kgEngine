@@ -11,27 +11,27 @@ namespace kg
 
 	bool Camera::setCenter( const sf::Vector2i position )
 	{
-// 		if( !m_focused )
-// 		{
-			this->m_View.setCenter( sf::Vector2f( position ) );
-			return true;
-// 		}
-// 		else
-// 			return false;
+		// 		if( !m_focused )
+		// 		{
+		this->m_View.setCenter( sf::Vector2f( position ) );
+		return true;
+		// 		}
+		// 		else
+		// 			return false;
 	}
 	void Camera::moveCenter( const sf::Vector2i offset )
 	{
-		setCenter( sf::Vector2i( getCenter().x+offset.x, getCenter().y+offset.y ) );
+		setCenter( sf::Vector2i( getCenter().x + offset.x, getCenter().y + offset.y ) );
 	}
 	bool Camera::setRotation( const float rotationInDegree )
 	{
-// 		if( !m_focusRotation )
-// 		{
-			this->m_View.setRotation( rotationInDegree );
-			return true;
-// 		}
-// 		else
-// 			return false;
+		// 		if( !m_focusRotation )
+		// 		{
+		this->m_View.setRotation( rotationInDegree );
+		return true;
+		// 		}
+		// 		else
+		// 			return false;
 	}
 	void Camera::zoom( const float zoomFactor )
 	{
@@ -46,24 +46,24 @@ namespace kg
 		return m_finalSize.x / m_View.getSize().x;
 		return 0;
 	}
-// 	bool cCamera::isFocused()const
-// 	{
-// 		return m_focused != nullptr;
-// 	}
-// 	bool cCamera::isRotationFocused()const
-// 	{
-// 		return m_focusRotation;
-// 	}
-// 	void cCamera::focus( cFocusable& toFocus, const bool focusRotation )
-// 	{
-// 		this->m_focused = &toFocus;
-// 		this->m_focusRotation = focusRotation;
-// 	}
-// 	void cCamera::free()
-// 	{
-// 		this->m_focused = nullptr;
-// 		this->m_focusRotation = false;
-// 	}
+	// 	bool cCamera::isFocused()const
+	// 	{
+	// 		return m_focused != nullptr;
+	// 	}
+	// 	bool cCamera::isRotationFocused()const
+	// 	{
+	// 		return m_focusRotation;
+	// 	}
+	// 	void cCamera::focus( cFocusable& toFocus, const bool focusRotation )
+	// 	{
+	// 		this->m_focused = &toFocus;
+	// 		this->m_focusRotation = focusRotation;
+	// 	}
+	// 	void cCamera::free()
+	// 	{
+	// 		this->m_focused = nullptr;
+	// 		this->m_focusRotation = false;
+	// 	}
 	void Camera::draw( sf::Sprite& toDraw, int zValue )
 	{
 		this->m_spritesToRender[zValue].push_back( &toDraw );
@@ -77,12 +77,12 @@ namespace kg
 	void Camera::display( sf::RenderTarget& renderTarget )
 	{
 		//wenn ein objekt fokussiert wird: m_View anpassen
-// 		if( m_focused )
-// 		{
-// 			m_View.setCenter( sf::Vector2f( m_focused->getPosition() ) );
-// 			if( m_focusRotation )
-// 				m_View.setRotation( m_focused->getRotation() );
-// 		}
+		// 		if( m_focused )
+		// 		{
+		// 			m_View.setCenter( sf::Vector2f( m_focused->getPosition() ) );
+		// 			if( m_focusRotation )
+		// 				m_View.setRotation( m_focused->getRotation() );
+		// 		}
 
 		renderTarget.setView( m_View );
 

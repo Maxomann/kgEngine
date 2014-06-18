@@ -9,10 +9,12 @@ namespace kg
 {
 	class World : public DrawableToCamera
 	{
-		std::map<std::pair<int, int>, Chunk> m_chunks;
+		typedef std::map<std::pair<int, int>, Chunk> Chunkmap;
+		Chunkmap m_chunks;
 
 	public:
 		Chunk& getChunk( cCore& core, const sf::Vector2i& positionInChunks );
+		void loadChunksInRectAndUnloadOther( cCore& core, const std::vector<sf::IntRect>& rectInPixel );
 
 		void frame( cCore& core );
 
