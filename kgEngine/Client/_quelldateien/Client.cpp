@@ -38,6 +38,8 @@ namespace kg
 			m_camera.moveCenter( sf::Vector2i( -10, 0 ) );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
 			m_camera.moveCenter( sf::Vector2i( 10, 0 ) );
+		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
+			m_camera.setCenter( sf::Vector2i(0, 0) );
 
 
 		//SFML loop:
