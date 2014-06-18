@@ -14,6 +14,8 @@ namespace kg
 	public:
 		Chunk& getChunk( cResourceManagement& resourceManagement, const sf::Vector2i& positionInChunks );
 
+		void frame( cCore& core );
+
 		virtual void draw( Camera& camera )override;
 	};
 }

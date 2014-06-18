@@ -3,7 +3,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Server.h"
-#include "MessageHandlers.h"
+#include "Network/MessageHandlers.h"
 
 using namespace std;
 using namespace kg;

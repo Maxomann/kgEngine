@@ -17,7 +17,8 @@
     <ClCompile Include="_quelldateien\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MessageHandlers.h" />
+    <ClInclude Include="Network\MessageHandlers.h" />
+    <ClInclude Include="Network\Messages.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="World\World.h" />

@@ -3,6 +3,7 @@
 #pragma once
 #include "../stdafx.h"
 #include "../Client.h"
+#include "../Network/Messages.h"
 
 namespace kg
 {

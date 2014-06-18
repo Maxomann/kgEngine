@@ -28,4 +28,9 @@ namespace kg
 			el.second.draw( camera );
 	}
 
+	void World::frame( cCore& core )
+	{
+		
+	}
+
 }
