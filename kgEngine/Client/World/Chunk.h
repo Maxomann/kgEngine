@@ -3,6 +3,7 @@
 #pragma once
 #include "../stdafx.h"
 #include "../Camera/Camera.h"
+#include "../Network/Messages.h"
 #include "Tile.h"
 
 namespace kg
@@ -14,6 +15,7 @@ namespace kg
 		std::vector<std::vector<Tile>> m_tiles;
 
 	public:
+		//Requests chunkData for this chunks from server on creation
 		Chunk( cCore& core, sf::Vector2i positionInChunks );
 
 		const Tile& getTile( sf::Vector2i positionInTiles )const;

@@ -4,7 +4,7 @@ namespace kg
 {
 
 	Chunk::Chunk( cCore& core, sf::Vector2i positionInChunks )
-		:m_positionInChunks(positionInChunks)
+		:m_positionInChunks( positionInChunks )
 	{
 		//standart initialize fields
 		for( int x = 0; x < chunkSizeInTiles; ++x )
@@ -20,6 +20,9 @@ namespace kg
 					);
 			}
 		}
+
+		//request chunkData from server
+		core.networkManager.sendMessage( std::make_shared<ChunkDataRequest>( m_positionInChunks ), core.getServerIp(), core.getServerPort() );
 	}
 
 	void Chunk::draw( Camera& camera )
@@ -30,7 +33,7 @@ namespace kg
 	}
 
 	void Chunk::nFromString( cCore& core, const std::string& data )
-{
+	{
 		auto seglist = aSplitString::function( data, standartSplitChar, aSplitString::operation::REMOVE );
 
 		for( int x = 0; x < chunkSizeInTiles; ++x )
@@ -38,9 +41,9 @@ namespace kg
 			for( int y = 0; y < chunkSizeInTiles; ++y )
 			{
 				auto& tile = m_tiles.at( x ).at( y );
-				int id = atoi( seglist.at( x*chunkSizeInTiles + y ).c_str());
+				int id = atoi( seglist.at( x*chunkSizeInTiles + y ).c_str() );
 				if( id != tile.getID() )
-					tile = Tile( core, id, sf::Vector2i( m_positionInChunks.x + x*tileSizeInPixel, m_positionInChunks.y + y*tileSizeInPixel ) );
+					tile = Tile( core, id, sf::Vector2i( m_positionInChunks.x*chunkSizeInTiles*tileSizeInPixel + x*tileSizeInPixel, m_positionInChunks.y*chunkSizeInTiles*tileSizeInPixel + y*tileSizeInPixel ) );
 			}
 		}
 	}
@@ -49,5 +52,4 @@ namespace kg
 	{
 		return m_tiles.at( positionInTiles.x ).at( positionInTiles.y );
 	}
-
 }

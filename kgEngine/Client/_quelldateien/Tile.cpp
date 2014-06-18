@@ -2,8 +2,6 @@
 
 namespace kg
 {
-
-
 	Tile::Tile( cCore& core, int id, sf::Vector2i positionInPixel )
 		:m_id(id)
 	{
