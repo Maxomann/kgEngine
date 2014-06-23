@@ -15,7 +15,8 @@ namespace kg
 		//Chunk needs to be constructed
 		m_chunks.emplace( std::make_pair( std::make_pair( positionInChunks.x, positionInChunks.y ),
 			Chunk( core,
-			sf::Vector2i( positionInChunks.x, positionInChunks.y )
+			sf::Vector2i( positionInChunks.x, positionInChunks.y ),
+			m_tileAnimations
 			) ) );
 		return m_chunks.at( std::make_pair( positionInChunks.x, positionInChunks.y ) );
 	}
@@ -28,11 +29,14 @@ namespace kg
 
 	void World::frame( cCore& core )
 	{
-
+		for( auto& chunk : m_chunks )
+			chunk.second.frame( core );
+		for( auto& animation : m_tileAnimations )
+			animation.second.frame();
 	}
 
 	void World::loadChunksInRectAndUnloadOther( cCore& core, const std::vector<sf::IntRect>& rectsInPixelVector )
-{
+	{
 		std::vector<sf::Vector2i> positions;
 
 		for( const auto& rectInPixel : rectsInPixelVector )

@@ -2,7 +2,6 @@
 
 #pragma once
 #include "../stdafx.h"
-#include "../Camera/Camera.h"
 #include "Chunk.h"
 
 namespace kg
@@ -11,6 +10,8 @@ namespace kg
 	{
 		typedef std::map<std::pair<int, int>, Chunk> Chunkmap;
 		Chunkmap m_chunks;
+
+		AnimationByIdMap m_tileAnimations;
 
 	public:
 		Chunk& getChunk( cCore& core, const sf::Vector2i& positionInChunks );

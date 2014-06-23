@@ -3,8 +3,9 @@
 namespace kg
 {
 
-	Chunk::Chunk( cCore& core, sf::Vector2i positionInChunks )
-		:m_positionInChunks( positionInChunks )
+	Chunk::Chunk( cCore& core, sf::Vector2i positionInChunks, AnimationByIdMap& tileAnimations )
+		:m_positionInChunks( positionInChunks ),
+		r_tileAnimations( tileAnimations )
 	{
 		//standart initialize fields
 		for( int x = 0; x < chunkSizeInTiles; ++x )
@@ -16,7 +17,8 @@ namespace kg
 					Tile(
 					core,
 					0,
-					sf::Vector2i( m_positionInChunks.x*chunkSizeInTiles*tileSizeInPixel + x*tileSizeInPixel, m_positionInChunks.y*chunkSizeInTiles*tileSizeInPixel + y*tileSizeInPixel ) )
+					sf::Vector2i( m_positionInChunks.x*chunkSizeInTiles*tileSizeInPixel + x*tileSizeInPixel, m_positionInChunks.y*chunkSizeInTiles*tileSizeInPixel + y*tileSizeInPixel ),
+					tileAnimations )
 					);
 			}
 		}
@@ -43,7 +45,14 @@ namespace kg
 				auto& tile = m_tiles.at( x ).at( y );
 				int id = atoi( seglist.at( x*chunkSizeInTiles + y ).c_str() );
 				if( id != tile.getID() )
-					tile = Tile( core, id, sf::Vector2i( m_positionInChunks.x*chunkSizeInTiles*tileSizeInPixel + x*tileSizeInPixel, m_positionInChunks.y*chunkSizeInTiles*tileSizeInPixel + y*tileSizeInPixel ) );
+					tile = Tile(
+					core,
+					id,
+					sf::Vector2i(
+					m_positionInChunks.x*chunkSizeInTiles*tileSizeInPixel + x*tileSizeInPixel,
+					m_positionInChunks.y*chunkSizeInTiles*tileSizeInPixel + y*tileSizeInPixel
+					),
+					r_tileAnimations );
 			}
 		}
 	}
@@ -52,4 +61,12 @@ namespace kg
 	{
 		return m_tiles.at( positionInTiles.x ).at( positionInTiles.y );
 	}
+
+	void Chunk::frame( cCore& core )
+	{
+		for( auto& x : m_tiles )
+			for( auto& y : x )
+				y.frame( core );
+	}
+
 }

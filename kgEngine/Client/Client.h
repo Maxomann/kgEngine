@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "Network/Messages.h"
 #include "World/World.h"
+#include "Drawing/Animation.h"
 
 namespace kg
 {

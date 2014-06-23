@@ -1,4 +1,4 @@
-#include "../Camera/Camera.h"
+#include "../Drawing/Camera.h"
 
 namespace kg
 {

@@ -1,4 +1,4 @@
-#include "../aDataByIdentifierFile.h"
+#include "../aFile.h"
 
 ALGORITHM_API void kg::aDataByIdentifierFile::loadFromFile( const std::string& path )
 {
@@ -61,4 +61,21 @@ ALGORITHM_API std::string kg::aDataByIdentifierFile::toString() const
 ALGORITHM_API void kg::aDataByIdentifierFile::setData( const std::string& identifier, const std::string& data )
 {
 	m_data[identifier] = data;
+}
+
+ALGORITHM_API std::string kg::aLoadFileToString( const std::string& path )
+{
+	std::string returnValue;
+
+	std::ifstream file;
+	file.open( path );
+	if( !file.is_open() )
+		REPORT_ERROR_FILEACCESS( "could not open file: " + path );
+
+	std::string line;
+
+	while( std::getline( file, line ) )
+		returnValue += line;
+
+	return returnValue;
 }

@@ -30,9 +30,6 @@
     <ClInclude Include="World\World.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Camera\Camera.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="World\Tile.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -40,6 +37,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Network\Messages.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Camera.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing\Animation.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -63,6 +66,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="_quelldateien\World.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\Animation.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

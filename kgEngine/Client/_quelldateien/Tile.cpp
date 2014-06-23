@@ -2,17 +2,39 @@
 
 namespace kg
 {
-	Tile::Tile( cCore& core, int id, sf::Vector2i positionInPixel )
-		:m_id(id)
+	Tile::Tile( cCore& core, int id, sf::Vector2i positionInPixel, AnimationByIdMap& tileAnimations )
+		:m_id( id ),
+		r_tileAnimations(&tileAnimations)
 	{
-		auto& texture = core.resourceManagement.getResourceFromResourceFolder<sf::Texture>( "tile" + std::to_string( id )+".png" );
+		//ensure that animation for this sprite is loaded
+		Animation* animation = nullptr;
+		for( auto& el : tileAnimations )
+			if( el.first == m_id )
+				animation = &(el.second);
+		//if not loaded
+		if( !animation )
+		{
+			//load animation from file
+			AnimationSettings settings( resourceFolderPath + "tile" + std::to_string( m_id ) + ".xml" );
+			Animation animation2( settings );
+			tileAnimations.insert( std::make_pair( m_id, animation2 ) );
+
+			//validate pointer
+			for( auto& el : tileAnimations )
+				if( el.first == m_id )
+					animation = &(el.second);
+		}
+
+
+		auto& texture = core.resourceManagement.getResourceFromResourceFolder<sf::Texture>( "tile" + std::to_string( id ) + ".png" );
 
 		m_sprite.setTexture( texture );
-		//scale the sprite to fit th global Dimensions
+		animation->apply( m_sprite );
+		//scale the sprite to fit the global Dimensions
 		m_sprite.setScale( sf::Vector2f(
-			( float )tileSizeInPixel / ( float )texture.getSize().x ,
-			( float )tileSizeInPixel / ( float )texture.getSize().y
-			));
+			( float )tileSizeInPixel / ( float )animation->getSettings().frameSize.x,
+			( float )tileSizeInPixel / ( float )animation->getSettings().frameSize.y
+			) );
 
 		m_sprite.setPosition( sf::Vector2f( positionInPixel ) );
 	}
@@ -25,6 +47,11 @@ namespace kg
 	int Tile::getID() const
 	{
 		return m_id;
+	}
+
+	void Tile::frame( cCore& core )
+	{
+		r_tileAnimations->at( m_id ).apply( m_sprite );
 	}
 
 }

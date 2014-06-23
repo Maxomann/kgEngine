@@ -6,6 +6,8 @@
 
 namespace kg
 {
+	ALGORITHM_API std::string aLoadFileToString( const std::string& path );
+
 	class aDataByIdentifierFile
 	{
 		std::map<std::string, std::string> m_data;
