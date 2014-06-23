@@ -121,7 +121,7 @@ namespace kg
 		if( m_settings.isFrameAvailable(m_state, m_frame) )
 #ifdef _DEBUG
 			REPORT_ERROR_GRAPHICS( "frame not available" );
-#elif
+#else
 			return false;
 #endif
 		m_frame = id;
@@ -134,7 +134,7 @@ namespace kg
  		if( m_settings.isStateAvailable(id) )
 #ifdef _DEBUG
 			REPORT_ERROR_GRAPHICS( "state not available" );
-#elif
+#else
 			return false;
 #endif
 		m_state = id;
