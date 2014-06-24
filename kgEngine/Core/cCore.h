@@ -4,11 +4,14 @@
 #include "stdafx.h"
 #include "cResourceManagement.h"
 #include "SharedData.h"
+#include "cCoreExtension.h"
 
 namespace kg
 {
 	class cCore : public pExtendable
 	{
+		std::vector<std::shared_ptr<cCoreExtension>> r_coreExtensions;
+
 		bool m_shouldClose = false;
 
 		sf::IpAddress m_serverIp = sf::IpAddress::LocalHost;
@@ -25,6 +28,8 @@ namespace kg
 
 		CORE_API bool shouldClose();
 		CORE_API void close();
+
+		CORE_API virtual void initExtensions();
 
 		nNetworkManager networkManager;
 		cResourceManagement resourceManagement;

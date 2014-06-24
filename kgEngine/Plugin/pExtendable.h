@@ -36,6 +36,8 @@ namespace kg
 				REPORT_ERROR_PLUGIN( "Extension class: " + typeid(T).name() + " is not available" );
 			}
 		}
+
+		PLUGIN_API virtual void initExtensions() = 0;
 	};
 
 	class PLUGIN_API pExtensionProviderInterface

@@ -5,6 +5,7 @@
 #include "Network/Messages.h"
 #include "World/World.h"
 #include "Drawing/Animation.h"
+#include "GUI/GuiManager.h"
 
 namespace kg
 {
@@ -12,13 +13,14 @@ namespace kg
 	{
 		sf::RenderWindow m_window;
 
+		GuiManager m_guiManager;
 		Camera m_camera;
 		World m_world;
 
 		aDataByIdentifierFile m_config_file;
 
 	public:
-		Client();
+		Client( pPluginManager& pluginManger );
 
 		World& getWorld();
 

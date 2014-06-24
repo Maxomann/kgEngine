@@ -7,6 +7,7 @@
 
 #include <Plugin/pPluginManager.h>
 #include <Core/cCoreExtension.h>
+#include <Core/cCore.h>
 #include <Algorithm/aFile.h>
 #include <Algorithm/aString.h>
 #include <Core/SharedData.h>
@@ -23,5 +24,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/system.hpp>
 
+#include <TGUI/TGUI.hpp>
 
 #endif

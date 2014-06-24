@@ -25,9 +25,10 @@ int main()
 
 		cCore application;
 		pluginManager.fillExtandable<cCore>( application );
+		application.initExtensions();
 
 		pluginManager.fillExtandable<nNetworkManager>( application.networkManager );
-		application.networkManager.initMessageHandlers();
+		application.networkManager.initExtensions();
 
 		application.networkManager.addConnection( sf::IpAddress::getLocalAddress(), 42000 );
 

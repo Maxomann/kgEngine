@@ -22,6 +22,14 @@ namespace kg
 		};
 	}
 
+	namespace GUI_STATE
+	{
+		enum
+		{
+			DEFAULT
+		};
+	}
+
 	static const char standartSplitChar = ';';
 
 	static const int chunkSizeInTiles = 20;
@@ -30,4 +38,5 @@ namespace kg
 	static const sf::Uint16 clientToServerPort = 42000;
 
 	static const std::string resourceFolderPath = "Resource/";
+	static const std::string fontFolderName = "Fonts/";
 }

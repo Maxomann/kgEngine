@@ -8,10 +8,12 @@
 #include <map>
 
 #include <Core/cCoreExtension.h>
+#include <Core/cCore.h>
 #include <Plugin/pPluginManager.h>
 #include <Core/SharedData.h>
 #include <Algorithm/aString.h>
 #include <Network/nTransferable.h>
+#include <Network/nNetworkManger.h>
 
 #include <string>
 #include <sstream>

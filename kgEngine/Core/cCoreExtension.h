@@ -1,10 +1,12 @@
 //_______CORE_EXTENSION_______//
 
 #pragma once
-#include "cCore.h"
+#include "stdafx.h"
 
 namespace kg
 {
+	class cCore;
+
 	class cCoreExtension : public pExtension
 	{
 	public:

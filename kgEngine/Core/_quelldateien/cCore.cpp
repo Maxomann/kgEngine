@@ -1,4 +1,4 @@
-#include "../cCoreExtension.h"
+#include "../cCore.h"
 
 namespace kg
 {
@@ -11,14 +11,8 @@ namespace kg
 	{
 		networkManager.frame( *this );
 
-		for( auto& el : m_extensions )
-		{
-			auto ptr = std::dynamic_pointer_cast< kg::cCoreExtension >(el.second);
-			if( ptr )
-			{
-				ptr->frame( *this);
-			}
-		}
+		for( auto& el : r_coreExtensions )
+			el->frame( *this );
 	}
 
 	CORE_API void cCore::close()
@@ -44,6 +38,18 @@ namespace kg
 	CORE_API sf::Uint16 cCore::getServerPort() const
 	{
 		return m_serverPort;
+	}
+
+	CORE_API void cCore::initExtensions()
+	{
+		for( const auto& el : m_extensions )
+		{
+			auto ptr = std::dynamic_pointer_cast< cCoreExtension >(el.second);
+			if( ptr )
+			{
+				r_coreExtensions.push_back( ptr );
+			}
+		}
 	}
 
 }

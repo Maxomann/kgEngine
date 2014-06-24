@@ -5,7 +5,8 @@ namespace kg
 
 	const char kg::Client::config_file_path[] = "config_client.txt";
 
-	kg::Client::Client()
+	kg::Client::Client( pPluginManager& pluginManger )
+		:m_guiManager(m_window)
 	{
 		m_config_file.loadFromFile( config_file_path );
 
@@ -19,6 +20,11 @@ namespace kg
 		else
 			m_window.setVerticalSyncEnabled( false );
 
+
+		//GuiElements laden
+		pluginManger.fillExtandable<GuiManager>( m_guiManager );
+		m_guiManager.initExtensions();
+		m_guiManager.setGuiState( GUI_STATE::DEFAULT );
 	}
 
 	void kg::Client::frame( cCore& core )
@@ -48,6 +54,8 @@ namespace kg
 		{
 			if( event.type == sf::Event::Closed )
 				core.close();
+
+			m_guiManager.passEvent( event );
 		}
 
 
@@ -55,15 +63,19 @@ namespace kg
 		m_world.frame( core );
 		// Ensure, that all chunks which can be seen on the camera, are loaded
 		m_world.loadChunksInRectAndUnloadOther( core, { sf::IntRect( m_camera.getCameraRect() ) } );
+		m_guiManager.frame();
+
 
 
 		//Camera drawing here:
 		m_world.draw( m_camera );
+		m_guiManager.drawToCam( m_camera );
 
 
 		m_window.clear( sf::Color::Green );
 		//window-drawing here:
 		m_camera.display( m_window );
+		m_guiManager.drawToWindow();
 		m_window.display();
 	}
 

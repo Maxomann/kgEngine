@@ -38,5 +38,8 @@ namespace kg
 		NETWORK_API void initMessageHandlers();
 
 		NETWORK_API void frame( cCore& core );
+
+		NETWORK_API virtual void initExtensions();
+
 	};
 }

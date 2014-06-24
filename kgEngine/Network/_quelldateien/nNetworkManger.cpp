@@ -35,7 +35,7 @@ NETWORK_API kg::nNetworkManager::nNetworkManager()
 	thread.detach();
 }
 
-NETWORK_API void kg::nNetworkManager::initMessageHandlers()
+NETWORK_API void kg::nNetworkManager::initExtensions()
 {
 	for( const auto& el : m_extensions )
 	{
