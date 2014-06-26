@@ -9,6 +9,12 @@ namespace kg
 {
 	class StandartGameState : public GameState
 	{
+		tgui::Button::Ptr m_testbutton;
+
+		void testbuttonCallback( const tgui::Callback& callback, World& world, Camera& camera, tgui::Gui& gui );
+
+		int m_nextGameState = NO_CHANGE;
+
 	public:
 
 		virtual void onInit( World& world, Camera& camera, tgui::Gui& gui );

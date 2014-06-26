@@ -18,7 +18,12 @@ namespace kg
 
 		// return ID of a GameState to replace this GameState with GameState(id)
 		//		onClose will get called
+		//		return -1 NO_CHANGE to keep this GameState
+		//		return -2 CLOSE_APP to close the application
 		virtual int frame( World& world, Camera& camera, tgui::Gui& gui )=0;
+
+		static const int NO_CHANGE = -1;
+		static const int CLOSE_APP = -2;
 
 		virtual void onClose( World& world, Camera& camera, tgui::Gui& gui )=0;
 

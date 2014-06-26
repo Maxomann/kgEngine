@@ -12,7 +12,7 @@ namespace kg
 {
 	class Client : public cCoreExtension
 	{
-		std::map<int, std::shared_ptr<GameState>> m_gameStates;
+		std::unordered_map<int, std::shared_ptr<GameState>> m_gameStates;
 
 		sf::RenderWindow m_window;
 
@@ -22,7 +22,7 @@ namespace kg
 
 		aDataByIdentifierFile m_config_file;
 
-		std::unique_ptr<GameState> m_gameState;
+		std::shared_ptr<GameState> m_gameState;
 
 	public:
 		Client();

@@ -26,22 +26,6 @@ namespace kg
 
 	void kg::Client::frame( cCore& core )
 	{
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
-			core.close();
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Subtract ) )
-			m_camera.zoom( 2 );
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Add ) )
-			m_camera.zoom( 0.5 );
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
-			m_camera.moveCenter( sf::Vector2i( 0, -10 ) );
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
-			m_camera.moveCenter( sf::Vector2i( 0, 10 ) );
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
-			m_camera.moveCenter( sf::Vector2i( -10, 0 ) );
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
-			m_camera.moveCenter( sf::Vector2i( 10, 0 ) );
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
-			m_camera.setCenter( sf::Vector2i( 0, 0 ) );
 
 		//SFML loop:
 		sf::Event event;
@@ -51,15 +35,32 @@ namespace kg
 				core.close();
 
 			m_gui.handleEvent( event );
+			m_gameState->handleEvent( event );
 		}
+
+
 
 		//Call frame() here:
 		m_world.frame( core );
 		// Ensure, that all chunks which can be seen on the camera, are loaded
 		m_world.loadChunksInRectAndUnloadOther( core, { sf::IntRect( m_camera.getCameraRect() ) } );
 
+		// change gameState if needed
+		int newGameStateId = m_gameState->frame(m_world, m_camera, m_gui );
+		if( newGameStateId == GameState::CLOSE_APP )
+			core.close();
+		else if( newGameStateId > -1 )
+		{
+			m_gameState->onClose(m_world, m_camera, m_gui );
+			m_gameState = m_gameStates.at( newGameStateId );
+		}
+
+
+
 		//Camera drawing here:
 		m_world.draw( m_camera );
+
+
 
 		m_window.clear( sf::Color::Green );
 		//window-drawing here:
@@ -90,6 +91,11 @@ namespace kg
 				m_gameStates[ptr->getID()] = ptr;
 			}
 		}
+
+
+		//set standart gameState
+		m_gameState = m_gameStates.at( GAME_STATE_ID::STANDART );
+		m_gameState->onInit(m_world, m_camera, m_gui);
 	}
 
 }

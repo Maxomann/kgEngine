@@ -39,4 +39,7 @@ namespace kg
 
 	static const std::string resourceFolderPath = "Resource/";
 	static const std::string fontFolderName = "Fonts/";
+	static const std::string widgetFolderName = "TGUI/";
+
+	static const std::string tguiConfigBlack = "Black.conf";
 }
