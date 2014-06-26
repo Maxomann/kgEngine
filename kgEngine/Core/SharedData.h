@@ -22,11 +22,11 @@ namespace kg
 		};
 	}
 
-	namespace GUI_STATE
+	namespace GAME_STATE_ID
 	{
 		enum
 		{
-			DEFAULT
+			STANDART
 		};
 	}
 

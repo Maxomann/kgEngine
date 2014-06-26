@@ -76,5 +76,4 @@ namespace kg
 		for( const auto& el : chunksNotInRect )
 			m_chunks.erase( el );
 	}
-
 }

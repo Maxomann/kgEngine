@@ -19,6 +19,6 @@
 #include <tuple>
 #include <iostream>
 #include <SFML/Network.hpp>
-#include <Plugin/pExtendable.h>
+#include <Plugin/pPluginManager.h>
 
 #endif //N_STDAFX

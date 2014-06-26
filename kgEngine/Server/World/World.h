@@ -13,6 +13,5 @@ namespace kg
 	public:
 
 		Chunk& getChunk( const sf::Vector2i& position );
-
 	};
 }

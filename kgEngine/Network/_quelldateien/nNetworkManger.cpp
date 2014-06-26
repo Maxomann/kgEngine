@@ -35,8 +35,10 @@ NETWORK_API kg::nNetworkManager::nNetworkManager()
 	thread.detach();
 }
 
-NETWORK_API void kg::nNetworkManager::initExtensions()
+NETWORK_API void kg::nNetworkManager::initExtensions( pPluginManager& pluginManager )
 {
+	pluginManager.fillExtandable<nNetworkManager>( *this );
+
 	for( const auto& el : m_extensions )
 	{
 		auto ptr = std::dynamic_pointer_cast< kg::nMessageHandler >(el.second);
@@ -54,7 +56,7 @@ NETWORK_API void kg::nNetworkManager::frame( cCore& core )
 	while( !recievedData->empty() )
 	{
 		std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& el = recievedData->front();
-		m_messageHandler[std::get<2>( el )]->handle( core, el);
+		m_messageHandler[std::get<2>( el )]->handle( core, el );
 		recievedData->pop();
 	}
 

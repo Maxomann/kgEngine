@@ -11,7 +11,6 @@ namespace kg
 	{
 		AnimationByIdMap& r_tileAnimations;
 
-
 		const sf::Vector2i m_positionInChunks;
 
 		std::vector<std::vector<Tile>> m_tiles;

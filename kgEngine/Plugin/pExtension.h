@@ -2,13 +2,15 @@
 
 #pragma once
 #include "stdafx.h"
+#include "pExtendable.h"
 
 namespace kg
 {
-	class PLUGIN_API pExtension
+	class pExtension
 	{
 	public:
 		// return the name, the ID and the version number of this Extension
-		virtual std::string info()const = 0;
+		PLUGIN_API virtual std::string info()const = 0;
+
 	};
 }

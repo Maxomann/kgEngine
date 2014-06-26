@@ -4,12 +4,10 @@ using namespace rapidxml;
 
 namespace kg
 {
-
 	AnimationSettings::AnimationSettings( const sf::Vector2i& frameSize, const std::vector<std::vector<int>>& frameInfo )
 		:frameSize( frameSize ),
 		frameInfo( frameInfo )
 	{
-
 	}
 
 	AnimationSettings::AnimationSettings( const std::string& path )
@@ -53,7 +51,7 @@ namespace kg
 						 frameNode;
 						 frameNode = frameNode->next_sibling() )
 					{
-						if( atoi( frameNode->value() )==0 )
+						if( atoi( frameNode->value() ) == 0 )
 							thisStatesInfo.push_back( timeForEveryFrame );
 						else
 							thisStatesInfo.push_back( atoi( frameNode->value() ) );
@@ -66,12 +64,11 @@ namespace kg
 					 frameNode;
 					 frameNode = frameNode->next_sibling() )
 				{
-					thisStatesInfo.push_back( atoi(frameNode->value()) );
+					thisStatesInfo.push_back( atoi( frameNode->value() ) );
 				}
 			}
 			frameInfo.push_back( thisStatesInfo );
 		}
-
 	}
 
 	bool AnimationSettings::isStateAvailable( unsigned int stateId ) const
@@ -90,12 +87,10 @@ namespace kg
 			return false;
 	}
 
-
 	Animation::Animation( const AnimationSettings& settings, bool start )
 		:m_settings( settings ),
 		m_run( start )
 	{
-
 	}
 
 	void Animation::run()
@@ -118,7 +113,7 @@ namespace kg
 
 	bool Animation::setFrame( int id )
 	{
-		if( m_settings.isFrameAvailable(m_state, m_frame) )
+		if( m_settings.isFrameAvailable( m_state, m_frame ) )
 #ifdef _DEBUG
 			REPORT_ERROR_GRAPHICS( "frame not available" );
 #else
@@ -131,7 +126,7 @@ namespace kg
 
 	bool Animation::setState( int id )
 	{
- 		if( m_settings.isStateAvailable(id) )
+		if( m_settings.isStateAvailable( id ) )
 #ifdef _DEBUG
 			REPORT_ERROR_GRAPHICS( "state not available" );
 #else
@@ -173,5 +168,4 @@ namespace kg
 	{
 		return m_settings;
 	}
-
 }

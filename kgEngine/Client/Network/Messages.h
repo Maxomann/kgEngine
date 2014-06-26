@@ -21,6 +21,5 @@ namespace kg
 		{
 			return MESSAGE_ID_CLIENT::CHUNK_DATA_REQUEST;
 		}
-
 	};
 }

@@ -48,6 +48,12 @@
     <ClInclude Include="GUI\GuiManager.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="GameState\GameState.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState\GameStates.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connect.h">
@@ -75,6 +81,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="_quelldateien\GuiManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\GameStates.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

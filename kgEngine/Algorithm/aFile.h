@@ -22,5 +22,4 @@ namespace kg
 		ALGORITHM_API const std::string& getData( const std::string& identifier );
 		ALGORITHM_API void setData( const std::string& identifier, const std::string& data );
 	};
-
 }

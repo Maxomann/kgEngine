@@ -14,35 +14,31 @@
 using namespace std;
 using namespace kg;
 
-
 int main()
 {
-// 	try
-// 	{
-		pPluginManager pluginManager;
-		pluginManager.loadPluginsFromFile( "Client.dll" );
-		pluginManager.loadPluginsFromFile( "Server.dll" );
+	// 	try
+	// 	{
+	pPluginManager pluginManager;
+	pluginManager.loadPluginsFromFile( "Client.dll" );
+	pluginManager.loadPluginsFromFile( "Server.dll" );
 
-		cCore application;
-		pluginManager.fillExtandable<cCore>( application );
-		application.initExtensions();
+	cCore application;
+	pluginManager.fillExtandable<cCore>( application );
+	application.initExtensions( pluginManager );
 
-		pluginManager.fillExtandable<nNetworkManager>( application.networkManager );
-		application.networkManager.initExtensions();
+	application.networkManager.addConnection( sf::IpAddress::getLocalAddress(), 42000 );
 
-		application.networkManager.addConnection( sf::IpAddress::getLocalAddress(), 42000 );
-
-		//Main loop
-		while( !application.shouldClose() )
-		{
-			application.frame();
-		}
-// 	}
-// 	catch( std::exception& e )
-// 	{
-// 		cout << e.what() << endl;
-// 		system( "pause" );
-// 	}
+	//Main loop
+	while( !application.shouldClose() )
+	{
+		application.frame();
+	}
+	// 	}
+	// 	catch( std::exception& e )
+	// 	{
+	// 		cout << e.what() << endl;
+	// 		system( "pause" );
+	// 	}
 
 	return 0;
 }

@@ -4,7 +4,7 @@ namespace kg
 {
 	Tile::Tile( cCore& core, int id, sf::Vector2i positionInPixel, AnimationByIdMap& tileAnimations )
 		:m_id( id ),
-		r_tileAnimations(&tileAnimations)
+		r_tileAnimations( &tileAnimations )
 	{
 		//ensure that animation for this sprite is loaded
 		Animation* animation = nullptr;
@@ -24,7 +24,6 @@ namespace kg
 				if( el.first == m_id )
 					animation = &(el.second);
 		}
-
 
 		auto& texture = core.resourceManagement.getResourceFromResourceFolder<sf::Texture>( "tile" + std::to_string( id ) + ".png" );
 
@@ -53,5 +52,4 @@ namespace kg
 	{
 		r_tileAnimations->at( m_id ).apply( m_sprite );
 	}
-
 }

@@ -7,7 +7,6 @@
 
 namespace kg
 {
-
 	class ChunkDataRequestAnswerHandler : public nMessageHandler
 	{
 	public:
@@ -44,7 +43,5 @@ namespace kg
 		{
 			return __CLASS__;
 		}
-
 	};
-
 }

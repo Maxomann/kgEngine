@@ -10,6 +10,7 @@ namespace kg
 {
 	class cCore : public pExtendable
 	{
+
 		std::vector<std::shared_ptr<cCoreExtension>> r_coreExtensions;
 
 		bool m_shouldClose = false;
@@ -18,6 +19,7 @@ namespace kg
 		sf::Uint16 m_serverPort = clientToServerPort;
 
 	public:
+
 		void frame();
 
 		CORE_API void setServerIp( const sf::IpAddress& ip );
@@ -29,7 +31,7 @@ namespace kg
 		CORE_API bool shouldClose();
 		CORE_API void close();
 
-		CORE_API virtual void initExtensions();
+		virtual void initExtensions( pPluginManager& pluginManager )override;
 
 		nNetworkManager networkManager;
 		cResourceManagement resourceManagement;

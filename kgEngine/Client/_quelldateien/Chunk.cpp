@@ -2,7 +2,6 @@
 
 namespace kg
 {
-
 	Chunk::Chunk( cCore& core, sf::Vector2i positionInChunks, AnimationByIdMap& tileAnimations )
 		:m_positionInChunks( positionInChunks ),
 		r_tileAnimations( tileAnimations )
@@ -68,5 +67,4 @@ namespace kg
 			for( auto& y : x )
 				y.frame( core );
 	}
-
 }

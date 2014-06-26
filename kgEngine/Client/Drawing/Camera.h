@@ -15,8 +15,8 @@ namespace kg
 
 		sf::View								m_View;
 
-// 		cFocusable*								m_focused = nullptr;
-// 		bool									m_focusRotation = false;
+		// 		cFocusable*								m_focused = nullptr;
+		// 		bool									m_focusRotation = false;
 
 		//cannot be unordered_map because of drawing order
 		std::map< int, std::vector<sf::Sprite*> >m_spritesToRender;
@@ -41,19 +41,18 @@ namespace kg
 
 		sf::FloatRect	getCameraRect()const;
 
-// 		bool			isFocused()const;
-// 		bool			isRotationFocused()const;
-// 
-// 		void			focus( /*no const*/cFocusable& toFocus, const bool focusRotation = true );
-// 		//unfocuses the camera
-// 		void			free();
-
+		// 		bool			isFocused()const;
+		// 		bool			isRotationFocused()const;
+		//
+		// 		void			focus( /*no const*/cFocusable& toFocus, const bool focusRotation = true );
+		// 		//unfocuses the camera
+		// 		void			free();
 
 		//these draw functions don't acually draw the objects to the screen,
 		//they just save a reference to them and draw them when Camera::display() is called
 		//
 		//If you give a Sprite without a zValue, it will be drawn last
-		void			draw( sf::Sprite& toDraw, int zValue=TILE );
+		void			draw( sf::Sprite& toDraw, int zValue = TILE );
 		void			draw( std::vector<sf::Sprite*>& toDraw, int zValue );
 
 		void			display( sf::RenderTarget& renderTarget );
@@ -65,6 +64,6 @@ namespace kg
 	class DrawableToCamera
 	{
 	public:
-		virtual void draw( Camera& camera )=0;
+		virtual void draw( Camera& camera ) = 0;
 	};
 }

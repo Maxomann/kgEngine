@@ -4,10 +4,12 @@
 
 //Include über <aException.h> nicht möglich
 #include "stdafx.h"
-#include "pExtension.h"
 
 namespace kg
 {
+	class pExtension;
+	class pPluginManager;
+
 	class pExtendable
 	{
 	protected:
@@ -37,7 +39,7 @@ namespace kg
 			}
 		}
 
-		PLUGIN_API virtual void initExtensions() = 0;
+		PLUGIN_API virtual void initExtensions( pPluginManager& pluginManager ) = 0;
 	};
 
 	class PLUGIN_API pExtensionProviderInterface

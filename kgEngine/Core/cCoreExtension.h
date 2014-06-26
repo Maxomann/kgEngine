@@ -7,7 +7,7 @@ namespace kg
 {
 	class cCore;
 
-	class cCoreExtension : public pExtension
+	class cCoreExtension : public pExtension, public pExtendable
 	{
 	public:
 		// this function is called once every cycle in the main loop

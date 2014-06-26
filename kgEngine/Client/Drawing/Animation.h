@@ -12,7 +12,6 @@ namespace kg
 		//A.size()=stateCount; B.size()=frames; B.at(x)=frameTime;
 		std::vector<std::vector<int>> frameInfo;
 
-
 		//every element in the Vector is a state (Y-Coordinate). Give the amount of frames (X-Coordinate).
 		AnimationSettings( const sf::Vector2i& frameSize, const std::vector<std::vector<int>>& frameInfo );
 		//loadFromFile: xml-file
@@ -22,7 +21,6 @@ namespace kg
 		bool isFrameAvailable( unsigned int stateId, unsigned int frameId ) const;
 
 		static const int MAX_FILE_SIZE = 16384;
-
 	};
 
 	class Animation

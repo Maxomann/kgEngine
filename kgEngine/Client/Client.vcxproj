@@ -74,6 +74,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="_quelldateien\GameStates.cpp" />
     <ClCompile Include="_quelldateien\GuiManager.cpp" />
     <ClCompile Include="_quelldateien\Animation.cpp" />
     <ClCompile Include="_quelldateien\World.cpp" />
@@ -89,6 +90,8 @@
     <ClInclude Include="Drawing\Camera.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="ConfiguratedTexture.h" />
+    <ClInclude Include="GameState\GameState.h" />
+    <ClInclude Include="GameState\GameStates.h" />
     <ClInclude Include="GUI\GuiManager.h" />
     <ClInclude Include="Network\Messages.h" />
     <ClInclude Include="World\Chunk.h" />

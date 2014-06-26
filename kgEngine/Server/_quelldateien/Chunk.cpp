@@ -2,7 +2,6 @@
 
 namespace kg
 {
-
 	Chunk::Chunk()
 	{
 		//standart initialize fields
@@ -28,20 +27,17 @@ namespace kg
 
 	std::string Chunk::nToString() const
 	{
-		
 		std::string str;
 
 		for( int x = 0; x < chunkSizeInTiles; ++x )
 		{
 			for( int y = 0; y < chunkSizeInTiles; ++y )
 			{
-				str += std::to_string(m_fields.at(std::make_pair( x, y )));
+				str += std::to_string( m_fields.at( std::make_pair( x, y ) ) );
 				str.push_back( standartSplitChar );
 			}
 		}
 
 		return str;
 	}
-
-
 }

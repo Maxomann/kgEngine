@@ -5,10 +5,8 @@
 #include "../Server.h"
 #include "../Network/Messages.h"
 
-
 namespace kg
 {
-	
 	class ChunkDataRequestHandler : public nMessageHandler
 	{
 	public:
@@ -19,7 +17,7 @@ namespace kg
 			sf::Vector2i chunkPosition{ atoi( seglist.at( 0 ).c_str() ), atoi( seglist.at( 1 ).c_str() ) };
 
 			core.networkManager.sendMessage(
-				std::make_shared<ChunkDataRequestAnswer>( chunkPosition, core.getExtension<Server>()->getWorld().getChunk( chunkPosition )),
+				std::make_shared<ChunkDataRequestAnswer>( chunkPosition, core.getExtension<Server>()->getWorld().getChunk( chunkPosition ) ),
 				std::get<0>( message ),
 				//return message on port where it was recieved
 				std::get<1>( message )
@@ -35,6 +33,5 @@ namespace kg
 		{
 			return __CLASS__;
 		}
-
 	};
 }

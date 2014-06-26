@@ -40,16 +40,18 @@ namespace kg
 		return m_serverPort;
 	}
 
-	CORE_API void cCore::initExtensions()
-	{
+	void cCore::initExtensions( pPluginManager& pluginManager )
+{
+		networkManager.initExtensions( pluginManager );
+
 		for( const auto& el : m_extensions )
 		{
 			auto ptr = std::dynamic_pointer_cast< cCoreExtension >(el.second);
 			if( ptr )
 			{
 				r_coreExtensions.push_back( ptr );
+				ptr->initExtensions( pluginManager );
 			}
 		}
 	}
-
 }

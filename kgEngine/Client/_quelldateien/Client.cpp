@@ -2,11 +2,10 @@
 
 namespace kg
 {
-
 	const char kg::Client::config_file_path[] = "config_client.txt";
 
-	kg::Client::Client( pPluginManager& pluginManger )
-		:m_guiManager(m_window)
+	kg::Client::Client()
+		:m_gui( m_window )
 	{
 		m_config_file.loadFromFile( config_file_path );
 
@@ -20,16 +19,13 @@ namespace kg
 		else
 			m_window.setVerticalSyncEnabled( false );
 
-
-		//GuiElements laden
-		pluginManger.fillExtandable<GuiManager>( m_guiManager );
-		m_guiManager.initExtensions();
-		m_guiManager.setGuiState( GUI_STATE::DEFAULT );
+		//init GUI
+		if( !m_gui.setGlobalFont( resourceFolderPath + fontFolderName + "DejaVuSans.ttf" ) )
+			REPORT_ERROR_FILEACCESS( resourceFolderPath + fontFolderName + "DejaVuSans.ttf" + "could not be loaded" );
 	}
 
 	void kg::Client::frame( cCore& core )
 	{
-
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
 			core.close();
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Subtract ) )
@@ -45,8 +41,7 @@ namespace kg
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
 			m_camera.moveCenter( sf::Vector2i( 10, 0 ) );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
-			m_camera.setCenter( sf::Vector2i(0, 0) );
-
+			m_camera.setCenter( sf::Vector2i( 0, 0 ) );
 
 		//SFML loop:
 		sf::Event event;
@@ -55,27 +50,21 @@ namespace kg
 			if( event.type == sf::Event::Closed )
 				core.close();
 
-			m_guiManager.passEvent( event );
+			m_gui.handleEvent( event );
 		}
-
 
 		//Call frame() here:
 		m_world.frame( core );
 		// Ensure, that all chunks which can be seen on the camera, are loaded
 		m_world.loadChunksInRectAndUnloadOther( core, { sf::IntRect( m_camera.getCameraRect() ) } );
-		m_guiManager.frame();
-
-
 
 		//Camera drawing here:
 		m_world.draw( m_camera );
-		m_guiManager.drawToCam( m_camera );
-
 
 		m_window.clear( sf::Color::Green );
 		//window-drawing here:
 		m_camera.display( m_window );
-		m_guiManager.drawToWindow();
+		m_gui.draw();
 		m_window.display();
 	}
 
@@ -87,6 +76,20 @@ namespace kg
 	kg::World& kg::Client::getWorld()
 	{
 		return m_world;
+	}
+
+	void Client::initExtensions( pPluginManager& pluginManager )
+	{
+		pluginManager.fillExtandable<Client>( *this );
+
+		for( const auto& el : m_extensions )
+		{
+			auto ptr = std::dynamic_pointer_cast< GameState >(el.second);
+			if( ptr )
+			{
+				m_gameStates[ptr->getID()] = ptr;
+			}
+		}
 	}
 
 }

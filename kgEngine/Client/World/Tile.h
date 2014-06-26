@@ -12,7 +12,6 @@ namespace kg
 		//pointer wegen copy constructor
 		AnimationByIdMap* r_tileAnimations;
 
-
 		sf::Sprite m_sprite;
 
 		int m_id = -1;
@@ -26,5 +25,4 @@ namespace kg
 
 		virtual void draw( Camera& camera )override;
 	};
-
 }
