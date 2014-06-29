@@ -30,9 +30,13 @@ namespace kg
 		NETWORK_API nNetworkManager();
 		NETWORK_API ~nNetworkManager();
 
+		//One ip MUST NOT be connected on more than one port (because of spread)
 		NETWORK_API void addConnection( const sf::IpAddress& ip, sf::Uint16 port );
 
 		NETWORK_API void sendMessage( std::shared_ptr<nMessage> message, const sf::IpAddress& to, sf::Uint16 onPort );
+
+		//sends the message to everyone who is connected
+		NETWORK_API void spreadMessage( std::shared_ptr<nMessage> message );
 
 		//the Handlers must have been added to the class by pExtension before calling this function
 		NETWORK_API void initMessageHandlers();

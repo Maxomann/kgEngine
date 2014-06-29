@@ -87,3 +87,14 @@ NETWORK_API kg::nNetworkManager::~nNetworkManager()
 		;
 	networkMutex.unlock();
 }
+
+NETWORK_API void kg::nNetworkManager::spreadMessage( std::shared_ptr<nMessage> message )
+{
+	for( const auto& port : m_connectionContainer )
+	{
+		for( const auto& ip : port.second.first )
+		{
+			sendMessage( message, ip, port.first );
+		}
+	}
+}

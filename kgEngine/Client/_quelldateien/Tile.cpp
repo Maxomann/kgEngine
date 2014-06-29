@@ -15,7 +15,7 @@ namespace kg
 		if( !animation )
 		{
 			//load animation from file
-			AnimationSettings settings( resourceFolderPath + "tile" + std::to_string( m_id ) + ".xml" );
+			auto& settings = core.resourceManagement.getResourceFromResourceFolderForTile<TileSettings>( id, informationFileExtension );
 			Animation animation2( settings );
 			tileAnimations.insert( std::make_pair( m_id, animation2 ) );
 
@@ -25,7 +25,7 @@ namespace kg
 					animation = &(el.second);
 		}
 
-		auto& texture = core.resourceManagement.getResourceFromResourceFolder<sf::Texture>( "tile" + std::to_string( id ) + ".png" );
+		auto& texture = core.resourceManagement.getResourceFromResourceFolderForTile<sf::Texture>( id, textureFileExtension );
 
 		m_sprite.setTexture( texture );
 		animation->apply( m_sprite );

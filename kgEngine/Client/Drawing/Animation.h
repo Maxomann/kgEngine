@@ -2,30 +2,14 @@
 
 #pragma once
 #include "../stdafx.h"
+#include "../Settings/AnimationSettings.h"
 
 namespace kg
 {
-	struct AnimationSettings
-	{
-		sf::Vector2i frameSize;
-
-		//A.size()=stateCount; B.size()=frames; B.at(x)=frameTime;
-		std::vector<std::vector<int>> frameInfo;
-
-		//every element in the Vector is a state (Y-Coordinate). Give the amount of frames (X-Coordinate).
-		AnimationSettings( const sf::Vector2i& frameSize, const std::vector<std::vector<int>>& frameInfo );
-		//loadFromFile: xml-file
-		AnimationSettings( const std::string& path );
-
-		bool isStateAvailable( unsigned int stateId ) const;
-		bool isFrameAvailable( unsigned int stateId, unsigned int frameId ) const;
-
-		static const int MAX_FILE_SIZE = 16384;
-	};
 
 	class Animation
 	{
-		const AnimationSettings m_settings;
+		const AnimationSettings& m_settings;
 
 		unsigned int m_frame = 0;
 		unsigned int m_state = 0;

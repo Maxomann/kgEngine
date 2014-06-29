@@ -24,6 +24,8 @@ namespace kg
 
 		std::shared_ptr<GameState> m_gameState;
 
+		bool m_isStandartGameStateLoaded = false;
+
 	public:
 		Client();
 

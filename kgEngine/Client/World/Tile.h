@@ -4,6 +4,7 @@
 #include "../stdafx.h"
 #include "../Drawing/Camera.h"
 #include "../Drawing/Animation.h"
+#include "../Settings/TileSettings.h"
 
 namespace kg
 {

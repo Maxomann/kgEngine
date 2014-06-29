@@ -8,6 +8,7 @@ namespace kg
 		enum
 		{
 			CHUNK_DATA_REQUEST,
+			SET_TILE_REQUEST,
 			LAST_ELEMENT
 		};
 	}
@@ -40,6 +41,9 @@ namespace kg
 	static const std::string resourceFolderPath = "Resource/";
 	static const std::string fontFolderName = "Fonts/";
 	static const std::string widgetFolderName = "TGUI/";
+
+	static const std::string informationFileExtension = ".xml";
+	static const std::string textureFileExtension = ".png";
 
 	static const std::string tguiConfigBlack = "Black.conf";
 }

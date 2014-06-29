@@ -26,6 +26,14 @@ namespace kg
 
 	void kg::Client::frame( cCore& core )
 	{
+		if( !m_isStandartGameStateLoaded )
+		{
+			//set standart gameState
+			m_gameState = m_gameStates.at( GAME_STATE_ID::STANDART );
+			m_gameState->onInit( core, m_world, m_camera, m_gui );
+			m_isStandartGameStateLoaded = true;
+		}
+
 
 		//SFML loop:
 		sf::Event event;
@@ -46,12 +54,12 @@ namespace kg
 		m_world.loadChunksInRectAndUnloadOther( core, { sf::IntRect( m_camera.getCameraRect() ) } );
 
 		// change gameState if needed
-		int newGameStateId = m_gameState->frame(m_world, m_camera, m_gui );
+		int newGameStateId = m_gameState->frame(core, m_world, m_camera , m_gui );
 		if( newGameStateId == GameState::CLOSE_APP )
 			core.close();
 		else if( newGameStateId > -1 )
 		{
-			m_gameState->onClose(m_world, m_camera, m_gui );
+			m_gameState->onClose(core, m_world, m_camera , m_gui );
 			m_gameState = m_gameStates.at( newGameStateId );
 		}
 
@@ -91,11 +99,5 @@ namespace kg
 				m_gameStates[ptr->getID()] = ptr;
 			}
 		}
-
-
-		//set standart gameState
-		m_gameState = m_gameStates.at( GAME_STATE_ID::STANDART );
-		m_gameState->onInit(m_world, m_camera, m_gui);
 	}
-
 }

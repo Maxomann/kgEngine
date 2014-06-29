@@ -2,20 +2,28 @@
 
 namespace kg
 {
-	void StandartGameState::onInit( World& world, Camera& camera, tgui::Gui& gui )
+	void StandartGameState::onInit( cCore& core, World& world, Camera& camera, tgui::Gui& gui )
 	{
-		m_testbutton = tgui::Button::Ptr( gui );
-		m_testbutton->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
-		m_testbutton->setPosition( 500, 500 );
-		m_testbutton->setText( "Switch to editor mode" );
-		m_testbutton->bindCallbackEx( std::bind(
-			&StandartGameState::testbuttonCallback,
-			this,
-			std::placeholders::_1,
-			std::ref(world),
-			std::ref( camera),
-			std::ref( gui )),
-			tgui::Button::LeftMouseClicked );
+		m_tileSelectionBox = tgui::ListBox::Ptr( gui );
+		m_tileSelectionBox->setPosition( 20, 20 );
+		m_tileSelectionBox->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
+		m_tileSelectionBox->setSize( 200, 100 );
+		//load tile names from files
+		m_tileSelectionBox->addItem( "NONE" );
+		TileSettings* tileSettings;
+		for( int id = 0; true; ++id )
+		{
+			try
+			{
+				tileSettings = &core.resourceManagement.getResourceFromResourceFolderForTile<TileSettings>( id, informationFileExtension );
+			}
+			catch( std::exception& e )
+			{
+				break;
+			}
+			m_tileSelectionBox->addItem( tileSettings->tileName );
+		}
+		m_tileSelectionBox->setSelectedItem( NULL );
 	}
 
 	void StandartGameState::handleEvent( sf::Event& sfmlEvent )
@@ -23,7 +31,7 @@ namespace kg
 
 	}
 
-	int StandartGameState::frame( World& world, Camera& camera, tgui::Gui& gui )
+	int StandartGameState::frame( cCore& core, World& world, Camera& camera, tgui::Gui& gui )
 	{
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
 			return CLOSE_APP;
@@ -41,14 +49,29 @@ namespace kg
 			camera.moveCenter( sf::Vector2i( 10, 0 ) );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
 			camera.setCenter( sf::Vector2i( 0, 0 ) );
-
+// 		if( !mouseOnGui )
+// 		{
+// 			if( sf::Mouse::isButtonPressed( sf::Mouse::Button::Left ) )
+// 			{
+// 				int selectedItemIndex = m_tileSelectionBox->getSelectedItemIndex();
+// 				if( selectedItemIndex != NULL )
+// 				{
+// 					sf::Vector2i chunkPosition = sf::Mouse::getPosition() / (chunkSizeInTiles*tileSizeInPixel);
+// 					sf::Vector2i tilePosition = sf::Mouse::getPosition() / tileSizeInPixel - chunkPosition*chunkSizeInTiles;
+// 					int tileID = selectedItemIndex - 1;
+// 
+// 					//set the new tile
+// 					core.networkManager.sendMessage( std::make_shared<SetTileRequest>( chunkPosition, tilePosition, tileID ), core.getServerIp(), core.getServerPort() );
+// 				}
+// 			}
+// 		}
 
 		return m_nextGameState;
 	}
 
-	void StandartGameState::onClose( World& world, Camera& camera, tgui::Gui& gui )
+	void StandartGameState::onClose( cCore& core, World& world, Camera& camera, tgui::Gui& gui )
 	{
-		REPORT_ERROR( "standart GameState should not be closed" );
+		REPORT_ERROR( "standart GameState should not be closed at the moment" );
 	}
 
 	int StandartGameState::getID() const
@@ -61,11 +84,8 @@ namespace kg
 		return "Standart GameState plugin";
 	}
 
-	void StandartGameState::testbuttonCallback( const tgui::Callback& callback, World& world, Camera& camera, tgui::Gui& gui )
+	void StandartGameState::switchToEditorButtonCallback( const tgui::Callback& callback, cCore& core, World& world, Camera& camera, tgui::Gui& gui )
 	{
-		if( callback.trigger == tgui::Button::LeftMouseClicked )
-		{
-			//switch to editor GameState here
-		}
+
 	}
 }

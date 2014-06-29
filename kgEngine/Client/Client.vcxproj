@@ -45,6 +45,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>D:\Coding\GitHub\TGUI-0.6.3 Visual C++12 %282013%29 - 32bit\include;D:\Coding\GitHub\rapidxml1.13\include;D:\Coding\GitHub\SFML-2.1-VS2013-32bit\include;D:\Coding\GitHub\kgEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,6 +63,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>D:\Coding\GitHub\TGUI-0.6.3 Visual C++12 %282013%29 - 32bit\include;D:\Coding\GitHub\rapidxml1.13\include;D:\Coding\GitHub\SFML-2.1-VS2013-32bit\include;D:\Coding\GitHub\kgEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -74,6 +76,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="_quelldateien\TileSettings.cpp" />
+    <ClCompile Include="_quelldateien\AnimationSettings.cpp" />
     <ClCompile Include="_quelldateien\GameStates.cpp" />
     <ClCompile Include="_quelldateien\GuiManager.cpp" />
     <ClCompile Include="_quelldateien\Animation.cpp" />
@@ -94,6 +98,8 @@
     <ClInclude Include="GameState\GameStates.h" />
     <ClInclude Include="GUI\GuiManager.h" />
     <ClInclude Include="Network\Messages.h" />
+    <ClInclude Include="Settings\AnimationSettings.h" />
+    <ClInclude Include="Settings\TileSettings.h" />
     <ClInclude Include="World\Chunk.h" />
     <ClInclude Include="Network\MessageHandlers.h" />
     <ClInclude Include="stdafx.h" />
