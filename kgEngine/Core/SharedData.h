@@ -34,7 +34,7 @@ namespace kg
 	static const char standartSplitChar = ';';
 
 	static const int chunkSizeInTiles = 20;
-	static const int tileSizeInPixel = 50;
+	static const int tileSizeInPixel = 64;
 
 	static const sf::Uint16 clientToServerPort = 42000;
 

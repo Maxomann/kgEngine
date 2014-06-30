@@ -76,4 +76,61 @@ namespace kg
 		for( const auto& el : chunksNotInRect )
 			m_chunks.erase( el );
 	}
+
+	sf::Vector2i World::getAbsoluteMousePosition( const sf::Window& window, const Camera& camera )
+	{
+		sf::Vector2i mousePosition( sf::Mouse::getPosition( window ) );
+		mousePosition.x /= camera.getZoom();
+		mousePosition.y /= camera.getZoom();
+		sf::Vector2i cameraOffset = camera.getUpperLeftCorner();
+		sf::Vector2i positionInWorld( mousePosition + cameraOffset );
+
+		return positionInWorld;
+	}
+
+	sf::Vector2i World::getAbsoluteChunkPosition( const sf::Window& window, const Camera& camera )
+	{
+		auto positionInWorld = getAbsoluteMousePosition( window, camera );
+
+		sf::Vector2i chunkPosition( positionInWorld / (chunkSizeInTiles*tileSizeInPixel) );
+		if( positionInWorld.x < 1 )
+			chunkPosition.x -= 1;
+		if( positionInWorld.y < 1 )
+			chunkPosition.y -= 1;
+
+		return chunkPosition;
+	}
+
+	sf::Vector2i World::getRelativeTilePosition( const sf::Window& window, const Camera& camera )
+	{
+		auto positionInWorld = getAbsoluteMousePosition( window, camera );
+		auto chunkPosition = getAbsoluteChunkPosition( window, camera );
+
+		sf::Vector2i tilePosition( (positionInWorld / tileSizeInPixel) - (chunkPosition*chunkSizeInTiles) );
+		if( positionInWorld.x < 1 )
+			tilePosition.x -= 1;
+		if( positionInWorld.y < 1 )
+			tilePosition.y -= 1;
+
+		return tilePosition;
+	}
+
+	// 				sf::Vector2i mousePosition( sf::Mouse::getPosition( *gui.getWindow() ) );
+	// 				mousePosition.x /= camera.getZoom();
+	// 				mousePosition.y /= camera.getZoom();
+	// 				sf::Vector2i cameraOffset= camera.getUpperLeftCorner();
+	// 				sf::Vector2i positionInWorld( mousePosition + cameraOffset );
+	// 
+	// 				sf::Vector2i chunkPosition( positionInWorld / (chunkSizeInTiles*tileSizeInPixel) );
+	// 				if( positionInWorld.x < 1 )
+	// 					chunkPosition.x -= 1;
+	// 				if( positionInWorld.y < 1 )
+	// 					chunkPosition.y -= 1;
+	// 
+	// 				sf::Vector2i tilePosition( (positionInWorld / tileSizeInPixel) - (chunkPosition*chunkSizeInTiles) );
+	// 				if( positionInWorld.x < 1 )
+	// 					tilePosition.x -= 1;
+	// 				if( positionInWorld.y < 1 )
+	// 					tilePosition.y -= 1;
+
 }

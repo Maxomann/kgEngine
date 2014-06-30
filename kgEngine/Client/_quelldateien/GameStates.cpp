@@ -48,23 +48,29 @@ namespace kg
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
 			camera.moveCenter( sf::Vector2i( 10, 0 ) );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
+		{
 			camera.setCenter( sf::Vector2i( 0, 0 ) );
-// 		if( !mouseOnGui )
-// 		{
-// 			if( sf::Mouse::isButtonPressed( sf::Mouse::Button::Left ) )
-// 			{
-// 				int selectedItemIndex = m_tileSelectionBox->getSelectedItemIndex();
-// 				if( selectedItemIndex != NULL )
-// 				{
-// 					sf::Vector2i chunkPosition = sf::Mouse::getPosition() / (chunkSizeInTiles*tileSizeInPixel);
-// 					sf::Vector2i tilePosition = sf::Mouse::getPosition() / tileSizeInPixel - chunkPosition*chunkSizeInTiles;
-// 					int tileID = selectedItemIndex - 1;
-// 
-// 					//set the new tile
-// 					core.networkManager.sendMessage( std::make_shared<SetTileRequest>( chunkPosition, tilePosition, tileID ), core.getServerIp(), core.getServerPort() );
-// 				}
-// 			}
-// 		}
+			camera.setZoom( 1.0f );
+		}
+		if( sf::Mouse::isButtonPressed( sf::Mouse::Button::Left ) )
+		{
+			int selectedItemIndex = m_tileSelectionBox->getSelectedItemIndex();
+			//if no item is selected, select item: NONE
+			if(selectedItemIndex==-2)
+				m_tileSelectionBox->setSelectedItem( NULL );
+			if( selectedItemIndex != NULL )
+			{   
+
+				int tileID = selectedItemIndex - 1;
+
+				//set the new tile
+				core.networkManager.sendMessage( std::make_shared<SetTileRequest>(
+					World::getAbsoluteChunkPosition(*gui.getWindow(), camera),
+					World::getRelativeTilePosition( *gui.getWindow(), camera), tileID ),
+					core.getServerIp(),
+					core.getServerPort() );
+			}
+		}
 
 		return m_nextGameState;
 	}

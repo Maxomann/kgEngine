@@ -41,6 +41,8 @@ namespace kg
 
 		sf::FloatRect	getCameraRect()const;
 
+		sf::Vector2i	getUpperLeftCorner()const;
+
 		// 		bool			isFocused()const;
 		// 		bool			isRotationFocused()const;
 		//

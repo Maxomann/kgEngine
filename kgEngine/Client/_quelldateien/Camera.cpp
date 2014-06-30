@@ -109,4 +109,11 @@ namespace kg
 	{
 		return sf::Vector2i( m_View.getCenter() );
 	}
+
+	sf::Vector2i Camera::getUpperLeftCorner()const
+	{
+		return sf::Vector2i( getCameraRect().left, getCameraRect().top );
+	}
+
+
 }

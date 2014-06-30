@@ -7,7 +7,7 @@ namespace kg
 		//standart initialize fields
 		for( int x = 0; x < chunkSizeInTiles; ++x )
 			for( int y = 0; y < chunkSizeInTiles; ++y )
-				m_fields[std::make_pair( x, y )] = 1;
+				m_fields[std::make_pair( x, y )] = 0;
 	}
 
 	void Chunk::setField( const sf::Vector2i position, int id )
