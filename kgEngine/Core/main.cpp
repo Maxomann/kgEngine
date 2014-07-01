@@ -26,7 +26,7 @@ int main()
 	pluginManager.fillExtandable<cCore>( application );
 	application.initExtensions( pluginManager );
 
-	application.networkManager.addConnection( sf::IpAddress::getLocalAddress(), 42000 );
+	application.networkManager.addConnection( sf::IpAddress::LocalHost, 42000 );
 
 	//Main loop
 	while( !application.shouldClose() )

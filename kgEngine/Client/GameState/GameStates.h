@@ -7,9 +7,10 @@
 
 namespace kg
 {
-	class StandartGameState : public GameState
+	class TestGameState : public GameState
 	{
 		tgui::ListBox::Ptr m_tileSelectionBox;
+		tgui::MenuBar::Ptr m_menuBar;
 
 		int m_nextGameState = NO_CHANGE;
 

@@ -6,6 +6,38 @@
 
 namespace kg
 {
+	class SpriteBatch
+	{
+	public:
+		SpriteBatch( void );
+		~SpriteBatch( void );
+
+
+		void display( bool reset = true, bool flush = true );
+		void draw( const sf::Sprite &sprite );
+		void draw( const sf::Texture *texture, const sf::Vector2f &position,
+				   const sf::IntRect &rec, const sf::Color &color, const sf::Vector2f &scale,
+				   const sf::Vector2f &origin, float rotation = 0 );
+
+		void draw( const sf::Texture *texture, const sf::FloatRect &dest, const sf::IntRect &rec, const sf::Color &color );
+
+		void flush();
+		void setRenderStates( const sf::RenderStates &states );
+		void setRenderTarget( sf::RenderTarget &rt );
+
+	private:
+		sf::RenderTarget *rt;
+		sf::RenderStates state;
+		std::vector<sf::Vertex> vertices;
+		int count;
+		int capacity;
+
+		int create( const sf::Texture *texture );
+
+	};
+
+
+
 	//No check if the object is shown on screen is performed before drawing it
 	//you have to check yourself by testing collision with the cameraReactangle
 	class Camera
@@ -20,6 +52,8 @@ namespace kg
 
 		//cannot be unordered_map because of drawing order
 		std::map< int, std::vector<sf::Sprite*> >m_spritesToRender;
+
+		SpriteBatch								m_spriteBatch;
 
 	public:
 		void init( const sf::Vector2u finalSize );

@@ -15,8 +15,7 @@ extern "C" __declspec(dllexport) void kgConnect( pPluginManager& pluginManager )
 	//NetworkHandler
 	pluginManager.addExtensionProvider<nNetworkManager, ChunkDataRequestAnswerHandler>();
 
-
 	//GameStates
-	pluginManager.addExtensionProvider<Client, StandartGameState>();
+	pluginManager.addExtensionProvider<Client, TestGameState>();
 
 }

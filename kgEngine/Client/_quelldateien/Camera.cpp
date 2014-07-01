@@ -2,6 +2,148 @@
 
 namespace kg
 {
+	using namespace sf;
+
+	const float Pi = 3.14159265;
+/*	const int MaxCapacity = 400000;*/
+	const int MaxCapacity = 40000000;
+	const int LookupSize = 512;
+
+	float getSin[LookupSize];
+	float getCos[LookupSize];
+	bool initialized = false;
+
+	void create_lookup()
+	{
+		for( int i = 0; i < LookupSize; i++ )
+		{
+			getSin[i] = sin( i * Pi / LookupSize * 2 );
+			getCos[i] = cos( i * Pi / LookupSize * 2 );
+		}
+		initialized = true;
+	}
+
+	SpriteBatch::SpriteBatch( void ) : count( 0 ), capacity( 40 )
+	{
+		vertices.resize( capacity );
+
+		if( !initialized )
+			create_lookup();
+	}
+
+	SpriteBatch::~SpriteBatch( void )
+	{ }
+
+	void SpriteBatch::draw( const Sprite &sprite )
+	{
+		draw( sprite.getTexture(), sprite.getPosition(), sprite.getTextureRect(), sprite.getColor(), sprite.getScale(), sprite.getOrigin(), sprite.getRotation() );
+	}
+
+	void SpriteBatch::display( bool reset, bool flush )
+	{
+		rt->draw( &vertices[0], count * 4, PrimitiveType::Quads, state );
+		if( flush ) count = 0;
+		if( reset ) state = RenderStates();
+	}
+
+	int SpriteBatch::create( const Texture *texture )
+	{
+		if( texture != state.texture )
+		{
+			display( false );
+			state.texture = texture;
+		}
+
+		if( count * 4 >= capacity )
+		{
+			//display(false);
+			if( capacity < MaxCapacity )
+			{
+				capacity *= 2;
+				if( capacity > MaxCapacity ) capacity = MaxCapacity;
+				vertices.resize( capacity );
+			}
+		}
+		return 4 * count++;
+	}
+
+	void SpriteBatch::draw(
+		const Texture *texture, const Vector2f &position,
+		const IntRect &rec, const Color &color, const Vector2f &scale,
+		const Vector2f &origin, float rotation )
+	{
+		auto index = create( texture );
+
+		int rot = static_cast< int >(rotation / 360 * LookupSize + 0.5) & (LookupSize - 1);
+		float _sin = getSin[rot];
+		float _cos = getCos[rot];
+
+		//float _sin = sinf(rotation);
+		//float _cos = cosf(rotation);
+
+		auto scalex = rec.width * scale.x;
+		auto scaley = rec.height * scale.y;
+
+		Vertex *ptr = &vertices[index];
+
+		auto pX = -origin.x * scale.x;
+		auto pY = -origin.y * scale.y;
+
+		ptr->position.x = pX * _cos - pY * _sin + position.x;
+		ptr->position.y = pX * _sin + pY * _cos + position.y;
+		ptr->texCoords.x = rec.left;
+		ptr->texCoords.y = rec.top;
+		ptr->color = color;
+		ptr++;
+
+		pX += scalex;
+		ptr->position.x = pX * _cos - pY * _sin + position.x;
+		ptr->position.y = pX * _sin + pY * _cos + position.y;
+		ptr->texCoords.x = rec.left + rec.width;
+		ptr->texCoords.y = rec.top;
+		ptr->color = color;
+		ptr++;
+
+		pY += scaley;
+		ptr->position.x = pX * _cos - pY * _sin + position.x;
+		ptr->position.y = pX * _sin + pY * _cos + position.y;
+		ptr->texCoords.x = rec.left + rec.width;
+		ptr->texCoords.y = rec.top + rec.height;
+		ptr->color = color;
+		ptr++;
+
+		pX -= scalex;
+		ptr->position.x = pX * _cos - pY * _sin + position.x;
+		ptr->position.y = pX * _sin + pY * _cos + position.y;
+		ptr->texCoords.x = rec.left;
+		ptr->texCoords.y = rec.top + rec.height;
+		ptr->color = color;
+	}
+
+	void SpriteBatch::draw( const Texture *texture, const FloatRect &dest, const IntRect &rec, const Color &color )
+	{
+		draw( texture, Vector2f( dest.left, dest.top ), rec, color, Vector2f( 1, 1 ), Vector2f( 0, 0 ), 0 );
+	}
+
+	void SpriteBatch::flush()
+	{
+		count = 0;
+	}
+
+	void SpriteBatch::setRenderStates( const sf::RenderStates &states )
+	{
+		display( false );
+		this->state = states;
+	}
+
+	void SpriteBatch::setRenderTarget( sf::RenderTarget &rt )
+	{
+		this->rt = &rt;
+	}
+
+
+
+
 	void Camera::init( const sf::Vector2u finalSize )
 	{
 		m_finalSize = sf::Vector2i( finalSize );
@@ -86,9 +228,13 @@ namespace kg
 
 		renderTarget.setView( m_View );
 
+		m_spriteBatch.setRenderTarget( renderTarget );
+
 		for( const auto& el : m_spritesToRender )
 			for( const auto& sprite : el.second )
-				renderTarget.draw( *sprite );
+				m_spriteBatch.draw( *sprite );
+
+		m_spriteBatch.display();
 
 		renderTarget.getDefaultView();
 
