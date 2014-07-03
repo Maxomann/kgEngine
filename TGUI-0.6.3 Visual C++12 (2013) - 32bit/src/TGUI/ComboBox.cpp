@@ -438,7 +438,7 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    int ComboBox::addItem(const sf::String& item)
+    int ComboBox::addItem(const sf::String& item, int id)
     {
         // An item can only be added when the combo box was loaded correctly
         if (m_Loaded == false)
@@ -449,7 +449,7 @@ namespace tgui
             m_ListBox->setSize(m_ListBox->getSize().x, static_cast<float>(m_ListBox->getItemHeight() * (m_ListBox->getItems().size() + 1)));
 
         // Add the item
-        return m_ListBox->addItem(item);
+        return m_ListBox->addItem(item, id);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -485,6 +485,13 @@ namespace tgui
     bool ComboBox::removeItem(const sf::String& itemName)
     {
         return m_ListBox->removeItem(itemName);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int ComboBox::removeItemsById(int id)
+    {
+        return m_ListBox->removeItemsById(id);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -527,6 +534,34 @@ namespace tgui
     int ComboBox::getSelectedItemIndex() const
     {
         return m_ListBox->getSelectedItemIndex();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    int ComboBox::getSelectedItemId() const
+    {
+        return m_ListBox->getSelectedItemId();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    bool ComboBox::changeItem(unsigned int index, const sf::String& newValue)
+    {
+        return m_ListBox->changeItem(index, newValue);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int ComboBox::changeItems(const sf::String& originalValue, const sf::String& newValue)
+    {
+        return m_ListBox->changeItems(originalValue, newValue);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    unsigned int ComboBox::changeItemsById(int id, const sf::String& newValue)
+    {
+        return m_ListBox->changeItemsById(id, newValue);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -912,13 +947,11 @@ namespace tgui
         float scaleViewY = target.getSize().y / view.getSize().y;
 
         // Get the global position
-        sf::Vector2f topLeftPosition
-            = states.transform.transformPoint(((getPosition().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
-                                              ((getPosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
-        sf::Vector2f bottomRightPosition
-            = states.transform.transformPoint((getPosition().x + (m_ListBox->getSize().x - (m_TextureArrowDownNormal.getSize().x * (static_cast<float>(m_ListBox->getItemHeight()) / m_TextureArrowDownNormal.getSize().y)))
-                                               - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
-                                              (getPosition().y + m_ListBox->getSize().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
+        sf::Vector2f topLeftPosition = sf::Vector2f(((getAbsolutePosition().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                    ((getAbsolutePosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
+        sf::Vector2f bottomRightPosition = sf::Vector2f((getAbsolutePosition().x + (m_ListBox->getSize().x - (m_TextureArrowDownNormal.getSize().x * (static_cast<float>(m_ListBox->getItemHeight()) / m_TextureArrowDownNormal.getSize().y)))
+                                                         - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
+                                                        (getAbsolutePosition().y + m_ListBox->getSize().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
 
         // Adjust the transformation
         states.transform *= getTransform();
@@ -955,8 +988,7 @@ namespace tgui
 
         // Create a text widget to draw it
         sf::Text tempText("kg", *m_ListBox->getTextFont());
-        tempText.setCharacterSize(m_ListBox->getItemHeight());
-        tempText.setCharacterSize(static_cast<unsigned int>(tempText.getCharacterSize() - tempText.getLocalBounds().top));
+        tempText.setCharacterSize(static_cast<unsigned int>(m_ListBox->getItemHeight() * 0.8f));
         tempText.setColor(m_ListBox->getTextColor());
 
         // Get the old clipping area

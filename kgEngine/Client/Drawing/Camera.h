@@ -71,7 +71,7 @@ namespace kg
 		void			setZoom( const float zoom );
 		float			getZoom()const;
 
-		sf::Vector2i	getFinalSize()const;
+		sf::Vector2u getFinalSize()const;
 
 		sf::FloatRect	getCameraRect()const;
 

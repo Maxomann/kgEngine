@@ -552,8 +552,7 @@ namespace tgui
         {
             // Calculate the text size
             m_TextFull.setString("kg");
-            m_TextFull.setCharacterSize(static_cast<unsigned int>(m_Size.y - ((m_TopBorder + m_BottomBorder) * (m_Size.y / m_TextureNormal_M.getSize().y))));
-            m_TextFull.setCharacterSize(static_cast<unsigned int>(m_TextFull.getCharacterSize() - m_TextFull.getLocalBounds().top));
+            m_TextFull.setCharacterSize(static_cast<unsigned int>((m_Size.y - ((m_TopBorder + m_BottomBorder) * (m_Size.y / m_TextureNormal_M.getSize().y))) * 0.75f));
             m_TextFull.setString(m_DisplayedText);
 
             // Also adjust the character size of the other texts
@@ -615,7 +614,7 @@ namespace tgui
         if (m_LimitTextWidth)
         {
             // Now check if the text fits into the EditBox
-            while (m_TextBeforeSelection.findCharacterPos(m_TextBeforeSelection.getString().getSize()).x > width)
+            while (m_TextBeforeSelection.findCharacterPos(m_TextBeforeSelection.getString().getSize()).x - m_TextBeforeSelection.getPosition().x > width)
             {
                 // The text doesn't fit inside the EditBox, so the last character must be deleted.
                 m_Text.erase(m_Text.getSize()-1);
@@ -856,7 +855,7 @@ namespace tgui
                 width = 0;
 
             // Now check if the text fits into the EditBox
-            while (m_TextBeforeSelection.findCharacterPos(m_DisplayedText.getSize()).x > width)
+            while (m_TextBeforeSelection.findCharacterPos(m_DisplayedText.getSize()).x - m_TextBeforeSelection.getPosition().x > width)
             {
                 // The text doesn't fit inside the EditBox, so the last character must be deleted.
                 m_Text.erase(m_Text.getSize()-1);
@@ -1210,14 +1209,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void EditBox::keyPressed(sf::Keyboard::Key key)
+    void EditBox::keyPressed(const sf::Event::KeyEvent& event)
     {
         // Don't do anything when the edit box wasn't loaded correctly
         if (m_Loaded == false)
             return;
 
         // Check if one of the correct keys was pressed
-        if (key == sf::Keyboard::Left)
+        if (event.code == sf::Keyboard::Left)
         {
             // Check if we have selected some text
             if (m_SelChars > 0)
@@ -1239,7 +1238,7 @@ namespace tgui
             m_SelectionPointVisible = true;
             m_AnimationTimeElapsed = sf::Time();
         }
-        else if (key == sf::Keyboard::Right)
+        else if (event.code == sf::Keyboard::Right)
         {
             // Check if we have selected some text
             if (m_SelChars > 0)
@@ -1261,7 +1260,7 @@ namespace tgui
             m_SelectionPointVisible = true;
             m_AnimationTimeElapsed = sf::Time();
         }
-        else if (key == sf::Keyboard::Home)
+        else if (event.code == sf::Keyboard::Home)
         {
             // Set the selection point to the beginning of the text
             setSelectionPointPosition(0);
@@ -1270,7 +1269,7 @@ namespace tgui
             m_SelectionPointVisible = true;
             m_AnimationTimeElapsed = sf::Time();
         }
-        else if (key == sf::Keyboard::End)
+        else if (event.code == sf::Keyboard::End)
         {
             // Set the selection point behind the text
             setSelectionPointPosition(m_Text.getSize());
@@ -1279,7 +1278,7 @@ namespace tgui
             m_SelectionPointVisible = true;
             m_AnimationTimeElapsed = sf::Time();
         }
-        else if (key == sf::Keyboard::Return)
+        else if (event.code == sf::Keyboard::Return)
         {
             // Add the callback (if the user requested it)
             if (m_CallbackFunctions[ReturnKeyPressed].empty() == false)
@@ -1289,7 +1288,7 @@ namespace tgui
                 addCallback();
             }
         }
-        else if (key == sf::Keyboard::BackSpace)
+        else if (event.code == sf::Keyboard::BackSpace)
         {
             // Make sure that we didn't select any characters
             if (m_SelChars == 0)
@@ -1343,7 +1342,7 @@ namespace tgui
                 addCallback();
             }
         }
-        else if (key == sf::Keyboard::Delete)
+        else if (event.code == sf::Keyboard::Delete)
         {
             // Make sure that no text is selected
             if (m_SelChars == 0)
@@ -1400,13 +1399,13 @@ namespace tgui
         else
         {
             // Check if you are copying, pasting or cutting text
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) || sf::Keyboard::isKeyPressed(sf::Keyboard::RControl))
+            if (event.control)
             {
-                if (key == sf::Keyboard::C)
+                if (event.code == sf::Keyboard::C)
                 {
                     TGUI_Clipboard.set(m_TextSelection.getString());
                 }
-                else if (key == sf::Keyboard::V)
+                else if (event.code == sf::Keyboard::V)
                 {
                     auto clipboardContents = TGUI_Clipboard.get();
 
@@ -1433,7 +1432,7 @@ namespace tgui
                         }
                     }
                 }
-                else if (key == sf::Keyboard::X)
+                else if (event.code == sf::Keyboard::X)
                 {
                     TGUI_Clipboard.set(m_TextSelection.getString());
                     deleteSelectedCharacters();
@@ -2091,12 +2090,10 @@ namespace tgui
         float scaleViewY = target.getSize().y / view.getSize().y;
 
         // Get the global position
-        sf::Vector2f topLeftPosition
-            = states.transform.transformPoint(((getPosition().x + (m_LeftBorder * borderScale) - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
-                                              ((getPosition().y + (m_TopBorder * scaling.y) - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
-        sf::Vector2f bottomRightPosition
-            = states.transform.transformPoint((getPosition().x + (m_Size.x - (m_RightBorder * borderScale)) - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
-                                              (getPosition().y + (m_Size.y - (m_BottomBorder * scaling.y)) - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
+        sf::Vector2f topLeftPosition = sf::Vector2f(((getAbsolutePosition().x + (m_LeftBorder * borderScale) - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                    ((getAbsolutePosition().y + (m_TopBorder * scaling.y) - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
+        sf::Vector2f bottomRightPosition = sf::Vector2f((getAbsolutePosition().x + (m_Size.x - (m_RightBorder * borderScale)) - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
+                                                        (getAbsolutePosition().y + (m_Size.y - (m_BottomBorder * scaling.y)) - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
 
         // Get the old clipping area
         GLint scissor[4];

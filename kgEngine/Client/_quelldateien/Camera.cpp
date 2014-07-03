@@ -236,13 +236,13 @@ namespace kg
 
 		m_spriteBatch.display();
 
-		renderTarget.getDefaultView();
+		renderTarget.setView( renderTarget.getDefaultView() );
 
 		m_spritesToRender.clear();
 	}
-	sf::Vector2i Camera::getFinalSize()const
-	{
-		return m_finalSize;
+	sf::Vector2u Camera::getFinalSize() const
+{
+		return sf::Vector2u(m_finalSize);
 	}
 	sf::FloatRect Camera::getCameraRect()const
 	{
@@ -260,6 +260,4 @@ namespace kg
 	{
 		return sf::Vector2i( getCameraRect().left, getCameraRect().top );
 	}
-
-
 }

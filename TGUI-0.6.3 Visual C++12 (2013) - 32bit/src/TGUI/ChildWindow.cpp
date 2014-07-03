@@ -452,7 +452,7 @@ namespace tgui
                                static_cast<float>(height) / m_TextureTitleBar_M.getSize().y * m_CloseButton->m_TextureNormal_M.getSize().y);
 
         // Set the size of the text in the title bar
-        m_TitleText.setCharacterSize(m_TitleBarHeight * 8 / 10);
+        m_TitleText.setCharacterSize(static_cast<unsigned int>(m_TitleBarHeight * 0.75f));
 
         // Recalculate the scale of the title bar images
         if (m_SplitImage)
@@ -654,9 +654,16 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    bool ChildWindow::isKeptInParent()
+    bool ChildWindow::isKeptInParent() const
     {
         return m_KeepInParent;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    sf::Vector2f ChildWindow::getWidgetsOffset() const
+    {
+        return sf::Vector2f(static_cast<float>(m_LeftBorder), static_cast<float>(m_TopBorder + getTitleBarHeight()));
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1096,35 +1103,29 @@ namespace tgui
         if (m_Loaded == false)
             return;
 
-        // Get the current position
-        sf::Vector2f position = getPosition();
-
         // Calculate the scale factor of the view
         const sf::View& view = target.getView();
         float scaleViewX = target.getSize().x / view.getSize().x;
         float scaleViewY = target.getSize().y / view.getSize().y;
 
         // Get the global position
-        sf::Vector2f topLeftPanelPosition
-            = states.transform.transformPoint(((position.x + m_LeftBorder - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
-                                              ((position.y + m_TitleBarHeight + m_TopBorder - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
-        sf::Vector2f bottomRightPanelPosition
-            = states.transform.transformPoint((position.x + m_Size.x + m_LeftBorder - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
-                                              (position.y + m_TitleBarHeight + m_Size.y + m_TopBorder - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
+        sf::Vector2f topLeftPanelPosition = sf::Vector2f(((getAbsolutePosition().x + m_LeftBorder - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                         ((getAbsolutePosition().y + m_TitleBarHeight + m_TopBorder - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
+        sf::Vector2f bottomRightPanelPosition = sf::Vector2f((getAbsolutePosition().x + m_Size.x + m_LeftBorder - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
+                                                             (getAbsolutePosition().y + m_TitleBarHeight + m_Size.y + m_TopBorder - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
 
         sf::Vector2f topLeftTitleBarPosition;
         sf::Vector2f bottomRightTitleBarPosition;
 
         if (m_IconTexture.data)
-            topLeftTitleBarPosition = states.transform.transformPoint(((position.x + 2*m_DistanceToSide + m_IconTexture.getSize().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
-                                                                      ((position.y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
+            topLeftTitleBarPosition = sf::Vector2f(((getAbsolutePosition().x + 2*m_DistanceToSide + m_IconTexture.getSize().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                   ((getAbsolutePosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
         else
-            topLeftTitleBarPosition = states.transform.transformPoint(((position.x + m_DistanceToSide - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
-                                                                      ((position.y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
+            topLeftTitleBarPosition = sf::Vector2f(((getAbsolutePosition().x + m_DistanceToSide - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width) + (view.getSize().x * view.getViewport().left),
+                                                   ((getAbsolutePosition().y - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height) + (view.getSize().y * view.getViewport().top));
 
-        bottomRightTitleBarPosition = states.transform.transformPoint((position.x + m_Size.x + m_LeftBorder + m_RightBorder - (2*m_DistanceToSide) - m_CloseButton->getSize().x - view.getCenter().x + (view.getSize().x / 2.f))
-                                                                      * view.getViewport().width + (view.getSize().x * view.getViewport().left),
-                                                                      (position.y + m_TitleBarHeight - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
+        bottomRightTitleBarPosition = sf::Vector2f((getAbsolutePosition().x + m_Size.x + m_LeftBorder + m_RightBorder - (2*m_DistanceToSide) - m_CloseButton->getSize().x - view.getCenter().x + (view.getSize().x / 2.f)) * view.getViewport().width + (view.getSize().x * view.getViewport().left),
+                                                   (getAbsolutePosition().y + m_TitleBarHeight - view.getCenter().y + (view.getSize().y / 2.f)) * view.getViewport().height + (view.getSize().y * view.getViewport().top));
 
         // Adjust the transformation
         states.transform *= getTransform();
@@ -1180,6 +1181,9 @@ namespace tgui
 
             // Set the clipping area
             glScissor(scissorLeft, target.getSize().y - scissorBottom, scissorRight - scissorLeft, scissorBottom - scissorTop);
+
+            // Center the text vertically
+            states.transform.translate(0, std::floor(((m_TitleBarHeight - m_TitleText.getLocalBounds().height) / 2.0f) - m_TitleText.getLocalBounds().top));
 
             // Draw the text, depending on the alignment
             if (m_TitleAlignment == TitleAlignmentLeft)

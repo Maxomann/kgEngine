@@ -63,13 +63,13 @@ NETWORK_API void kg::nNetworkManager::frame( cCore& core )
 	m_messageContainer.swap();
 }
 
-NETWORK_API void kg::nNetworkManager::addConnection( const sf::IpAddress& ip, sf::Uint16 port )
+NETWORK_API void kg::nNetworkManager::addConnection( const sf::IpAddress& ip, sf::Uint16 recievePort, sf::Uint16 answerPort )
 {
 	networkMutex.lock();
 
-	auto& el = m_connectionContainer[port];
-	el.first.push_back( ip );
-	el.second.bind( port );
+	auto& el = m_connectionContainer[recievePort];
+	el.first.push_back( std::make_pair(ip, answerPort) );
+	el.second.bind( recievePort );
 	el.second.setBlocking( false );
 
 	networkMutex.unlock();
@@ -77,7 +77,7 @@ NETWORK_API void kg::nNetworkManager::addConnection( const sf::IpAddress& ip, sf
 
 NETWORK_API void kg::nNetworkManager::sendMessage( std::shared_ptr<nMessage> message, const sf::IpAddress& to, sf::Uint16 onPort )
 {
-	m_senderSocket.send( message->toPacket(), to, onPort );
+	m_connectionContainer.at(onPort).second.send( message->toPacket(), to, onPort );
 }
 
 NETWORK_API kg::nNetworkManager::~nNetworkManager()
@@ -90,11 +90,26 @@ NETWORK_API kg::nNetworkManager::~nNetworkManager()
 
 NETWORK_API void kg::nNetworkManager::spreadMessage( std::shared_ptr<nMessage> message )
 {
+	std::vector<sf::IpAddress> alreadySentTo;
+
 	for( const auto& port : m_connectionContainer )
 	{
 		for( const auto& ip : port.second.first )
 		{
-			sendMessage( message, ip, port.first );
+			if( std::find( begin( alreadySentTo ), end( alreadySentTo ), ip.first )==end(alreadySentTo) )
+			{
+				sendMessage( message, ip.first, ip.second );
+				alreadySentTo.push_back( ip.first );
+			}
 		}
 	}
+}
+
+NETWORK_API sf::Uint16 kg::nNetworkManager::getAnswerPort(sf::IpAddress forIp, sf::Uint16 recievedOnPort)
+{
+	for( const auto& el : m_connectionContainer[recievedOnPort].first )
+		if( el.first == forIp )
+			return el.second;
+
+	REPORT_ERROR_NETWORK( "Not connected to Ip: " + forIp.toString() );
 }

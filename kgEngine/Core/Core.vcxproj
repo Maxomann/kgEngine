@@ -111,7 +111,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>tgui.lib;sfml-network.lib;sfml-system.lib;sfml-main.lib;sfml-window.lib;sfml-graphics.lib;%(AdditionalDependencies);Algorithm.lib;Network.lib;Plugin.lib</AdditionalDependencies>
+      <AdditionalDependencies>tgui.lib;sfml-network.lib;sfml-system.lib;sfml-main.lib;sfml-window.lib;sfml-graphics.lib;Algorithm.lib;Network.lib;Plugin.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\Coding\GitHub\TGUI-0.6.3 Visual C++12 %282013%29 - 32bit\lib\TGUI;D:\Coding\GitHub\kgEngine\Release;D:\Coding\GitHub\SFML-2.1-VS2013-32bit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>

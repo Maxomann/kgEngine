@@ -23,7 +23,11 @@ project(tgui)
 # project version
 SET( MAJOR_VERSION 0 )
 SET( MINOR_VERSION 6 )
-SET( PATCH_VERSION 3 )
+SET( PATCH_VERSION 4 )
+
+# Fill in the version in the config file
+configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/include/TGUI/Config.hpp.in"
+                "${CMAKE_CURRENT_SOURCE_DIR}/include/TGUI/Config.hpp")
 
 # include the configuration file
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Config.cmake)
@@ -48,11 +52,6 @@ if( SFML_COMPILER_GCC )
     if( NOT CMAKE_CXX_FLAGS )
         set( CMAKE_CXX_FLAGS "-Wall -Wextra -Wshadow -Wno-long-long -pedantic -std=c++0x" CACHE STRING "C++ compiler flags" FORCE )
         set( CMAKE_C_FLAGS "-Wall -Wextra -Wshadow -Wno-long-long -pedantic" CACHE STRING "C compiler flags" FORCE )
-    endif()
-
-    if( NOT CMAKE_CXX_FLAGS_DEBUG )
-        set( CMAKE_CXX_FLAGS_DEBUG "-g -O0 -std=c++0x" CACHE STRING "C++ compiler flags (debug)" FORCE )
-        set( CMAKE_C_FLAGS_DEBUG "-g -O0" CACHE STRING "C++ compiler flags (debug)" FORCE )
     endif()
 
 elseif ( SFML_COMPILER_CLANG )

@@ -344,16 +344,9 @@ namespace tgui
 
         // Check if the text is auto sized
         if (m_TextSize == 0)
-        {
-            // Set the text size
-            m_Text.setCharacterSize(static_cast<unsigned int>(m_Size.y));
-            m_Text.setCharacterSize(static_cast<unsigned int>(m_Text.getCharacterSize() - m_Text.getLocalBounds().top));
-        }
-        else // When the text has a fixed size
-        {
-            // Set the text size
+            m_Text.setCharacterSize(static_cast<unsigned int>(m_Size.y * 0.75f));
+        else
             m_Text.setCharacterSize(m_TextSize);
-        }
 
         // Reposition the text
         setPosition(getPosition());
@@ -497,10 +490,10 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void RadioButton::keyPressed(sf::Keyboard::Key key)
+    void RadioButton::keyPressed(const sf::Event::KeyEvent& event)
     {
         // Check if the space key or the return key was pressed
-        if (key == sf::Keyboard::Space)
+        if (event.code == sf::Keyboard::Space)
         {
             // Check the radio button
             check();
@@ -513,7 +506,7 @@ namespace tgui
                 addCallback();
             }
         }
-        else if (key == sf::Keyboard::Return)
+        else if (event.code == sf::Keyboard::Return)
         {
             // Check the radio button
             check();

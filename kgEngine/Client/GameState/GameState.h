@@ -20,7 +20,7 @@ namespace kg
 		//		onClose will get called
 		//		return -1 NO_CHANGE to keep this GameState
 		//		return -2 CLOSE_APP to close the application
-		virtual int frame( cCore& core, World& world, Camera& camera, tgui::Gui& gui )=0;
+		virtual int frame( cCore& core, sf::RenderWindow& window, World& world, Camera& camera, tgui::Gui& gui )=0;
 
 		static const int NO_CHANGE = -1;
 		static const int CLOSE_APP = -2;

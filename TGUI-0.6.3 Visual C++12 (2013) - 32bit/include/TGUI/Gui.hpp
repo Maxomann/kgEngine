@@ -62,6 +62,17 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \brief Construct the gui and set the target on which the gui should be drawn.
+        ///
+        /// \param window  The render target that will be used by the gui.
+        ///
+        /// If you use this constructor then you will no longer have to call setWindow yourself.
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Gui(sf::RenderTarget& window);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \brief Set the window on which the gui should be drawn.
         ///
         /// \param window  The sfml window that will be used by the gui.
@@ -71,12 +82,21 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \brief Set the target on which the gui should be drawn.
+        ///
+        /// \param window  The render target that will be used by the gui.
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        void setWindow(sf::RenderTarget& window);
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \brief Returns the window on which the gui is being drawn.
         ///
         /// \return The sfml that is used by the gui.
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        sf::RenderWindow* getWindow();
+        sf::RenderTarget* getWindow();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,6 +172,20 @@ namespace tgui
         ///
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         sf::Vector2f getSize() const;
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \brief Returns the internal container of the Gui.
+        ///
+        /// This could be useful when having a function that should accept both the gui and e.g. a child window as parameter.
+        ///
+        /// \warning Not all functions in the Container class make sense for the Gui (which is the reason that the Gui does not
+        ///          inherit from Container). So calling some functions (e.g. setSize) will have no effect.
+        ///
+        /// \return Reference to the internal Container class
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Container& getContainer();
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -493,11 +527,11 @@ namespace tgui
         // The internal clock which is used for animation of widgets
         sf::Clock m_Clock;
 
-        // The sfml window
-        sf::RenderWindow* m_Window;
+        // The sfml window or other target to draw on
+        sf::RenderTarget* m_Window;
 
-        // Is the window focused?
-        bool m_Focused;
+        // Does m_Window contains a sf::RenderWindow?
+        bool m_accessToWindow;
 
         // Internal container to store all widgets
         GuiContainer m_Container;

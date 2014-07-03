@@ -426,6 +426,16 @@ namespace tgui
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// \brief Returns the distance between the position of the container and a widget that would be drawn inside
+        ///        this container on relative position (0,0).
+        ///
+        /// \return Offset of the widgets in the container
+        ///
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        virtual sf::Vector2f getWidgetsOffset() const;
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \internal
         // This function is used internally by child widget to alert there parent about a callback.
         // If it reaches the gui, then the callback can be obtained by calling the pollCallback function of the gui.
@@ -456,7 +466,7 @@ namespace tgui
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \internal
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        virtual void keyPressed(sf::Keyboard::Key key);
+        virtual void keyPressed(const sf::Event::KeyEvent& event);
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \internal
@@ -545,9 +555,6 @@ namespace tgui
 
         sf::Font m_GlobalFont;
 
-        // Is the container focused? If so, then one of the widgets inside the container may be focused
-        bool m_ContainerFocused;
-
         // A list that stores all functions that receive callbacks triggered by child widgets
         std::list< std::function<void(const Callback&)> > m_GlobalCallbackFunctions;
 
@@ -621,7 +628,7 @@ namespace tgui
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       protected:
 
-        sf::RenderWindow* m_Window;
+        sf::RenderTarget* m_Window;
 
 
         friend class Gui;

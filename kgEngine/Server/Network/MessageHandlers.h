@@ -19,9 +19,8 @@ namespace kg
 			core.networkManager.sendMessage(
 				std::make_shared<ChunkDataRequestAnswer>( chunkPosition, core.getExtension<Server>()->getWorld().getChunk( chunkPosition ) ),
 				std::get<0>( message ),
-				//return message on port where it was recieved
-				std::get<1>( message )
-				);
+				core.networkManager.getAnswerPort( std::get<0>( message ), std::get<1>( message ) )
+			);
 		}
 
 		virtual int getMessageHandlerID() const

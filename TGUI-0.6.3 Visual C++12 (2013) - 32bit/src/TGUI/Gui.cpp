@@ -26,6 +26,7 @@
 #include <SFML/OpenGL.hpp>
 
 #include <TGUI/SharedWidgetPtr.inl>
+#include <TGUI/Clipboard.hpp>
 #include <TGUI/Gui.hpp>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,39 +36,65 @@ namespace tgui
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Gui::Gui() :
-    m_Window (nullptr),
-    m_Focused(true)
+        m_Window        (nullptr),
+        m_accessToWindow(false)
     {
         m_Container.bindGlobalCallback(&Gui::addChildCallback, this);
 
-        // The main window is always focused
-        m_Container.m_ContainerFocused = true;
+        m_Container.m_Focused = true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Gui::Gui(sf::RenderWindow& window) :
-    m_Window (&window),
-    m_Focused(true)
+        m_Window        (&window),
+        m_accessToWindow(true)
     {
         m_Container.m_Window = &window;
         m_Container.bindGlobalCallback(&Gui::addChildCallback, this);
 
-        // The main window is always focused
-        m_Container.m_ContainerFocused = true;
+        m_Container.m_Focused = true;
+
+        TGUI_Clipboard.setWindowHandle(window.getSystemHandle());
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Gui::Gui(sf::RenderTarget& window) :
+        m_Window        (&window),
+        m_accessToWindow(false)
+    {
+        m_Container.m_Window = &window;
+        m_Container.bindGlobalCallback(&Gui::addChildCallback, this);
+
+        m_Container.m_Focused = true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Gui::setWindow(sf::RenderWindow& window)
     {
+        m_accessToWindow = true;
+
+        m_Window = &window;
+        m_Container.m_Window = &window;
+
+        TGUI_Clipboard.setWindowHandle(window.getSystemHandle());
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Gui::setWindow(sf::RenderTarget& window)
+    {
+        m_accessToWindow = false;
+
         m_Window = &window;
         m_Container.m_Window = &window;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    sf::RenderWindow* Gui::getWindow()
+    sf::RenderTarget* Gui::getWindow()
     {
         return m_Window;
     }
@@ -117,11 +144,14 @@ namespace tgui
         // Keep track of whether the window is focused or not
         else if (event.type == sf::Event::LostFocus)
         {
-            m_Focused = false;
+            m_Container.m_Focused = false;
         }
         else if (event.type == sf::Event::GainedFocus)
         {
-            m_Focused = true;
+            m_Container.m_Focused = true;
+
+            if (m_accessToWindow)
+                TGUI_Clipboard.setWindowHandle(static_cast<sf::RenderWindow*>(m_Window)->getSystemHandle());
         }
 
         // Let the event manager handle the event
@@ -139,7 +169,7 @@ namespace tgui
             m_Window->setView(m_Window->getDefaultView());
 
         // Update the time
-        if (m_Focused)
+        if (m_Container.m_Focused)
             updateTime(m_Clock.restart());
         else
             m_Clock.restart();
@@ -195,7 +225,7 @@ namespace tgui
 
     bool Gui::hasFocus()
     {
-        return m_Focused;
+        return m_Container.m_Focused;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -203,6 +233,13 @@ namespace tgui
     sf::Vector2f Gui::getSize() const
     {
         return sf::Vector2f(m_Window->getSize());
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Container& Gui::getContainer()
+    {
+        return m_Container;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

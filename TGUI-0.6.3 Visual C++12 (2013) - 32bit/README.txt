@@ -11,7 +11,7 @@ Download
 
 You can download the latest release on Github (https://github.com/texus/TGUI).
 
-This download contains the official TGUI v0.6.3 release.
+This download contains the latest development snapshot of TGUI v0.6.
 
 
 

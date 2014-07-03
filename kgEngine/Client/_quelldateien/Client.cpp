@@ -54,7 +54,7 @@ namespace kg
 		m_world.loadChunksInRectAndUnloadOther( core, { sf::IntRect( m_camera.getCameraRect() ) } );
 
 		// change gameState if needed
-		int newGameStateId = m_gameState->frame(core, m_world, m_camera , m_gui );
+		int newGameStateId = m_gameState->frame(core, m_window, m_world , m_camera , m_gui );
 		if( newGameStateId == GameState::CLOSE_APP )
 			core.close();
 		else if( newGameStateId > -1 )

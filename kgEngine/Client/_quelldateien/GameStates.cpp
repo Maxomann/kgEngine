@@ -6,7 +6,7 @@ namespace kg
 	{
 		//TileSelectionBox
 		m_tileSelectionBox = tgui::ListBox::Ptr( gui );
-		m_tileSelectionBox->setPosition( 20, 40 );
+		m_tileSelectionBox->setPosition( 20, 60 );
 		m_tileSelectionBox->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
 		m_tileSelectionBox->setSize( 200, 100 );
 		//load tile names from files
@@ -25,12 +25,72 @@ namespace kg
 			m_tileSelectionBox->addItem( tileSettings->tileName );
 		}
 		m_tileSelectionBox->setSelectedItem( NULL );
+		m_tileSelectionBox->hide();
 
 
 		//MenuBar
 		m_menuBar = tgui::MenuBar::Ptr( gui );
 		m_menuBar->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
-		m_menuBar->setSize( gui.getWindow()->getSize().x, 20 );
+		m_menuBar->setSize( gui.getWindow()->getSize().x, 25 );
+		m_menuBar->addMenu( tileMenuName );
+		m_menuBar->addMenuItem( tileMenuName, tileMenuEditTilesItem );
+		m_menuBar->addMenu( connectionMenuName );
+		m_menuBar->addMenuItem( connectionMenuName, connectionMenuConnectItem );
+		m_menuBar->bindCallbackEx( std::bind(
+			&TestGameState::m_menuBarCallback,
+			this,
+			std::placeholders::_1,
+			std::ref( core ),
+			std::ref( world ),
+			std::ref( camera ),
+			std::ref( gui ) ),
+			tgui::MenuBar::MenuItemClicked );
+
+
+		//ConnectToServerWindow
+		m_connectToServerWindow = tgui::ChildWindow::Ptr( gui );
+		m_connectToServerWindow->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
+		m_connectToServerWindow->setTitle( connectionMenuConnectItem );
+		m_connectToServerWindow->setSize( 300, 150 );
+		m_connectToServerWindow->keepInParent( true );
+		m_connectToServerWindow->bindCallbackEx( std::bind(
+			&TestGameState::m_connectToServerWindowCallback,
+			this,
+			std::placeholders::_1,
+			std::ref( core ),
+			std::ref( world ),
+			std::ref( camera ),
+			std::ref( gui ) ),
+			tgui::ChildWindow::Closed );
+
+		m_ctsIp = tgui::EditBox::Ptr( *m_connectToServerWindow );
+		m_ctsIp->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
+		m_ctsPort = tgui::EditBox::Ptr( *m_connectToServerWindow );
+		m_ctsPort->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
+		m_ctsSendButton = tgui::Button::Ptr( *m_connectToServerWindow );
+		m_ctsSendButton->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
+
+		m_ctsIp->setText( sf::IpAddress::LocalHost.toString() );
+		m_ctsIp->setSize( 300, 50 );
+
+		m_ctsPort->setText( std::to_string( clientToServerPort ) );
+		m_ctsPort->setSize( 300, 50 );
+		m_ctsPort->setPosition( 0, 50 );
+
+		m_ctsSendButton->setText( "Connect" );
+		m_ctsSendButton->setPosition( 0, 100 );
+		m_ctsSendButton->setSize( 300, 50 );
+		m_ctsSendButton->bindCallbackEx( std::bind(
+			&TestGameState::m_connectToServerWindowCallback,
+			this,
+			std::placeholders::_1,
+			std::ref( core ),
+			std::ref( world ),
+			std::ref( camera ),
+			std::ref( gui ) ),
+			tgui::Button::LeftMouseClicked );
+
+		m_connectToServerWindow->hide();
 
 	}
 
@@ -39,10 +99,12 @@ namespace kg
 
 	}
 
-	int TestGameState::frame( cCore& core, World& world, Camera& camera, tgui::Gui& gui )
-	{
+	int TestGameState::frame( cCore& core, sf::RenderWindow& window, World& world, Camera& camera, tgui::Gui& gui )
+{
 		bool mouseOnGui = false;
-		
+		for( const auto& widget : gui.getWidgets() )
+			if( widget->isFocused() )
+				mouseOnGui = true;
 
 
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Escape ) )
@@ -77,26 +139,28 @@ namespace kg
 			camera.setCenter( sf::Vector2i( 0, 0 ) );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Z ) )
 			camera.setZoom( 1.0f );
-		if( sf::Mouse::isButtonPressed( sf::Mouse::Button::Left ) )
+		if( !mouseOnGui )
 		{
-			int selectedItemIndex = m_tileSelectionBox->getSelectedItemIndex();
-			//if no item is selected, select item: NONE
-			if(selectedItemIndex<0)
-				m_tileSelectionBox->setSelectedItem( NULL );
-			else if( selectedItemIndex != NULL )
-			{   
+			if( sf::Mouse::isButtonPressed( sf::Mouse::Button::Left ) )
+			{
+				int selectedItemIndex = m_tileSelectionBox->getSelectedItemIndex();
+				//if no item is selected, select item: NONE
+				if( selectedItemIndex < 0 )
+					m_tileSelectionBox->setSelectedItem( NULL );
+				else if( selectedItemIndex != NULL )
+				{
 
-				int tileID = selectedItemIndex - 1;
+					int tileID = selectedItemIndex - 1;
 
-				//set the new tile
-				core.networkManager.sendMessage( std::make_shared<SetTileRequest>(
-					World::getAbsoluteChunkPosition(*gui.getWindow(), camera),
-					World::getRelativeTilePosition( *gui.getWindow(), camera), tileID ),
-					core.getServerIp(),
-					core.getServerPort() );
+					//set the new tile
+					core.networkManager.sendMessage( std::make_shared<SetTileRequest>(
+						World::getAbsoluteChunkPosition( window, camera ),
+						World::getRelativeTilePosition( window, camera ), tileID ),
+						core.getServerIp(),
+						core.getServerPort() );
+				}
 			}
 		}
-
 
 		return m_nextGameState;
 	}
@@ -116,8 +180,50 @@ namespace kg
 		return "Standart GameState plugin";
 	}
 
-	void TestGameState::switchToEditorButtonCallback( const tgui::Callback& callback, cCore& core, World& world, Camera& camera, tgui::Gui& gui )
+	void TestGameState::m_menuBarCallback( const tgui::Callback& callback,
+										   cCore& core,
+										   World& world,
+										   Camera& camera,
+										   tgui::Gui& gui )
 	{
+		if( callback.text == tileMenuEditTilesItem )
+		{
+			if( m_tileSelectionBox->isVisible() )
+				m_tileSelectionBox->hide();
+			else
+				m_tileSelectionBox->show();
 
+			m_tileSelectionBox->setSelectedItem( NULL );
+		}
+		if( callback.text == connectionMenuConnectItem )
+		{
+			if( m_connectToServerWindow->isVisible() )
+				m_connectToServerWindow->hide();
+			else
+				m_connectToServerWindow->show();
+		}
 	}
+
+	void TestGameState::m_connectToServerWindowCallback( const tgui::Callback& callback,
+														 cCore& core,
+														 World& world,
+														 Camera& camera,
+														 tgui::Gui& gui )
+	{
+		if( callback.widget == &*m_connectToServerWindow )
+		{
+			m_connectToServerWindow->hide();
+		}
+		if( callback.widget == &*m_ctsSendButton )
+		{
+			sf::IpAddress ip( sf::IpAddress( m_ctsIp->getText() ) );
+			sf::Uint16 port( std::atoi( m_ctsPort->getText().toAnsiString().c_str() ) );
+
+			core.setServerIp( ip );
+			core.setServerPort( port );
+
+			//core.networkManager.addConnection( ip, core.networkManager.getAnswerPort(TODO) );
+		}
+	}
+
 }

@@ -49,7 +49,6 @@ namespace tgui
         Widget                   (containerToCopy),
         m_FocusedWidget          (0),
         m_GlobalFont             (containerToCopy.m_GlobalFont),
-        m_ContainerFocused       (false),
         m_GlobalCallbackFunctions(containerToCopy.m_GlobalCallbackFunctions)
     {
         // Copy all the widgets
@@ -81,7 +80,6 @@ namespace tgui
             // Copy the font and the callback functions
             m_FocusedWidget = 0;
             m_GlobalFont = right.m_GlobalFont;
-            m_ContainerFocused = false;
             m_GlobalCallbackFunctions = right.m_GlobalCallbackFunctions;
 
             // Remove all the old widgets
@@ -831,6 +829,13 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    sf::Vector2f Container::getWidgetsOffset() const
+    {
+        return sf::Vector2f(0, 0);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     void Container::addChildCallback(const Callback& callback)
     {
         // If there is no global callback function then send the callback to the parent
@@ -887,14 +892,14 @@ namespace tgui
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Container::keyPressed(sf::Keyboard::Key key)
+    void Container::keyPressed(const sf::Event::KeyEvent& event)
     {
-        sf::Event event;
-        event.type = sf::Event::KeyPressed;
-        event.key.code = key;
+        sf::Event newEvent;
+        newEvent.type = sf::Event::KeyPressed;
+        newEvent.key.code = event.code;
 
         // Let the event manager handle the event
-        handleEvent(event);
+        handleEvent(newEvent);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1086,8 +1091,7 @@ namespace tgui
                 if (m_FocusedWidget)
                 {
                     // Tell the widget that the key was pressed
-                    m_Widgets[m_FocusedWidget-1]->keyPressed(event.key.code);
-
+                    m_Widgets[m_FocusedWidget-1]->keyPressed(event.key);
                     return true;
                 }
             }
@@ -1336,7 +1340,7 @@ namespace tgui
 
     bool GuiContainer::mouseOnWidget(float, float)
     {
-        return false;
+        return true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
