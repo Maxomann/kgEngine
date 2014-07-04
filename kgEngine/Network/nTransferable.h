@@ -11,13 +11,12 @@ namespace kg
 	class nNetworkSendable
 	{
 	public:
-		virtual std::string nToString()const=0;
+		virtual std::string nToString()const = 0;
 	};
 
 	class nNetworkConstructable
 	{
 	public:
-		virtual void nFromString( cResourceManagement& resourceManagement, const std::string& data ) = 0;
+		virtual void nFromString( cCore& resourceManagement, const std::string& data ) = 0;
 	};
-
 }

@@ -21,6 +21,12 @@ namespace kg
 			return getResource<T>( resourceFolderPath + relativePath );
 		}
 
+		template< class T >
+		CORE_API T& getResourceFromResourceFolderForTile( const int tileID, std::string fileExtension )
+		{
+			return getResource<T>( resourceFolderPath + "tile" + std::to_string( tileID ) + fileExtension );
+		}
+
 		//Template argument is the type, NOT A POINTER TO IT!!!
 		//getResource<sf::Texture>  == OK
 		//getResource<sf::Texture*> == NOT WORKING

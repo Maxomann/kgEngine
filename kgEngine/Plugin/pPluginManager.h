@@ -2,7 +2,7 @@
 
 #pragma once
 #include "stdafx.h"
-#include "pExtendable.h"
+#include "pExtension.h"
 
 namespace kg
 {

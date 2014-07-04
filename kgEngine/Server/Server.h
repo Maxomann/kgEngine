@@ -18,5 +18,8 @@ namespace kg
 		virtual std::string info() const;
 
 		World& getWorld();
+
+		virtual void initExtensions( pPluginManager& pluginManger );
+
 	};
 }

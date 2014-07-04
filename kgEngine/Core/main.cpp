@@ -14,7 +14,6 @@
 using namespace std;
 using namespace kg;
 
-
 int main()
 {
 	try
@@ -25,11 +24,12 @@ int main()
 
 		cCore application;
 		pluginManager.fillExtandable<cCore>( application );
+		application.initExtensions( pluginManager );
 
-		pluginManager.fillExtandable<nNetworkManager>( application.networkManager );
-		application.networkManager.initMessageHandlers();
+		application.networkManager.addConnection( sf::IpAddress::LocalHost, 42000, 42000 );
 
-		application.networkManager.addConnection( sf::IpAddress::getLocalAddress(), 42000 );
+		application.setServerIp( sf::IpAddress::LocalHost );
+		application.setServerPort( 42000 );
 
 		//Main loop
 		while( !application.shouldClose() )

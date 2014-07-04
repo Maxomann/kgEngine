@@ -23,4 +23,10 @@
 #include <map>
 #include <fstream>
 
+#include<dirent.h>
+//divide: struct dirent->d_type / DIRENT_CONST
+//1=Folder
+//2=File
+#define DIRENT_CONST 16384
+
 #endif //A_STDAFX
