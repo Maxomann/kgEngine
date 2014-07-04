@@ -10,8 +10,9 @@ namespace kg
 		//A.size()=stateCount; B.size()=frames; B.at(x)=frameTime;
 		std::vector<std::vector<int>> frameInfo;
 
+		sf::Vector2i offset = { 0, 0 };
+
 		//every element in the Vector is a state (Y-Coordinate). Give the amount of frames (X-Coordinate).
-		AnimationSettings( const sf::Vector2i& frameSize, const std::vector<std::vector<int>>& frameInfo );
 		//loadFromFile: xml-file
 		AnimationSettings();
 

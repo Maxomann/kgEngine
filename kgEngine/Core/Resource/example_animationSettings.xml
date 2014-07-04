@@ -1,6 +1,11 @@
 <frameSizeX>16</>
 <frameSizeY>344</>
 
+<!-- Optional default:0 -->
+<offsetX>0</>
+<offsetY>0</>
+<!---->
+
 <state>
 	<0>
 		<0>10</>

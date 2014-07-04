@@ -6,8 +6,7 @@ namespace kg
 	Animation::Animation( const AnimationSettings& settings, bool start )
 		:m_settings( settings ),
 		m_run( start )
-	{
-	}
+	{ }
 
 	void Animation::run()
 	{
@@ -57,8 +56,8 @@ namespace kg
 	void Animation::apply( sf::Sprite& toSprite )
 	{
 		toSprite.setTextureRect( sf::IntRect(
-			m_settings.frameSize.x*m_frame,
-			m_settings.frameSize.y*m_state,
+			m_settings.frameSize.x*m_frame + m_settings.offset.x,
+			m_settings.frameSize.y*m_state + m_settings.offset.y,
 			m_settings.frameSize.x,
 			m_settings.frameSize.y
 			) );
