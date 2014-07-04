@@ -9,6 +9,7 @@ namespace kg
 		{
 			CHUNK_DATA_REQUEST,
 			SET_TILE_REQUEST,
+			CONNECTION_REQUEST,
 			LAST_ELEMENT
 		};
 	}
@@ -19,6 +20,7 @@ namespace kg
 		enum
 		{
 			CHUNK_DATA_REQUEST_ANSWER = MESSAGE_ID_CLIENT::LAST_ELEMENT + 1,
+			CONNECTION_REQUEST_ANSWER,
 			LAST_ELEMENT
 		};
 	}
@@ -32,6 +34,7 @@ namespace kg
 	}
 
 	static const char standartSplitChar = ';';
+	static const sf::Uint16 standartServerRecievePort = 42000;
 
 	static const int chunkSizeInTiles = 20;
 	static const int tileSizeInPixel = 64;

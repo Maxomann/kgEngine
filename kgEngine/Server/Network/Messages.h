@@ -27,4 +27,33 @@ namespace kg
 			return MESSAGE_ID_SERVER::CHUNK_DATA_REQUEST_ANSWER;
 		}
 	};
+
+	class ConnectionRequestAnswer : public nMessage
+	{
+		bool m_accepted = false;
+		sf::Uint16 m_recievePortOnServer;
+
+	public:
+		ConnectionRequestAnswer( sf::Uint16 recievePortOnServer, bool accepted = true )
+			: m_accepted(accepted),
+			m_recievePortOnServer(recievePortOnServer)
+		{
+
+		}
+
+		virtual std::string getMessage()
+		{
+			std::string message(std::to_string( m_accepted ));
+			message += standartSplitChar;
+			message += std::to_string( m_recievePortOnServer );
+
+			return message;
+		}
+
+		virtual int getID()
+		{
+			return MESSAGE_ID_SERVER::CONNECTION_REQUEST_ANSWER;
+		}
+
+	};
 }

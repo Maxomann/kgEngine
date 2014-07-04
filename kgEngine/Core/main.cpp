@@ -16,8 +16,8 @@ using namespace kg;
 
 int main()
 {
-// 	try
-// 	{
+	try
+	{
 		pPluginManager pluginManager;
 		pluginManager.loadPluginsFromFile( "Client.dll" );
 		pluginManager.loadPluginsFromFile( "Server.dll" );
@@ -26,11 +26,9 @@ int main()
 		pluginManager.fillExtandable<cCore>( application );
 		application.initExtensions( pluginManager );
 
-		application.networkManager.addConnection( sf::IpAddress::getPublicAddress(), 42002, 42002 );
-		application.networkManager.addConnection( sf::IpAddress::getPublicAddress(), 42000, 42000 );
-		application.networkManager.addConnection( sf::IpAddress::getPublicAddress(), 42001, 42002 );
+		application.networkManager.addConnection( sf::IpAddress::LocalHost, 42000, 42000 );
 
-		application.setServerIp( sf::IpAddress::getPublicAddress() );
+		application.setServerIp( sf::IpAddress::LocalHost );
 		application.setServerPort( 42000 );
 
 		//Main loop
@@ -38,12 +36,12 @@ int main()
 		{
 			application.frame();
 		}
-// 	}
-// 	catch( std::exception& e )
-// 	{
-// 		cout << e.what() << endl;
-// 		system( "pause" );
-// 	}
+	}
+	catch( std::exception& e )
+	{
+		cout << e.what() << endl;
+		system( "pause" );
+	}
 
 	return 0;
 }

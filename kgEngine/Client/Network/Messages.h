@@ -55,4 +55,36 @@ namespace kg
 		}
 
 	};
+
+	class ConnectionRequest : public nMessage
+	{
+		sf::Uint16 m_recievePortOnClient;
+		sf::Uint16 m_recievePortOnServer;
+
+	public:
+		//recievePortOnClient: port the client listens to
+		//recievePortOnServer: port the server 'should' listens to & sendPort linked to recievePortOnClient by server IP
+		ConnectionRequest( sf::Uint16 recievePortOnClient, sf::Uint16 recievePortOnServer )
+			:m_recievePortOnClient(recievePortOnClient),
+			m_recievePortOnServer(recievePortOnServer)
+		{
+
+		}
+
+		virtual std::string getMessage()
+		{
+			std::string message;
+			message += std::to_string( m_recievePortOnClient );
+			message += standartSplitChar;
+			message += std::to_string( m_recievePortOnServer );
+
+			return message;
+		}
+
+		virtual int getID()
+		{
+			return MESSAGE_ID_CLIENT::CONNECTION_REQUEST;
+		}
+
+	};
 }

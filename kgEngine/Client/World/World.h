@@ -17,6 +17,9 @@ namespace kg
 		Chunk& getChunk( cCore& core, const sf::Vector2i& positionInChunks );
 		void loadChunksInRectAndUnloadOther( cCore& core, const std::vector<sf::IntRect>& rectInPixel );
 
+		//resets the world, so information has to be reloaded from the server
+		void reset();
+
 		void frame( cCore& core );
 
 		virtual void draw( Camera& camera )override;

@@ -115,6 +115,11 @@ namespace kg
 		return tilePosition;
 	}
 
+	void World::reset()
+	{
+		m_chunks.clear();
+	}
+
 	// 				sf::Vector2i mousePosition( sf::Mouse::getPosition( *gui.getWindow() ) );
 	// 				mousePosition.x /= camera.getZoom();
 	// 				mousePosition.y /= camera.getZoom();

@@ -14,7 +14,8 @@ namespace kg
 
 		tgui::ChildWindow::Ptr m_connectToServerWindow = nullptr;
 		tgui::EditBox::Ptr m_ctsIp = nullptr;
-		tgui::EditBox::Ptr m_ctsPort = nullptr;
+		tgui::EditBox::Ptr m_ctsRecievePortOnServer = nullptr;
+		tgui::EditBox::Ptr m_ctsRecievePortOnClient = nullptr;
 		tgui::Button::Ptr m_ctsSendButton = nullptr;
 
 		int m_nextGameState = NO_CHANGE;

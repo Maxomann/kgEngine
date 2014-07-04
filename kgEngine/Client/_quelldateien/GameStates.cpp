@@ -51,7 +51,7 @@ namespace kg
 		m_connectToServerWindow = tgui::ChildWindow::Ptr( gui );
 		m_connectToServerWindow->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
 		m_connectToServerWindow->setTitle( connectionMenuConnectItem );
-		m_connectToServerWindow->setSize( 300, 150 );
+		m_connectToServerWindow->setSize( 300, 200 );
 		m_connectToServerWindow->keepInParent( true );
 		m_connectToServerWindow->bindCallbackEx( std::bind(
 			&TestGameState::m_connectToServerWindowCallback,
@@ -65,20 +65,25 @@ namespace kg
 
 		m_ctsIp = tgui::EditBox::Ptr( *m_connectToServerWindow );
 		m_ctsIp->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
-		m_ctsPort = tgui::EditBox::Ptr( *m_connectToServerWindow );
-		m_ctsPort->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
+		m_ctsRecievePortOnClient = tgui::EditBox::Ptr( *m_connectToServerWindow );
+		m_ctsRecievePortOnClient->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
+		m_ctsRecievePortOnServer = tgui::EditBox::Ptr( *m_connectToServerWindow );
+		m_ctsRecievePortOnServer->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
 		m_ctsSendButton = tgui::Button::Ptr( *m_connectToServerWindow );
 		m_ctsSendButton->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
 
-		m_ctsIp->setText( sf::IpAddress::LocalHost.toString() );
+		m_ctsIp->setText( sf::IpAddress::getPublicAddress().toString() );
 		m_ctsIp->setSize( 300, 50 );
 
-		m_ctsPort->setText( std::to_string( clientToServerPort ) );
-		m_ctsPort->setSize( 300, 50 );
-		m_ctsPort->setPosition( 0, 50 );
+		m_ctsRecievePortOnClient->setText( "RecievePortOnClient" );
+		m_ctsRecievePortOnClient->setSize( 300, 50 );
+		m_ctsRecievePortOnClient->setPosition( 0, 50 );
+		m_ctsRecievePortOnServer->setText( "RecievePortOnServer" );
+		m_ctsRecievePortOnServer->setSize( 300, 50 );
+		m_ctsRecievePortOnServer->setPosition( 0, 100 );
 
 		m_ctsSendButton->setText( "Connect" );
-		m_ctsSendButton->setPosition( 0, 100 );
+		m_ctsSendButton->setPosition( 0, 150 );
 		m_ctsSendButton->setSize( 300, 50 );
 		m_ctsSendButton->bindCallbackEx( std::bind(
 			&TestGameState::m_connectToServerWindowCallback,
@@ -136,7 +141,10 @@ namespace kg
 				camera.moveCenter( sf::Vector2i( 10, 0 ) );
 		}
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
+		{
 			camera.setCenter( sf::Vector2i( 0, 0 ) );
+			world.reset();
+		}
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Z ) )
 			camera.setZoom( 1.0f );
 		if( !mouseOnGui )
@@ -217,12 +225,19 @@ namespace kg
 		if( callback.widget == &*m_ctsSendButton )
 		{
 			sf::IpAddress ip( sf::IpAddress( m_ctsIp->getText() ) );
-			sf::Uint16 port( std::atoi( m_ctsPort->getText().toAnsiString().c_str() ) );
+			sf::Uint16 recievePortOnServer(
+				std::atoi( m_ctsRecievePortOnServer->getText().toAnsiString().c_str() ) );
+			sf::Uint16 recievePortOnClient(
+				std::atoi( m_ctsRecievePortOnClient->getText().toAnsiString().c_str() ) );
 
-			core.setServerIp( ip );
-			core.setServerPort( port );
+			core.networkManager.clearConnections();
 
-			//core.networkManager.addConnection( ip, core.networkManager.getAnswerPort(TODO) );
+			core.networkManager.addConnection( ip, recievePortOnClient, recievePortOnServer );
+
+			core.networkManager.sendMessage(
+				std::make_shared<ConnectionRequest>( recievePortOnClient, recievePortOnServer ),
+				ip,
+				standartServerRecievePort );
 		}
 	}
 
