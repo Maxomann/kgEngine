@@ -6,6 +6,8 @@ namespace kg
 		:m_id( id ),
 		r_tileAnimations( &tileAnimations )
 	{
+		auto& tileSettings = core.resourceManagement.getResourceFromResourceFolderForTile<TileSettings>( id, informationFileExtension );
+
 		//ensure that animation for this sprite is loaded
 		Animation* animation = nullptr;
 		for( auto& el : tileAnimations )
@@ -15,8 +17,7 @@ namespace kg
 		if( !animation )
 		{
 			//load animation from file
-			auto& settings = core.resourceManagement.getResourceFromResourceFolderForTile<TileSettings>( id, informationFileExtension );
-			Animation animation2( settings );
+			Animation animation2( tileSettings );
 			tileAnimations.insert( std::make_pair( m_id, animation2 ) );
 
 			//validate pointer
@@ -25,7 +26,7 @@ namespace kg
 					animation = &(el.second);
 		}
 
-		auto& texture = core.resourceManagement.getResourceFromResourceFolderForTile<sf::Texture>( id, textureFileExtension );
+		auto& texture = core.resourceManagement.getResourceFromResourceFolder<sf::Texture>( tileSettings.tileTexturePath );
 
 		m_sprite.setTexture( texture );
 		animation->apply( m_sprite );

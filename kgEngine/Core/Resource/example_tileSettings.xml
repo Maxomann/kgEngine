@@ -1,6 +1,9 @@
 <tileName>
 TestTile
 </>
+<tileTexturePath>
+TestTile.png
+</>
 
 <frameSizeX>16</>
 <frameSizeY>344</>

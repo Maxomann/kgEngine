@@ -23,6 +23,10 @@ namespace kg
 			REPORT_ERROR_FILEACCESS( "tileName node not found in file" + path );
 		tileName = nameNode->value();
 
+		auto textureNode = doc.first_node( "tileTexturePath" );
+		if( !textureNode )
+			REPORT_ERROR_FILEACCESS( "tileTexturePath node not found in file" + path );
+		tileTexturePath = textureNode->value();
 
 		delete[] file;
 		return true;
