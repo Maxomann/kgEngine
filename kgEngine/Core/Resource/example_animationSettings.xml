@@ -1,25 +1,31 @@
 <frameSizeX>16</>
 <frameSizeY>344</>
 
+<!-- Optional default:0 -->
+<offsetX>0</>
+<offsetY>0</>
+<!---->
+
 <state>
-	<0>
+	<0><!-- State Id -->
 		<0>10</>
 		<1>20</>
 		<2>30</>
 		<3>40</>
 	</>
-	<1 time="55">
+	<1 time="55"><!-- State Id; Time for evry frame -->
 		<0></>
 		<1></>
 		<2></>
 		<3></>
 		<4></>
 	</>
-	<2 time="88" frame="8">
+	<2 time="88" frame="8"><!-- State Id; 8 frames -->
 	</>
-	<3 time="102">
+	<3 time="102"><!-- State Id; Frame 0,1,3 will have time:102; Frame2: 77-->
 		<0></>
 		<1></>
-		<2>2</>
+		<2>77</>
+		<3></>
 	</>
 </>

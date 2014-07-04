@@ -4,11 +4,6 @@ using namespace rapidxml;
 
 namespace kg
 {
-	AnimationSettings::AnimationSettings( const sf::Vector2i& frameSize, const std::vector<std::vector<int>>& frameInfo )
-		:frameSize( frameSize ),
-		frameInfo( frameInfo )
-	{ }
-
 	AnimationSettings::AnimationSettings()
 	{
 
@@ -33,6 +28,15 @@ namespace kg
 		frameSize.x = atoi( frameSizeX->value() );
 		auto frameSizeY = doc.first_node( "frameSizeY" );
 		frameSize.y = atoi( frameSizeY->value() );
+
+
+		auto offsetX = doc.first_node( "offsetX" );
+		if( offsetX )
+			offset.x = atoi( offsetX->value() );
+		auto offsetY = doc.first_node( "offsetY" );
+		if( offsetY )
+			offset.y = atoi( offsetX->value() );
+
 
 		auto stateTopNode = doc.first_node( "state" );
 		for( auto stateSubNode = stateTopNode->first_node();
