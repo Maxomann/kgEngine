@@ -29,12 +29,14 @@ namespace kg
 		auto frameSizeY = doc.first_node( "frameSizeY" );
 		frameSize.y = atoi( frameSizeY->value() );
 
+
 		auto offsetX = doc.first_node( "offsetX" );
 		if( offsetX )
 			offset.x = atoi( offsetX->value() );
 		auto offsetY = doc.first_node( "offsetY" );
 		if( offsetY )
 			offset.y = atoi( offsetX->value() );
+
 
 		auto stateTopNode = doc.first_node( "state" );
 		for( auto stateSubNode = stateTopNode->first_node();
