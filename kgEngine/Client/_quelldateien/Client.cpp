@@ -9,8 +9,13 @@ namespace kg
 	{
 		m_config_file.loadFromFile( config_file_path );
 
+		sf::ContextSettings contextSettings;
+		contextSettings.antialiasingLevel = atoi( m_config_file.getData("Antialiasing").c_str() );
+
 		//initialize the Client with the data from the config_file
-		m_window.create( sf::VideoMode( std::atoi( m_config_file.getData( "resx" ).c_str() ), std::atoi( m_config_file.getData( "resy" ).c_str() ) ), m_config_file.getData( "window_name" ) );
+		m_window.create( sf::VideoMode( std::atoi( m_config_file.getData( "resx" ).c_str() ), std::atoi( m_config_file.getData( "resy" ).c_str() ) ), m_config_file.getData( "window_name" ),
+						 sf::Style::Titlebar|sf::Style::Close,
+						 contextSettings );
 		//camera
 		m_camera.init( sf::Vector2u( std::atoi( m_config_file.getData( "resx" ).c_str() ), std::atoi( m_config_file.getData( "resy" ).c_str() ) ) );
 		//vSynch
