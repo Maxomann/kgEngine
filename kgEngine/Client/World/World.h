@@ -25,11 +25,12 @@ namespace kg
 		virtual void draw( Camera& camera )override;
 
 
-		static sf::Vector2i getAbsoluteMousePosition( const sf::Window& window, const Camera& camera );
+		static sf::Vector2i getAbsoluteMousePosition( const sf::RenderWindow& window, const Camera& camera );
 
-		static sf::Vector2i getAbsoluteChunkPosition( const sf::Window& window, const Camera& camera );
+		//in chunks
+		static sf::Vector2i getAbsoluteChunkPosition( const sf::RenderWindow& window, const Camera& camera );
 
-		//relative to absoluteChunkPosition
-		static sf::Vector2i getRelativeTilePosition( const sf::Window& window, const Camera& camera );
+		//relative to absoluteChunkPosition (in tiles)
+		static sf::Vector2i getRelativeTilePosition( const sf::RenderWindow& window, const Camera& camera );
 	};
 }

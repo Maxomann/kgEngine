@@ -21,6 +21,7 @@ namespace kg
 		World m_world;
 
 		aDataByIdentifierFile m_config_file;
+		sf::IntRect m_renderDistaceInChunks;
 
 		std::shared_ptr<GameState> m_gameState;
 

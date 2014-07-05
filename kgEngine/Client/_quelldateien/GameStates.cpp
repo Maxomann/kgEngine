@@ -111,7 +111,6 @@ namespace kg
 			if( widget->isFocused() )
 				mouseOnGui = true;
 
-
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Escape ) )
 			return CLOSE_APP;
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Subtract ) )
@@ -140,13 +139,20 @@ namespace kg
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
 				camera.moveCenter( sf::Vector2i( 10, 0 ) );
 		}
+		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Q ) )
+			camera.rotate( -5.0f );
+		if( sf::Keyboard::isKeyPressed( sf::Keyboard::E ) )
+			camera.rotate( 5.0f );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
 		{
 			camera.setCenter( sf::Vector2i( 0, 0 ) );
 			world.reset();
 		}
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Z ) )
+		{
+			camera.setRotation( 0.0f );
 			camera.setZoom( 1.0f );
+		}
 		if( !mouseOnGui )
 		{
 			if( sf::Mouse::isButtonPressed( sf::Mouse::Button::Left ) )

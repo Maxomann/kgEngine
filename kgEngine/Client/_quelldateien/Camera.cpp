@@ -5,7 +5,7 @@ namespace kg
 	using namespace sf;
 
 	const float Pi = 3.14159265;
-/*	const int MaxCapacity = 400000;*/
+	/*	const int MaxCapacity = 400000;*/
 	const int MaxCapacity = 40000000;
 	const int LookupSize = 512;
 
@@ -165,12 +165,11 @@ namespace kg
 	{
 		setCenter( sf::Vector2i( getCenter().x + offset.x, getCenter().y + offset.y ) );
 	}
-	bool Camera::setRotation( const float rotationInDegree )
+	void Camera::setRotation( const float rotationInDegree )
 	{
 		// 		if( !m_focusRotation )
 		// 		{
 		this->m_View.setRotation( rotationInDegree );
-		return true;
 		// 		}
 		// 		else
 		// 			return false;
@@ -241,23 +240,39 @@ namespace kg
 		m_spritesToRender.clear();
 	}
 	sf::Vector2u Camera::getFinalSize() const
-{
-		return sf::Vector2u(m_finalSize);
-	}
-	sf::FloatRect Camera::getCameraRect()const
 	{
-		return sf::FloatRect( getCenter().x - m_View.getSize().x / 2,
-							  getCenter().y - m_View.getSize().y / 2,
-							  m_View.getSize().x,
-							  m_View.getSize().y );
+		return sf::Vector2u( m_finalSize );
 	}
+// 	sf::FloatRect Camera::getCameraRectWithoutRotation()const
+// 	{
+// 		return sf::FloatRect( getCenter().x - m_View.getSize().x / 2,
+// 							  getCenter().y - m_View.getSize().y / 2,
+// 							  m_View.getSize().x,
+// 							  m_View.getSize().y );
+// 	}
 	sf::Vector2i Camera::getCenter()const
 	{
 		return sf::Vector2i( m_View.getCenter() );
 	}
 
-	sf::Vector2i Camera::getUpperLeftCorner()const
+// 	sf::Vector2i Camera::getUpperLeftCorner()const
+// 	{
+// 		return sf::Vector2i( getCameraRectWithoutRotation().left, getCameraRectWithoutRotation().top );
+// 	}
+
+	void Camera::rotate( const float rotationInDegree )
 	{
-		return sf::Vector2i( getCameraRect().left, getCameraRect().top );
+		m_View.rotate( rotationInDegree );
 	}
+
+	float Camera::getRotation()const
+	{
+		return m_View.getRotation();
+	}
+
+	const sf::View& Camera::getView() const
+	{
+		return m_View;
+	}
+
 }

@@ -77,20 +77,17 @@ namespace kg
 			m_chunks.erase( el );
 	}
 
-	sf::Vector2i World::getAbsoluteMousePosition( const sf::Window& window, const Camera& camera )
+	sf::Vector2i World::getAbsoluteMousePosition( const sf::RenderWindow& window, const Camera& camera )
 	{
 		sf::Vector2i mousePosition( sf::Mouse::getPosition( window ) );
-		mousePosition.x /= camera.getZoom();
-		mousePosition.y /= camera.getZoom();
-		sf::Vector2i cameraOffset = camera.getUpperLeftCorner();
-		sf::Vector2i positionInWorld( mousePosition + cameraOffset );
+		sf::Vector2i transformedMousePosition( window.mapPixelToCoords( mousePosition, camera.getView() ) );
 
-		return positionInWorld;
+		return transformedMousePosition;
 	}
 
-	sf::Vector2i World::getAbsoluteChunkPosition( const sf::Window& window, const Camera& camera )
+	sf::Vector2i World::getAbsoluteChunkPosition( const sf::RenderWindow& window, const Camera& camera )
 	{
-		auto positionInWorld = getAbsoluteMousePosition( window, camera );
+		sf::Vector2i positionInWorld( getAbsoluteMousePosition( window, camera ) );
 
 		sf::Vector2i chunkPosition( positionInWorld / (chunkSizeInTiles*tileSizeInPixel) );
 		if( positionInWorld.x < 1 )
@@ -101,9 +98,9 @@ namespace kg
 		return chunkPosition;
 	}
 
-	sf::Vector2i World::getRelativeTilePosition( const sf::Window& window, const Camera& camera )
+	sf::Vector2i World::getRelativeTilePosition( const sf::RenderWindow& window, const Camera& camera )
 	{
-		auto positionInWorld = getAbsoluteMousePosition( window, camera );
+		sf::Vector2i positionInWorld( getAbsoluteMousePosition( window, camera ) );
 		auto chunkPosition = getAbsoluteChunkPosition( window, camera );
 
 		sf::Vector2i tilePosition( (positionInWorld / tileSizeInPixel) - (chunkPosition*chunkSizeInTiles) );
@@ -119,6 +116,16 @@ namespace kg
 	{
 		m_chunks.clear();
 	}
+
+// 	sf::IntRect World::getAbsoluteWindowRect( const sf::RenderWindow& window, const Camera& camera )
+// 	{
+// 		auto cameraRect = camera.getCameraRectWithoutRotation();
+// 		auto leftTop = rotatePointAroundPoint<float>(
+// 			sf::Vector2f( cameraRect.left, cameraRect.top ),
+// 			-camera.getRotation(),
+// 			sf::Vector2f( cameraRect.left + cameraRect.width / 2, cameraRect.top + cameraRect.height / 2 ) );
+// 
+// 	}
 
 	// 				sf::Vector2i mousePosition( sf::Mouse::getPosition( *gui.getWindow() ) );
 	// 				mousePosition.x /= camera.getZoom();

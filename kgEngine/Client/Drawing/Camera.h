@@ -64,18 +64,20 @@ namespace kg
 		void			moveCenter( const sf::Vector2i offset );
 
 		//returns false if camera is focused and fucusRotation == true
-		bool			setRotation( const float rotationInDegree );
+		void			setRotation( const float rotationInDegree );
+		float			getRotation()const;
+		void			rotate( const float rotationInDegree );
 
 		//zoomFactor != NULL
 		void			zoom( const float zoomFactor );
 		void			setZoom( const float zoom );
 		float			getZoom()const;
 
-		sf::Vector2u getFinalSize()const;
+		sf::Vector2u	getFinalSize()const;
 
-		sf::FloatRect	getCameraRect()const;
+/*		sf::FloatRect	getCameraRectWithoutRotation()const;*/
 
-		sf::Vector2i	getUpperLeftCorner()const;
+/*		sf::Vector2i	getUpperLeftCorner()const;*/
 
 		// 		bool			isFocused()const;
 		// 		bool			isRotationFocused()const;
@@ -92,7 +94,7 @@ namespace kg
 		void			draw( std::vector<sf::Sprite*>& toDraw, int zValue );
 
 		void			display( sf::RenderTarget& renderTarget );
-
+		const sf::View& getView() const;
 		static const int TILE = -999999999;
 		static const int PREGROUND = 999999999;
 	};

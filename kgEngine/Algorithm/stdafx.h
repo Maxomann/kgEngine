@@ -23,6 +23,8 @@
 #include <map>
 #include <fstream>
 
+#include <SFML/Graphics.hpp>
+
 #include<dirent.h>
 //divide: struct dirent->d_type / DIRENT_CONST
 //1=Folder

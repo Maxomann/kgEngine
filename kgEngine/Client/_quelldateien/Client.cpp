@@ -23,6 +23,14 @@ namespace kg
 			m_window.setVerticalSyncEnabled( true );
 		else
 			m_window.setVerticalSyncEnabled( false );
+		//renderDistance
+		sf::Vector2i renderDistance;
+		renderDistance.x = atoi( m_config_file.getData( "renderDistanceX" ).c_str() );
+		renderDistance.y = atoi( m_config_file.getData( "renderDistanceY" ).c_str() );
+		m_renderDistaceInChunks.left = -renderDistance.x*chunkSizeInTiles*tileSizeInPixel;
+		m_renderDistaceInChunks.top = -renderDistance.y*chunkSizeInTiles*tileSizeInPixel;
+		m_renderDistaceInChunks.width = renderDistance.x * 2 * chunkSizeInTiles*tileSizeInPixel;
+		m_renderDistaceInChunks.height = renderDistance.y * 2 * chunkSizeInTiles*tileSizeInPixel;
 
 		//init GUI
 		if( !m_gui.setGlobalFont( resourceFolderPath + fontFolderName + "DejaVuSans.ttf" ) )
@@ -55,8 +63,13 @@ namespace kg
 
 		//Call frame() here:
 		m_world.frame( core );
-		// Ensure, that all chunks which can be seen on the camera, are loaded
-		m_world.loadChunksInRectAndUnloadOther( core, { sf::IntRect( m_camera.getCameraRect() ) } );
+
+		//apply render distance; unload all chunks that are not in it
+		auto chunkRenderRect = m_renderDistaceInChunks;
+		auto offset = m_camera.getCenter();
+		chunkRenderRect.left += offset.x;
+		chunkRenderRect.top += offset.y;
+		m_world.loadChunksInRectAndUnloadOther( core, { chunkRenderRect } );
 
 		// change gameState if needed
 		int newGameStateId = m_gameState->frame(core, m_window, m_world , m_camera , m_gui );
