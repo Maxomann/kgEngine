@@ -33,6 +33,17 @@ namespace kg
 		T m_one;
 	};
 
+	template<class T>
+	T degreeToRadiant( T degree )
+	{
+		return degree * pi / 180;
+	}
+
+	template<class T>
+	T radiantToDegree( T radiant )
+	{
+		return degree * 180 / pi;
+	}
 
 	template<class T>
 	//MAY NOT WORK CORRECTLY!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -45,12 +56,12 @@ namespace kg
 		//A.x' = (A.x-B.x) * cos(C) - (A.y-B.y) * sin(C) + B.x
 		//A.y' = (A.y-B.y) * cos(C) + (A.x-B.x) * sin(C) + B.y
 		transformedPoint.x =
-			((pointToRotate.x - pointToRotateAround.x)*cos( degrees ))
-			- ((pointToRotate.y - pointToRotateAround.y)*sin( degrees ))
+			((pointToRotate.x - pointToRotateAround.x)*std::cos( degreeToRadiant(degrees) ))
+			- ((pointToRotate.y - pointToRotateAround.y)*std::sin( degreeToRadiant( degrees ) ))
 			+ pointToRotateAround.x;
 		transformedPoint.y =
-			((pointToRotate.y - pointToRotateAround.y)*cos( degrees ))
-			+ ((pointToRotate.x - pointToRotateAround.x)*sin( degrees ))
+			((pointToRotate.y - pointToRotateAround.y)*std::cos( degreeToRadiant( degrees ) ))
+			+ ((pointToRotate.x - pointToRotateAround.x)*std::sin( degreeToRadiant( degrees ) ))
 			+ pointToRotateAround.y;
 
 		return transformedPoint;

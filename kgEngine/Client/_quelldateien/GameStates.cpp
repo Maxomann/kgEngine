@@ -117,28 +117,34 @@ namespace kg
 			camera.zoom( 2 );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Add ) )
 			camera.zoom( 0.5 );
+
+		//movement
+		sf::Vector2f movement;
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
 		{
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
-				camera.moveCenter( sf::Vector2i( 0, -100 ) );
+				movement.y -= 100;
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
-				camera.moveCenter( sf::Vector2i( 0, 100 ) );
+				movement.y += 100;
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
-				camera.moveCenter( sf::Vector2i( -100, 0 ) );
+				movement.x -= 100;
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
-				camera.moveCenter( sf::Vector2i( 100, 0 ) );
+				movement.x += 100;
 		}
 		else
 		{
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
-				camera.moveCenter( sf::Vector2i( 0, -10 ) );
+				movement.y -= 10;
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
-				camera.moveCenter( sf::Vector2i( 0, 10 ) );
+				movement.y += 10;
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
-				camera.moveCenter( sf::Vector2i( -10, 0 ) );
+				movement.x -= 10;
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
-				camera.moveCenter( sf::Vector2i( 10, 0 ) );
+				movement.x += 10;
 		}
+		//rotate and apply movement
+		camera.moveCenter( sf::Vector2i( rotatePointAroundPoint(movement, camera.getRotation()) ) );
+
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Q ) )
 			camera.rotate( -5.0f );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::E ) )

@@ -4,7 +4,7 @@ namespace kg
 {
 	using namespace sf;
 
-	const float Pi = 3.14159265;
+	//const float pi = 3.14159265;
 	/*	const int MaxCapacity = 400000;*/
 	const int MaxCapacity = 40000000;
 	const int LookupSize = 512;
@@ -17,8 +17,8 @@ namespace kg
 	{
 		for( int i = 0; i < LookupSize; i++ )
 		{
-			getSin[i] = sin( i * Pi / LookupSize * 2 );
-			getCos[i] = cos( i * Pi / LookupSize * 2 );
+			getSin[i] = sin( i * pi / LookupSize * 2 );
+			getCos[i] = cos( i * pi / LookupSize * 2 );
 		}
 		initialized = true;
 	}

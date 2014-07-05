@@ -2,6 +2,8 @@
 
 namespace kg
 {
+	const float pi = 3.14159265;
+
 	//sent from client
 	namespace MESSAGE_ID_CLIENT
 	{
