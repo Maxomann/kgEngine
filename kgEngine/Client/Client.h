@@ -22,10 +22,13 @@ namespace kg
 
 		aDataByIdentifierFile m_config_file;
 		sf::IntRect m_renderDistaceInChunks;
+		std::string m_windowName;
 
 		std::shared_ptr<GameState> m_gameState;
 
 		bool m_isStandartGameStateLoaded = false;
+
+		sf::Clock m_frameTimeClock;
 
 	public:
 		Client();

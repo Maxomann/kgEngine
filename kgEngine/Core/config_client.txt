@@ -3,5 +3,5 @@ resx:1280
 resy:720
 vsynch:true
 antialiasing:16
-renderDistanceX:13
-renderDistanceY:6
+renderDistanceX:11
+renderDistanceY:4

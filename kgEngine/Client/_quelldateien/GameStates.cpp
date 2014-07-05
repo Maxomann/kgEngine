@@ -26,6 +26,7 @@ namespace kg
 		}
 		m_tileSelectionBox->setSelectedItem( NULL );
 		m_tileSelectionBox->hide();
+		//TileSelectionBox END
 
 
 		//MenuBar
@@ -45,7 +46,7 @@ namespace kg
 			std::ref( camera ),
 			std::ref( gui ) ),
 			tgui::MenuBar::MenuItemClicked );
-
+		//MenuBar END
 
 		//ConnectToServerWindow
 		m_connectToServerWindow = tgui::ChildWindow::Ptr( gui );
@@ -96,6 +97,7 @@ namespace kg
 			tgui::Button::LeftMouseClicked );
 
 		m_connectToServerWindow->hide();
+		//ConnectToServerWindow END
 
 	}
 

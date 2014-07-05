@@ -13,7 +13,8 @@ namespace kg
 		contextSettings.antialiasingLevel = atoi( m_config_file.getData("Antialiasing").c_str() );
 
 		//initialize the Client with the data from the config_file
-		m_window.create( sf::VideoMode( std::atoi( m_config_file.getData( "resx" ).c_str() ), std::atoi( m_config_file.getData( "resy" ).c_str() ) ), m_config_file.getData( "window_name" ),
+		m_windowName = m_config_file.getData( "window_name" );
+		m_window.create( sf::VideoMode( std::atoi( m_config_file.getData( "resx" ).c_str() ), std::atoi( m_config_file.getData( "resy" ).c_str() ) ), m_windowName,
 						 sf::Style::Titlebar|sf::Style::Close,
 						 contextSettings );
 		//camera
@@ -39,6 +40,9 @@ namespace kg
 
 	void kg::Client::frame( cCore& core )
 	{
+		auto frameTime = m_frameTimeClock.restart().asMilliseconds();
+		m_window.setTitle( m_windowName + " --- FrameTime: " + std::to_string( frameTime ) );
+
 		if( !m_isStandartGameStateLoaded )
 		{
 			//set standart gameState
