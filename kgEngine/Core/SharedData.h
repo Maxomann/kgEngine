@@ -37,12 +37,12 @@ namespace kg
 
 	static const char standartSplitChar = ';';
 	static const sf::Uint16 standartServerRecievePort = 42000;
+	static const sf::Uint16 clientToServerPort = 42000;
 
 	static const int chunkSizeInTiles = 20;
 	static const int tileSizeInPixel = 64;
 
-	static const sf::Uint16 clientToServerPort = 42000;
-
+	//paths
 	static const std::string resourceFolderPath = "Resource/";
 	static const std::string fontFolderName = "Fonts/";
 	static const std::string widgetFolderName = "TGUI/";
@@ -51,4 +51,15 @@ namespace kg
 	static const std::string textureFileExtension = ".png";
 
 	static const std::string tguiConfigBlack = "Black.conf";
+
+
+	//GUI
+	static const std::string editMenuName = "Edit";
+	static const std::string editMenuTileItem = "TileDrawing";
+
+	static const std::string createMenuName = "Database";
+	static const std::string createMenuTileItem = "Add tile";
+
+	static const std::string connectionMenuName = "Connection";
+	static const std::string connectionMenuConnectItem = "Connect to Server";
 }

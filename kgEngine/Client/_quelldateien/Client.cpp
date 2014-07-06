@@ -79,7 +79,7 @@ namespace kg
 		int newGameStateId = m_gameState->frame(core, m_window, m_world , m_camera , m_gui );
 		if( newGameStateId == GameState::CLOSE_APP )
 			core.close();
-		else if( newGameStateId > -1 )
+		else if( newGameStateId > GameState::NO_CHANGE )
 		{
 			m_gameState->onClose(core, m_world, m_camera , m_gui );
 			m_gameState = m_gameStates.at( newGameStateId );

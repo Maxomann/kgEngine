@@ -20,5 +20,7 @@ PLUGIN_API void kg::pPluginManager::loadPluginsFromFile( const std::string& path
 	
 	connectFunction( *this );
 
+#elif
+#error TARGET_PLATTFORM_NOT_SUPPORTED
 #endif // _WIN32
 }

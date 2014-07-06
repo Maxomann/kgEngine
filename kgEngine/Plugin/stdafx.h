@@ -13,6 +13,8 @@
 
 #ifdef _WIN32
 #include<windows.h>
+#elif
+#error TARGET_PLATTFORM_NOT_SUPPORTED
 #endif // _WIN32
 #include <unordered_map>
 #include <memory>

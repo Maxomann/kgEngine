@@ -9,23 +9,9 @@ namespace kg
 		m_tileSelectionBox->setPosition( 20, 60 );
 		m_tileSelectionBox->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
 		m_tileSelectionBox->setSize( 200, 100 );
-		//load tile names from files
-		m_tileSelectionBox->addItem( "NONE" );
-		TileSettings* tileSettings;
-		for( int id = 0; true; ++id )
-		{
-			try
-			{
-				tileSettings = &core.resourceManagement.getResourceFromResourceFolderForTile<TileSettings>( id, informationFileExtension );
-			}
-			catch( std::exception& e )
-			{
-				break;
-			}
-			m_tileSelectionBox->addItem( tileSettings->tileName );
-		}
-		m_tileSelectionBox->setSelectedItem( NULL );
 		m_tileSelectionBox->hide();
+		m_tileSelectionBox->addItem( "NONE" );
+		m_tileSelectionBox->setSelectedItem( NULL );
 		//TileSelectionBox END
 
 
@@ -33,8 +19,10 @@ namespace kg
 		m_menuBar = tgui::MenuBar::Ptr( gui );
 		m_menuBar->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
 		m_menuBar->setSize( gui.getWindow()->getSize().x, 25 );
-		m_menuBar->addMenu( tileMenuName );
-		m_menuBar->addMenuItem( tileMenuName, tileMenuEditTilesItem );
+		m_menuBar->addMenu( editMenuName );
+		m_menuBar->addMenuItem( editMenuName, editMenuTileItem );
+		m_menuBar->addMenu( createMenuName );
+		m_menuBar->addMenuItem( createMenuName, createMenuTileItem );
 		m_menuBar->addMenu( connectionMenuName );
 		m_menuBar->addMenuItem( connectionMenuName, connectionMenuConnectItem );
 		m_menuBar->bindCallbackEx( std::bind(
@@ -47,58 +35,6 @@ namespace kg
 			std::ref( gui ) ),
 			tgui::MenuBar::MenuItemClicked );
 		//MenuBar END
-
-		//ConnectToServerWindow
-		m_connectToServerWindow = tgui::ChildWindow::Ptr( gui );
-		m_connectToServerWindow->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
-		m_connectToServerWindow->setTitle( connectionMenuConnectItem );
-		m_connectToServerWindow->setSize( 300, 200 );
-		m_connectToServerWindow->keepInParent( true );
-		m_connectToServerWindow->bindCallbackEx( std::bind(
-			&TestGameState::m_connectToServerWindowCallback,
-			this,
-			std::placeholders::_1,
-			std::ref( core ),
-			std::ref( world ),
-			std::ref( camera ),
-			std::ref( gui ) ),
-			tgui::ChildWindow::Closed );
-
-		m_ctsIp = tgui::EditBox::Ptr( *m_connectToServerWindow );
-		m_ctsIp->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
-		m_ctsRecievePortOnClient = tgui::EditBox::Ptr( *m_connectToServerWindow );
-		m_ctsRecievePortOnClient->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
-		m_ctsRecievePortOnServer = tgui::EditBox::Ptr( *m_connectToServerWindow );
-		m_ctsRecievePortOnServer->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
-		m_ctsSendButton = tgui::Button::Ptr( *m_connectToServerWindow );
-		m_ctsSendButton->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
-
-		m_ctsIp->setText( sf::IpAddress::getPublicAddress().toString() );
-		m_ctsIp->setSize( 300, 50 );
-
-		m_ctsRecievePortOnClient->setText( "RecievePortOnClient" );
-		m_ctsRecievePortOnClient->setSize( 300, 50 );
-		m_ctsRecievePortOnClient->setPosition( 0, 50 );
-		m_ctsRecievePortOnServer->setText( "RecievePortOnServer" );
-		m_ctsRecievePortOnServer->setSize( 300, 50 );
-		m_ctsRecievePortOnServer->setPosition( 0, 100 );
-
-		m_ctsSendButton->setText( "Connect" );
-		m_ctsSendButton->setPosition( 0, 150 );
-		m_ctsSendButton->setSize( 300, 50 );
-		m_ctsSendButton->bindCallbackEx( std::bind(
-			&TestGameState::m_connectToServerWindowCallback,
-			this,
-			std::placeholders::_1,
-			std::ref( core ),
-			std::ref( world ),
-			std::ref( camera ),
-			std::ref( gui ) ),
-			tgui::Button::LeftMouseClicked );
-
-		m_connectToServerWindow->hide();
-		//ConnectToServerWindow END
-
 	}
 
 	void TestGameState::handleEvent( sf::Event& sfmlEvent )
@@ -107,7 +43,20 @@ namespace kg
 	}
 
 	int TestGameState::frame( cCore& core, sf::RenderWindow& window, World& world, Camera& camera, tgui::Gui& gui )
-{
+	{
+		//check if GUI elements have to be removed
+		std::vector<std::list<std::unique_ptr<NonStaticGuiElement>>::iterator> toBeRemoved;
+		for( auto it = begin( m_guiElements ); it != end( m_guiElements ); ++it)
+			if( (*it)->shouldClose() )
+				toBeRemoved.push_back( it );
+		//erase elements
+		for( const auto& el : toBeRemoved )
+		{
+			(*el)->onClose( gui );
+			m_guiElements.erase( el );
+		}
+
+
 		bool mouseOnGui = false;
 		for( const auto& widget : gui.getWidgets() )
 			if( widget->isFocused() )
@@ -145,7 +94,7 @@ namespace kg
 				movement.x += 10;
 		}
 		//rotate and apply movement
-		camera.moveCenter( sf::Vector2i( rotatePointAroundPoint(movement, camera.getRotation()) ) );
+		camera.moveCenter( sf::Vector2i( rotatePointAroundPoint( movement, camera.getRotation() ) ) );
 
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Q ) )
 			camera.rotate( -5.0f );
@@ -171,7 +120,6 @@ namespace kg
 					m_tileSelectionBox->setSelectedItem( NULL );
 				else if( selectedItemIndex != NULL )
 				{
-
 					int tileID = selectedItemIndex - 1;
 
 					//set the new tile
@@ -208,51 +156,35 @@ namespace kg
 										   Camera& camera,
 										   tgui::Gui& gui )
 	{
-		if( callback.text == tileMenuEditTilesItem )
+		if( callback.text == editMenuTileItem )
 		{
 			if( m_tileSelectionBox->isVisible() )
 				m_tileSelectionBox->hide();
 			else
+			{
+				//clear&update&open tile list
+				m_tileSelectionBox->removeAllItems();
+				//load tile names from files
+				m_tileSelectionBox->addItem( "NONE" );
+				TileSettings* tileSettings;
+				for( int id = 0; true; ++id )
+				{
+					try
+					{
+						tileSettings = &core.resourceManagement.getResourceFromResourceFolderForTile<TileSettings>( id, informationFileExtension );
+					}
+					catch( std::exception& e )
+					{
+						break;
+					}
+					m_tileSelectionBox->addItem( tileSettings->tileName );
+				}
 				m_tileSelectionBox->show();
+			}
 
 			m_tileSelectionBox->setSelectedItem( NULL );
 		}
 		if( callback.text == connectionMenuConnectItem )
-		{
-			if( m_connectToServerWindow->isVisible() )
-				m_connectToServerWindow->hide();
-			else
-				m_connectToServerWindow->show();
-		}
+			m_guiElements.push_back( std::make_unique<ConnectToServerWindow>( core, gui ));
 	}
-
-	void TestGameState::m_connectToServerWindowCallback( const tgui::Callback& callback,
-														 cCore& core,
-														 World& world,
-														 Camera& camera,
-														 tgui::Gui& gui )
-	{
-		if( callback.widget == &*m_connectToServerWindow )
-		{
-			m_connectToServerWindow->hide();
-		}
-		if( callback.widget == &*m_ctsSendButton )
-		{
-			sf::IpAddress ip( sf::IpAddress( m_ctsIp->getText() ) );
-			sf::Uint16 recievePortOnServer(
-				std::atoi( m_ctsRecievePortOnServer->getText().toAnsiString().c_str() ) );
-			sf::Uint16 recievePortOnClient(
-				std::atoi( m_ctsRecievePortOnClient->getText().toAnsiString().c_str() ) );
-
-			core.networkManager.clearConnections();
-
-			core.networkManager.addConnection( ip, recievePortOnClient, recievePortOnServer );
-
-			core.networkManager.sendMessage(
-				std::make_shared<ConnectionRequest>( recievePortOnClient, recievePortOnServer ),
-				ip,
-				standartServerRecievePort );
-		}
-	}
-
 }

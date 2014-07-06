@@ -60,6 +60,12 @@
     <ClInclude Include="Settings\TileSettings.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="GUI\GuiElement.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\GuiElements.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connect.h">
@@ -96,6 +102,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="_quelldateien\TileSettings.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\GuiElements.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
