@@ -98,7 +98,6 @@
     <ClInclude Include="GameState\GameState.h" />
     <ClInclude Include="GameState\GameStates.h" />
     <ClInclude Include="GUI\GuiElements.h" />
-    <ClInclude Include="GUI\GuiManager.h" />
     <ClInclude Include="GUI\GuiElement.h" />
     <ClInclude Include="Network\Messages.h" />
     <ClInclude Include="Settings\AnimationSettings.h" />

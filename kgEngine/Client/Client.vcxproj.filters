@@ -45,9 +45,6 @@
     <ClInclude Include="Drawing\Animation.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\GuiManager.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="GameState\GameState.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
