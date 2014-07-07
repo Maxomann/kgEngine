@@ -4,17 +4,6 @@ namespace kg
 {
 	void TestGameState::onInit( cCore& core, World& world, Camera& camera, tgui::Gui& gui )
 	{
-		//TileSelectionBox
-		m_tileSelectionBox = tgui::ListBox::Ptr( gui );
-		m_tileSelectionBox->setPosition( 20, 60 );
-		m_tileSelectionBox->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
-		m_tileSelectionBox->setSize( 200, 100 );
-		m_tileSelectionBox->hide();
-		m_tileSelectionBox->addItem( "NONE" );
-		m_tileSelectionBox->setSelectedItem( NULL );
-		//TileSelectionBox END
-
-
 		//MenuBar
 		m_menuBar = tgui::MenuBar::Ptr( gui );
 		m_menuBar->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
@@ -30,8 +19,6 @@ namespace kg
 			this,
 			std::placeholders::_1,
 			std::ref( core ),
-			std::ref( world ),
-			std::ref( camera ),
 			std::ref( gui ) ),
 			tgui::MenuBar::MenuItemClicked );
 		//MenuBar END
@@ -45,7 +32,7 @@ namespace kg
 	int TestGameState::frame( cCore& core, sf::RenderWindow& window, World& world, Camera& camera, tgui::Gui& gui )
 	{
 		//check if GUI elements have to be removed
-		std::vector<std::list<std::unique_ptr<NonStaticGuiElement>>::iterator> toBeRemoved;
+		std::vector<std::list<std::shared_ptr<NonStaticGuiElement>>::iterator> toBeRemoved;
 		for( auto it = begin( m_guiElements ); it != end( m_guiElements ); ++it)
 			if( (*it)->shouldClose() )
 				toBeRemoved.push_back( it );
@@ -112,24 +99,7 @@ namespace kg
 		}
 		if( !mouseOnGui )
 		{
-			if( sf::Mouse::isButtonPressed( sf::Mouse::Button::Left ) )
-			{
-				int selectedItemIndex = m_tileSelectionBox->getSelectedItemIndex();
-				//if no item is selected, select item: NONE
-				if( selectedItemIndex < 0 )
-					m_tileSelectionBox->setSelectedItem( NULL );
-				else if( selectedItemIndex != NULL )
-				{
-					int tileID = selectedItemIndex - 1;
 
-					//set the new tile
-					core.networkManager.sendMessage( std::make_shared<SetTileRequest>(
-						World::getAbsoluteChunkPosition( window, camera ),
-						World::getRelativeTilePosition( window, camera ), tileID ),
-						core.getServerIp(),
-						core.getServerPort() );
-				}
-			}
 		}
 
 		return m_nextGameState;
@@ -152,39 +122,20 @@ namespace kg
 
 	void TestGameState::m_menuBarCallback( const tgui::Callback& callback,
 										   cCore& core,
-										   World& world,
-										   Camera& camera,
 										   tgui::Gui& gui )
 	{
 		if( callback.text == editMenuTileItem )
 		{
-			if( m_tileSelectionBox->isVisible() )
-				m_tileSelectionBox->hide();
-			else
-			{
-				//clear&update&open tile list
-				m_tileSelectionBox->removeAllItems();
-				//load tile names from files
-				m_tileSelectionBox->addItem( "NONE" );
-				TileSettings* tileSettings;
-				for( int id = 0; true; ++id )
-				{
-					try
-					{
-						tileSettings = &core.resourceManagement.getResourceFromResourceFolderForTile<TileSettings>( id, informationFileExtension );
-					}
-					catch( std::exception& e )
-					{
-						break;
-					}
-					m_tileSelectionBox->addItem( tileSettings->tileName );
-				}
-				m_tileSelectionBox->show();
-			}
-
-			m_tileSelectionBox->setSelectedItem( NULL );
+			auto ptr = std::make_shared<TileDrawingWindow>();
+			ptr->initExtensions( core.pluginManger );
+			ptr->onInit( core, gui );
+			m_guiElements.push_back( ptr );
 		}
 		if( callback.text == connectionMenuConnectItem )
-			m_guiElements.push_back( std::make_unique<ConnectToServerWindow>( core, gui ));
+		{
+			auto ptr = std::make_shared<ConnectToServerWindow>();
+			ptr->onInit( core, gui );
+			m_guiElements.push_back( ptr );
+		}
 	}
 }

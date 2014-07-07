@@ -22,7 +22,7 @@ int main()
 		pluginManager.loadPluginsFromFile( "Client.dll" );
 		pluginManager.loadPluginsFromFile( "Server.dll" );
 
-		cCore application;
+		cCore application(pluginManager);
 		pluginManager.fillExtandable<cCore>( application );
 		application.initExtensions( pluginManager );
 

@@ -5,7 +5,6 @@
 #include "Network/Messages.h"
 #include "World/World.h"
 #include "Drawing/Animation.h"
-#include "GUI/GuiManager.h"
 #include "GameState/GameStates.h"
 
 namespace kg

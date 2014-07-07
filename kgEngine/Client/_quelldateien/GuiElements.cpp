@@ -2,7 +2,46 @@
 
 namespace kg
 {
-	ConnectToServerWindow::ConnectToServerWindow( cCore& core, tgui::Gui& gui )
+	const std::string TileDrawingWindow::NO_BRUSH{ "NONE" };
+
+	void ConnectToServerWindow::m_callback( const tgui::Callback& callback, cCore& core )
+	{
+		if( callback.widget == &*m_connectToServerWindow )
+		{
+			close();
+		}
+		if( callback.widget == &*m_ctsSendButton )
+		{
+			sf::IpAddress ip( sf::IpAddress( m_ctsIp->getText() ) );
+			sf::Uint16 recievePortOnServer(
+				std::atoi( m_ctsRecievePortOnServer->getText().toAnsiString().c_str() ) );
+			sf::Uint16 recievePortOnClient(
+				std::atoi( m_ctsRecievePortOnClient->getText().toAnsiString().c_str() ) );
+
+			core.networkManager.clearConnections();
+
+			core.networkManager.addConnection( ip, recievePortOnClient, recievePortOnServer );
+
+			core.networkManager.sendMessage(
+				std::make_shared<ConnectionRequest>( recievePortOnClient, recievePortOnServer ),
+				ip,
+				standartServerRecievePort );
+		}
+	}
+
+	void ConnectToServerWindow::onClose( tgui::Gui& gui )
+	{
+		gui.remove( m_connectToServerWindow );
+
+		//		not needed because objects are not registred in gui
+		//		they are registred in m_connectToServerWindow
+		// 		gui.remove( m_ctsIp );
+		// 		gui.remove( m_ctsRecievePortOnServer );
+		// 		gui.remove( m_ctsRecievePortOnClient );
+		// 		gui.remove( m_ctsSendButton );
+	}
+
+	void ConnectToServerWindow::onInit( cCore& core, tgui::Gui& gui )
 	{
 		//ConnectToServerWindow
 		m_connectToServerWindow = tgui::ChildWindow::Ptr( gui );
@@ -48,37 +87,97 @@ namespace kg
 		//ConnectToServerWindow END
 	}
 
-	void ConnectToServerWindow::m_callback( const tgui::Callback& callback, cCore& core )
+
+
+
+
+	std::shared_ptr<Brush> TileDrawingWindow::getBrush()
 	{
-		if( callback.widget == &*m_connectToServerWindow )
+		if( m_subWindow )
+			return m_subWindow->createBrush();
+		else
+			return nullptr;
+	}
+
+	void TileDrawingWindow::initExtensions( pPluginManager& pluginManager )
+	{
+		pluginManager.fillExtandable<TileDrawingWindow>( *this );
+
+		for( const auto& el : m_extensions )
 		{
-			close();
-		}
-		if( callback.widget == &*m_ctsSendButton )
-		{
-			sf::IpAddress ip( sf::IpAddress( m_ctsIp->getText() ) );
-			sf::Uint16 recievePortOnServer(
-				std::atoi( m_ctsRecievePortOnServer->getText().toAnsiString().c_str() ) );
-			sf::Uint16 recievePortOnClient(
-				std::atoi( m_ctsRecievePortOnClient->getText().toAnsiString().c_str() ) );
-
-			core.networkManager.clearConnections();
-
-			core.networkManager.addConnection( ip, recievePortOnClient, recievePortOnServer );
-
-			core.networkManager.sendMessage(
-				std::make_shared<ConnectionRequest>( recievePortOnClient, recievePortOnServer ),
-				ip,
-				standartServerRecievePort );
+			auto ptr = std::dynamic_pointer_cast< pGenericProviderInterface<TileDrawingOptionsWindow> >(el.second);
+			if( ptr )
+				m_subWindows[ptr->info()] = ptr;
 		}
 	}
 
-	void ConnectToServerWindow::onClose( tgui::Gui& gui )
+	void TileDrawingWindow::onInit( cCore& core, tgui::Gui& gui )
 	{
-		gui.remove( m_connectToServerWindow );
-		gui.remove( m_ctsIp );
-		gui.remove( m_ctsRecievePortOnServer );
-		gui.remove( m_ctsRecievePortOnClient );
-		gui.remove( m_ctsSendButton );
+		m_tileDrawingWindow = tgui::ChildWindow::Ptr( gui );
+		m_tileDrawingWindow->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
+		m_tileDrawingWindow->setTitle( editMenuTileItem );
+		m_tileDrawingWindow->keepInParent( true );
+		m_tileDrawingWindow->setSize( 300, 400 );
+
+		m_subWindowSelectionBox = tgui::ComboBox::Ptr( *m_tileDrawingWindow );
+		m_subWindowSelectionBox->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
+		m_subWindowSelectionBox->setSize( 300, 20 );
+		m_subWindowSelectionBox->bindCallbackEx( std::bind(
+			&TileDrawingWindow::m_callback,
+			this,
+			std::placeholders::_1,
+			std::ref( core ),
+			std::ref( gui ) ),
+			tgui::ComboBox::ItemSelected );
+		m_subWindowSelectionBox->addItem( NO_BRUSH );
+		m_subWindowSelectionBox->setSelectedItem( NO_BRUSH );
+
+		for( const auto& el : m_subWindows )
+			m_subWindowSelectionBox->addItem( el.first );
 	}
+
+	void TileDrawingWindow::onClose( tgui::Gui& gui )
+	{
+		if(m_subWindow)
+			m_subWindow->onClose( gui );
+		gui.remove( m_tileDrawingWindow );
+	}
+
+	void TileDrawingWindow::m_callback( const tgui::Callback& callback, cCore& core, tgui::Gui& gui )
+	{
+		std::string itemName = m_subWindowSelectionBox->getItem( callback.value );
+
+		if( m_subWindow )
+			m_subWindow->onClose( gui );
+
+		if( itemName != NO_BRUSH )
+		{
+			m_subWindow = m_subWindows.at( callback.text )->create();
+			m_subWindow->onInit( core, gui );
+		}
+		else
+			m_subWindow = nullptr;
+	}
+
+
+	void StandartTileDrawingOptionsWindow::onInit( cCore& core, tgui::Gui& gui )
+	{
+
+	}
+
+	std::string StandartTileDrawingOptionsWindow::info()
+	{
+		return "SingleBrush";
+	}
+
+	std::shared_ptr<Brush> StandartTileDrawingOptionsWindow::createBrush()
+	{
+		return std::make_shared<StandartBrush>();
+	}
+
+	void StandartTileDrawingOptionsWindow::onClose( tgui::Gui& gui )
+	{
+		//REPORT_ERROR_NOT_IMPLEMENTED;
+	}
+
 }

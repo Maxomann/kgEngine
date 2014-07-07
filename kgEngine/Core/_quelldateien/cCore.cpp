@@ -54,4 +54,11 @@ namespace kg
 			}
 		}
 	}
+
+	cCore::cCore( pPluginManager& pluginManger )
+		:pluginManger(pluginManger)
+	{
+
+	}
+
 }

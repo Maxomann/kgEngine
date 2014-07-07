@@ -5,6 +5,13 @@
 #ifndef C_STDAFX
 #define C_STDAFX
 
+#ifndef CLIENT_API_EX
+#define CLIENT_API __declspec(dllexport)
+
+#else
+#define CLIENT_API __declspec(dllimport)
+#endif
+
 #include <Plugin/pPluginManager.h>
 #include <Core/cCoreExtension.h>
 #include <Core/cCore.h>

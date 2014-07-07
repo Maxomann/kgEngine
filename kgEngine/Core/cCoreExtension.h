@@ -10,6 +10,9 @@ namespace kg
 	class cCoreExtension : public pExtension, public pExtendable
 	{
 	public:
+		virtual ~cCoreExtension()
+		{ };
+
 		// this function is called once every cycle in the main loop
 		virtual void frame( cCore& core ) = 0;
 	};

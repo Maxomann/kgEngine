@@ -34,4 +34,30 @@ namespace kg
 
 		PLUGIN_API void loadPluginsFromFile( const std::string& path );
 	};
+
+	template< class FakeType >
+	class pGenericProviderInterface : public pExtension
+	{
+	public:
+		PLUGIN_API virtual std::shared_ptr<FakeType> create() = 0;
+
+		PLUGIN_API virtual std::string info() const=0;
+	};
+
+	//T must inherit from FakeType; FakeType must inherit from pExtension
+	//T must have Method[ static std::string T::info() ]
+	template< class T, class FakeType >
+	class pGenericProvider : public pGenericProviderInterface<FakeType>
+	{
+	public:
+		PLUGIN_API virtual std::shared_ptr<FakeType> create()
+		{
+			return std::make_shared<T>();
+		};
+
+		PLUGIN_API virtual std::string info() const
+		{
+			return T::info();
+		};
+	};
 }

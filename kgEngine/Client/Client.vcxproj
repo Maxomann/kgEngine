@@ -95,6 +95,7 @@
     <ClInclude Include="Drawing\Camera.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="ConfiguratedTexture.h" />
+    <ClInclude Include="GameState\Editor\BrushSystem.h" />
     <ClInclude Include="GameState\GameState.h" />
     <ClInclude Include="GameState\GameStates.h" />
     <ClInclude Include="GUI\GuiElements.h" />

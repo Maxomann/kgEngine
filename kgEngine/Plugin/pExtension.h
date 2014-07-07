@@ -9,6 +9,9 @@ namespace kg
 	class pExtension
 	{
 	public:
+		virtual ~pExtension()
+		{ };
+
 		// return the name, the ID and the version number of this Extension
 		PLUGIN_API virtual std::string info()const = 0;
 

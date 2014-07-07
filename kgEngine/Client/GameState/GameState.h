@@ -12,6 +12,9 @@ namespace kg
 	class GameState : public pExtension
 	{
 	public:
+		virtual ~GameState()
+		{ };
+
 		virtual void onInit( cCore& core, World& world, Camera& camera, tgui::Gui& gui ) = 0;
 
 		virtual void handleEvent( sf::Event& sfmlEvent )=0;

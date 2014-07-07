@@ -19,6 +19,7 @@ namespace kg
 		sf::Uint16 m_serverPort = clientToServerPort;
 
 	public:
+		cCore( pPluginManager& pluginManger );
 
 		void frame();
 
@@ -35,5 +36,7 @@ namespace kg
 
 		nNetworkManager networkManager;
 		cResourceManagement resourceManagement;
+
+		pPluginManager& pluginManger;
 	};
 }

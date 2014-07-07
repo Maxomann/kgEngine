@@ -9,18 +9,19 @@ namespace kg
 	{
 		bool m_shouldClose = false;
 		
-	protected:
+	public:
 		void close()
 		{
 			m_shouldClose = true;
 		};
 
-	public:
 		bool shouldClose()const
 		{
 			return m_shouldClose;
 		}
 
 		virtual void onClose( tgui::Gui& gui ) = 0;
+
+		virtual void onInit( cCore& core, tgui::Gui& gui ) = 0;
 	};
 }
