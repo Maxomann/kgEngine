@@ -16,8 +16,8 @@ using namespace kg;
 
 int main()
 {
-	try
-	{
+// 	try
+// 	{
 		pPluginManager pluginManager;
 		pluginManager.loadPluginsFromFile( "Client.dll" );
 		pluginManager.loadPluginsFromFile( "Server.dll" );
@@ -36,12 +36,12 @@ int main()
 		{
 			application.frame();
 		}
-	}
-	catch( std::exception& e )
-	{
-		cout << e.what() << endl;
-		system( "pause" );
-	}
+// 	}
+// 	catch( std::exception& e )
+// 	{
+// 		cout << e.what() << endl;
+// 		system( "pause" );
+// 	}
 
 	return 0;
 }

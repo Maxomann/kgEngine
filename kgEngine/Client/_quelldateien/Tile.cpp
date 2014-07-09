@@ -6,7 +6,7 @@ namespace kg
 		:m_id( id ),
 		r_tileAnimations( &tileAnimations )
 	{
-		auto& tileSettings = core.resourceManagement.getResourceFromResourceFolderForTile<TileSettings>( id, informationFileExtension );
+		auto& tileSettings = core.getExtension<ClientDatabase>()->getTile( id );
 
 		//ensure that animation for this sprite is loaded
 		Animation* animation = nullptr;
@@ -26,7 +26,7 @@ namespace kg
 					animation = &(el.second);
 		}
 
-		auto& texture = core.resourceManagement.getResourceFromResourceFolder<sf::Texture>( tileSettings.tileTexturePath );
+		auto& texture = core.getExtension<ClientDatabase>()->getTileTexture( id );
 
 		m_sprite.setTexture( texture );
 		animation->apply( m_sprite );

@@ -25,4 +25,14 @@ namespace kg
 		
 	}
 
+	void Server::onInit(cCore& core)
+{
+		
+	}
+
+	void Server::onClose(cCore& core)
+{
+		
+	}
+
 }

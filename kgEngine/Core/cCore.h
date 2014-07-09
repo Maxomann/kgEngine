@@ -10,7 +10,6 @@ namespace kg
 {
 	class cCore : public pExtendable
 	{
-
 		std::vector<std::shared_ptr<cCoreExtension>> r_coreExtensions;
 
 		bool m_shouldClose = false;
@@ -20,6 +19,7 @@ namespace kg
 
 	public:
 		cCore( pPluginManager& pluginManger );
+		~cCore();
 
 		void frame();
 

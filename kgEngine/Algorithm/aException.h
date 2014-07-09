@@ -14,4 +14,6 @@
 #define REPORT_ERROR_FILEACCESS(message)(TEMPLATE_ERROR("file access", message))
 #define REPORT_ERROR_NOT_IMPLEMENTED (TEMPLATE_ERROR("not implemented",""))
 
+#define REPORT_ERROR_DATABASE(message)(TEMPLATE_ERROR("database", message))
+
 #define __CLASS__ (typeid(*this).name())

@@ -89,9 +89,12 @@ namespace kg
 			camera.rotate( 5.0f );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
 		{
-			camera.setCenter( sf::Vector2i( 0, 0 ) );
+			core.getExtension<ClientDatabase>()->loadAllResources(core);
+			
 			world.reset();
 		}
+		if( sf::Keyboard::isKeyPressed( sf::Keyboard::P) )
+			camera.setCenter( sf::Vector2i( 0, 0 ) );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Z ) )
 		{
 			camera.setRotation( 0.0f );

@@ -115,6 +115,7 @@ namespace kg
 	void World::reset()
 	{
 		m_chunks.clear();
+		m_tileAnimations.clear();
 	}
 
 // 	sf::IntRect World::getAbsoluteWindowRect( const sf::RenderWindow& window, const Camera& camera )

@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "Client.h"
 #include "Network/MessageHandlers.h"
+#include "ClientDatabase.h"
 
 using namespace std;
 using namespace kg;
@@ -11,6 +12,7 @@ using namespace kg;
 extern "C" __declspec(dllexport) void kgConnect( pPluginManager& pluginManager )
 {
 	pluginManager.addExtensionProvider<cCore, Client>();
+	pluginManager.addExtensionProvider<cCore, ClientDatabase>();
 
 	//NetworkHandler
 	pluginManager.addExtensionProvider<nNetworkManager, ChunkDataRequestAnswerHandler>();
@@ -22,5 +24,5 @@ extern "C" __declspec(dllexport) void kgConnect( pPluginManager& pluginManager )
 
 	//GUI
 	pluginManager.addExtensionProvider<TileDrawingWindow,
-		pGenericProvider<StandartTileDrawingOptionsWindow, TileDrawingOptionsWindow>>();
+		pGenericProvider<StandartTileDrawingSubWindow, TileDrawingSubWindow>>();
 }

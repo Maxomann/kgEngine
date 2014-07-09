@@ -21,5 +21,9 @@ namespace kg
 
 		virtual void initExtensions( pPluginManager& pluginManger );
 
+		virtual void onInit(cCore& core);
+
+		virtual void onClose( cCore& core );
+
 	};
 }

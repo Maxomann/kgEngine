@@ -1,6 +1,6 @@
 #include "../aFile.h"
 
-ALGORITHM_API void kg::aDataByIdentifierFile::loadFromFile( const std::string& path )
+ALGORITHM_API bool kg::aDataByIdentifierFile::loadFromFile( const std::string& path )
 {
 	std::ifstream file;
 	file.open( path );
@@ -25,6 +25,7 @@ ALGORITHM_API void kg::aDataByIdentifierFile::loadFromFile( const std::string& p
 	}
 
 	file.close();
+	return true;
 }
 
 ALGORITHM_API const std::string& kg::aDataByIdentifierFile::getData( const std::string& identifier )
@@ -32,10 +33,10 @@ ALGORITHM_API const std::string& kg::aDataByIdentifierFile::getData( const std::
 	return m_data[ identifier ];
 }
 
-ALGORITHM_API void kg::aDataByIdentifierFile::writeToFile( const std::string& path )
+ALGORITHM_API void kg::aDataByIdentifierFile::saveToFile( const std::string& path )
 {
 	std::ofstream file;
-	file.open( path, std::ios_base::binary || std::ios_base::out );
+	file.open( path, std::ios::trunc );
 	if( !file.is_open() )
 		REPORT_ERROR_FILEACCESS( "could not open/create file: " + path );
 	
@@ -77,5 +78,29 @@ ALGORITHM_API std::string kg::aLoadFileToString( const std::string& path )
 	while( std::getline( file, line ) )
 		returnValue += line;
 
+	file.close();
+
 	return returnValue;
+}
+
+ALGORITHM_API void kg::aSaveStringToFile( const std::string& path, const std::string& data )
+{
+	std::ofstream file;
+	file.open( path, std::ios::trunc );
+	if( !file.is_open() )
+		REPORT_ERROR_FILEACCESS( "could not open file: " + path );
+	
+	file << data;
+	file.close();
+	return;
+}
+
+ALGORITHM_API char* kg::aLoadFileToCharPointer( const std::string& path )
+{
+	auto str = aLoadFileToString( path );
+
+	char* file = new char[str.length() + 1];
+	strcpy( file, str.c_str() );
+
+	return file;
 }

@@ -93,22 +93,10 @@ namespace kg
 
 	std::shared_ptr<Brush> TileDrawingWindow::getBrush()
 	{
-		if( m_subWindow )
-			return m_subWindow->createBrush();
+		if( m_activeSubWindow )
+			return m_activeSubWindow->createBrush();
 		else
 			return nullptr;
-	}
-
-	void TileDrawingWindow::initExtensions( pPluginManager& pluginManager )
-	{
-		pluginManager.fillExtandable<TileDrawingWindow>( *this );
-
-		for( const auto& el : m_extensions )
-		{
-			auto ptr = std::dynamic_pointer_cast< pGenericProviderInterface<TileDrawingOptionsWindow> >(el.second);
-			if( ptr )
-				m_subWindows[ptr->info()] = ptr;
-		}
 	}
 
 	void TileDrawingWindow::onInit( cCore& core, tgui::Gui& gui )
@@ -138,8 +126,8 @@ namespace kg
 
 	void TileDrawingWindow::onClose( tgui::Gui& gui )
 	{
-		if(m_subWindow)
-			m_subWindow->onClose( gui );
+		if( m_activeSubWindow )
+			m_activeSubWindow->onClose( gui );
 		gui.remove( m_tileDrawingWindow );
 	}
 
@@ -147,37 +135,15 @@ namespace kg
 	{
 		std::string itemName = m_subWindowSelectionBox->getItem( callback.value );
 
-		if( m_subWindow )
-			m_subWindow->onClose( gui );
+		if( m_activeSubWindow )
+			m_activeSubWindow->onClose( gui );
 
 		if( itemName != NO_BRUSH )
 		{
-			m_subWindow = m_subWindows.at( callback.text )->create();
-			m_subWindow->onInit( core, gui );
+			m_activeSubWindow = m_subWindows.at( callback.text )->create();
+			m_activeSubWindow->onInit( core, gui );
 		}
 		else
-			m_subWindow = nullptr;
+			m_activeSubWindow = nullptr;
 	}
-
-
-	void StandartTileDrawingOptionsWindow::onInit( cCore& core, tgui::Gui& gui )
-	{
-
-	}
-
-	std::string StandartTileDrawingOptionsWindow::info()
-	{
-		return "SingleBrush";
-	}
-
-	std::shared_ptr<Brush> StandartTileDrawingOptionsWindow::createBrush()
-	{
-		return std::make_shared<StandartBrush>();
-	}
-
-	void StandartTileDrawingOptionsWindow::onClose( tgui::Gui& gui )
-	{
-		//REPORT_ERROR_NOT_IMPLEMENTED;
-	}
-
 }

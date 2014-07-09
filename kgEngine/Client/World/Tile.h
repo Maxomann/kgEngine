@@ -5,6 +5,7 @@
 #include "../Drawing/Camera.h"
 #include "../Drawing/Animation.h"
 #include "../Settings/TileSettings.h"
+#include "../ClientDatabase.h"
 
 namespace kg
 {

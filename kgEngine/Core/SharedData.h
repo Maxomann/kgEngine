@@ -51,6 +51,7 @@ namespace kg
 	static const std::string textureFileExtension = ".png";
 
 	static const std::string tguiConfigBlack = "Black.conf";
+	static const std::string clientConfigFileName = "config_client.txt";
 
 
 	//GUI

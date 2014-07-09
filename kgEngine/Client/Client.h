@@ -6,6 +6,8 @@
 #include "World/World.h"
 #include "Drawing/Animation.h"
 #include "GameState/GameStates.h"
+#include "GUI/GuiPlugins.h"
+#include "ClientDatabase.h"
 
 namespace kg
 {
@@ -19,9 +21,9 @@ namespace kg
 		Camera m_camera;
 		World m_world;
 
-		aDataByIdentifierFile m_config_file;
+
 		sf::IntRect m_renderDistaceInChunks;
-		std::string m_windowName;
+
 
 		std::shared_ptr<GameState> m_gameState;
 
@@ -39,6 +41,10 @@ namespace kg
 		virtual std::string info() const;
 
 		virtual void initExtensions( pPluginManager& pluginManager );
+
+		virtual void onInit(cCore& core);
+
+		virtual void onClose( cCore& core );
 
 		static const char config_file_path[];
 	};

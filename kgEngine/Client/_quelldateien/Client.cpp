@@ -7,27 +7,27 @@ namespace kg
 	kg::Client::Client()
 		:m_gui( m_window )
 	{
-		m_config_file.loadFromFile( config_file_path );
+	}
+
+	void Client::onInit(cCore& core)
+{
+		auto database = core.getExtension<ClientDatabase>();
+		database->loadAllResources( core );
 
 		sf::ContextSettings contextSettings;
-		contextSettings.antialiasingLevel = atoi( m_config_file.getData("Antialiasing").c_str() );
+		contextSettings.antialiasingLevel = database->getAntialiasingLevel();
 
 		//initialize the Client with the data from the config_file
-		m_windowName = m_config_file.getData( "window_name" );
-		m_window.create( sf::VideoMode( std::atoi( m_config_file.getData( "resx" ).c_str() ), std::atoi( m_config_file.getData( "resy" ).c_str() ) ), m_windowName,
-						 sf::Style::Titlebar|sf::Style::Close,
+		m_window.create( sf::VideoMode( database->getWindowResolution().x, database->getWindowResolution().y ),
+						 database->getWindowName(),
+						 sf::Style::Titlebar | sf::Style::Close,
 						 contextSettings );
 		//camera
-		m_camera.init( sf::Vector2u( std::atoi( m_config_file.getData( "resx" ).c_str() ), std::atoi( m_config_file.getData( "resy" ).c_str() ) ) );
+		m_camera.init( sf::Vector2u( database->getWindowResolution() ) );
 		//vSynch
-		if( m_config_file.getData( "vsynch" ) == "true" )
-			m_window.setVerticalSyncEnabled( true );
-		else
-			m_window.setVerticalSyncEnabled( false );
+		m_window.setVerticalSyncEnabled( database->isVsynchEnabled() );
 		//renderDistance
-		sf::Vector2i renderDistance;
-		renderDistance.x = atoi( m_config_file.getData( "renderDistanceX" ).c_str() );
-		renderDistance.y = atoi( m_config_file.getData( "renderDistanceY" ).c_str() );
+		sf::Vector2i renderDistance = database->getRenderDistance();
 		m_renderDistaceInChunks.left = -renderDistance.x*chunkSizeInTiles*tileSizeInPixel;
 		m_renderDistaceInChunks.top = -renderDistance.y*chunkSizeInTiles*tileSizeInPixel;
 		m_renderDistaceInChunks.width = renderDistance.x * 2 * chunkSizeInTiles*tileSizeInPixel;
@@ -38,10 +38,11 @@ namespace kg
 			REPORT_ERROR_FILEACCESS( resourceFolderPath + fontFolderName + "DejaVuSans.ttf" + "could not be loaded" );
 	}
 
+
 	void kg::Client::frame( cCore& core )
 	{
 		auto frameTime = m_frameTimeClock.restart().asMilliseconds();
-		m_window.setTitle( m_windowName + " --- FrameTime: " + std::to_string( frameTime ) );
+		m_window.setTitle( core.getExtension<ClientDatabase>()->getWindowName() + " --- FrameTime: " + std::to_string( frameTime ) );
 
 		if( !m_isStandartGameStateLoaded )
 		{
@@ -122,4 +123,12 @@ namespace kg
 			}
 		}
 	}
+
+	void Client::onClose(cCore& core)
+{
+		core.getExtension<ClientDatabase>()->saveAllResources();
+	}
+
+
+
 }

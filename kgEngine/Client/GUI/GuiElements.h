@@ -1,3 +1,4 @@
+#pragma once
 #include "GuiElement.h"
 #include "../Network/Messages.h"
 #include "../GameState/Editor/BrushSystem.h"
@@ -24,8 +25,7 @@ namespace kg
 
 
 
-
-	CLIENT_API class TileDrawingOptionsWindow : public NonStaticGuiElement
+	CLIENT_API class TileDrawingSubWindow : public NonStaticGuiElement
 	{
 	public:
 		virtual void onInit( cCore& core, tgui::Gui& gui )=0;
@@ -36,12 +36,8 @@ namespace kg
 
 	};
 
-	class TileDrawingWindow : public NonStaticGuiElement, public pExtendable
+	class TileDrawingWindow : public ExtendableNonStaticGuiElement<TileDrawingWindow, TileDrawingSubWindow>
 	{
-		std::map< std::string, std::shared_ptr<pGenericProviderInterface<TileDrawingOptionsWindow>>> m_subWindows;
-
-		std::shared_ptr<TileDrawingOptionsWindow> m_subWindow = nullptr;
-
 		tgui::ChildWindow::Ptr m_tileDrawingWindow = nullptr;
 		tgui::ComboBox::Ptr m_subWindowSelectionBox = nullptr;
 
@@ -50,27 +46,12 @@ namespace kg
 		static const std::string NO_BRUSH;
 
 	public:
-		virtual void initExtensions( pPluginManager& pluginManager );
-
 		virtual void onInit( cCore& core, tgui::Gui& gui );
 
 		//can return nullptr if no brush is selected
 		std::shared_ptr<Brush> getBrush();
 
 		virtual void onClose( tgui::Gui& gui );
-
-	};
-
-	class StandartTileDrawingOptionsWindow : public TileDrawingOptionsWindow
-	{
-	public:
-		virtual void onInit( cCore& core, tgui::Gui& gui );
-
-		virtual std::shared_ptr<Brush> createBrush();
-
-		virtual void onClose( tgui::Gui& gui );
-
-		static std::string info();
 
 	};
 }

@@ -11,46 +11,39 @@ namespace kg
 
 	bool AnimationSettings::loadFromFile( const std::string& path )
 	{
-		auto str = aLoadFileToString( path );
-
-		// 		char file[MAX_FILE_SIZE];
-		// 		strncpy_s( file, str.c_str(), sizeof( file ) );
-		// 		file[sizeof( file ) - 1] = 0;
-
-		char* file = new char[str.length() + 1];
-		strcpy( file, str.c_str() );
+		auto file = aLoadFileToCharPointer( path );
 
 		xml_document<> doc;
 		doc.parse<0>( file );
 
 		//load information from parsed file
-		auto frameSizeX = doc.first_node( "frameSizeX" );
+		auto frameSizeX = doc.first_node( FRAME_SIZE_X );
 		frameSize.x = atoi( frameSizeX->value() );
-		auto frameSizeY = doc.first_node( "frameSizeY" );
+		auto frameSizeY = doc.first_node( FRAME_SIZE_Y );
 		frameSize.y = atoi( frameSizeY->value() );
 
 
-		auto offsetX = doc.first_node( "offsetX" );
+		auto offsetX = doc.first_node( OFFSET_X );
 		if( offsetX )
 			offset.x = atoi( offsetX->value() );
-		auto offsetY = doc.first_node( "offsetY" );
+		auto offsetY = doc.first_node( OFFSET_Y );
 		if( offsetY )
 			offset.y = atoi( offsetX->value() );
 
 
-		auto stateTopNode = doc.first_node( "state" );
+		auto stateTopNode = doc.first_node( STATE );
 		for( auto stateSubNode = stateTopNode->first_node();
 			 stateSubNode;
 			 stateSubNode = stateSubNode->next_sibling() )
 		{
 			std::vector<int> thisStatesInfo;
-			auto time = stateSubNode->first_attribute( "time" );
+			auto time = stateSubNode->first_attribute( TIME );
 			if( time )
 			{
 				int timeForEveryFrame = 0;
 				//in milliseconds
 				timeForEveryFrame = atoi( time->value() );
-				auto frameCount = stateSubNode->first_attribute( "frame" );
+				auto frameCount = stateSubNode->first_attribute( FRAME );
 				if( frameCount )
 				{
 					for( int i = 0; i < atoi( frameCount->value() ); ++i )
@@ -100,5 +93,44 @@ namespace kg
 			return true;
 		else
 			return false;
+	}
+
+	bool AnimationSettings::saveToFile( const std::string path )const
+	{
+		//doc does not need to be loaded before modifying because AnimationSettings does not inherit
+		xml_document<> doc;
+
+		//save Information
+
+		//FrameSize
+		doc.append_node( doc.allocate_node( node_element, FRAME_SIZE_X, doc.allocate_string( std::to_string( frameSize.x ).c_str() ) ) );
+		doc.append_node( doc.allocate_node( node_element, FRAME_SIZE_Y, doc.allocate_string( std::to_string( frameSize.y ).c_str() ) ) );
+
+		//Offset
+		doc.append_node( doc.allocate_node( node_element, OFFSET_X, doc.allocate_string( std::to_string( offset.x ).c_str() ) ) );
+		doc.append_node( doc.allocate_node( node_element, OFFSET_Y, doc.allocate_string( std::to_string( offset.y ).c_str() ) ) );
+
+		auto stateSignalNode = doc.allocate_node( node_element, STATE );
+		doc.append_node( stateSignalNode );
+
+		for( int state = 0; state < frameInfo.size(); ++state )
+		{
+			auto stateNode = doc.allocate_node( node_element, doc.allocate_string( std::to_string( state ).c_str() ) );
+			stateSignalNode->append_node( stateNode );
+
+			for( int frame = 0; frame < frameInfo.at( state ).size(); ++frame )
+			{
+				auto frameNode = doc.allocate_node( node_element,
+													doc.allocate_string( std::to_string( frame ).c_str() ),
+													doc.allocate_string( std::to_string( frameInfo.at( state ).at( frame ) ).c_str() ) );
+				stateNode->append_node( frameNode );
+			}
+		}
+
+		std::stringstream s;
+		s << doc;
+		aSaveStringToFile( path, s.str() );
+
+		return true;
 	}
 }

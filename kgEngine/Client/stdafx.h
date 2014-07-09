@@ -22,8 +22,10 @@
 #include <Network/nTransferable.h>
 
 #include <array>
+#include <locale>
 
 #include <rapidxml/rapidxml.hpp>
+#include <rapidxml/rapidxml_print.hpp>
 
 #include <SFML/Audio.hpp>
 #include <SFML/Config.hpp>
