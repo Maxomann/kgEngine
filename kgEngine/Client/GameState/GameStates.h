@@ -4,7 +4,7 @@
 #include "../stdafx.h"
 
 #include "GameState.h"
-#include "../GUI/GuiElements.h"
+#include "Editor/EditorGuiElements.h"
 
 namespace kg
 {

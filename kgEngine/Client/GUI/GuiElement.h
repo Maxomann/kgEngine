@@ -20,9 +20,9 @@ namespace kg
 			return m_shouldClose;
 		}
 
-		virtual void onClose( tgui::Gui& gui ) = 0;
+		virtual void onClose( tgui::Container& container ) = 0;
 
-		virtual void onInit( cCore& core, tgui::Gui& gui ) = 0;
+		virtual void onInit( cCore& core, tgui::Container& container ) = 0;
 	};
 
 
@@ -37,8 +37,8 @@ namespace kg
 
 	public:
 		//NonStaticGuiElement
-		virtual void onClose( tgui::Gui& gui ) = 0;
-		virtual void onInit( cCore& core, tgui::Gui& gui ) = 0;
+		virtual void onClose( tgui::Container& container ) = 0;
+		virtual void onInit( cCore& core, tgui::Container& container ) = 0;
 
 		virtual void initExtensions( pPluginManager& pluginManager )
 		{

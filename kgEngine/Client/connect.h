@@ -5,6 +5,7 @@
 #include "Client.h"
 #include "Network/MessageHandlers.h"
 #include "ClientDatabase.h"
+#include "GameState/Editor/EditorGuiPlugins.h"
 
 using namespace std;
 using namespace kg;
@@ -24,5 +25,5 @@ extern "C" __declspec(dllexport) void kgConnect( pPluginManager& pluginManager )
 
 	//GUI
 	pluginManager.addExtensionProvider<TileDrawingWindow,
-		pGenericProvider<StandartTileDrawingSubWindow, TileDrawingSubWindow>>();
+		pGenericProvider<PointBrushSubWindow, TileDrawingSubWindow>>();
 }

@@ -39,7 +39,7 @@ namespace kg
 		//erase elements
 		for( const auto& el : toBeRemoved )
 		{
-			(*el)->onClose( gui );
+			(*el)->onClose( gui.getContainer() );
 			m_guiElements.erase( el );
 		}
 
@@ -131,13 +131,13 @@ namespace kg
 		{
 			auto ptr = std::make_shared<TileDrawingWindow>();
 			ptr->initExtensions( core.pluginManger );
-			ptr->onInit( core, gui );
+			ptr->onInit( core, gui.getContainer() );
 			m_guiElements.push_back( ptr );
 		}
 		if( callback.text == connectionMenuConnectItem )
 		{
 			auto ptr = std::make_shared<ConnectToServerWindow>();
-			ptr->onInit( core, gui );
+			ptr->onInit( core, gui.getContainer() );
 			m_guiElements.push_back( ptr );
 		}
 	}

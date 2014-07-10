@@ -6,7 +6,6 @@
 #include "World/World.h"
 #include "Drawing/Animation.h"
 #include "GameState/GameStates.h"
-#include "GUI/GuiPlugins.h"
 #include "ClientDatabase.h"
 
 namespace kg

@@ -1,4 +1,4 @@
-#include "../GUI/GuiElements.h"
+#include "../GameState/Editor/EditorGuiElements.h"
 
 namespace kg
 {
@@ -29,9 +29,9 @@ namespace kg
 		}
 	}
 
-	void ConnectToServerWindow::onClose( tgui::Gui& gui )
+	void ConnectToServerWindow::onClose( tgui::Container& container )
 	{
-		gui.remove( m_connectToServerWindow );
+		container.remove( m_connectToServerWindow );
 
 		//		not needed because objects are not registred in gui
 		//		they are registred in m_connectToServerWindow
@@ -41,10 +41,10 @@ namespace kg
 		// 		gui.remove( m_ctsSendButton );
 	}
 
-	void ConnectToServerWindow::onInit( cCore& core, tgui::Gui& gui )
+	void ConnectToServerWindow::onInit( cCore& core, tgui::Container& container )
 	{
 		//ConnectToServerWindow
-		m_connectToServerWindow = tgui::ChildWindow::Ptr( gui );
+		m_connectToServerWindow = tgui::ChildWindow::Ptr( container );
 		m_connectToServerWindow->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
 		m_connectToServerWindow->setTitle( connectionMenuConnectItem );
 		m_connectToServerWindow->setSize( 300, 200 );
@@ -99,23 +99,23 @@ namespace kg
 			return nullptr;
 	}
 
-	void TileDrawingWindow::onInit( cCore& core, tgui::Gui& gui )
+	void TileDrawingWindow::onInit( cCore& core, tgui::Container& container )
 	{
-		m_tileDrawingWindow = tgui::ChildWindow::Ptr( gui );
+		m_tileDrawingWindow = tgui::ChildWindow::Ptr( container );
 		m_tileDrawingWindow->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
 		m_tileDrawingWindow->setTitle( editMenuTileItem );
 		m_tileDrawingWindow->keepInParent( true );
-		m_tileDrawingWindow->setSize( 300, 400 );
+		m_tileDrawingWindow->setSize( windowSize.x, windowSize.y );
 
 		m_subWindowSelectionBox = tgui::ComboBox::Ptr( *m_tileDrawingWindow );
 		m_subWindowSelectionBox->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
-		m_subWindowSelectionBox->setSize( 300, 20 );
+		m_subWindowSelectionBox->setSize( selectionBarSize.x, selectionBarSize.y );
 		m_subWindowSelectionBox->bindCallbackEx( std::bind(
 			&TileDrawingWindow::m_callback,
 			this,
 			std::placeholders::_1,
-			std::ref( core ),
-			std::ref( gui ) ),
+			std::ref( core )
+			),
 			tgui::ComboBox::ItemSelected );
 		m_subWindowSelectionBox->addItem( NO_BRUSH );
 		m_subWindowSelectionBox->setSelectedItem( NO_BRUSH );
@@ -124,26 +124,30 @@ namespace kg
 			m_subWindowSelectionBox->addItem( el.first );
 	}
 
-	void TileDrawingWindow::onClose( tgui::Gui& gui )
+	void TileDrawingWindow::onClose( tgui::Container& container )
 	{
 		if( m_activeSubWindow )
-			m_activeSubWindow->onClose( gui );
-		gui.remove( m_tileDrawingWindow );
+			m_activeSubWindow->onClose( container );
+		container.remove( m_tileDrawingWindow );
 	}
 
-	void TileDrawingWindow::m_callback( const tgui::Callback& callback, cCore& core, tgui::Gui& gui )
+	void TileDrawingWindow::m_callback( const tgui::Callback& callback, cCore& core )
 	{
 		std::string itemName = m_subWindowSelectionBox->getItem( callback.value );
 
 		if( m_activeSubWindow )
-			m_activeSubWindow->onClose( gui );
+			m_activeSubWindow->onClose( *m_tileDrawingWindow );
 
 		if( itemName != NO_BRUSH )
 		{
 			m_activeSubWindow = m_subWindows.at( callback.text )->create();
-			m_activeSubWindow->onInit( core, gui );
+			m_activeSubWindow->onInit( core, *m_tileDrawingWindow );
 		}
 		else
 			m_activeSubWindow = nullptr;
 	}
+
+	const sf::Vector2i TileDrawingWindow::windowSize = { 300, 400 };
+	const sf::Vector2i TileDrawingWindow::selectionBarSize = { 300, 20 };
+
 }

@@ -1,7 +1,7 @@
 #pragma once
-#include "GuiElement.h"
-#include "../Network/Messages.h"
-#include "../GameState/Editor/BrushSystem.h"
+#include "../../GUI/GuiElement.h"
+#include "../../Network/Messages.h"
+#include "BrushSystem.h"
 
 namespace kg
 {
@@ -17,9 +17,9 @@ namespace kg
 						 cCore& core );
 
 	public:
-		virtual void onClose( tgui::Gui& gui );
+		virtual void onClose( tgui::Container& container );
 
-		virtual void onInit( cCore& core, tgui::Gui& gui );
+		virtual void onInit( cCore& core, tgui::Container& container );
 
 	};
 
@@ -28,11 +28,11 @@ namespace kg
 	CLIENT_API class TileDrawingSubWindow : public NonStaticGuiElement
 	{
 	public:
-		virtual void onInit( cCore& core, tgui::Gui& gui )=0;
+		virtual void onInit( cCore& core, tgui::Container& container )=0;
 
 		virtual std::shared_ptr<Brush> createBrush() = 0;
 
-		virtual void onClose( tgui::Gui& gui ) = 0;
+		virtual void onClose( tgui::Container& container ) = 0;
 
 	};
 
@@ -41,17 +41,19 @@ namespace kg
 		tgui::ChildWindow::Ptr m_tileDrawingWindow = nullptr;
 		tgui::ComboBox::Ptr m_subWindowSelectionBox = nullptr;
 
-		void m_callback( const tgui::Callback& callback, cCore& core, tgui::Gui& gui );
+		void m_callback( const tgui::Callback& callback, cCore& core );
 
 		static const std::string NO_BRUSH;
 
 	public:
-		virtual void onInit( cCore& core, tgui::Gui& gui );
+		virtual void onInit( cCore& core, tgui::Container& container );
 
 		//can return nullptr if no brush is selected
 		std::shared_ptr<Brush> getBrush();
 
-		virtual void onClose( tgui::Gui& gui );
+		virtual void onClose( tgui::Container& container );
 
+		static const sf::Vector2i windowSize;
+		static const sf::Vector2i selectionBarSize;
 	};
 }
