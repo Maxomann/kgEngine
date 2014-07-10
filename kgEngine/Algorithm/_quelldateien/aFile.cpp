@@ -40,8 +40,7 @@ ALGORITHM_API void kg::aDataByIdentifierFile::saveToFile( const std::string& pat
 	if( !file.is_open() )
 		REPORT_ERROR_FILEACCESS( "could not open/create file: " + path );
 	
-	for( const auto& el : m_data )
-		file << el.first << ":" << el.second << "\n";
+	file << toString();
 
 	file.close();
 }
@@ -62,6 +61,11 @@ ALGORITHM_API std::string kg::aDataByIdentifierFile::toString() const
 ALGORITHM_API void kg::aDataByIdentifierFile::setData( const std::string& identifier, const std::string& data )
 {
 	m_data[identifier] = data;
+}
+
+ALGORITHM_API const std::map<std::string, std::string>& kg::aDataByIdentifierFile::getAllData()
+{
+	return m_data;
 }
 
 ALGORITHM_API std::string kg::aLoadFileToString( const std::string& path )

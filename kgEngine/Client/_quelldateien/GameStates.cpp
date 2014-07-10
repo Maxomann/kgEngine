@@ -91,7 +91,7 @@ namespace kg
 		{
 			core.getExtension<ClientDatabase>()->loadAllResources(core);
 			
-			world.reset();
+			//world.reset();
 		}
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::P) )
 			camera.setCenter( sf::Vector2i( 0, 0 ) );

@@ -18,26 +18,29 @@ namespace kg
 
 	void ClientDatabase::loadTiles( cCore& core )
 	{
-		for( int id = 0; true; ++id )
+		m_tileList = &core.resourceManagement.getResourceFromResourceFolder<aDataByIdentifierFile>( TileListName + configFileExtension );
+
+		for( const auto& el : m_tileList->getAllData() )
 		{
-			try
-			{
-				auto& tileSettings = core.resourceManagement.getResourceFromResourceFolderForTile<TileSettings>( id, informationFileExtension );
-				m_tiles[id] = tileSettings;
-				m_tileTextures[id] = core.resourceManagement.getResourceFromResourceFolder<sf::Texture>( tileSettings.tileTexturePath );
-			}
-			catch( std::exception& e )
-			{
-				break;
-			}
+			int id = std::atoi( el.first.c_str() );
+			const std::string& tileConfigFilePath = el.second;
+
+			auto& tileSettings = core.resourceManagement.reloadResourceFromResourceFolder<TileSettings>( tileConfigFilePath );
+			m_tiles[id] = tileSettings;
+			m_tileTextures[id] = core.resourceManagement.reloadResourceFromResourceFolder<sf::Texture>( tileSettings.tileTexturePath );
 		}
 	}
 
 	void ClientDatabase::saveTiles()
 	{
-		int id = 0;
-		for( const auto& el : m_tiles )
-			el.second.saveToFile( resourceFolderPath + "tile" + std::to_string( el.first ) + informationFileExtension );
+		for( const auto& el : m_tileList->getAllData() )
+		{
+			int id = std::atoi( el.first.c_str() );
+			const std::string& tileConfigFilePath = el.second;
+
+			m_tiles.at( id ).saveToFile( resourceFolderPath + tileConfigFilePath );
+		}
+		m_tileList->saveToFile( resourceFolderPath+TileListName + configFileExtension );
 	}
 
 	const std::string& ClientDatabase::getTileName( int tileID ) const
@@ -88,12 +91,12 @@ namespace kg
 
 	void ClientDatabase::loadConfigFile( cCore& core )
 	{
-		m_configFile = &core.resourceManagement.getResource<aDataByIdentifierFile>( clientConfigFileName );
+		m_configFile = &core.resourceManagement.reloadResource<aDataByIdentifierFile>( clientConfigFileName+configFileExtension );
 	}
 
 	void ClientDatabase::saveConfigFile()
 	{
-		m_configFile->saveToFile( clientConfigFileName );
+		m_configFile->saveToFile( resourceFolderPath + clientConfigFileName + configFileExtension );
 	}
 
 	const std::string& ClientDatabase::getWindowName() const

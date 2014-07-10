@@ -8,6 +8,7 @@ namespace kg
 {
 	class ClientDatabase : public pExtension
 	{
+		aDataByIdentifierFile* m_tileList;
 		std::map< int, TileSettings > m_tiles;
 		std::map< int, sf::Texture > m_tileTextures;
 

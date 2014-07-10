@@ -17,8 +17,7 @@ namespace kg
 		if( !animation )
 		{
 			//load animation from file
-			Animation animation2( tileSettings );
-			tileAnimations.insert( std::make_pair( m_id, animation2 ) );
+			tileAnimations.insert( std::make_pair( m_id, Animation(tileSettings) ) );
 
 			//validate pointer
 			for( auto& el : tileAnimations )
