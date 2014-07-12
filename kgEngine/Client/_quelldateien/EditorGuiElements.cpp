@@ -87,10 +87,12 @@ namespace kg
 		//ConnectToServerWindow END
 	}
 
-	std::shared_ptr<Brush> TileDrawingWindow::getBrush()
+	std::unique_ptr<Brush> TileDrawingWindow::getBrush()
 	{
-		if( m_activeSubWindow )
-			return m_activeSubWindow->createBrush();
+		m_hasSubWindowChanged = false;
+
+		if( getActiveSubWindow() )
+			return getActiveSubWindow()->createBrush();
 		else
 			return nullptr;
 	}
@@ -102,6 +104,13 @@ namespace kg
 		m_tileDrawingWindow->setTitle( editMenuTileItem );
 		m_tileDrawingWindow->keepInParent( true );
 		m_tileDrawingWindow->setSize( windowSize.x, windowSize.y );
+		m_tileDrawingWindow->bindCallbackEx( std::bind(
+			&TileDrawingWindow::m_callback,
+			this,
+			std::placeholders::_1,
+			std::ref( core )
+			),
+			tgui::ChildWindow::Closed );
 
 		m_subWindowSelectionBox = tgui::ComboBox::Ptr( *m_tileDrawingWindow );
 		m_subWindowSelectionBox->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
@@ -122,27 +131,44 @@ namespace kg
 
 	void TileDrawingWindow::onClose( tgui::Container& container )
 	{
-		if( m_activeSubWindow )
-			m_activeSubWindow->onClose( container );
+		ExtendableNonStaticGuiElement::onClose( container );
 		container.remove( m_tileDrawingWindow );
 	}
 
 	void TileDrawingWindow::m_callback( const tgui::Callback& callback, cCore& core )
 	{
-		std::string itemName = m_subWindowSelectionBox->getItem( callback.value );
-
-		if( m_activeSubWindow )
-			m_activeSubWindow->onClose( *m_tileDrawingWindow );
-
-		if( itemName != NO_BRUSH )
+		if( callback.widget == &*m_subWindowSelectionBox )
 		{
-			m_activeSubWindow = m_subWindows.at( callback.text )->create();
-			m_activeSubWindow->onInit( core, *m_tileDrawingWindow );
+			std::string itemName = m_subWindowSelectionBox->getItem( callback.value );
+
+			if( itemName != NO_BRUSH )
+			{
+				setActiveSubWindow( core, *m_tileDrawingWindow, m_subWindows.at( callback.text )->create() );
+			}
+			else
+				setActiveSubWindow( core, *m_tileDrawingWindow, nullptr );
+
+			m_hasSubWindowChanged = true;
 		}
-		else
-			m_activeSubWindow = nullptr;
+		if( callback.widget == &*m_tileDrawingWindow )
+		{
+			close();
+		}
 	}
 
 	const sf::Vector2i TileDrawingWindow::windowSize = { 300, 400 };
 	const sf::Vector2i TileDrawingWindow::selectionBarSize = { 300, 20 };
+
+	bool TileDrawingWindow::hasBrushChanged()
+	{
+		if( m_hasSubWindowChanged )
+			return true;
+		else
+		{
+			if( getActiveSubWindow() )
+				return getActiveSubWindow()->hasBrushChanged();
+			else
+				return false;
+		}
+	}
 }

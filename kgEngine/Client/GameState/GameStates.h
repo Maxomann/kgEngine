@@ -13,6 +13,9 @@ namespace kg
 		tgui::MenuBar::Ptr m_menuBar = nullptr;
 
 		std::list<std::shared_ptr<NonStaticGuiElement>> m_guiElements;
+		std::shared_ptr<TileDrawingWindow> m_tileDrawingWindow=nullptr;
+
+		std::unique_ptr<Brush> m_brush=nullptr;
 
 		int m_nextGameState = NO_CHANGE;
 

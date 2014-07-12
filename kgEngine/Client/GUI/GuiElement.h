@@ -28,13 +28,36 @@ namespace kg
 	template < class EXTENDED_TYPE, class SUB_WINDOW_TYPE >
 	class ExtendableNonStaticGuiElement : public NonStaticGuiElement, public pExtendable
 	{
-	protected:
-		std::map< std::string, std::shared_ptr<pGenericProviderInterface<SUB_WINDOW_TYPE>>> m_subWindows;
+	private:
 		std::shared_ptr<SUB_WINDOW_TYPE> m_activeSubWindow = nullptr;
 
+	protected:
+		std::map< std::string, std::shared_ptr<pGenericProviderInterface<SUB_WINDOW_TYPE>>> m_subWindows;
+
+
+		//closes previous activeSubWindow
+		void setActiveSubWindow( cCore& core, tgui::Container& container, std::shared_ptr<SUB_WINDOW_TYPE> subWindow )
+		{
+			if( m_activeSubWindow )
+				m_activeSubWindow->onClose( container );
+			m_activeSubWindow = subWindow;
+			if( subWindow )
+				m_activeSubWindow->onInit( core, container );
+		};
+
+		std::shared_ptr<SUB_WINDOW_TYPE> getActiveSubWindow()
+		{
+			return m_activeSubWindow;
+		}
+
 	public:
+
 		//NonStaticGuiElement
-		virtual void onClose( tgui::Container& container ) = 0;
+		virtual void onClose( tgui::Container& container )
+		{
+			if( m_activeSubWindow )
+				m_activeSubWindow->onClose( container );
+		};
 		virtual void onInit( cCore& core, tgui::Container& container ) = 0;
 
 		virtual void initExtensions( pPluginManager& pluginManager )

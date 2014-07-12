@@ -57,12 +57,14 @@ namespace kg
 			m_tileSelectionBox->setPosition( 0, TileDrawingWindow::selectionBarSize.y + 20 );
 			m_tileSelectionBox->addItem( "NONE" );
 			m_tileSelectionBox->setSelectedItem( NULL );
+			for( const auto& el : core.getExtension<ClientDatabase>()->getTiles() )
+				m_tileSelectionBox->addItem( el.second.tileName );
 			//TileSelectionBox END
 		};
 
-		virtual std::shared_ptr<Brush> createBrush()
+		virtual std::unique_ptr<Brush> createBrush()
 		{
-			return std::make_shared<PointBrush>();
+			return std::make_unique<PointBrush>();
 		};
 
 		virtual void onClose( tgui::Container& container )
@@ -74,5 +76,11 @@ namespace kg
 		{
 			return "SingleBrush";
 		};
+
+		virtual bool hasBrushChanged()
+		{
+			return false;
+		}
+
 	};
 }

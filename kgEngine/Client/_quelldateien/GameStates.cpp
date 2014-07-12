@@ -38,9 +38,26 @@ namespace kg
 		//erase elements
 		for( const auto& el : toBeRemoved )
 		{
+			//if element was referenced externally //FOR EVRY REFERENCED GUI-ELEMENT
+			if( (*el) == m_tileDrawingWindow )
+				m_tileDrawingWindow = nullptr;
+
+
 			(*el)->onClose( gui.getContainer() );
 			m_guiElements.erase( el );
 		}
+
+		//set the correct brush
+		if( m_tileDrawingWindow )
+		{
+			if( m_tileDrawingWindow->hasBrushChanged() )
+			{
+				m_brush = m_tileDrawingWindow->getBrush();
+			}
+		}
+		else
+			m_brush = nullptr;
+
 
 		bool mouseOnGui = false;
 		for( const auto& widget : gui.getWidgets() )
@@ -100,6 +117,7 @@ namespace kg
 		}
 		if( !mouseOnGui )
 		{
+
 		}
 
 		return m_nextGameState;
@@ -126,10 +144,14 @@ namespace kg
 	{
 		if( callback.text == editMenuTileItem )
 		{
-			auto ptr = std::make_shared<TileDrawingWindow>();
-			ptr->initExtensions( core.pluginManger );
-			ptr->onInit( core, gui.getContainer() );
-			m_guiElements.push_back( ptr );
+			if( !m_tileDrawingWindow )
+			{
+				auto ptr = std::make_shared<TileDrawingWindow>();
+				ptr->initExtensions( core.pluginManger );
+				ptr->onInit( core, gui.getContainer() );
+				m_guiElements.push_back( ptr );
+				m_tileDrawingWindow = ptr;
+			}
 		}
 		if( callback.text == connectionMenuConnectItem )
 		{

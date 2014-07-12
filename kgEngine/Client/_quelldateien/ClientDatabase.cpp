@@ -94,7 +94,7 @@ namespace kg
 
 	void ClientDatabase::saveConfigFile()
 	{
-		m_configFile->saveToFile( resourceFolderPath + clientConfigFileName + configFileExtension );
+		m_configFile->saveToFile( clientConfigFileName + configFileExtension );
 	}
 
 	const std::string& ClientDatabase::getWindowName() const
