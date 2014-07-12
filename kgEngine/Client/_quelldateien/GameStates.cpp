@@ -52,7 +52,7 @@ namespace kg
 		{
 			if( m_tileDrawingWindow->hasBrushChanged() )
 			{
-				m_brush = m_tileDrawingWindow->getBrush();
+				m_brush = m_tileDrawingWindow->getBrush(core);
 			}
 		}
 		else
@@ -63,6 +63,9 @@ namespace kg
 		for( const auto& widget : gui.getWidgets() )
 			if( widget->isFocused() )
 				mouseOnGui = true;
+		auto mousePositionInWorld = World::getAbsoluteMousePosition( window, camera );
+		auto chunkPosition = World::getAbsoluteChunkPosition( window, camera );
+		auto relativeTilePosition = World::getRelativeTilePosition( window, camera );
 
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Escape ) )
 			return CLOSE_APP;
@@ -71,7 +74,7 @@ namespace kg
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Add ) )
 			camera.zoom( 0.5 );
 
-		//movement
+		//MOVEMENT
 		sf::Vector2f movement;
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
 		{
@@ -115,9 +118,31 @@ namespace kg
 			camera.setRotation( 0.0f );
 			camera.setZoom( 1.0f );
 		}
+
+
 		if( !mouseOnGui )
 		{
-
+			//BRUSH
+			if( m_brush )
+			{
+				if( m_brush->isActive() )
+				{
+					if( sf::Mouse::isButtonPressed( sf::Mouse::Right ) )
+						m_brush->cancel();
+					else
+					{
+						m_brush->recalculatePreview( core, mousePositionInWorld, chunkPosition, relativeTilePosition );
+						m_brush->draw( camera );
+						if( !sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
+							m_brush->apply( core, mousePositionInWorld, chunkPosition, relativeTilePosition );
+					}
+				}
+				else
+				{
+					if( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
+						m_brush->begin( mousePositionInWorld, chunkPosition, relativeTilePosition );
+				}
+			}
 		}
 
 		return m_nextGameState;

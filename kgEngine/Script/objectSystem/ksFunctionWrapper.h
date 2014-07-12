@@ -238,7 +238,7 @@ namespace kg
 		}
 	};
 
-	// MEMBER FUNCTION
+	// CONST MEMBER FUNCTION
 	// RETURN_TYPE: void
 	// FunctionWrapper<decltype(&Foo::foo)> wrapper( &Foo::foo );
 	// Returning POINTERS in wrapped function is NOT VALID

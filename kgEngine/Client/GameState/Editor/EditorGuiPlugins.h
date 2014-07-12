@@ -7,43 +7,87 @@ namespace kg
 {
 	class PointBrush : public Brush
 	{
+		//pair.first = chunkPosition; pair.second = relativeTilePosition
+		std::vector< std::pair<sf::Vector2i, sf::Vector2i> > m_tilePositionsToSet;
+
+		std::vector< sf::Sprite > m_previewTiles;
+
+		int m_tileId;
+
 	public:
-		virtual void begin()
+		PointBrush( int selectedTileId )
+			:m_tileId( selectedTileId )
+		{ };
+
+		virtual void apply( cCore& core,
+							sf::Vector2i mousePositionInWorld,
+							sf::Vector2i chunkPosition,
+							sf::Vector2i relativeTilePosition )
 		{
-			throw std::logic_error( "The method or operation is not implemented." );
+			Brush::apply( core, mousePositionInWorld, chunkPosition, relativeTilePosition );
+			m_previewTiles.clear();
+			m_tilePositionsToSet.clear();
 		}
 
-		virtual void apply()
+		virtual void recalculatePreview( cCore& core,
+										 sf::Vector2i mousePositionInWorld,
+										 sf::Vector2i chunkPosition,
+										 sf::Vector2i relativeTilePosition )
 		{
-			throw std::logic_error( "The method or operation is not implemented." );
+			auto it = std::find(
+				std::begin(m_tilePositionsToSet),
+				std::end( m_tilePositionsToSet ),
+				std::make_pair( mousePositionInWorld, relativeTilePosition ));
 
-			//set the new tile
-			// 			core.networkManager.sendMessage( std::make_shared<SetTileRequest>(
-			// 				World::getAbsoluteChunkPosition( window, camera ),
-			// 				World::getRelativeTilePosition( window, camera ), tileID ),
-			// 				core.getServerIp(),
-			// 				core.getServerPort() );
-		}
+			if( it == std::end( m_tilePositionsToSet ) )
+			{
+				m_tilePositionsToSet.push_back( std::make_pair( mousePositionInWorld, relativeTilePosition ) );
 
-		virtual void cancel()
-		{
-			throw std::logic_error( "The method or operation is not implemented." );
-		}
-
-		virtual void recalculatePreview( sf::Vector2i chunkPosition, sf::Vector2i relativeTilePosition )
-		{
-			throw std::logic_error( "The method or operation is not implemented." );
+				m_previewTiles.emplace_back();
+				m_previewTiles.back().setTexture( core.getExtension<ClientDatabase>()->getTileTexture( m_tileId ) );
+				Animation animation( core.getExtension<ClientDatabase>()->getTile( m_tileId ) );
+				animation.apply( m_previewTiles.back() );
+				m_previewTiles.back().setPosition( sf::Vector2f( chunkSizeInTiles*tileSizeInPixel*chunkPosition + tileSizeInPixel*relativeTilePosition ) );
+				//scale the sprite to fit the global Dimensions
+				m_previewTiles.back().setScale( sf::Vector2f(
+					( float )tileSizeInPixel / ( float )animation.getSettings().frameSize.x,
+					( float )tileSizeInPixel / ( float )animation.getSettings().frameSize.y
+					) );
+			}
 		}
 
 		virtual void draw( Camera& camera )
 		{
-			throw std::logic_error( "The method or operation is not implemented." );
+			for( auto& el : m_previewTiles )
+				camera.draw( el, Camera::TILE_PREVIEW );
 		}
+
+		virtual void cancel()
+		{
+			Brush::cancel();
+			m_previewTiles.clear();
+			m_tilePositionsToSet.clear();
+		}
+
 	};
 
 	class PointBrushSubWindow : public TileDrawingSubWindow
 	{
 		tgui::ListBox::Ptr m_tileSelectionBox;
+
+		void m_refreshTileSelectonBox( cCore& core )
+		{
+			m_tileSelectionBox->addItem( "NONE" );
+			for( const auto& el : core.getExtension<ClientDatabase>()->getTiles() )
+				m_tileSelectionBox->addItem( el.second.tileName );
+		};
+
+		void m_callback( const tgui::Callback& callback )
+		{
+			m_hasBrushChanged = true;
+		}
+
+		bool m_hasBrushChanged = true;
 
 	public:
 		virtual void onInit( cCore& core, tgui::Container& container )
@@ -55,16 +99,24 @@ namespace kg
 			m_tileSelectionBox->setSize( TileDrawingWindow::windowSize.x,
 										 TileDrawingWindow::windowSize.y - TileDrawingWindow::selectionBarSize.y - 40 );
 			m_tileSelectionBox->setPosition( 0, TileDrawingWindow::selectionBarSize.y + 20 );
-			m_tileSelectionBox->addItem( "NONE" );
+			m_refreshTileSelectonBox(core);
 			m_tileSelectionBox->setSelectedItem( NULL );
-			for( const auto& el : core.getExtension<ClientDatabase>()->getTiles() )
-				m_tileSelectionBox->addItem( el.second.tileName );
+			m_tileSelectionBox->bindCallbackEx( std::bind( &PointBrushSubWindow::m_callback, this, std::placeholders::_1 ),
+												tgui::ListBox::ItemSelected );
 			//TileSelectionBox END
 		};
 
-		virtual std::unique_ptr<Brush> createBrush()
+		virtual std::unique_ptr<Brush> createBrush(cCore& core)
 		{
-			return std::make_unique<PointBrush>();
+			m_hasBrushChanged = false;
+
+			std::string tileName = m_tileSelectionBox->getSelectedItem();
+			if( tileName == "NONE" || m_tileSelectionBox->getSelectedItemId()<NULL )
+				return nullptr;
+
+			int tileId = core.getExtension<ClientDatabase>()->getTileID( tileName );
+
+			return std::make_unique<PointBrush>( tileId );
 		};
 
 		virtual void onClose( tgui::Container& container )
@@ -74,12 +126,12 @@ namespace kg
 
 		static std::string info()
 		{
-			return "SingleBrush";
+			return "PointBrush";
 		};
 
 		virtual bool hasBrushChanged()
 		{
-			return false;
+			return m_hasBrushChanged;
 		}
 
 	};

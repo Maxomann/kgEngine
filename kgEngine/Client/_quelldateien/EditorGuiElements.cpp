@@ -87,12 +87,12 @@ namespace kg
 		//ConnectToServerWindow END
 	}
 
-	std::unique_ptr<Brush> TileDrawingWindow::getBrush()
-	{
+	std::unique_ptr<Brush> TileDrawingWindow::getBrush(cCore& core)
+{
 		m_hasSubWindowChanged = false;
 
 		if( getActiveSubWindow() )
-			return getActiveSubWindow()->createBrush();
+			return getActiveSubWindow()->createBrush(core);
 		else
 			return nullptr;
 	}

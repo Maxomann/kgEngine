@@ -29,7 +29,7 @@ namespace kg
 
 		virtual bool hasBrushChanged()=0;
 
-		virtual std::unique_ptr<Brush> createBrush() = 0;
+		virtual std::unique_ptr<Brush> createBrush(cCore& core) = 0;
 
 		virtual void onClose( tgui::Container& container ) = 0;
 	};
@@ -52,7 +52,7 @@ namespace kg
 		virtual bool hasBrushChanged();
 
 		//returns nullptr if no brush is selected
-		std::unique_ptr<Brush> getBrush();
+		std::unique_ptr<Brush> getBrush(cCore& core);
 
 		virtual void onClose( tgui::Container& container );
 

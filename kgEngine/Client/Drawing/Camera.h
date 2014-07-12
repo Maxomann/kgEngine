@@ -92,6 +92,7 @@ namespace kg
 		void			display( sf::RenderTarget& renderTarget );
 		const sf::View& getView() const;
 		static const int TILE = -999999999;
+		static const int TILE_PREVIEW = TILE+1;
 		static const int PREGROUND = 999999999;
 	};
 
