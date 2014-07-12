@@ -56,7 +56,6 @@ namespace kg
 
 	static const std::string TileListName = "_tileList";
 
-
 	//GUI
 	static const std::string editMenuName = "Edit";
 	static const std::string editMenuTileItem = "TileDrawing";

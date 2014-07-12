@@ -2,8 +2,6 @@
 
 namespace kg
 {
-
-
 	void ClientDatabase::loadAllResources( cCore& core )
 	{
 		loadTiles( core );
@@ -40,7 +38,7 @@ namespace kg
 
 			m_tiles.at( id ).saveToFile( resourceFolderPath + tileConfigFilePath );
 		}
-		m_tileList->saveToFile( resourceFolderPath+TileListName + configFileExtension );
+		m_tileList->saveToFile( resourceFolderPath + TileListName + configFileExtension );
 	}
 
 	const std::string& ClientDatabase::getTileName( int tileID ) const
@@ -91,7 +89,7 @@ namespace kg
 
 	void ClientDatabase::loadConfigFile( cCore& core )
 	{
-		m_configFile = &core.resourceManagement.reloadResource<aDataByIdentifierFile>( clientConfigFileName+configFileExtension );
+		m_configFile = &core.resourceManagement.reloadResource<aDataByIdentifierFile>( clientConfigFileName + configFileExtension );
 	}
 
 	void ClientDatabase::saveConfigFile()
@@ -176,5 +174,4 @@ namespace kg
 	{
 		return "DATABASE-Client";
 	}
-
 }

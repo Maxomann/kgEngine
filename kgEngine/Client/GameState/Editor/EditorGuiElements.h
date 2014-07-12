@@ -20,23 +20,19 @@ namespace kg
 		virtual void onClose( tgui::Container& container );
 
 		virtual void onInit( cCore& core, tgui::Container& container );
-
 	};
-
-
 
 	CLIENT_API class TileDrawingSubWindow : public NonStaticGuiElement
 	{
 	public:
-		virtual void onInit( cCore& core, tgui::Container& container )=0;
+		virtual void onInit( cCore& core, tgui::Container& container ) = 0;
 
 		virtual std::shared_ptr<Brush> createBrush() = 0;
 
 		virtual void onClose( tgui::Container& container ) = 0;
-
 	};
 
-	class TileDrawingWindow : public ExtendableNonStaticGuiElement<TileDrawingWindow, TileDrawingSubWindow>
+	class TileDrawingWindow : public ExtendableNonStaticGuiElement < TileDrawingWindow, TileDrawingSubWindow >
 	{
 		tgui::ChildWindow::Ptr m_tileDrawingWindow = nullptr;
 		tgui::ComboBox::Ptr m_subWindowSelectionBox = nullptr;

@@ -5,7 +5,6 @@
 
 namespace kg
 {
-
 	class cResourceManagement
 	{
 	private:
@@ -85,7 +84,6 @@ namespace kg
 				}
 			}
 		}
-
 
 		//same as getResource but loadFromFile will be called in evry case
 		template< class T >

@@ -30,7 +30,6 @@ namespace kg
 		{
 			return ksTOKEN_PRIORITY::SUBCODE;
 		}
-
 	};
 
 	class ksSubcodeConstructor : public ksTokenConstructor
@@ -81,6 +80,5 @@ namespace kg
 		{
 			return ksTOKEN_PRIORITY::SUBCODE;
 		}
-
 	};
 }

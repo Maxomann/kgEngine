@@ -33,7 +33,7 @@ namespace kg
 		SetTileRequest( const sf::Vector2i& chunkPositionInChunks, const sf::Vector2i& tilePositionRelativeToChunk, const int tileID )
 			:m_chunkPosition( chunkPositionInChunks ),
 			m_tilePosition( tilePositionRelativeToChunk ),
-			m_tileID(tileID)
+			m_tileID( tileID )
 		{ }
 
 		virtual std::string getMessage()
@@ -53,7 +53,6 @@ namespace kg
 		{
 			return MESSAGE_ID_CLIENT::SET_TILE_REQUEST;
 		}
-
 	};
 
 	class ConnectionRequest : public nMessage
@@ -65,10 +64,9 @@ namespace kg
 		//recievePortOnClient: port the client listens to
 		//recievePortOnServer: port the server 'should' listens to & sendPort linked to recievePortOnClient by server IP
 		ConnectionRequest( sf::Uint16 recievePortOnClient, sf::Uint16 recievePortOnServer )
-			:m_recievePortOnClient(recievePortOnClient),
-			m_recievePortOnServer(recievePortOnServer)
+			:m_recievePortOnClient( recievePortOnClient ),
+			m_recievePortOnServer( recievePortOnServer )
 		{
-
 		}
 
 		virtual std::string getMessage()
@@ -85,6 +83,5 @@ namespace kg
 		{
 			return MESSAGE_ID_CLIENT::CONNECTION_REQUEST;
 		}
-
 	};
 }

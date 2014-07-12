@@ -25,7 +25,6 @@ namespace kg
 
 		virtual void draw( Camera& camera )override;
 
-
 		static sf::Vector2i getAbsoluteMousePosition( const sf::RenderWindow& window, const Camera& camera );
 
 		//in chunks

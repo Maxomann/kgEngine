@@ -141,9 +141,6 @@ namespace kg
 		this->rt = &rt;
 	}
 
-
-
-
 	void Camera::init( const sf::Vector2u finalSize )
 	{
 		m_finalSize = sf::Vector2i( finalSize );
@@ -243,22 +240,22 @@ namespace kg
 	{
 		return sf::Vector2u( m_finalSize );
 	}
-// 	sf::FloatRect Camera::getCameraRectWithoutRotation()const
-// 	{
-// 		return sf::FloatRect( getCenter().x - m_View.getSize().x / 2,
-// 							  getCenter().y - m_View.getSize().y / 2,
-// 							  m_View.getSize().x,
-// 							  m_View.getSize().y );
-// 	}
+	// 	sf::FloatRect Camera::getCameraRectWithoutRotation()const
+	// 	{
+	// 		return sf::FloatRect( getCenter().x - m_View.getSize().x / 2,
+	// 							  getCenter().y - m_View.getSize().y / 2,
+	// 							  m_View.getSize().x,
+	// 							  m_View.getSize().y );
+	// 	}
 	sf::Vector2i Camera::getCenter()const
 	{
 		return sf::Vector2i( m_View.getCenter() );
 	}
 
-// 	sf::Vector2i Camera::getUpperLeftCorner()const
-// 	{
-// 		return sf::Vector2i( getCameraRectWithoutRotation().left, getCameraRectWithoutRotation().top );
-// 	}
+	// 	sf::Vector2i Camera::getUpperLeftCorner()const
+	// 	{
+	// 		return sf::Vector2i( getCameraRectWithoutRotation().left, getCameraRectWithoutRotation().top );
+	// 	}
 
 	void Camera::rotate( const float rotationInDegree )
 	{
@@ -274,5 +271,4 @@ namespace kg
 	{
 		return m_View;
 	}
-
 }

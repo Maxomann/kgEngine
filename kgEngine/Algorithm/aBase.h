@@ -49,14 +49,14 @@ namespace kg
 	//MAY NOT WORK CORRECTLY!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	ALGORITHM_API sf::Vector2<T> rotatePointAroundPoint( sf::Vector2<T>pointToRotate,
 														 T degrees,
-														 sf::Vector2<T>pointToRotateAround = { 0, 0 })
+														 sf::Vector2<T>pointToRotateAround = { 0, 0 } )
 	{
 		sf::Vector2<T> transformedPoint;
 
 		//A.x' = (A.x-B.x) * cos(C) - (A.y-B.y) * sin(C) + B.x
 		//A.y' = (A.y-B.y) * cos(C) + (A.x-B.x) * sin(C) + B.y
 		transformedPoint.x =
-			((pointToRotate.x - pointToRotateAround.x)*std::cos( degreeToRadiant(degrees) ))
+			((pointToRotate.x - pointToRotateAround.x)*std::cos( degreeToRadiant( degrees ) ))
 			- ((pointToRotate.y - pointToRotateAround.y)*std::sin( degreeToRadiant( degrees ) ))
 			+ pointToRotateAround.x;
 		transformedPoint.y =
@@ -66,5 +66,4 @@ namespace kg
 
 		return transformedPoint;
 	}
-
 };//kg

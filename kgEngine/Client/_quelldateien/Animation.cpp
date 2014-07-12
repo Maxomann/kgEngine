@@ -2,7 +2,6 @@
 
 namespace kg
 {
-
 	Animation::Animation( const AnimationSettings& settings, bool start )
 		:m_settings( settings ),
 		m_run( start )
@@ -98,7 +97,6 @@ namespace kg
 				m_state = 0;
 				m_frame = 0;
 			}
-
 		}
 	}
 

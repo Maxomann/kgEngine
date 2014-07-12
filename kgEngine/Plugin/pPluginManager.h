@@ -41,14 +41,13 @@ namespace kg
 	public:
 		PLUGIN_API virtual std::shared_ptr<BaseClass> create() = 0;
 
-		PLUGIN_API virtual std::string info() const=0;
+		PLUGIN_API virtual std::string info() const = 0;
 	};
-
 
 	//T must inherit from BaseClass;
 	//T must have Method[ static std::string T::info() ]
 	template< class T, class BaseClass >
-	class pGenericProvider : public pGenericProviderInterface<BaseClass>
+	class pGenericProvider : public pGenericProviderInterface < BaseClass >
 	{
 	public:
 		PLUGIN_API virtual std::shared_ptr<BaseClass> create()

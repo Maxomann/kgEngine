@@ -20,9 +20,7 @@ namespace kg
 		Camera m_camera;
 		World m_world;
 
-
 		sf::IntRect m_renderDistaceInChunks;
-
 
 		std::shared_ptr<GameState> m_gameState;
 
@@ -41,7 +39,7 @@ namespace kg
 
 		virtual void initExtensions( pPluginManager& pluginManager );
 
-		virtual void onInit(cCore& core);
+		virtual void onInit( cCore& core );
 
 		virtual void onClose( cCore& core );
 

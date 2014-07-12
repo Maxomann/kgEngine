@@ -13,7 +13,7 @@ namespace kg
 		virtual ~cCoreExtension()
 		{ };
 
-		virtual void onInit(cCore& core) = 0;
+		virtual void onInit( cCore& core ) = 0;
 		virtual void onClose( cCore& core ) = 0;
 
 		// this function is called once every cycle in the main loop

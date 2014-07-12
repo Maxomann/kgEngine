@@ -30,7 +30,7 @@ ALGORITHM_API bool kg::aDataByIdentifierFile::loadFromFile( const std::string& p
 
 ALGORITHM_API const std::string& kg::aDataByIdentifierFile::getData( const std::string& identifier )
 {
-	return m_data[ identifier ];
+	return m_data[identifier];
 }
 
 ALGORITHM_API void kg::aDataByIdentifierFile::saveToFile( const std::string& path )
@@ -39,7 +39,7 @@ ALGORITHM_API void kg::aDataByIdentifierFile::saveToFile( const std::string& pat
 	file.open( path, std::ios::trunc );
 	if( !file.is_open() )
 		REPORT_ERROR_FILEACCESS( "could not open/create file: " + path );
-	
+
 	file << toString();
 
 	file.close();
@@ -93,7 +93,7 @@ ALGORITHM_API void kg::aSaveStringToFile( const std::string& path, const std::st
 	file.open( path, std::ios::trunc );
 	if( !file.is_open() )
 		REPORT_ERROR_FILEACCESS( "could not open file: " + path );
-	
+
 	file << data;
 	file.close();
 	return;

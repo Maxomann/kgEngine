@@ -26,14 +26,13 @@ namespace kg
 
 	void TestGameState::handleEvent( sf::Event& sfmlEvent )
 	{
-
 	}
 
 	int TestGameState::frame( cCore& core, sf::RenderWindow& window, World& world, Camera& camera, tgui::Gui& gui )
 	{
 		//check if GUI elements have to be removed
 		std::vector<std::list<std::shared_ptr<NonStaticGuiElement>>::iterator> toBeRemoved;
-		for( auto it = begin( m_guiElements ); it != end( m_guiElements ); ++it)
+		for( auto it = begin( m_guiElements ); it != end( m_guiElements ); ++it )
 			if( (*it)->shouldClose() )
 				toBeRemoved.push_back( it );
 		//erase elements
@@ -42,7 +41,6 @@ namespace kg
 			(*el)->onClose( gui.getContainer() );
 			m_guiElements.erase( el );
 		}
-
 
 		bool mouseOnGui = false;
 		for( const auto& widget : gui.getWidgets() )
@@ -89,11 +87,11 @@ namespace kg
 			camera.rotate( 5.0f );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
 		{
-			core.getExtension<ClientDatabase>()->loadAllResources(core);
-			
+			core.getExtension<ClientDatabase>()->loadAllResources( core );
+
 			//world.reset();
 		}
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::P) )
+		if( sf::Keyboard::isKeyPressed( sf::Keyboard::P ) )
 			camera.setCenter( sf::Vector2i( 0, 0 ) );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Z ) )
 		{
@@ -102,7 +100,6 @@ namespace kg
 		}
 		if( !mouseOnGui )
 		{
-
 		}
 
 		return m_nextGameState;

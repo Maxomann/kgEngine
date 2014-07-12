@@ -24,7 +24,7 @@ namespace kg
 		void loadTiles( cCore& core );
 		void saveTiles();
 		const std::string& getTileName( int tileID )const;
-		int getTileID(const std::string& name)const;
+		int getTileID( const std::string& name )const;
 		const TileSettings& getTile( int tileID )const;
 		const std::map<int, TileSettings>& getTiles()const;
 		sf::Texture& getTileTexture( int tileID );
@@ -33,7 +33,6 @@ namespace kg
 		void setTile( int tileID, const TileSettings& settings );
 		void setFirstFreeTileID( const TileSettings& settings );
 		void moveTileID( int from, int to );
-
 
 		//ConfigFile
 		void loadConfigFile( cCore& core );
@@ -50,10 +49,7 @@ namespace kg
 		void setVsynchEnabled( bool enable );
 		void setRenderDistance( const sf::Vector2i renderDistance );
 
-
-
 		//pExtension
 		virtual std::string info() const;
-
 	};
 }

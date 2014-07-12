@@ -18,17 +18,17 @@ namespace kg
 
 		auto nameNode = doc.first_node( TILE_NAME );
 		if( !nameNode )
-			REPORT_ERROR_FILEACCESS( TILE_NAME+ " node not found in file" + path );
+			REPORT_ERROR_FILEACCESS( TILE_NAME + " node not found in file" + path );
 		tileName = nameNode->value();
 
 		auto textureNode = doc.first_node( TILE_TEXTURE_PATH );
 		if( !textureNode )
-			REPORT_ERROR_FILEACCESS( TILE_TEXTURE_PATH+" node not found in file" + path );
+			REPORT_ERROR_FILEACCESS( TILE_TEXTURE_PATH + " node not found in file" + path );
 		tileTexturePath = textureNode->value();
 
 		delete[] file;
 
-		if( tileName == "-1" || tileTexturePath == "-1"||
+		if( tileName == "-1" || tileTexturePath == "-1" ||
 			tileName == "" || tileTexturePath == "" )
 			return false;
 		return true;
@@ -42,7 +42,6 @@ namespace kg
 
 		xml_document<> doc;
 		doc.parse<0>( file );
-		
 
 		doc.append_node( doc.allocate_node( node_element, TILE_NAME, tileName.c_str() ) );
 		doc.append_node( doc.allocate_node( node_element, TILE_TEXTURE_PATH, tileTexturePath.c_str() ) );
@@ -55,5 +54,4 @@ namespace kg
 
 		return true;
 	}
-
 }

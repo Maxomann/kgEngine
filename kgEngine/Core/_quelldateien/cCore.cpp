@@ -59,13 +59,11 @@ namespace kg
 	cCore::cCore( pPluginManager& pluginManger )
 		:pluginManger( pluginManger )
 	{
-
 	}
 
 	cCore::~cCore()
 	{
 		for( const auto& ptr : r_coreExtensions )
-			ptr->onClose(*this);
+			ptr->onClose( *this );
 	}
-
 }

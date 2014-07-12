@@ -87,10 +87,6 @@ namespace kg
 		//ConnectToServerWindow END
 	}
 
-
-
-
-
 	std::shared_ptr<Brush> TileDrawingWindow::getBrush()
 	{
 		if( m_activeSubWindow )
@@ -149,5 +145,4 @@ namespace kg
 
 	const sf::Vector2i TileDrawingWindow::windowSize = { 300, 400 };
 	const sf::Vector2i TileDrawingWindow::selectionBarSize = { 300, 20 };
-
 }

@@ -56,7 +56,6 @@ namespace kg
 
 	kg::ksSplitCodeVector ksCode::generateSplitCode( const ksRawTokenMap& rawTokens, const std::string& code )
 	{
-
 		ksSplitCodeVector splitCode;
 		int lastKey = key::other;
 		int stat = status::other;
@@ -151,7 +150,6 @@ namespace kg
 			}
 		}
 
-
 		if( splitCode.size() == NULL )
 			REPORT_ERROR_SCRIPT( "splitCode.size() == 0" );
 		return splitCode;
@@ -227,8 +225,7 @@ namespace kg
 			/*if( token == nullptr )
 				REPORT_ERROR_SCRIPT( "m_constructedTokens.at( " + std::to_string( currentLine ) + " )" + "is nullptr" );*/
 
-
-			if( token!=nullptr && token->getID() != ksTOKEN_PRIORITY::PLACEHOLDER )
+			if( token != nullptr && token->getID() != ksTOKEN_PRIORITY::PLACEHOLDER )
 			{
 				//not expected to return anything
 				token->execute( library,
@@ -241,5 +238,4 @@ namespace kg
 
 		return returnValue;
 	}
-
 }

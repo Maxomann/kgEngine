@@ -10,12 +10,11 @@ namespace kg
 {
 	class TestGameState : public GameState
 	{
-		tgui::MenuBar::Ptr m_menuBar=nullptr;
+		tgui::MenuBar::Ptr m_menuBar = nullptr;
 
 		std::list<std::shared_ptr<NonStaticGuiElement>> m_guiElements;
 
 		int m_nextGameState = NO_CHANGE;
-
 
 		void m_menuBarCallback( const tgui::Callback& callback, cCore& core, tgui::Gui& gui );
 
@@ -31,9 +30,6 @@ namespace kg
 
 		virtual int getID() const;
 
-
 		virtual std::string info() const;
-
 	};
-
 }

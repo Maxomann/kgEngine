@@ -40,7 +40,7 @@ namespace kg
 		aSwapContainer()
 			:m_one( new std::queue<T>() ),
 			m_two( new std::queue<T>() )
-		{}
+		{ }
 
 		ALGORITHM_API void swap()
 		{

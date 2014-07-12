@@ -20,7 +20,7 @@ namespace kg
 				std::make_shared<ChunkDataRequestAnswer>( chunkPosition, core.getExtension<Server>()->getWorld().getChunk( chunkPosition ) ),
 				std::get<0>( message ),
 				core.networkManager.getSendPort( std::get<0>( message ), std::get<1>( message ) )
-			);
+				);
 		}
 
 		virtual int getMessageHandlerID() const

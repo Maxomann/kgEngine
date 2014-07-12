@@ -35,15 +35,14 @@ namespace kg
 
 	public:
 		ConnectionRequestAnswer( sf::Uint16 recievePortOnServer, bool accepted = true )
-			: m_accepted(accepted),
-			m_recievePortOnServer(recievePortOnServer)
+			: m_accepted( accepted ),
+			m_recievePortOnServer( recievePortOnServer )
 		{
-
 		}
 
 		virtual std::string getMessage()
 		{
-			std::string message(std::to_string( m_accepted ));
+			std::string message( std::to_string( m_accepted ) );
 			message += standartSplitChar;
 			message += std::to_string( m_recievePortOnServer );
 
@@ -54,6 +53,5 @@ namespace kg
 		{
 			return MESSAGE_ID_SERVER::CONNECTION_REQUEST_ANSWER;
 		}
-
 	};
 }

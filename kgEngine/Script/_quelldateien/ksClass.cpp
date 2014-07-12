@@ -4,8 +4,7 @@ kg::ksClassMasterInterface::ksClassMasterInterface( const std::string& name,
 													const size_t& typeHash )
 													:m_typeHash( typeHash ),
 													m_name( name )
-{
-}
+{ }
 
 void kg::ksClassMasterInterface::registerMemberFunction( const std::string& name,
 														 const std::vector<std::string>& parameterTypes,
@@ -51,8 +50,7 @@ kg::ksClassInstance::ksClassInstance( const ksClassMasterInterface& master,
 									  const std::shared_ptr<void>& instance )
 									  :m_instance( instance ),
 									  r_master( master )
-{
-}
+{ }
 
 const std::string& kg::ksClassInstance::getType() const
 {

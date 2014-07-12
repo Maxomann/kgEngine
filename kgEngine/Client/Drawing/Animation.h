@@ -6,7 +6,6 @@
 
 namespace kg
 {
-
 	class Animation
 	{
 		const AnimationSettings& m_settings;

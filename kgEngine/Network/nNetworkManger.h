@@ -13,8 +13,6 @@ namespace kg
 
 		typedef std::unordered_map<sf::Uint16, sf::UdpSocket> SocketMap;
 
-
-
 		bool m_terminateNetworkThread = false;
 
 		std::map<int, std::shared_ptr<nMessageHandler>> m_messageHandler;
@@ -50,7 +48,6 @@ namespace kg
 
 		NETWORK_API virtual void initExtensions( pPluginManager& pluginManager );
 
-		NETWORK_API sf::Uint16 getSendPort(sf::IpAddress forIp, sf::Uint16 recievePort);
-
+		NETWORK_API sf::Uint16 getSendPort( sf::IpAddress forIp, sf::Uint16 recievePort );
 	};
 }

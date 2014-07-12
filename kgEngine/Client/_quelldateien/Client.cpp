@@ -6,11 +6,10 @@ namespace kg
 
 	kg::Client::Client()
 		:m_gui( m_window )
-	{
-	}
+	{ }
 
-	void Client::onInit(cCore& core)
-{
+	void Client::onInit( cCore& core )
+	{
 		auto database = core.getExtension<ClientDatabase>();
 		database->loadAllResources( core );
 
@@ -38,7 +37,6 @@ namespace kg
 			REPORT_ERROR_FILEACCESS( resourceFolderPath + fontFolderName + "DejaVuSans.ttf" + "could not be loaded" );
 	}
 
-
 	void kg::Client::frame( cCore& core )
 	{
 		auto frameTime = m_frameTimeClock.restart().asMilliseconds();
@@ -52,7 +50,6 @@ namespace kg
 			m_isStandartGameStateLoaded = true;
 		}
 
-
 		//SFML loop:
 		sf::Event event;
 		while( m_window.pollEvent( event ) )
@@ -63,8 +60,6 @@ namespace kg
 			m_gui.handleEvent( event );
 			m_gameState->handleEvent( event );
 		}
-
-
 
 		//Call frame() here:
 		m_world.frame( core );
@@ -77,21 +72,17 @@ namespace kg
 		m_world.loadChunksInRectAndUnloadOther( core, { chunkRenderRect } );
 
 		// change gameState if needed
-		int newGameStateId = m_gameState->frame(core, m_window, m_world , m_camera , m_gui );
+		int newGameStateId = m_gameState->frame( core, m_window, m_world, m_camera, m_gui );
 		if( newGameStateId == GameState::CLOSE_APP )
 			core.close();
 		else if( newGameStateId > GameState::NO_CHANGE )
 		{
-			m_gameState->onClose(core, m_world, m_camera , m_gui );
+			m_gameState->onClose( core, m_world, m_camera, m_gui );
 			m_gameState = m_gameStates.at( newGameStateId );
 		}
 
-
-
 		//Camera drawing here:
 		m_world.draw( m_camera );
-
-
 
 		m_window.clear( sf::Color::Green );
 		//window-drawing here:
@@ -124,11 +115,8 @@ namespace kg
 		}
 	}
 
-	void Client::onClose(cCore& core)
-{
+	void Client::onClose( cCore& core )
+	{
 		core.getExtension<ClientDatabase>()->saveAllResources();
 	}
-
-
-
 }

@@ -41,7 +41,6 @@ namespace kg
 		}
 	};
 
-
 	class PointBrushSubWindow : public TileDrawingSubWindow
 	{
 		tgui::ListBox::Ptr m_tileSelectionBox;
@@ -54,8 +53,8 @@ namespace kg
 			m_tileSelectionBox->setPosition( 20, 60 );
 			m_tileSelectionBox->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
 			m_tileSelectionBox->setSize( TileDrawingWindow::windowSize.x,
-										 TileDrawingWindow::windowSize.y-TileDrawingWindow::selectionBarSize.y-40 );
-			m_tileSelectionBox->setPosition( 0, TileDrawingWindow::selectionBarSize.y+20 );
+										 TileDrawingWindow::windowSize.y - TileDrawingWindow::selectionBarSize.y - 40 );
+			m_tileSelectionBox->setPosition( 0, TileDrawingWindow::selectionBarSize.y + 20 );
 			m_tileSelectionBox->addItem( "NONE" );
 			m_tileSelectionBox->setSelectedItem( NULL );
 			//TileSelectionBox END

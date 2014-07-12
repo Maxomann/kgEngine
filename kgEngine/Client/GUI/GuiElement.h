@@ -8,7 +8,7 @@ namespace kg
 	class NonStaticGuiElement
 	{
 		bool m_shouldClose = false;
-		
+
 	public:
 		void close()
 		{
@@ -24,9 +24,6 @@ namespace kg
 
 		virtual void onInit( cCore& core, tgui::Container& container ) = 0;
 	};
-
-
-
 
 	template < class EXTENDED_TYPE, class SUB_WINDOW_TYPE >
 	class ExtendableNonStaticGuiElement : public NonStaticGuiElement, public pExtendable

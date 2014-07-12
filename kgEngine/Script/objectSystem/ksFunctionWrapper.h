@@ -9,11 +9,11 @@ namespace kg
 	{ };
 
 	template <std::size_t N, std::size_t... Is>
-	struct make_index_sequence : make_index_sequence<N - 1, N - 1, Is...>
+	struct make_index_sequence : make_index_sequence < N - 1, N - 1, Is... >
 	{ };
 
 	template <std::size_t... Is>
-	struct make_index_sequence<0u, Is...> : index_sequence<Is...>{ };
+	struct make_index_sequence<0u, Is...> : index_sequence < Is... > { };
 
 	class ksFunctionWrapperInterface
 	{

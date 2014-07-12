@@ -22,8 +22,7 @@ extern "C" __declspec(dllexport) void kgConnect( pPluginManager& pluginManager )
 	//GameStates
 	pluginManager.addExtensionProvider<Client, TestGameState>();
 
-
 	//GUI
-	pluginManager.addExtensionProvider<TileDrawingWindow,
-		pGenericProvider<PointBrushSubWindow, TileDrawingSubWindow>>();
+	pluginManager.addExtensionProvider < TileDrawingWindow,
+		pGenericProvider < PointBrushSubWindow, TileDrawingSubWindow >> ();
 }

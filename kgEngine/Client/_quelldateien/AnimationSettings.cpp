@@ -6,7 +6,6 @@ namespace kg
 {
 	AnimationSettings::AnimationSettings()
 	{
-
 	}
 
 	bool AnimationSettings::loadFromFile( const std::string& path )
@@ -22,14 +21,12 @@ namespace kg
 		auto frameSizeY = doc.first_node( FRAME_SIZE_Y );
 		frameSize.y = atoi( frameSizeY->value() );
 
-
 		auto offsetX = doc.first_node( OFFSET_X );
 		if( offsetX )
 			offset.x = atoi( offsetX->value() );
 		auto offsetY = doc.first_node( OFFSET_Y );
 		if( offsetY )
 			offset.y = atoi( offsetX->value() );
-
 
 		auto stateTopNode = doc.first_node( STATE );
 		for( auto stateSubNode = stateTopNode->first_node();
@@ -73,7 +70,6 @@ namespace kg
 			}
 			frameInfo.push_back( thisStatesInfo );
 		}
-
 
 		delete[] file;
 		return true;
