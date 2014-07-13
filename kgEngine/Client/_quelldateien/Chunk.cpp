@@ -16,7 +16,7 @@ namespace kg
 					Tile(
 					core,
 					0,
-					sf::Vector2i( m_positionInChunks.x*chunkSizeInTiles*tileSizeInPixel + x*tileSizeInPixel, m_positionInChunks.y*chunkSizeInTiles*tileSizeInPixel + y*tileSizeInPixel ),
+					Chunk::getPositionInPixelForTile( m_positionInChunks, sf::Vector2i(x,y) ),
 					tileAnimations )
 					);
 			}
@@ -33,29 +33,6 @@ namespace kg
 				tile.draw( camera );
 	}
 
-	void Chunk::nFromString( cCore& core, const std::string& data )
-	{
-		auto seglist = aSplitString::function( data, standartSplitChar, aSplitString::operation::REMOVE );
-
-		for( int x = 0; x < chunkSizeInTiles; ++x )
-		{
-			for( int y = 0; y < chunkSizeInTiles; ++y )
-			{
-				auto& tile = m_tiles.at( x ).at( y );
-				int id = atoi( seglist.at( x*chunkSizeInTiles + y ).c_str() );
-				if( id != tile.getID() )
-					tile = Tile(
-					core,
-					id,
-					sf::Vector2i(
-					m_positionInChunks.x*chunkSizeInTiles*tileSizeInPixel + x*tileSizeInPixel,
-					m_positionInChunks.y*chunkSizeInTiles*tileSizeInPixel + y*tileSizeInPixel
-					),
-					r_tileAnimations );
-			}
-		}
-	}
-
 	const Tile& Chunk::getTile( sf::Vector2i positionInTiles ) const
 	{
 		return m_tiles.at( positionInTiles.x ).at( positionInTiles.y );
@@ -66,5 +43,21 @@ namespace kg
 		for( auto& x : m_tiles )
 			for( auto& y : x )
 				y.frame( core );
+	}
+
+	sf::Vector2i Chunk::getPositionInPixelForTile( const sf::Vector2i chunkPosition, const sf::Vector2i relativeTilePosition )
+	{
+		return chunkSizeInTiles*tileSizeInPixel*chunkPosition + tileSizeInPixel*relativeTilePosition;
+	}
+
+	void Chunk::setTile( cCore& core, sf::Vector2i relativeTilePosition, const int tileID )
+	{
+		auto& tile = m_tiles.at( relativeTilePosition.x ).at( relativeTilePosition.y );
+		if( tileID != tile.getID() )
+			tile = Tile(
+			core,
+			tileID,
+			Chunk::getPositionInPixelForTile(m_positionInChunks,relativeTilePosition),
+			r_tileAnimations );
 	}
 }

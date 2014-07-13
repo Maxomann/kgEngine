@@ -54,6 +54,11 @@ namespace kg
 
 	void Animation::apply( sf::Sprite& toSprite )
 	{
+		toSprite.setScale( sf::Vector2f(
+			( float )tileSizeInPixel / ( float )m_settings.frameSize.x,
+			( float )tileSizeInPixel / ( float )m_settings.frameSize.y
+			) );
+
 		toSprite.setTextureRect( sf::IntRect(
 			m_settings.frameSize.x*m_frame + m_settings.offset.x,
 			m_settings.frameSize.y*m_state + m_settings.offset.y,

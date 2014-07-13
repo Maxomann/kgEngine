@@ -13,25 +13,38 @@ namespace kg
 
 		virtual void handle( cCore& core, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const
 		{
-			auto& str = std::get<3>( message );
+			auto& data = std::get<3>( message );
 
 			std::string chunkX;
 			std::string chunkY;
 
-			while( str.at( 0 ) != standartSplitChar )
+			while( data.at( 0 ) != standartSplitChar )
 			{
-				chunkX.push_back( str.at( 0 ) );
-				str.erase( str.begin() );
+				chunkX.push_back( data.at( 0 ) );
+				data.erase( data.begin() );
 			}
-			str.erase( str.begin() );
-			while( str.at( 0 ) != standartSplitChar )
+			data.erase( data.begin() );
+			while( data.at( 0 ) != standartSplitChar )
 			{
-				chunkY.push_back( str.at( 0 ) );
-				str.erase( str.begin() );
+				chunkY.push_back( data.at( 0 ) );
+				data.erase( data.begin() );
 			}
-			str.erase( str.begin() );
+			data.erase( data.begin() );
 
-			core.getExtension<Client>()->getWorld().getChunk( core, sf::Vector2i( atoi( chunkX.c_str() ), atoi( chunkY.c_str() ) ) ).nFromString( core, str );
+
+			auto& chunk = core.getExtension<Client>()->getWorld().getChunk( core, sf::Vector2i( atoi( chunkX.c_str() ), atoi( chunkY.c_str() ) ) );
+
+			auto seglist = aSplitString::function( data, standartSplitChar, aSplitString::operation::REMOVE );
+			for( int x = 0; x < chunkSizeInTiles; ++x )
+			{
+				for( int y = 0; y < chunkSizeInTiles; ++y )
+				{
+					auto& tile = chunk.getTile(sf::Vector2i(x,y));
+					int id = atoi( seglist.at( x*chunkSizeInTiles + y ).c_str() );
+					if( id != tile.getID() )
+						chunk.setTile(core, sf::Vector2i(x,y), id);
+				}
+			}
 		}
 
 		virtual int getMessageHandlerID() const

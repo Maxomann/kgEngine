@@ -47,12 +47,8 @@ namespace kg
 				m_previewTiles.back().setTexture( core.getExtension<ClientDatabase>()->getTileTexture( m_tileId ) );
 				Animation animation( core.getExtension<ClientDatabase>()->getTile( m_tileId ) );
 				animation.apply( m_previewTiles.back() );
-				m_previewTiles.back().setPosition( sf::Vector2f( chunkSizeInTiles*tileSizeInPixel*chunkPosition + tileSizeInPixel*relativeTilePosition ) );
+				m_previewTiles.back().setPosition( sf::Vector2f( Chunk::getPositionInPixelForTile( chunkPosition, relativeTilePosition ) ) );
 				//scale the sprite to fit the global Dimensions
-				m_previewTiles.back().setScale( sf::Vector2f(
-					( float )tileSizeInPixel / ( float )animation.getSettings().frameSize.x,
-					( float )tileSizeInPixel / ( float )animation.getSettings().frameSize.y
-					) );
 			}
 		}
 

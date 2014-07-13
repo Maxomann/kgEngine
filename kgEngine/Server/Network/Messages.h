@@ -14,7 +14,15 @@ namespace kg
 			m_message += standartSplitChar;
 			m_message += std::to_string( position.y );
 			m_message += standartSplitChar;
-			m_message += std::move( chunk.nToString() );
+
+			for( int x = 0; x < chunkSizeInTiles; ++x )
+			{
+				for( int y = 0; y < chunkSizeInTiles; ++y )
+				{
+					m_message += std::to_string( chunk.getField(sf::Vector2i(x,y)) );
+					m_message.push_back( standartSplitChar );
+				}
+			}
 		}
 
 		virtual std::string getMessage()

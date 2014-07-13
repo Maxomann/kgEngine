@@ -7,7 +7,7 @@
 
 namespace kg
 {
-	class Chunk : public DrawableToCamera, public nNetworkConstructable
+	class Chunk : public DrawableToCamera
 	{
 		AnimationByIdMap& r_tileAnimations;
 
@@ -15,16 +15,18 @@ namespace kg
 
 		std::vector<std::vector<Tile>> m_tiles;
 
+
 	public:
 		//Requests chunkData for this chunks from server on creation
 		Chunk( cCore& core, sf::Vector2i positionInChunks, AnimationByIdMap& tileAnimations );
 
 		const Tile& getTile( sf::Vector2i positionInTiles )const;
-
+		void setTile( cCore& core, sf::Vector2i relativeTilePosition, const int tileID );
+		
 		void frame( cCore& core );
 
 		virtual void draw( Camera& camera )override;
 
-		virtual void nFromString( cCore& core, const std::string& data )override;
+		static sf::Vector2i getPositionInPixelForTile( const sf::Vector2i chunkPosition, const sf::Vector2i relativeTilePosition );
 	};
 }

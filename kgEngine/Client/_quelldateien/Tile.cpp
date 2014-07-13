@@ -29,11 +29,6 @@ namespace kg
 
 		m_sprite.setTexture( texture );
 		animation->apply( m_sprite );
-		//scale the sprite to fit the global Dimensions
-		m_sprite.setScale( sf::Vector2f(
-			( float )tileSizeInPixel / ( float )animation->getSettings().frameSize.x,
-			( float )tileSizeInPixel / ( float )animation->getSettings().frameSize.y
-			) );
 
 		m_sprite.setPosition( sf::Vector2f( positionInPixel ) );
 	}
