@@ -14,6 +14,6 @@ extern "C" __declspec(dllexport) void kgConnect( pPluginManager& pluginManager )
 
 	//NetworkHandler
 	pluginManager.addExtensionProvider<nNetworkManager, ChunkDataRequestHandler>();
-	pluginManager.addExtensionProvider<nNetworkManager, SetTileRequestHandler>();
+	pluginManager.addExtensionProvider<nNetworkManager, SetTilesRequestHandler>();
 	pluginManager.addExtensionProvider<nNetworkManager, ConnectionRequestHandler>();
 }

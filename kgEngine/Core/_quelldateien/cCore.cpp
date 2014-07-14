@@ -41,7 +41,7 @@ namespace kg
 	}
 
 	void cCore::initExtensions( pPluginManager& pluginManager )
-{
+	{
 		networkManager.initExtensions( pluginManager );
 
 		for( const auto& el : m_extensions )
@@ -51,7 +51,19 @@ namespace kg
 			{
 				r_coreExtensions.push_back( ptr );
 				ptr->initExtensions( pluginManager );
+				ptr->onInit( *this );
 			}
 		}
+	}
+
+	cCore::cCore( pPluginManager& pluginManger )
+		:pluginManger( pluginManger )
+	{
+	}
+
+	cCore::~cCore()
+	{
+		for( const auto& ptr : r_coreExtensions )
+			ptr->onClose( *this );
 	}
 }

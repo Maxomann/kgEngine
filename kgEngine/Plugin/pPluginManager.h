@@ -16,22 +16,48 @@ namespace kg
 		typedef void( *CONNECT )(pPluginManager&);
 
 	public:
-		// T=type of class that the Provider should add Extensions to
+		// DESTINATION_EXTENDABLE = type of class that the Provider should add Extensions to
 		// EXTENSION = type of the extension to add
-		template<class T, class EXTENSION>
+		template<class DestinationExtendable, class Extension>
 		PLUGIN_API void addExtensionProvider()
 		{
-			m_extensionProvider[typeid(T).hash_code()].push_back( std::static_pointer_cast< pExtensionProviderInterface >(std::make_shared<pExtensionProvider<EXTENSION>>()) );
+			m_extensionProvider[typeid(DestinationExtendable).hash_code()].push_back( std::static_pointer_cast< pExtensionProviderInterface >(std::make_shared<pExtensionProvider<Extension>>()) );
 		}
 
-		// T=type of class that derived from the passed extandable
-		template<class T>
+		// DESTINATION_EXTENDABLE = type of class that derived from the passed extandable
+		template<class DestinationExtendable>
 		PLUGIN_API void fillExtandable( pExtendable& extandable )
 		{
-			for( const auto& el : m_extensionProvider[typeid(T).hash_code()] )
+			for( const auto& el : m_extensionProvider[typeid(DestinationExtendable).hash_code()] )
 				el->addExtensionTo( extandable );
 		}
 
 		PLUGIN_API void loadPluginsFromFile( const std::string& path );
+	};
+
+	template< class BaseClass >
+	class pGenericProviderInterface : public pExtension
+	{
+	public:
+		PLUGIN_API virtual std::shared_ptr<BaseClass> create() = 0;
+
+		PLUGIN_API virtual std::string info() const = 0;
+	};
+
+	//T must inherit from BaseClass;
+	//T must have Method[ static std::string T::info() ]
+	template< class T, class BaseClass >
+	class pGenericProvider : public pGenericProviderInterface < BaseClass >
+	{
+	public:
+		PLUGIN_API virtual std::shared_ptr<BaseClass> create()
+		{
+			return std::make_shared<T>();
+		};
+
+		PLUGIN_API virtual std::string info() const
+		{
+			return T::info();
+		};
 	};
 }

@@ -17,13 +17,13 @@ namespace kg
 		Chunk& getChunk( cCore& core, const sf::Vector2i& positionInChunks );
 		void loadChunksInRectAndUnloadOther( cCore& core, const std::vector<sf::IntRect>& rectInPixel );
 
-		//resets the world, so information has to be reloaded from the server
+		//resets the world, so information has to be reloaded from server and ClientDatabase
+		//for complete flush, also reload ClientDatabase
 		void reset();
 
 		void frame( cCore& core );
 
 		virtual void draw( Camera& camera )override;
-
 
 		static sf::Vector2i getAbsoluteMousePosition( const sf::RenderWindow& window, const Camera& camera );
 

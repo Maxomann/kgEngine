@@ -11,13 +11,13 @@ PLUGIN_API void kg::pPluginManager::loadPluginsFromFile( const std::string& path
 		REPORT_ERROR_PLUGIN( "LoadLibrary() on file " + path + " failed!" );
 	}
 
-	CONNECT connectFunction = (CONNECT)GetProcAddress( dllHandle, "kgConnect" );
+	CONNECT connectFunction = ( CONNECT )GetProcAddress( dllHandle, "kgConnect" );
 
 	if( !connectFunction )
 	{
 		REPORT_ERROR_PLUGIN( "connect function in file " + path + " could not be loaded!" );
 	}
-	
+
 	connectFunction( *this );
 
 #elif

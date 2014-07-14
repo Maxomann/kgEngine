@@ -12,7 +12,6 @@ namespace kg
 		SpriteBatch( void );
 		~SpriteBatch( void );
 
-
 		void display( bool reset = true, bool flush = true );
 		void draw( const sf::Sprite &sprite );
 		void draw( const sf::Texture *texture, const sf::Vector2f &position,
@@ -33,10 +32,7 @@ namespace kg
 		int capacity;
 
 		int create( const sf::Texture *texture );
-
 	};
-
-
 
 	//No check if the object is shown on screen is performed before drawing it
 	//you have to check yourself by testing collision with the cameraReactangle
@@ -75,9 +71,9 @@ namespace kg
 
 		sf::Vector2u	getFinalSize()const;
 
-/*		sf::FloatRect	getCameraRectWithoutRotation()const;*/
+		/*		sf::FloatRect	getCameraRectWithoutRotation()const;*/
 
-/*		sf::Vector2i	getUpperLeftCorner()const;*/
+		/*		sf::Vector2i	getUpperLeftCorner()const;*/
 
 		// 		bool			isFocused()const;
 		// 		bool			isRotationFocused()const;
@@ -96,6 +92,7 @@ namespace kg
 		void			display( sf::RenderTarget& renderTarget );
 		const sf::View& getView() const;
 		static const int TILE = -999999999;
+		static const int TILE_PREVIEW = TILE+1;
 		static const int PREGROUND = 999999999;
 	};
 

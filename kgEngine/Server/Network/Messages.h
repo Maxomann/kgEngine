@@ -14,7 +14,15 @@ namespace kg
 			m_message += standartSplitChar;
 			m_message += std::to_string( position.y );
 			m_message += standartSplitChar;
-			m_message += std::move( chunk.nToString() );
+
+			for( int x = 0; x < chunkSizeInTiles; ++x )
+			{
+				for( int y = 0; y < chunkSizeInTiles; ++y )
+				{
+					m_message += std::to_string( chunk.getField(sf::Vector2i(x,y)) );
+					m_message.push_back( standartSplitChar );
+				}
+			}
 		}
 
 		virtual std::string getMessage()
@@ -35,15 +43,14 @@ namespace kg
 
 	public:
 		ConnectionRequestAnswer( sf::Uint16 recievePortOnServer, bool accepted = true )
-			: m_accepted(accepted),
-			m_recievePortOnServer(recievePortOnServer)
+			: m_accepted( accepted ),
+			m_recievePortOnServer( recievePortOnServer )
 		{
-
 		}
 
 		virtual std::string getMessage()
 		{
-			std::string message(std::to_string( m_accepted ));
+			std::string message( std::to_string( m_accepted ) );
 			message += standartSplitChar;
 			message += std::to_string( m_recievePortOnServer );
 
@@ -54,6 +61,5 @@ namespace kg
 		{
 			return MESSAGE_ID_SERVER::CONNECTION_REQUEST_ANSWER;
 		}
-
 	};
 }

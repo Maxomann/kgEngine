@@ -26,6 +26,9 @@ namespace kg
 	class NETWORK_API nMessageHandler : public pExtension
 	{
 	public:
+		virtual ~nMessageHandler()
+		{ };
+
 		virtual void handle( cCore& core, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message )const = 0;
 
 		virtual int getMessageHandlerID()const = 0;

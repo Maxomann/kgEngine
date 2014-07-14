@@ -2,7 +2,6 @@
 
 namespace kg
 {
-
 	Animation::Animation( const AnimationSettings& settings, bool start )
 		:m_settings( settings ),
 		m_run( start )
@@ -55,6 +54,11 @@ namespace kg
 
 	void Animation::apply( sf::Sprite& toSprite )
 	{
+		toSprite.setScale( sf::Vector2f(
+			( float )tileSizeInPixel / ( float )m_settings.frameSize.x,
+			( float )tileSizeInPixel / ( float )m_settings.frameSize.y
+			) );
+
 		toSprite.setTextureRect( sf::IntRect(
 			m_settings.frameSize.x*m_frame + m_settings.offset.x,
 			m_settings.frameSize.y*m_state + m_settings.offset.y,
@@ -67,14 +71,36 @@ namespace kg
 	{
 		if( m_run )
 		{
-			if( m_timeInFrame.getElapsedTime().asMilliseconds() > m_settings.frameInfo.at( m_state ).at( m_frame ) )
+			//if frameInfo.at().at() may return std::out_of_range
+			//after resource reload m_state or m_frame may contain values that have been removed
+			try
 			{
-				if( m_settings.isFrameAvailable( m_state, m_frame + 1 ) )
-					m_frame++;
-				else
-					m_frame = 0;
+				auto state = m_settings.frameInfo.at( m_state );
 
-				m_timeInFrame.restart();
+				try
+				{
+					if( m_timeInFrame.getElapsedTime().asMilliseconds() > state.at( m_frame ) )
+					{
+						if( m_settings.isFrameAvailable( m_state, m_frame + 1 ) )
+							m_frame++;
+						else
+							m_frame = 0;
+
+						m_timeInFrame.restart();
+					}
+				}
+				catch( std::exception& e )
+				{
+					//state is available
+					//frame not available
+					m_frame = 0;
+				}
+			}
+			catch( std::exception& e )
+			{
+				//state not available
+				m_state = 0;
+				m_frame = 0;
 			}
 		}
 	}

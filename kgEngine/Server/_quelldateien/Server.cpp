@@ -3,12 +3,10 @@
 namespace kg
 {
 	kg::Server::Server()
-	{
-	}
+	{ }
 
 	void kg::Server::frame( cCore& core )
-	{
-	}
+	{ }
 
 	std::string kg::Server::info() const
 	{
@@ -22,7 +20,13 @@ namespace kg
 
 	void Server::initExtensions( pPluginManager& pluginManger )
 	{
-		
 	}
 
+	void Server::onInit( cCore& core )
+	{
+	}
+
+	void Server::onClose( cCore& core )
+	{
+	}
 }

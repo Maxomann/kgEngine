@@ -76,7 +76,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="_quelldateien\GuiElements.cpp" />
+    <ClCompile Include="_quelldateien\ClientDatabase.cpp" />
+    <ClCompile Include="_quelldateien\EditorGuiElements.cpp" />
     <ClCompile Include="_quelldateien\TileSettings.cpp" />
     <ClCompile Include="_quelldateien\AnimationSettings.cpp" />
     <ClCompile Include="_quelldateien\GameStates.cpp" />
@@ -95,10 +96,13 @@
     <ClInclude Include="Drawing\Camera.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="ConfiguratedTexture.h" />
+    <ClInclude Include="GameState\Editor\BrushSystem.h" />
     <ClInclude Include="GameState\GameState.h" />
     <ClInclude Include="GameState\GameStates.h" />
-    <ClInclude Include="GUI\GuiElements.h" />
+    <ClInclude Include="ClientDatabase.h" />
+    <ClInclude Include="GameState\Editor\EditorGuiElements.h" />
     <ClInclude Include="GUI\GuiElement.h" />
+    <ClInclude Include="GameState\Editor\EditorGuiPlugins.h" />
     <ClInclude Include="Network\Messages.h" />
     <ClInclude Include="Settings\AnimationSettings.h" />
     <ClInclude Include="Settings\TileSettings.h" />

@@ -10,7 +10,7 @@ namespace kg
 		enum
 		{
 			CHUNK_DATA_REQUEST,
-			SET_TILE_REQUEST,
+			SET_TILES_REQUEST,
 			CONNECTION_REQUEST,
 			LAST_ELEMENT
 		};
@@ -49,9 +49,12 @@ namespace kg
 
 	static const std::string informationFileExtension = ".xml";
 	static const std::string textureFileExtension = ".png";
+	static const std::string configFileExtension = ".txt";
 
 	static const std::string tguiConfigBlack = "Black.conf";
+	static const std::string clientConfigFileName = "config_client";
 
+	static const std::string TileListName = "_tileList";
 
 	//GUI
 	static const std::string editMenuName = "Edit";

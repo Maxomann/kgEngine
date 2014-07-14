@@ -1,7 +1,7 @@
 #include "../objectSystem/ksFunction.h"
 
 kg::ksFunctionMaster::ksFunctionMaster( const std::string& name )
-: m_name( name )
+	: m_name( name )
 { }
 
 const std::string& kg::ksFunctionMaster::getName() const
@@ -107,5 +107,4 @@ kg::ksScriptFunctionOverload::ksScriptFunctionOverload( const std::string& retur
 														m_parameterNamesLeftToRight( parameterNamesLeftToRight ),
 														m_returnType( returnType )
 {
-
 }

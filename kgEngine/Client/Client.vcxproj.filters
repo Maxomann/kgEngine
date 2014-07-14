@@ -60,7 +60,16 @@
     <ClInclude Include="GUI\GuiElement.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\GuiElements.h">
+    <ClInclude Include="GameState\Editor\BrushSystem.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientDatabase.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState\Editor\EditorGuiPlugins.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState\Editor\EditorGuiElements.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,7 +110,10 @@
     <ClCompile Include="_quelldateien\TileSettings.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="_quelldateien\GuiElements.cpp">
+    <ClCompile Include="_quelldateien\ClientDatabase.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\EditorGuiElements.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

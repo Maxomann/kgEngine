@@ -151,6 +151,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="config_client.txt" />
+    <Text Include="Resource\_tileList.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resource\example_animationSettings.xml" />
+    <Xml Include="Resource\example_tileSettings.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

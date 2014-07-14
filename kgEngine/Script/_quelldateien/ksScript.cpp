@@ -2,11 +2,9 @@
 
 namespace kg
 {
-
 	ksScript::ksScript( ksLibrary& library )
 		: r_library( library )
 	{
-
 	}
 
 	bool kg::ksScript::loadFromFile( const std::string& path )
@@ -66,14 +64,12 @@ namespace kg
 					 m_code
 					 );
 		m_isInterpreted = true;
-		
-		return code.execute( r_library, m_stack );
 
+		return code.execute( r_library, m_stack );
 	}
 
 	bool ksScript::isInterpreted() const
 	{
 		return m_isInterpreted;
 	}
-
 }

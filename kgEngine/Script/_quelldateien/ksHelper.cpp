@@ -2,7 +2,6 @@
 
 namespace kg
 {
-
 	void ksRegisterStandartTypes( ksLibrary& library )
 	{
 		auto mInt = ksCreateClassMaster<int>( "int" );
@@ -49,5 +48,4 @@ namespace kg
 	{
 		return std::make_shared<ksFunctionMaster>( name );
 	}
-
 }

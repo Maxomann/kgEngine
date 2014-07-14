@@ -31,7 +31,7 @@ namespace kg
 		{
 			try
 			{
-				return static_pointer_cast< T >(m_extensions.at( typeid(T).hash_code() ));
+				return std::static_pointer_cast< T >(m_extensions.at( typeid(T).hash_code() ));
 			}
 			catch( std::out_of_range e )
 			{

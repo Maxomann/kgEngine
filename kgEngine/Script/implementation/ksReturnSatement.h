@@ -27,7 +27,6 @@ namespace kg
 		{
 			return ksTOKEN_PRIORITY::RETURN_STATEMENT;
 		}
-
 	};
 
 	class ksReturnStatementConstructor : public ksTokenConstructor
@@ -39,10 +38,9 @@ namespace kg
 								ksTokenMap& tokenMap,
 								int line ) const
 		{
-			if( splitCode.at(line).second == ksRAW_TOKEN_ID::RETURN )
+			if( splitCode.at( line ).second == ksRAW_TOKEN_ID::RETURN )
 				if( splitCode.size() > line + 1 )
 				{
-					
 				}
 		}
 
@@ -50,6 +48,5 @@ namespace kg
 		{
 			throw std::logic_error( "The method or operation is not implemented." );
 		}
-
 	};
 }

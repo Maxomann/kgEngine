@@ -17,8 +17,18 @@ namespace kg
 		AnimationSettings();
 
 		virtual bool loadFromFile( const std::string& path );
+		virtual bool saveToFile( const std::string path )const;
 
 		bool isStateAvailable( unsigned int stateId ) const;
 		bool isFrameAvailable( unsigned int stateId, unsigned int frameId ) const;
+
+		const char* FRAME_SIZE_X = "frameSizeX";
+		const char* FRAME_SIZE_Y = "frameSizeY";
+		const char* OFFSET_X = "offsetX";
+		const char* OFFSET_Y = "offsetY";
+
+		const char* STATE = "animationState";
+		const char* TIME = "time";
+		const char* FRAME = "frame";
 	};
 }

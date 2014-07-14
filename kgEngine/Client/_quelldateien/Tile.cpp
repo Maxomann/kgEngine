@@ -6,7 +6,7 @@ namespace kg
 		:m_id( id ),
 		r_tileAnimations( &tileAnimations )
 	{
-		auto& tileSettings = core.resourceManagement.getResourceFromResourceFolderForTile<TileSettings>( id, informationFileExtension );
+		auto& tileSettings = core.getExtension<ClientDatabase>()->getTile( id );
 
 		//ensure that animation for this sprite is loaded
 		Animation* animation = nullptr;
@@ -17,8 +17,7 @@ namespace kg
 		if( !animation )
 		{
 			//load animation from file
-			Animation animation2( tileSettings );
-			tileAnimations.insert( std::make_pair( m_id, animation2 ) );
+			tileAnimations.insert( std::make_pair( m_id, Animation( tileSettings ) ) );
 
 			//validate pointer
 			for( auto& el : tileAnimations )
@@ -26,15 +25,10 @@ namespace kg
 					animation = &(el.second);
 		}
 
-		auto& texture = core.resourceManagement.getResourceFromResourceFolder<sf::Texture>( tileSettings.tileTexturePath );
+		auto& texture = core.getExtension<ClientDatabase>()->getTileTexture( id );
 
 		m_sprite.setTexture( texture );
 		animation->apply( m_sprite );
-		//scale the sprite to fit the global Dimensions
-		m_sprite.setScale( sf::Vector2f(
-			( float )tileSizeInPixel / ( float )animation->getSettings().frameSize.x,
-			( float )tileSizeInPixel / ( float )animation->getSettings().frameSize.y
-			) );
 
 		m_sprite.setPosition( sf::Vector2f( positionInPixel ) );
 	}

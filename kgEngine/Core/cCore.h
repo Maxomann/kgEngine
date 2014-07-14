@@ -10,7 +10,6 @@ namespace kg
 {
 	class cCore : public pExtendable
 	{
-
 		std::vector<std::shared_ptr<cCoreExtension>> r_coreExtensions;
 
 		bool m_shouldClose = false;
@@ -19,6 +18,8 @@ namespace kg
 		sf::Uint16 m_serverPort = clientToServerPort;
 
 	public:
+		cCore( pPluginManager& pluginManger );
+		~cCore();
 
 		void frame();
 
@@ -35,5 +36,7 @@ namespace kg
 
 		nNetworkManager networkManager;
 		cResourceManagement resourceManagement;
+
+		pPluginManager& pluginManger;
 	};
 }
