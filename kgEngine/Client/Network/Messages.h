@@ -42,15 +42,6 @@ namespace kg
 		{
 			std::string message;
 
-// 			return std::to_string( m_chunkPosition.x ) +
-// 				standartSplitChar +
-// 				std::to_string( m_chunkPosition.y ) +
-// 				standartSplitChar +
-// 				std::to_string( m_tilePosition.x ) +
-// 				standartSplitChar +
-// 				std::to_string( m_tilePosition.y ) +
-// 				standartSplitChar +
-// 				std::to_string( m_tileID );
 			if( m_chunkPosition.size() != m_tilePosition.size() || m_tilePosition.size() != m_tileID.size() )
 				REPORT_ERROR_NETWORK( "wrong message parameters" );
 
