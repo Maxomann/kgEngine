@@ -23,14 +23,16 @@ namespace kg
 		}
 	};
 
-	class SetTileRequest : public nMessage
+	class SetTilesRequest : public nMessage
 	{
-		sf::Vector2i m_chunkPosition;
-		sf::Vector2i m_tilePosition;
-		int m_tileID;
+		const std::vector< const sf::Vector2i > m_chunkPosition;
+		const std::vector< const sf::Vector2i > m_tilePosition;
+		const std::vector< const int > m_tileID;
 
 	public:
-		SetTileRequest( const sf::Vector2i& chunkPositionInChunks, const sf::Vector2i& tilePositionRelativeToChunk, const int tileID )
+		SetTilesRequest( const std::vector< const sf::Vector2i >& chunkPositionInChunks,
+						 const std::vector< const sf::Vector2i >& tilePositionRelativeToChunk,
+						 const std::vector< const int >& tileID )
 			:m_chunkPosition( chunkPositionInChunks ),
 			m_tilePosition( tilePositionRelativeToChunk ),
 			m_tileID( tileID )
@@ -38,20 +40,40 @@ namespace kg
 
 		virtual std::string getMessage()
 		{
-			return std::to_string( m_chunkPosition.x ) +
-				standartSplitChar +
-				std::to_string( m_chunkPosition.y ) +
-				standartSplitChar +
-				std::to_string( m_tilePosition.x ) +
-				standartSplitChar +
-				std::to_string( m_tilePosition.y ) +
-				standartSplitChar +
-				std::to_string( m_tileID );
+			std::string message;
+
+// 			return std::to_string( m_chunkPosition.x ) +
+// 				standartSplitChar +
+// 				std::to_string( m_chunkPosition.y ) +
+// 				standartSplitChar +
+// 				std::to_string( m_tilePosition.x ) +
+// 				standartSplitChar +
+// 				std::to_string( m_tilePosition.y ) +
+// 				standartSplitChar +
+// 				std::to_string( m_tileID );
+			if( m_chunkPosition.size() != m_tilePosition.size() || m_tilePosition.size() != m_tileID.size() )
+				REPORT_ERROR_NETWORK( "wrong message parameters" );
+
+			for( int i = 0; i < m_chunkPosition.size(); ++i )
+			{
+				message += std::to_string( m_chunkPosition.at(i).x );
+				message += standartSplitChar;
+				message += std::to_string( m_chunkPosition.at( i ).y );
+				message += standartSplitChar;
+				message += std::to_string( m_tilePosition.at( i ).x );
+				message += standartSplitChar;
+				message += std::to_string( m_tilePosition.at( i ).y );
+				message += standartSplitChar;
+				message += std::to_string( m_tileID.at( i ) );
+				message += standartSplitChar;
+			}
+
+			return message;
 		}
 
 		virtual int getID()
 		{
-			return MESSAGE_ID_CLIENT::SET_TILE_REQUEST;
+			return MESSAGE_ID_CLIENT::SET_TILES_REQUEST;
 		}
 	};
 
@@ -66,8 +88,7 @@ namespace kg
 		ConnectionRequest( sf::Uint16 recievePortOnClient, sf::Uint16 recievePortOnServer )
 			:m_recievePortOnClient( recievePortOnClient ),
 			m_recievePortOnServer( recievePortOnServer )
-		{
-		}
+		{ }
 
 		virtual std::string getMessage()
 		{

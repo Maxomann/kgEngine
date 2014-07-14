@@ -10,7 +10,7 @@ namespace kg
 		enum
 		{
 			CHUNK_DATA_REQUEST,
-			SET_TILE_REQUEST,
+			SET_TILES_REQUEST,
 			CONNECTION_REQUEST,
 			LAST_ELEMENT
 		};

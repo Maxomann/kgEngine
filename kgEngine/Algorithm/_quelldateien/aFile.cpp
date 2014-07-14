@@ -2,6 +2,8 @@
 
 ALGORITHM_API bool kg::aDataByIdentifierFile::loadFromFile( const std::string& path )
 {
+	m_data.clear();
+
 	std::ifstream file;
 	file.open( path );
 	if( !file.is_open() )

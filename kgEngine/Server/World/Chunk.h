@@ -12,7 +12,7 @@ namespace kg
 	public:
 		Chunk();
 
-		void setField( const sf::Vector2i position, int id );
+		void setField( const sf::Vector2i relativeTilePosition, int id );
 
 		int getField( const sf::Vector2i position )const;
 

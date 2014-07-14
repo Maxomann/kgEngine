@@ -25,6 +25,27 @@ namespace kg
 							sf::Vector2i relativeTilePosition )
 		{
 			Brush::apply( core, mousePositionInWorld, chunkPosition, relativeTilePosition );
+
+			//if no position is to be set, no message has to be sended
+			if (m_tilePositionsToSet.size()!=NULL)
+			{
+				std::vector< const sf::Vector2i > chunkPositions;
+				std::vector< const sf::Vector2i > relativeTilePositions;
+				std::vector< const int > tileIDs;
+				for( const auto& el : m_tilePositionsToSet )
+				{
+					chunkPositions.push_back( el.first );
+					relativeTilePositions.push_back( el.second );
+					tileIDs.push_back( m_tileId );
+				}
+				core.networkManager.sendMessage( std::make_shared<SetTilesRequest>(
+					chunkPositions,
+					relativeTilePositions,
+					tileIDs ),
+					core.getServerIp(),
+					core.getServerPort() );
+			}
+			
 			m_previewTiles.clear();
 			m_tilePositionsToSet.clear();
 		}
@@ -37,11 +58,11 @@ namespace kg
 			auto it = std::find(
 				std::begin(m_tilePositionsToSet),
 				std::end( m_tilePositionsToSet ),
-				std::make_pair( mousePositionInWorld, relativeTilePosition ));
+				std::make_pair( chunkPosition, relativeTilePosition ) );
 
 			if( it == std::end( m_tilePositionsToSet ) )
 			{
-				m_tilePositionsToSet.push_back( std::make_pair( mousePositionInWorld, relativeTilePosition ) );
+				m_tilePositionsToSet.push_back( std::make_pair( chunkPosition, relativeTilePosition ) );
 
 				m_previewTiles.emplace_back();
 				m_previewTiles.back().setTexture( core.getExtension<ClientDatabase>()->getTileTexture( m_tileId ) );
