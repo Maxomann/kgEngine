@@ -6,6 +6,9 @@ namespace kg
 {
 	bool TileSettings::loadFromFile( const std::string& path )
 	{
+		tileName = "-1";
+		tileTexturePath = "-1";
+
 		AnimationSettings::loadFromFile( path );
 
 		auto str = aLoadFileToString( path );

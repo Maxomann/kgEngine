@@ -10,6 +10,10 @@ namespace kg
 
 	bool AnimationSettings::loadFromFile( const std::string& path )
 	{
+		frameSize = { -1, -1 };
+		offset = { 0, 0 };
+		frameInfo.clear();
+
 		auto file = aLoadFileToCharPointer( path );
 
 		xml_document<> doc;
