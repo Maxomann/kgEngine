@@ -136,6 +136,7 @@
     <ClInclude Include="aRandom.h" />
     <ClInclude Include="aSingelton.h" />
     <ClInclude Include="aString.h" />
+    <ClInclude Include="aCallbacks.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

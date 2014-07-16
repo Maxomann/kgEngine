@@ -39,6 +39,9 @@
     <ClInclude Include="aFile.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="aCallbacks.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_Quelldateien\aString.cpp">

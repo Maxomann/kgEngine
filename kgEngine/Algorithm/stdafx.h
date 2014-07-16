@@ -22,6 +22,7 @@
 #include <exception>
 #include <map>
 #include <fstream>
+#include <functional>
 
 #include <SFML/Graphics.hpp>
 
