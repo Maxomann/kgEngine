@@ -13,10 +13,12 @@ void kg::nNetworkManager::m_networkRecieverFunction( SocketMap& recievingSocketB
 			std::tuple<sf::IpAddress, sf::Uint16, int, std::string> info;
 			sf::Packet packet;
 
+			//std::get<1>( info ) will be filled with a random? value
 			auto status = el.second.receive( packet, std::get<0>( info ), std::get<1>( info ) );
 			if( status == sf::Socket::Done )
 			{
-				//sf::UdpSocket::recieve gives a wrong port
+				// sf::UdpSocket::recieve gives a wrong port
+				// correct the port with the port the recievingSocket is bound to
 				std::get<1>( info ) = el.second.getLocalPort();
 
 				packet >> std::get<2>( info ) >> std::get<3>( info );

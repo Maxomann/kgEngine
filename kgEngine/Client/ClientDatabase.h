@@ -15,9 +15,9 @@ namespace kg
 		aDataByIdentifierFile* m_configFile;
 
 	public:
-		//DO NOT CALL THIS TO RELOAD RESOURCES
-		//CALL THIS ONLY ONCE
+		//also reload
 		void loadAllResources( cCore& core );
+		//also reload
 		void saveAllResources();
 
 		//Tiles
