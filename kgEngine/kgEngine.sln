@@ -48,6 +48,7 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testprojekt", "Testprojekt\Testprojekt.vcxproj", "{65F57A55-0E6B-403A-8450-C4DF41B15E5F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CF7E5350-6F12-494A-8E91-F642EC0FC034} = {CF7E5350-6F12-494A-8E91-F642EC0FC034}
+		{C84B2667-32E9-4DFD-841C-F1AE168E6FD9} = {C84B2667-32E9-4DFD-841C-F1AE168E6FD9}
 	EndProjectSection
 EndProject
 Global
