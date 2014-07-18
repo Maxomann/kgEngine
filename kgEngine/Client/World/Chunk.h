@@ -13,7 +13,7 @@ namespace kg
 
 		const sf::Vector2i m_positionInChunks;
 
-		std::vector<std::vector<Tile>> m_tiles;
+		std::map< int, std::map<int, Tile> > m_tiles;
 
 
 	public:

@@ -16,7 +16,10 @@ namespace kg
 
 	void ClientDatabase::loadTiles( cCore& core )
 	{
-		m_tileList = &core.resourceManagement.getResourceFromResourceFolder<aDataByIdentifierFile>( TileListName + configFileExtension );
+		m_tiles.clear();
+		m_tileTextures.clear();
+
+		m_tileList = &core.resourceManagement.reloadResourceFromResourceFolder<aDataByIdentifierFile>( TileListName + configFileExtension );
 
 		for( const auto& el : m_tileList->getAllData() )
 		{
@@ -27,6 +30,10 @@ namespace kg
 			m_tiles[id] = tileSettings;
 			m_tileTextures[id] = core.resourceManagement.reloadResourceFromResourceFolder<sf::Texture>( tileSettings.tileTexturePath );
 		}
+
+
+		//send callbacks
+		tilesModified();
 	}
 
 	void ClientDatabase::saveTiles()
@@ -77,6 +84,8 @@ namespace kg
 	void ClientDatabase::setTile( int tileID, const TileSettings& settings )
 	{
 		m_tiles[tileID] = settings;
+		//send callbacks
+		tilesModified();
 	}
 
 	void ClientDatabase::setFirstFreeTileID( const TileSettings& settings )
@@ -85,11 +94,16 @@ namespace kg
 		for( const auto& el : m_tiles )
 			++it;
 		m_tiles[it->first + 1] = settings;
+		//send callbacks
+		tilesModified();
 	}
 
 	void ClientDatabase::loadConfigFile( cCore& core )
 	{
 		m_configFile = &core.resourceManagement.reloadResource<aDataByIdentifierFile>( clientConfigFileName + configFileExtension );
+
+		//send callbacks
+		configFileModified();
 	}
 
 	void ClientDatabase::saveConfigFile()
@@ -132,17 +146,23 @@ namespace kg
 	void ClientDatabase::setWindowName( const std::string& name )
 	{
 		m_configFile->setData( "windowName", name );
+		//send callbacks
+		configFileModified();
 	}
 
 	void ClientDatabase::setAntialiasingLevel( int level )
 	{
 		m_configFile->setData( "antialiasing", std::to_string( level ) );
+		//send callbacks
+		configFileModified();
 	}
 
 	void ClientDatabase::setWindowResolution( const sf::Vector2i windowResolution )
 	{
 		m_configFile->setData( "resX", std::to_string( windowResolution.x ) );
 		m_configFile->setData( "resY", std::to_string( windowResolution.y ) );
+		//send callbacks
+		configFileModified();
 	}
 
 	void ClientDatabase::setVsynchEnabled( bool enable )
@@ -151,12 +171,16 @@ namespace kg
 			m_configFile->setData( "vsynch", "true" );
 		else
 			m_configFile->setData( "vsynch", "false" );
+		//send callbacks
+		configFileModified();
 	}
 
 	void ClientDatabase::setRenderDistance( const sf::Vector2i renderDistance )
 	{
 		m_configFile->setData( "renderDistanceX", std::to_string( renderDistance.x ) );
 		m_configFile->setData( "renderDistanceY", std::to_string( renderDistance.y ) );
+		//send callbacks
+		configFileModified();
 	}
 
 	void ClientDatabase::moveTileID( int from, int to )
@@ -167,6 +191,8 @@ namespace kg
 		m_tiles[from] = tempTo;
 		m_tiles[to] = tempFrom;
 
+		//send callbacks
+		tilesModified();
 		return;
 	}
 
@@ -174,4 +200,35 @@ namespace kg
 	{
 		return "DATABASE-Client";
 	}
+
+	void ClientDatabase::tilesModified()
+	{
+		triggerCallback( CALLBACK_ID::CLIENT_DATABASE::TILE_MODIFIED, *this );
+	}
+
+	void ClientDatabase::configFileModified()
+	{
+		triggerCallback( CALLBACK_ID::CLIENT_DATABASE::CONFIG_FILE_MODIFIED, *this );
+	}
+
+	bool ClientDatabase::isTileAvailable( int tileID ) const
+	{
+		for( const auto& el : m_tiles )
+		{
+			if( el.first == tileID )
+			{
+				//settings available
+				for( const auto& el : m_tileTextures )
+				{
+					if( el.first == tileID )
+						//texture available
+						return true;
+				}
+			}
+		}
+
+		//texture or settings not available
+		return false;
+	}
+
 }

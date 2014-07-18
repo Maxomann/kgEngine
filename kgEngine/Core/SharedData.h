@@ -35,6 +35,18 @@ namespace kg
 		};
 	}
 
+	namespace CALLBACK_ID
+	{
+		namespace CLIENT_DATABASE
+		{
+			enum
+			{
+				TILE_MODIFIED,
+				CONFIG_FILE_MODIFIED
+			};
+		}
+	}
+
 	static const char standartSplitChar = ';';
 	static const sf::Uint16 standartServerRecievePort = 42000;
 	static const sf::Uint16 clientToServerPort = 42000;

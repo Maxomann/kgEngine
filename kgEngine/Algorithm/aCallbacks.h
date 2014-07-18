@@ -42,7 +42,8 @@ namespace kg
 				{
 					//call callback
 					//pass callbackId
-					it->second( callbackID, args... );
+					auto& obj = (*it);
+					obj.second( callbackID, args... );
 				}
 				//object has been deleted
 				else

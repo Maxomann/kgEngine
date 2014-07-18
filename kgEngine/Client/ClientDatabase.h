@@ -6,7 +6,7 @@
 
 namespace kg
 {
-	class ClientDatabase : public pExtension
+	class ClientDatabase : public pExtension, public aCallbackSender<ClientDatabase>
 	{
 		aDataByIdentifierFile* m_tileList;
 		std::map< int, TileSettings > m_tiles;
@@ -23,12 +23,16 @@ namespace kg
 		//Tiles
 		void loadTiles( cCore& core );
 		void saveTiles();
+		void tilesModified();
 		const std::string& getTileName( int tileID )const;
 		int getTileID( const std::string& name )const;
 		const TileSettings& getTile( int tileID )const;
 		const std::map<int, TileSettings>& getTiles()const;
 		sf::Texture& getTileTexture( int tileID );
 		const std::map<int, sf::Texture>& getTileTextures();
+		//returns true if tileSettings and tileTexture are available
+		//returns false otherwise
+		bool isTileAvailable( int tileID )const;
 
 		void setTile( int tileID, const TileSettings& settings );
 		void setFirstFreeTileID( const TileSettings& settings );
@@ -37,11 +41,12 @@ namespace kg
 		//ConfigFile
 		void loadConfigFile( cCore& core );
 		void saveConfigFile();
+		void configFileModified();
 		const std::string& getWindowName()const;
 		const int getAntialiasingLevel()const;
 		const sf::Vector2i getWindowResolution()const;
 		bool isVsynchEnabled()const;
-		const sf::Vector2i getRenderDistance()const;//TODO
+		const sf::Vector2i getRenderDistance()const;
 
 		void setWindowName( const std::string& name );
 		void setAntialiasingLevel( int level );

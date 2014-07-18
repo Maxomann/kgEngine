@@ -32,7 +32,7 @@ class Bar : public aCallbackReciever
 {
 public:
 
-	void callback( int& i, std::string& str )
+	void callback( int i, std::string& str )
 	{
 		cout << "callback:" << std::to_string( i ) << "::" << str << endl;
 	};
@@ -53,7 +53,10 @@ int main()
 		placeholders::_1,
 		placeholders::_2 ) );
 	foo.registerCallback( &bar,
-						  func,
+						  std::bind( &Bar::callback,
+						  &bar,
+						  placeholders::_1,
+						  placeholders::_2 ),
 						  444 );
 
 

@@ -17,6 +17,7 @@
 #include <Core/cCore.h>
 #include <Algorithm/aFile.h>
 #include <Algorithm/aString.h>
+#include <Algorithm/aCallbacks.h>
 #include <Core/SharedData.h>
 #include <Network/nNetworkManger.h>
 #include <Network/nTransferable.h>

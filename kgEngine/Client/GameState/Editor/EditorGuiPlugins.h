@@ -67,6 +67,7 @@ namespace kg
 				m_previewTiles.emplace_back();
 				m_previewTiles.back().setTexture( core.getExtension<ClientDatabase>()->getTileTexture( m_tileId ) );
 				Animation animation( core.getExtension<ClientDatabase>()->getTile( m_tileId ) );
+				Tile::scaleSpriteToGlobalTileDimensions( m_previewTiles.back(), animation );
 				animation.apply( m_previewTiles.back() );
 				m_previewTiles.back().setPosition( sf::Vector2f( Chunk::getPositionInPixelForTile( chunkPosition, relativeTilePosition ) ) );
 				//scale the sprite to fit the global Dimensions

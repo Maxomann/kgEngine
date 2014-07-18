@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="_quelldateien\ClientDatabaseResourceUser.cpp" />
     <ClCompile Include="_quelldateien\ClientDatabase.cpp" />
     <ClCompile Include="_quelldateien\EditorGuiElements.cpp" />
     <ClCompile Include="_quelldateien\TileSettings.cpp" />
@@ -92,6 +93,7 @@
     <ClCompile Include="connect.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClientDatabaseResourceUser.h" />
     <ClInclude Include="Drawing\Animation.h" />
     <ClInclude Include="Drawing\Camera.h" />
     <ClInclude Include="Client.h" />

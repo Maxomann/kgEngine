@@ -247,6 +247,7 @@ namespace kg
 	// 							  m_View.getSize().x,
 	// 							  m_View.getSize().y );
 	// 	}
+
 	sf::Vector2i Camera::getCenter()const
 	{
 		return sf::Vector2i( m_View.getCenter() );
