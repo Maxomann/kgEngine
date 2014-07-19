@@ -14,19 +14,19 @@ namespace kg
 	{
 		std::unordered_map<int, std::shared_ptr<GameState>> m_gameStates;
 
-		sf::RenderWindow m_window;
+		sf::RenderWindow                                    m_window;
 
-		tgui::Gui m_gui;
-		Camera m_camera;
-		World m_world;
+		tgui::Gui                                           m_gui;
+		Camera                                              m_camera;
+		World                                               m_world;
 
-		sf::IntRect m_renderDistaceInChunks;
+		sf::IntRect                                         m_renderDistaceInChunks;
 
-		std::shared_ptr<GameState> m_gameState;
+		std::shared_ptr<GameState>                          m_gameState;
 
-		bool m_isStandartGameStateLoaded = false;
+		bool                                                m_isStandartGameStateLoaded = false;
 
-		sf::Clock m_frameTimeClock;
+		sf::Clock                                           m_frameTimeClock;
 
 	public:
 		Client();

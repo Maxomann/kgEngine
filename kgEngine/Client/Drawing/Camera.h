@@ -25,13 +25,13 @@ namespace kg
 		void setRenderTarget( sf::RenderTarget &rt );
 
 	private:
-		sf::RenderTarget *rt;
-		sf::RenderStates state;
+		sf::RenderTarget        *rt;
+		sf::RenderStates        state;
 		std::vector<sf::Vertex> vertices;
-		int count;
-		int capacity;
+		int                     count;
+		int                     capacity;
 
-		int create( const sf::Texture *texture );
+		int                     create( const sf::Texture *texture );
 	};
 
 	//No check if the object is shown on screen is performed before drawing it
@@ -52,7 +52,7 @@ namespace kg
 		SpriteBatch								m_spriteBatch;
 
 	public:
-		void init( const sf::Vector2u finalSize );
+		void            init( const sf::Vector2u finalSize );
 
 		//returns false if camera is focused on an object
 		bool			setCenter( const sf::Vector2i position );
@@ -70,17 +70,6 @@ namespace kg
 		float			getZoom()const;
 
 		sf::Vector2u	getFinalSize()const;
-
-		/*		sf::FloatRect	getCameraRectWithoutRotation()const;*/
-
-		/*		sf::Vector2i	getUpperLeftCorner()const;*/
-
-		// 		bool			isFocused()const;
-		// 		bool			isRotationFocused()const;
-		//
-		// 		void			focus( /*no const*/cFocusable& toFocus, const bool focusRotation = true );
-		// 		//unfocuses the camera
-		// 		void			free();
 
 		//these draw functions don't acually draw the objects to the screen,
 		//they just save a reference to them and draw them when Camera::display() is called
