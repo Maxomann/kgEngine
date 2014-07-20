@@ -7,8 +7,13 @@ namespace kg
 {
 	class aCallbackReciever
 	{
-		friend class aCallbackSenderInterface;
-
+#ifdef _DEBUG
+	protected:
+#else
+	private:
+#endif
+		// this pointer is used in aCallbackSender to check
+		// if the Object, which member function should be called, still exists
 		const std::shared_ptr<bool> m_aCallbackRecieverDummyObject;
 
 	public:
@@ -26,24 +31,26 @@ namespace kg
 	template< class ...T >
 	class aCallbackSender
 	{
-		typedef std::vector<std::pair<std::weak_ptr<bool>, std::function<void( int, T... )> > > CallbackVector;
-		std::map<int, CallbackVector> m_callbacksById;
+		typedef std::list<std::pair<std::weak_ptr<bool>, std::function<void( int&, T&... )> > > CallbackList;
+		std::map<int, CallbackList> m_callbacksById;
 
 	protected:
 		ALGORITHM_API void triggerCallback( int callbackID, T&... args )
 		{
-			auto& vec = m_callbacksById[callbackID];
-			std::vector < CallbackVector::const_iterator > invalidReferences;
-			for( auto it = begin( vec ); it != end( vec ); ++it )
+			auto& list = m_callbacksById[callbackID];
+			std::vector < CallbackList::const_iterator > invalidReferences;
+			for( auto it = begin( list ); it != end( list ); ++it )
 			{
-				auto shared = it->first.lock();
+				const std::shared_ptr<bool> ptr(it->first.lock());
+
 				//object on which the callback should be called exists
-				if( shared )
+				//it->first.lock() returns a std::shared_ptr
+				//in the if, the shared_ptr checks if the memory its pointing to still exists
+				if( ptr.operator bool() )
 				{
 					//call callback
 					//pass callbackId
-					auto& obj = (*it);
-					obj.second( callbackID, args... );
+					it->second( callbackID, args... );
 				}
 				//object has been deleted
 				else
@@ -54,15 +61,16 @@ namespace kg
 			}
 
 			//remove all references on to be removed list
-			//has to be iterated backwards because of iterator invalidation
-			for( auto it = invalidReferences.rbegin(); it != invalidReferences.rend(); ++it )
-				vec.erase( *it );
+			for( const auto& el : invalidReferences )
+				list.erase( el );
+
+			return;
 		}
 
 	public:
 		//if you register a callback twice it will be called twice
 		ALGORITHM_API void registerCallback( const aCallbackReciever* thisPointer,
-											 std::function<void( int, T... )> callbackFunction,
+											 std::function<void( int&, T&... )> callbackFunction,
 											 int callbackId )
 		{
 			m_callbacksById[callbackId].push_back(

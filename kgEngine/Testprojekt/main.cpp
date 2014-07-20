@@ -30,12 +30,24 @@ public:
 
 class Bar : public aCallbackReciever
 {
-public:
+	bool m_bool = false;
 
-	void callback( int i, std::string& str )
+	void callback( const int& i, const std::string& str )
 	{
+		m_bool = true;
 		cout << "callback:" << std::to_string( i ) << "::" << str << endl;
 	};
+
+public:
+	Bar( Foo& foo )
+	{
+		foo.registerCallback( this,
+							  std::bind( &Bar::callback,
+							  this,
+							  placeholders::_1,
+							  placeholders::_2 ),
+							  444 );
+	}
 };
 
 int main()
@@ -43,21 +55,8 @@ int main()
 	Foo foo;
 
 	std::vector<Bar> barVec;
-	barVec.emplace_back();
+	barVec.emplace_back(foo);
 	Bar& bar=barVec.back();
-
-
-	std::function<void( int, std::string )> func(
-		std::bind( &Bar::callback,
-		&bar,
-		placeholders::_1,
-		placeholders::_2 ) );
-	foo.registerCallback( &bar,
-						  std::bind( &Bar::callback,
-						  &bar,
-						  placeholders::_1,
-						  placeholders::_2 ),
-						  444 );
 
 
 	foo.action( "Hallo" );//callback will be called

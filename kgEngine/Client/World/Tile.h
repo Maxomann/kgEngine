@@ -11,26 +11,24 @@
 
 namespace kg
 {
-	class Tile : public DrawableToCamera, public aCallbackReciever
+	class Tile : public DrawableToCamera, public aCallbackReciever, public sf::NonCopyable
 	{
-		//pointer wegen copy constructor
-		AnimationByIdMap*	r_tileAnimations;
-
 		sf::Sprite			m_sprite;
 
 		int					m_id = -1;
 
 
-		void                m_loadResources( ClientDatabase& clientDatabase );
+		void                m_initResources( ClientDatabase& clientDatabase, AnimationByIdMap& tileAnimations );
 
 		bool                m_errorState = false;
 		bool                m_reload = false;
 
+		void				m_onTilesModified( const int& callbackID, const ClientDatabase& clientDatabase );
+
 	public:
 		Tile( cCore& core, int id, sf::Vector2i positionInPixel, AnimationByIdMap& tileAnimations );
 
-		void         onTilesModiefied( int callbackID, ClientDatabase& clientDatabase );
-		void         frame( cCore& core );
+		void		 frame( cCore& core, AnimationByIdMap& tileAnimations );
 
 		int          getID()const;
 

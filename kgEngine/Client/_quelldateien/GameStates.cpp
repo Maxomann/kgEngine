@@ -39,8 +39,8 @@ namespace kg
 		for( const auto& el : toBeRemoved )
 		{
 			//if element was referenced externally //FOR EVRY REFERENCED GUI-ELEMENT
-			if( (*el) == m_tileDrawingWindow )
-				m_tileDrawingWindow = nullptr;
+			if( (*el) == r_tileDrawingWindow )
+				r_tileDrawingWindow = nullptr;
 
 
 			(*el)->onClose( gui.getContainer() );
@@ -48,11 +48,11 @@ namespace kg
 		}
 
 		//set the correct brush
-		if( m_tileDrawingWindow )
+		if( r_tileDrawingWindow )
 		{
-			if( m_tileDrawingWindow->hasBrushChanged() )
+			if( r_tileDrawingWindow->hasBrushChanged() )
 			{
-				m_brush = m_tileDrawingWindow->getBrush(core);
+				m_brush = r_tileDrawingWindow->getBrush(core);
 			}
 		}
 		else
@@ -105,11 +105,11 @@ namespace kg
 			camera.rotate( -5.0f );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::E ) )
 			camera.rotate( 5.0f );
-		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
+		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R )
+			&& m_timeSinceLastResourceReload.getElapsedTime().asMilliseconds()>200 )
 		{
 			core.getExtension<ClientDatabase>()->loadAllResources( core );
-
-			//world.reset();
+			m_timeSinceLastResourceReload.restart();
 		}
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::P ) )
 			camera.setCenter( sf::Vector2i( 0, 0 ) );
@@ -169,13 +169,13 @@ namespace kg
 	{
 		if( callback.text == editMenuTileItem )
 		{
-			if( !m_tileDrawingWindow )
+			if( !r_tileDrawingWindow )
 			{
 				auto ptr = std::make_shared<TileDrawingWindow>();
 				ptr->initExtensions( core.pluginManger );
 				ptr->onInit( core, gui.getContainer() );
 				m_guiElements.push_back( ptr );
-				m_tileDrawingWindow = ptr;
+				r_tileDrawingWindow = ptr;
 			}
 		}
 		if( callback.text == connectionMenuConnectItem )

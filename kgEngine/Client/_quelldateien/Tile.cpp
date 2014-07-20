@@ -2,22 +2,23 @@
 
 namespace kg
 {
+	static std::vector<Tile*> debugVector;
+
 	Tile::Tile( cCore& core, int id, sf::Vector2i positionInPixel, AnimationByIdMap& tileAnimations )
-		:m_id( id ),
-		r_tileAnimations( &tileAnimations )
+		:m_id( id )
 	{
 		core.getExtension<ClientDatabase>()->registerCallback( this,
 															   std::bind(
-															   &Tile::onTilesModiefied,
+															   &Tile::m_onTilesModified,
 															   this,
 															   std::placeholders::_1,
 															   std::placeholders::_2 ),
 															   CALLBACK_ID::CLIENT_DATABASE::TILE_MODIFIED );
 
-		m_loadResources( *core.getExtension<ClientDatabase>() );
+		m_initResources( *core.getExtension<ClientDatabase>(), tileAnimations );
 
 		m_sprite.setPosition( sf::Vector2f( positionInPixel ) );
-		scaleSpriteToGlobalTileDimensions( m_sprite, r_tileAnimations->at( m_id ) );
+		scaleSpriteToGlobalTileDimensions( m_sprite, tileAnimations.at( m_id ) );
 	}
 
 	void Tile::draw( Camera& camera )
@@ -31,33 +32,29 @@ namespace kg
 		return m_id;
 	}
 
-	void Tile::frame( cCore& core )
+	void Tile::frame( cCore& core, AnimationByIdMap& tileAnimations )
 	{
 		if( m_reload )
-		{
-			m_loadResources( *core.getExtension<ClientDatabase>() );
-			m_reload = false;
-		}
+			m_initResources( *core.getExtension<ClientDatabase>(), tileAnimations );
 
 		if( !m_errorState )
 		{
-			auto& animation = r_tileAnimations->at( m_id );
+			auto& animation = tileAnimations.at( m_id );
 			scaleSpriteToGlobalTileDimensions( m_sprite, animation );
 			animation.apply( m_sprite );
 		}
 	}
 
-	void Tile::onTilesModiefied( int callbackID, ClientDatabase& clientDatabase )
+	void Tile::m_onTilesModified( const int& callbackID, const ClientDatabase& clientDatabase )
 	{
 		m_reload = true;
 	}
 
-	void Tile::m_loadResources( ClientDatabase& clientDatabase )
+	void Tile::m_initResources( ClientDatabase& clientDatabase, AnimationByIdMap& tileAnimations )
 	{
 		//if tile is not available
 		if( !clientDatabase.isTileAvailable( m_id ) )
 		{
-			r_tileAnimations = nullptr;
 			m_errorState = true;
 			return;
 		}
@@ -66,17 +63,17 @@ namespace kg
 
 		//ensure that animation for this sprite is loaded
 		Animation* animation = nullptr;
-		for( auto& el : *r_tileAnimations )
+		for( auto& el : tileAnimations )
 			if( el.first == m_id )
 				animation = &(el.second);
 		//if not loaded
 		if( !animation )
 		{
 			//load animation from file
-			r_tileAnimations->insert( std::make_pair( m_id, Animation( tileSettings ) ) );
+			tileAnimations.emplace( m_id, tileSettings );
 
 			//validate pointer
-			for( auto& el : *r_tileAnimations )
+			for( auto& el : tileAnimations )
 				if( el.first == m_id )
 					animation = &(el.second);
 		}
@@ -87,6 +84,7 @@ namespace kg
 		animation->apply( m_sprite );
 
 		m_errorState = false;
+		m_reload = false;
 	}
 
 	void Tile::scaleSpriteToGlobalTileDimensions( sf::Sprite& tile, Animation& tileAnimation )

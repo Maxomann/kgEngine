@@ -30,7 +30,7 @@ namespace kg
 	void World::frame( cCore& core )
 	{
 		for( auto& chunk : m_chunks )
-			chunk.second.frame( core );
+			chunk.second.frame( core, m_tileAnimations );
 		for( auto& animation : m_tileAnimations )
 			animation.second.frame();
 	}
@@ -115,6 +115,22 @@ namespace kg
 	void World::reset()
 	{
 		m_chunks.clear();
+		m_tileAnimations.clear();
+	}
+
+	void World::onInit( cCore& core )
+	{
+		core.getExtension<ClientDatabase>()->registerCallback( this,
+															   std::bind(
+															   &World::m_onTilesModified,
+															   this,
+															   std::placeholders::_1,
+															   std::placeholders::_2 ),
+															   CALLBACK_ID::CLIENT_DATABASE::TILE_MODIFIED );
+	}
+
+	void World::m_onTilesModified( int& callbackID, ClientDatabase& clientDatabase )
+{
 		m_tileAnimations.clear();
 	}
 

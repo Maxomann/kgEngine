@@ -13,7 +13,7 @@ namespace kg
 
 		const sf::Vector2i                   m_positionInChunks;
 
-		std::map< int, std::map<int, Tile> > m_tiles;
+		std::vector< std::vector<std::shared_ptr<Tile> > > m_tiles;
 
 
 	public:
@@ -23,7 +23,7 @@ namespace kg
 		const Tile&         getTile( sf::Vector2i positionInTiles )const;
 		void                setTile( cCore& core, sf::Vector2i relativeTilePosition, const int tileID );
 
-		void                frame( cCore& core );
+		void				frame( cCore& core, AnimationByIdMap& tileAnimations );
 
 		virtual void        draw( Camera& camera )override;
 

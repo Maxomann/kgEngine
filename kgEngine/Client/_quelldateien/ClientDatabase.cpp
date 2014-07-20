@@ -88,7 +88,7 @@ namespace kg
 		tilesModified();
 	}
 
-	void ClientDatabase::setFirstFreeTileID( const TileSettings& settings )
+	int ClientDatabase::setFirstFreeTileID( const TileSettings& settings )
 	{
 		auto it = begin( m_tiles );
 		for( const auto& el : m_tiles )
@@ -96,6 +96,7 @@ namespace kg
 		m_tiles[it->first + 1] = settings;
 		//send callbacks
 		tilesModified();
+		return it->first + 1;
 	}
 
 	void ClientDatabase::loadConfigFile( cCore& core )

@@ -13,6 +13,8 @@ namespace kg
 		auto database = core.getExtension<ClientDatabase>();
 		database->loadAllResources( core );
 
+		m_world.onInit( core );
+
 		sf::ContextSettings contextSettings;
 		contextSettings.antialiasingLevel = database->getAntialiasingLevel();
 
@@ -60,17 +62,7 @@ namespace kg
 			m_gui.handleEvent( event );
 			m_gameState->handleEvent( event );
 		}
-
-		//Call frame() here:
-		m_world.frame( core );
-
-		//apply render distance; unload all chunks that are not in it
-		auto chunkRenderRect = m_renderDistaceInChunks;
-		auto offset = m_camera.getCenter();
-		chunkRenderRect.left += offset.x;
-		chunkRenderRect.top += offset.y;
-		m_world.loadChunksInRectAndUnloadOther( core, { chunkRenderRect } );
-
+		
 		// change gameState if needed
 		int newGameStateId = m_gameState->frame( core, m_window, m_world, m_camera, m_gui );
 		if( newGameStateId == GameState::CLOSE_APP )
@@ -80,6 +72,16 @@ namespace kg
 			m_gameState->onClose( core, m_world, m_camera, m_gui );
 			m_gameState = m_gameStates.at( newGameStateId );
 		}
+
+		//apply render distance; unload all chunks that are not in it
+		auto chunkRenderRect = m_renderDistaceInChunks;
+		auto offset = m_camera.getCenter();
+		chunkRenderRect.left += offset.x;
+		chunkRenderRect.top += offset.y;
+		m_world.loadChunksInRectAndUnloadOther( core, { chunkRenderRect } );
+
+		//Call frame() here:
+		m_world.frame( core );
 
 		//Camera drawing here:
 		m_world.draw( m_camera );

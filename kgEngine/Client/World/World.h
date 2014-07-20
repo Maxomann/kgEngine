@@ -6,14 +6,18 @@
 
 namespace kg
 {
-	class World : public DrawableToCamera
+	class World : public DrawableToCamera, public aCallbackReciever, public sf::NonCopyable
 	{
 		typedef std::map<std::pair<int, int>, Chunk> Chunkmap;
 		Chunkmap         m_chunks;
 
 		AnimationByIdMap m_tileAnimations;
 
+		void m_onTilesModified( int& callbackID, ClientDatabase& clientDatabase );
+
 	public:
+		void onInit( cCore& core );
+
 		Chunk&              getChunk( cCore& core, const sf::Vector2i& positionInChunks );
 		void                loadChunksInRectAndUnloadOther( cCore& core, const std::vector<sf::IntRect>& rectInPixel );
 

@@ -27,7 +27,7 @@ namespace kg
 		// You must not store references to the given object
 		// the given object is the instance held by the Extension, NOT the Extension itself
 		template<class T>
-		PLUGIN_API std::shared_ptr<T> getExtension()const
+		PLUGIN_API std::shared_ptr<T> getExtension()
 		{
 			try
 			{

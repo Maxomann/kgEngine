@@ -35,7 +35,7 @@ namespace kg
 		bool         isTileAvailable( int tileID )const;
 
 		void         setTile( int tileID, const TileSettings& settings );
-		void         setFirstFreeTileID( const TileSettings& settings );
+		int          setFirstFreeTileID( const TileSettings& settings );
 		void         moveTileID( int from, int to );
 
 		//ConfigFile
