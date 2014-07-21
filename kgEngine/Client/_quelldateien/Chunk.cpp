@@ -9,19 +9,19 @@ namespace kg
 		//standart initialize fields
 		for( int x = 0; x < chunkSizeInTiles; ++x )
 		{
-			m_tiles.push_back( std::vector<std::shared_ptr<Tile> >() );
+			m_tiles.push_back( std::vector<std::unique_ptr<Tile> >() );
 			for( int y = 0; y < chunkSizeInTiles; ++y )
 			{
-				m_tiles.at(x).push_back( std::make_shared<Tile>(
+				m_tiles.at( x ).push_back( std::make_unique<Tile>(
 					core,
 					0,
 					Chunk::getPositionInPixelForTile( m_positionInChunks, sf::Vector2i( x, y ) ),
-					tileAnimations ));
+					tileAnimations ) );
 			}
 		}
 
 		//request chunkData from server
-		//core.networkManager.sendMessage( std::make_shared<ChunkDataRequest>( m_positionInChunks ), core.getServerIp(), core.getServerPort() );
+		core.networkManager.sendMessage( std::make_shared<ChunkDataRequest>( m_positionInChunks ), core.getServerIp(), core.getServerPort() );
 	}
 
 	void Chunk::draw( Camera& camera )
@@ -53,7 +53,7 @@ namespace kg
 		auto& tile = m_tiles.at( relativeTilePosition.x ).at( relativeTilePosition.y );
 		if( tileID != tile->getID() )
 		{
-			m_tiles.at( relativeTilePosition.x ).at( relativeTilePosition.y ) = std::make_shared<Tile>(
+			tile = std::make_unique<Tile>(
 				core,
 				tileID,
 				Chunk::getPositionInPixelForTile( m_positionInChunks, relativeTilePosition ),

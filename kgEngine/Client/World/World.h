@@ -8,12 +8,12 @@ namespace kg
 {
 	class World : public DrawableToCamera, public aCallbackReciever, public sf::NonCopyable
 	{
-		typedef std::map<std::pair<int, int>, Chunk> Chunkmap;
+		typedef std::map<std::pair<int, int>, std::unique_ptr<Chunk> > Chunkmap;
 		Chunkmap         m_chunks;
 
 		AnimationByIdMap m_tileAnimations;
 
-		void m_onTilesModified( int& callbackID, ClientDatabase& clientDatabase );
+		void m_onTilesModified( const int& callbackID, const ClientDatabase& clientDatabase );
 
 	public:
 		void onInit( cCore& core );

@@ -39,10 +39,8 @@ namespace kg
 			{
 				for( int y = 0; y < chunkSizeInTiles; ++y )
 				{
-					auto& tile = chunk.getTile(sf::Vector2i(x,y));
 					int id = atoi( seglist.at( x*chunkSizeInTiles + y ).c_str() );
-					if( id != tile.getID() )
-						chunk.setTile(core, sf::Vector2i(x,y), id);
+					chunk.setTile(core, sf::Vector2i(x,y), id);
 				}
 			}
 		}

@@ -121,6 +121,7 @@
       <AdditionalDependencies>tgui.lib;sfml-network.lib;sfml-system.lib;sfml-main.lib;sfml-window.lib;sfml-graphics.lib;%(AdditionalDependencies);</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\Coding\GitHub\TGUI-0.6.3 Visual C++12 %282013%29 - 32bit\lib\TGUI;D:\Coding\GitHub\kgEngine\Release;D:\Coding\GitHub\SFML-2.1-VS2013-32bit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,6 +140,7 @@
       <AdditionalDependencies>Algorithm.lib;Plugin.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>D:\Coding\SilverbirdRPG\kgEngine\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

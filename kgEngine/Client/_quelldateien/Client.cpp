@@ -15,28 +15,21 @@ namespace kg
 
 		m_world.onInit( core );
 
-		sf::ContextSettings contextSettings;
-		contextSettings.antialiasingLevel = database->getAntialiasingLevel();
-
-		//initialize the Client with the data from the config_file
-		m_window.create( sf::VideoMode( database->getWindowResolution().x, database->getWindowResolution().y ),
-						 database->getWindowName(),
-						 sf::Style::Titlebar | sf::Style::Close,
-						 contextSettings );
-		//camera
-		m_camera.init( sf::Vector2u( database->getWindowResolution() ) );
-		//vSynch
-		m_window.setVerticalSyncEnabled( database->isVsynchEnabled() );
-		//renderDistance
-		sf::Vector2i renderDistance = database->getRenderDistance();
-		m_renderDistaceInChunks.left = -renderDistance.x*chunkSizeInTiles*tileSizeInPixel;
-		m_renderDistaceInChunks.top = -renderDistance.y*chunkSizeInTiles*tileSizeInPixel;
-		m_renderDistaceInChunks.width = renderDistance.x * 2 * chunkSizeInTiles*tileSizeInPixel;
-		m_renderDistaceInChunks.height = renderDistance.y * 2 * chunkSizeInTiles*tileSizeInPixel;
+		m_initFromConfigFile( *database );
 
 		//init GUI
 		if( !m_gui.setGlobalFont( resourceFolderPath + fontFolderName + "DejaVuSans.ttf" ) )
 			REPORT_ERROR_FILEACCESS( resourceFolderPath + fontFolderName + "DejaVuSans.ttf" + "could not be loaded" );
+
+		//register m_onConfigFileModified callback
+		database->registerCallback(
+			this,
+			std::bind(
+			&Client::m_onConfigFileModified,
+			this,
+			std::placeholders::_1,
+			std::placeholders::_2 ),
+			CALLBACK_ID::CLIENT_DATABASE::CONFIG_FILE_MODIFIED );
 	}
 
 	void kg::Client::frame( cCore& core )
@@ -62,7 +55,7 @@ namespace kg
 			m_gui.handleEvent( event );
 			m_gameState->handleEvent( event );
 		}
-		
+
 		// change gameState if needed
 		int newGameStateId = m_gameState->frame( core, m_window, m_world, m_camera, m_gui );
 		if( newGameStateId == GameState::CLOSE_APP )
@@ -121,4 +114,45 @@ namespace kg
 	{
 		core.getExtension<ClientDatabase>()->saveAllResources();
 	}
+
+	void Client::m_initFromConfigFile( const ClientDatabase& database )
+	{
+		sf::ContextSettings contextSettings;
+		contextSettings.antialiasingLevel = database.getAntialiasingLevel();
+
+		if( database.isFullscreenEnabled() )
+		{
+			//initialize the Client with the data from the config_file
+			m_window.create( sf::VideoMode( database.getWindowResolution().x, database.getWindowResolution().y ),
+							 database.getWindowName(),
+							 sf::Style::Titlebar | sf::Style::Close | sf::Style::Fullscreen,
+							 contextSettings );
+		}
+		else
+		{
+			//initialize the Client with the data from the config_file
+			m_window.create( sf::VideoMode( database.getWindowResolution().x, database.getWindowResolution().y ),
+							 database.getWindowName(),
+							 sf::Style::Titlebar | sf::Style::Close,
+							 contextSettings );
+		}
+
+		//vSynch
+		m_window.setVerticalSyncEnabled( database.isVsynchEnabled() );
+		//camera
+		m_camera.init( sf::Vector2u( m_window.getSize() ) );
+		//renderDistance
+		sf::Vector2i renderDistance = database.getRenderDistance();
+		m_renderDistaceInChunks.left = -renderDistance.x*chunkSizeInTiles*tileSizeInPixel;
+		m_renderDistaceInChunks.top = -renderDistance.y*chunkSizeInTiles*tileSizeInPixel;
+		m_renderDistaceInChunks.width = renderDistance.x * 2 * chunkSizeInTiles*tileSizeInPixel;
+		m_renderDistaceInChunks.height = renderDistance.y * 2 * chunkSizeInTiles*tileSizeInPixel;
+
+	}
+
+	void Client::m_onConfigFileModified( const int& callbackID, const ClientDatabase& clientDatabase )
+	{
+		m_initFromConfigFile( clientDatabase );
+	}
+
 }

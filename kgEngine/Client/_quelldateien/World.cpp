@@ -8,29 +8,30 @@ namespace kg
 		{
 			if( el.first == std::make_pair( positionInChunks.x, positionInChunks.y ) )
 			{
-				return el.second;
+				return *el.second;
 			}
 		}
 
 		//Chunk needs to be constructed
-		m_chunks.emplace( std::make_pair( std::make_pair( positionInChunks.x, positionInChunks.y ),
-			Chunk( core,
+		m_chunks.emplace(
+			std::make_pair( positionInChunks.x, positionInChunks.y ),
+			std::make_unique<Chunk>( core,
 			sf::Vector2i( positionInChunks.x, positionInChunks.y ),
 			m_tileAnimations
-			) ) );
-		return m_chunks.at( std::make_pair( positionInChunks.x, positionInChunks.y ) );
+			) );
+		return *m_chunks.at( std::make_pair( positionInChunks.x, positionInChunks.y ) );
 	}
 
 	void World::draw( Camera& camera )
 	{
 		for( auto& el : m_chunks )
-			el.second.draw( camera );
+			el.second->draw( camera );
 	}
 
 	void World::frame( cCore& core )
 	{
 		for( auto& chunk : m_chunks )
-			chunk.second.frame( core, m_tileAnimations );
+			chunk.second->frame( core, m_tileAnimations );
 		for( auto& animation : m_tileAnimations )
 			animation.second.frame();
 	}
@@ -129,7 +130,7 @@ namespace kg
 															   CALLBACK_ID::CLIENT_DATABASE::TILE_MODIFIED );
 	}
 
-	void World::m_onTilesModified( int& callbackID, ClientDatabase& clientDatabase )
+	void World::m_onTilesModified( const int& callbackID, const ClientDatabase& clientDatabase )
 {
 		m_tileAnimations.clear();
 	}

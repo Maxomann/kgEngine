@@ -2,7 +2,6 @@
 
 namespace kg
 {
-	static std::vector<Tile*> debugVector;
 
 	Tile::Tile( cCore& core, int id, sf::Vector2i positionInPixel, AnimationByIdMap& tileAnimations )
 		:m_id( id )

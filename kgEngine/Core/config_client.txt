@@ -1,4 +1,5 @@
 antialiasing:0
+fullscreen:false
 renderDistanceX:4
 renderDistanceY:2
 resx:1280

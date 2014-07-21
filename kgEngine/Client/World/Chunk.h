@@ -7,13 +7,13 @@
 
 namespace kg
 {
-	class Chunk : public DrawableToCamera
+	class Chunk : public DrawableToCamera, public sf::NonCopyable
 	{
 		AnimationByIdMap&					 r_tileAnimations;
 
 		const sf::Vector2i                   m_positionInChunks;
 
-		std::vector< std::vector<std::shared_ptr<Tile> > > m_tiles;
+		std::vector< std::vector<std::unique_ptr<Tile> > > m_tiles;
 
 
 	public:
@@ -21,6 +21,7 @@ namespace kg
 		Chunk( cCore& core, sf::Vector2i positionInChunks, AnimationByIdMap& tileAnimations );
 
 		const Tile&         getTile( sf::Vector2i positionInTiles )const;
+		//will not change the tile if tile.getID() == tileID
 		void                setTile( cCore& core, sf::Vector2i relativeTilePosition, const int tileID );
 
 		void				frame( cCore& core, AnimationByIdMap& tileAnimations );

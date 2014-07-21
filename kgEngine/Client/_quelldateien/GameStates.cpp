@@ -14,6 +14,14 @@ namespace kg
 		m_menuBar->addMenuItem( createMenuName, createMenuTileItem );
 		m_menuBar->addMenu( connectionMenuName );
 		m_menuBar->addMenuItem( connectionMenuName, connectionMenuConnectItem );
+		m_menuBar->addMenu( loadMenuName );
+		m_menuBar->addMenuItem( loadMenuName, loadMenuAllItem );
+		m_menuBar->addMenuItem( loadMenuName, loadMenuTilesItem );
+		m_menuBar->addMenuItem( loadMenuName, loadMenuConfigItem );
+		m_menuBar->addMenu( saveMenuName );
+		m_menuBar->addMenuItem( saveMenuName, saveMenuAllItem );
+		m_menuBar->addMenuItem( saveMenuName, saveMenuTilesItem );
+		m_menuBar->addMenuItem( saveMenuName, saveMenuConfigItem );
 		m_menuBar->bindCallbackEx( std::bind(
 			&TestGameState::m_menuBarCallback,
 			this,
@@ -25,8 +33,7 @@ namespace kg
 	}
 
 	void TestGameState::handleEvent( sf::Event& sfmlEvent )
-	{
-	}
+	{ }
 
 	int TestGameState::frame( cCore& core, sf::RenderWindow& window, World& world, Camera& camera, tgui::Gui& gui )
 	{
@@ -52,7 +59,7 @@ namespace kg
 		{
 			if( r_tileDrawingWindow->hasBrushChanged() )
 			{
-				m_brush = r_tileDrawingWindow->getBrush(core);
+				m_brush = r_tileDrawingWindow->getBrush( core );
 			}
 		}
 		else
@@ -106,7 +113,7 @@ namespace kg
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::E ) )
 			camera.rotate( 5.0f );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R )
-			&& m_timeSinceLastResourceReload.getElapsedTime().asMilliseconds()>200 )
+			&& m_timeSinceLastResourceReload.getElapsedTime().asMilliseconds() > 200 )
 		{
 			core.getExtension<ClientDatabase>()->loadAllResources( core );
 			m_timeSinceLastResourceReload.restart();
@@ -183,6 +190,30 @@ namespace kg
 			auto ptr = std::make_shared<ConnectToServerWindow>();
 			ptr->onInit( core, gui.getContainer() );
 			m_guiElements.push_back( ptr );
+		}
+		if( callback.text == loadMenuAllItem )
+		{
+			core.getExtension<ClientDatabase>()->loadAllResources( core );
+		}
+		if( callback.text == loadMenuTilesItem )
+		{
+			core.getExtension<ClientDatabase>()->loadTiles( core );
+		}
+		if( callback.text == loadMenuConfigItem )
+		{
+			core.getExtension<ClientDatabase>()->loadConfigFile( core );
+		}
+		if( callback.text == saveMenuAllItem )
+		{
+			core.getExtension<ClientDatabase>()->saveAllResources();
+		}
+		if( callback.text == saveMenuTilesItem )
+		{
+			core.getExtension<ClientDatabase>()->saveTiles();
+		}
+		if( callback.text == saveMenuConfigItem )
+		{
+			core.getExtension<ClientDatabase>()->saveConfigFile();
 		}
 	}
 }

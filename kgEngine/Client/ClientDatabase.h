@@ -47,12 +47,14 @@ namespace kg
 		const        sf::Vector2i getWindowResolution()const;
 		bool         isVsynchEnabled()const;
 		const        sf::Vector2i getRenderDistance()const;
+		bool		 isFullscreenEnabled()const;
 
 		void         setWindowName( const std::string& name );
 		void         setAntialiasingLevel( int level );
 		void         setWindowResolution( const sf::Vector2i windowResolution );
 		void         setVsynchEnabled( bool enable );
 		void         setRenderDistance( const sf::Vector2i renderDistance );
+		void		 setFullscreenEnabled( bool enable );
 
 		//pExtension
 		virtual      std::string info() const;

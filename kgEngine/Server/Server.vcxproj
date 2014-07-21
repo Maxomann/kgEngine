@@ -85,6 +85,7 @@
       <AdditionalLibraryDirectories>D:\Coding\GitHub\TGUI-0.6.3 Visual C++12 %282013%29 - 32bit\lib\TGUI;D:\Coding\GitHub\kgEngine\Release;D:\Coding\GitHub\SFML-2.1-VS2013-32bit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

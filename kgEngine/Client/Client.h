@@ -10,7 +10,7 @@
 
 namespace kg
 {
-	class Client : public cCoreExtension
+	class Client : public cCoreExtension, public aCallbackReciever
 	{
 		std::unordered_map<int, std::shared_ptr<GameState>> m_gameStates;
 
@@ -27,6 +27,9 @@ namespace kg
 		bool                                                m_isStandartGameStateLoaded = false;
 
 		sf::Clock                                           m_frameTimeClock;
+
+		void                                                m_initFromConfigFile( const ClientDatabase& database );
+		void												m_onConfigFileModified( const int& callbackID, const ClientDatabase& clientDatabase );
 
 	public:
 		Client();

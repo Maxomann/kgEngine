@@ -77,4 +77,14 @@ namespace kg
 
 	static const std::string connectionMenuName = "Connection";
 	static const std::string connectionMenuConnectItem = "Connect to Server";
+
+	static const std::string loadMenuName = "Load";
+	static const std::string loadMenuTilesItem = "Reload Tiles";
+	static const std::string loadMenuConfigItem = "Reload Config";
+	static const std::string loadMenuAllItem = "Reload All";
+
+	static const std::string saveMenuName = "Save";
+	static const std::string saveMenuTilesItem = "Save Tiles";
+	static const std::string saveMenuConfigItem = "Save Config";
+	static const std::string saveMenuAllItem = "Save All";
 }

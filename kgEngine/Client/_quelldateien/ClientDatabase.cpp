@@ -232,4 +232,22 @@ namespace kg
 		return false;
 	}
 
+	bool ClientDatabase::isFullscreenEnabled() const
+	{
+		if( m_configFile->getData( "fullscreen" ) == "true" )
+			return true;
+		else
+			return false;
+	}
+
+	void ClientDatabase::setFullscreenEnabled( bool enable )
+	{
+		if( enable )
+			m_configFile->setData( "fullscreen", "true" );
+		else
+			m_configFile->setData( "fullscreen", "false" );
+		//send callbacks
+		configFileModified();
+	}
+
 }
