@@ -34,7 +34,7 @@ namespace kg
 
 	void kg::Client::frame( cCore& core )
 	{
-		auto frameTime = m_frameTimeClock.restart().asMilliseconds();
+		auto frameTime = core.getFrameTimeInMilliseconds();
 		m_window.setTitle( core.getExtension<ClientDatabase>()->getWindowName() + " --- FrameTime: " + std::to_string( frameTime ) );
 
 		if( !m_isStandartGameStateLoaded )

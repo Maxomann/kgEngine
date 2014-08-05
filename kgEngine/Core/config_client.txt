@@ -1,8 +1,8 @@
 antialiasing:0
-fullscreen:false
+fullscreen:true
 renderDistanceX:4
 renderDistanceY:2
-resx:1169
-resy:672
+resx:1920
+resy:1080
 vsynch:true
 window_name:Application v0.0.1 ©Kay Gonschior

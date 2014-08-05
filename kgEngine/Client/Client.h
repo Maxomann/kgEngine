@@ -26,8 +26,6 @@ namespace kg
 
 		bool                                                m_isStandartGameStateLoaded = false;
 
-		sf::Clock                                           m_frameTimeClock;
-
 		void                                                m_initFromConfigFile( const ClientDatabase& database );
 		void												m_onConfigFileModified( const int& callbackID, const ClientDatabase& clientDatabase );
 

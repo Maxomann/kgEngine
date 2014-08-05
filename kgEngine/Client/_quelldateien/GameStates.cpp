@@ -95,36 +95,37 @@ namespace kg
 			camera.zoom( 0.5 );
 
 		//MOVEMENT
-		sf::Vector2f movement;
+		sf::Vector2f movement(0,0);
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
 		{
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
-				movement.y -= 100;
+				movement.y -= (100.0 / 60.0 * core.getFrameTimeInMilliseconds());
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
-				movement.y += 100;
+				movement.y += (100.0 / 60.0 * core.getFrameTimeInMilliseconds());
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
-				movement.x -= 100;
+				movement.x -= (100.0 / 60.0 * core.getFrameTimeInMilliseconds());
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
-				movement.x += 100;
+				movement.x += (100.0 / 60.0 * core.getFrameTimeInMilliseconds());
 		}
 		else
 		{
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )
-				movement.y -= 10;
+				movement.y -= (10.0 / 60.0 * core.getFrameTimeInMilliseconds());
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::S ) )
-				movement.y += 10;
+				movement.y += (10.0 / 60.0 * core.getFrameTimeInMilliseconds());
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::A ) )
-				movement.x -= 10;
+				movement.x -= (10.0 / 60.0 * core.getFrameTimeInMilliseconds());
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::D ) )
-				movement.x += 10;
+				movement.x += (10.0 / 60.0 * core.getFrameTimeInMilliseconds());
 		}
+		movement /= camera.getZoom();
 		//rotate and apply movement
 		camera.moveCenter( sf::Vector2i( rotatePointAroundPoint( movement, camera.getRotation() ) ) );
 
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Q ) )
-			camera.rotate( -5.0f );
+			camera.rotate( (-3.0 / 60.0 * core.getFrameTimeInMilliseconds()) );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::E ) )
-			camera.rotate( 5.0f );
+			camera.rotate( (3.0 / 60.0 * core.getFrameTimeInMilliseconds()) );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R )
 			&& m_timeSinceLastResourceReload.getElapsedTime().asMilliseconds() > 200 )
 		{

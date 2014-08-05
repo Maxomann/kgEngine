@@ -21,8 +21,8 @@ namespace kg
 
 		sf::Clock										m_timeSinceLastResourceReload;
 
-		void				m_menuBarCallback( const tgui::Callback& callback, cCore& core, tgui::Gui& gui );
-		void												m_onConfigFileModified( const int& callbackID, const ClientDatabase& clientDatabase );
+		void											m_menuBarCallback( const tgui::Callback& callback, cCore& core, tgui::Gui& gui );
+		void											m_onConfigFileModified( const int& callbackID, const ClientDatabase& clientDatabase );
 
 	public:
 

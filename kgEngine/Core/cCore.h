@@ -17,6 +17,9 @@ namespace kg
 		sf::IpAddress m_serverIp = sf::IpAddress::LocalHost;
 		sf::Uint16 m_serverPort = clientToServerPort;
 
+		sf::Clock m_frameTimeClock;
+		int m_frameTimeInMilliseconds=16;
+
 	public:
 		cCore( pPluginManager& pluginManger );
 		~cCore();
@@ -31,6 +34,8 @@ namespace kg
 
 		CORE_API bool shouldClose();
 		CORE_API void close();
+
+		CORE_API int getFrameTimeInMilliseconds()const;
 
 		virtual void initExtensions( pPluginManager& pluginManager )override;
 

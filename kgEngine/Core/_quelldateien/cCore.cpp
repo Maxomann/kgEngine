@@ -9,6 +9,9 @@ namespace kg
 
 	void cCore::frame()
 	{
+		//update frame time
+		m_frameTimeInMilliseconds = m_frameTimeClock.restart().asMilliseconds();
+
 		networkManager.frame( *this );
 
 		for( auto& el : r_coreExtensions )
@@ -65,5 +68,10 @@ namespace kg
 	{
 		for( const auto& ptr : r_coreExtensions )
 			ptr->onClose( *this );
+	}
+
+	CORE_API int cCore::getFrameTimeInMilliseconds() const
+	{
+		return m_frameTimeInMilliseconds;
 	}
 }
