@@ -129,7 +129,8 @@ namespace kg
 			m_hasBrushChanged = false;
 
 			std::string tileName = m_tileSelectionBox->getSelectedItem();
-			if( tileName == "NONE" || m_tileSelectionBox->getSelectedItemId()<NULL )
+			if( tileName == "NONE" || tileName == "" || m_tileSelectionBox->getSelectedItemId()<NULL )
+				//if no field is selected
 				return nullptr;
 
 			int tileId = core.getExtension<ClientDatabase>()->getTileID( tileName );
