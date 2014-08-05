@@ -110,7 +110,6 @@ NETWORK_API kg::nNetworkManager::~nNetworkManager()
 NETWORK_API void kg::nNetworkManager::spreadMessage( std::shared_ptr<nMessage> message )
 {
 	for( const auto& ip : m_connections )
-		if( ip.second.size() > NULL )
 			for(const auto& user : ip.second )
 				sendMessage( message, ip.first, user.second );
 }
