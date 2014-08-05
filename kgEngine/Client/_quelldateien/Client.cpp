@@ -52,6 +52,9 @@ namespace kg
 			if( event.type == sf::Event::Closed )
 				core.close();
 
+			if( event.type == sf::Event::Resized )
+				core.getExtension<ClientDatabase>()->setWindowResolution( sf::Vector2i( event.size.width, event.size.height ) );
+
 			m_gui.handleEvent( event );
 			m_gameState->handleEvent( event );
 		}
@@ -135,7 +138,7 @@ namespace kg
 			//initialize the Client with the data from the config_file
 			m_window.create( sf::VideoMode( database.getWindowResolution().x, database.getWindowResolution().y ),
 							 database.getWindowName(),
-							 sf::Style::Titlebar | sf::Style::Close,
+							 sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize,
 							 contextSettings );
 		}
 
@@ -156,5 +159,4 @@ namespace kg
 	{
 		m_initFromConfigFile( clientDatabase );
 	}
-
 }

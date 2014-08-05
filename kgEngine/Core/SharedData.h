@@ -71,6 +71,7 @@ namespace kg
 	//GUI
 	static const std::string editMenuName = "Edit";
 	static const std::string editMenuTileItem = "TileDrawing";
+	static const std::string editMenuSwitchFullscreenItem = "Switch Fullscreen";
 
 	static const std::string createMenuName = "Database";
 	static const std::string createMenuTileItem = "Add tile";
@@ -87,4 +88,5 @@ namespace kg
 	static const std::string saveMenuTilesItem = "Save Tiles";
 	static const std::string saveMenuConfigItem = "Save Config";
 	static const std::string saveMenuAllItem = "Save All";
+
 }

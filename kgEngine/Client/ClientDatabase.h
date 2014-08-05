@@ -59,4 +59,6 @@ namespace kg
 		//pExtension
 		virtual      std::string info() const;
 	};
+
+
 }

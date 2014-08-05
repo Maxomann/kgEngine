@@ -144,7 +144,7 @@ namespace kg
 	void Camera::init( const sf::Vector2u finalSize )
 	{
 		m_finalSize = sf::Vector2i( finalSize );
-		m_View.setCenter( NULL, NULL );
+		//m_View.setCenter( NULL, NULL );
 		m_View.setSize( sf::Vector2f( finalSize ) );
 	}
 

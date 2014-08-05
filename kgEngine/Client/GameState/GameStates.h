@@ -8,7 +8,7 @@
 
 namespace kg
 {
-	class TestGameState : public GameState
+	class TestGameState : public GameState, public aCallbackReciever
 	{
 		tgui::MenuBar::Ptr                              m_menuBar = nullptr;
 
@@ -22,6 +22,7 @@ namespace kg
 		sf::Clock										m_timeSinceLastResourceReload;
 
 		void				m_menuBarCallback( const tgui::Callback& callback, cCore& core, tgui::Gui& gui );
+		void												m_onConfigFileModified( const int& callbackID, const ClientDatabase& clientDatabase );
 
 	public:
 

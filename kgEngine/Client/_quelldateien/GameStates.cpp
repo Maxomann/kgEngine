@@ -4,12 +4,23 @@ namespace kg
 {
 	void TestGameState::onInit( cCore& core, World& world, Camera& camera, tgui::Gui& gui )
 	{
+		//register m_onConfigFileModified callback
+		core.getExtension<ClientDatabase>()->registerCallback(
+			this,
+			std::bind(
+			&TestGameState::m_onConfigFileModified,
+			this,
+			std::placeholders::_1,
+			std::placeholders::_2 ),
+			CALLBACK_ID::CLIENT_DATABASE::CONFIG_FILE_MODIFIED );
+
 		//MenuBar
 		m_menuBar = tgui::MenuBar::Ptr( gui );
 		m_menuBar->load( resourceFolderPath + widgetFolderName + tguiConfigBlack );
 		m_menuBar->setSize( gui.getWindow()->getSize().x, 25 );
 		m_menuBar->addMenu( editMenuName );
 		m_menuBar->addMenuItem( editMenuName, editMenuTileItem );
+		m_menuBar->addMenuItem( editMenuName, editMenuSwitchFullscreenItem );
 		m_menuBar->addMenu( createMenuName );
 		m_menuBar->addMenuItem( createMenuName, createMenuTileItem );
 		m_menuBar->addMenu( connectionMenuName );
@@ -33,7 +44,9 @@ namespace kg
 	}
 
 	void TestGameState::handleEvent( sf::Event& sfmlEvent )
-	{ }
+	{
+
+	}
 
 	int TestGameState::frame( cCore& core, sf::RenderWindow& window, World& world, Camera& camera, tgui::Gui& gui )
 	{
@@ -187,6 +200,10 @@ namespace kg
 				r_tileDrawingWindow = ptr;
 			}
 		}
+		if( callback.text == editMenuSwitchFullscreenItem )
+		{
+			core.getExtension<ClientDatabase>()->setFullscreenEnabled( !core.getExtension<ClientDatabase>()->isFullscreenEnabled() );
+		}
 		if( callback.text == connectionMenuConnectItem )
 		{
 			auto ptr = std::make_shared<ConnectToServerWindow>();
@@ -218,4 +235,12 @@ namespace kg
 			core.getExtension<ClientDatabase>()->saveConfigFile();
 		}
 	}
+
+	void TestGameState::m_onConfigFileModified( const int& callbackID,
+												const ClientDatabase& clientDatabase )
+	{
+		auto res = clientDatabase.getWindowResolution();
+		m_menuBar->setSize( res.x, m_menuBar->getSize().y );
+	}
+
 }

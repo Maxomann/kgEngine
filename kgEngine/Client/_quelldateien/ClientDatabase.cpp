@@ -160,8 +160,8 @@ namespace kg
 
 	void ClientDatabase::setWindowResolution( const sf::Vector2i windowResolution )
 	{
-		m_configFile->setData( "resX", std::to_string( windowResolution.x ) );
-		m_configFile->setData( "resY", std::to_string( windowResolution.y ) );
+		m_configFile->setData( "resx", std::to_string( windowResolution.x ) );
+		m_configFile->setData( "resy", std::to_string( windowResolution.y ) );
 		//send callbacks
 		configFileModified();
 	}
@@ -246,8 +246,11 @@ namespace kg
 			m_configFile->setData( "fullscreen", "true" );
 		else
 			m_configFile->setData( "fullscreen", "false" );
-		//send callbacks
-		configFileModified();
+
+		setWindowResolution( sf::Vector2i( sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height ) );
+
+		//no need to send callback here
+		//it gets send in setWindowResolution()
 	}
 
 }
