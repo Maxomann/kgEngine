@@ -109,9 +109,10 @@ NETWORK_API kg::nNetworkManager::~nNetworkManager()
 
 NETWORK_API void kg::nNetworkManager::spreadMessage( std::shared_ptr<nMessage> message )
 {
-	for( const auto& el : m_connections )
-		if( el.second.size() > NULL )
-			sendMessage( message, el.first, el.second.at( 0 ).second );
+	for( const auto& ip : m_connections )
+		if( ip.second.size() > NULL )
+			for(const auto& user : ip.second )
+				sendMessage( message, ip.first, user.second );
 }
 
 NETWORK_API sf::Uint16 kg::nNetworkManager::getSendPort( sf::IpAddress forIp, sf::Uint16 recievedOnPort )
