@@ -13,14 +13,15 @@ namespace kg
 
 		const sf::Vector2i                   m_positionInChunks;
 
-		std::vector< std::vector<std::unique_ptr<Tile> > > m_tiles;
+		std::array< std::array< std::unique_ptr<Tile>, chunkSizeInTiles >, chunkSizeInTiles > m_tiles;
 
 
 	public:
 		//Requests chunkData for this chunks from server on creation
 		Chunk( cCore& core, sf::Vector2i positionInChunks, AnimationByIdMap& tileAnimations );
 
-		const Tile&         getTile( sf::Vector2i positionInTiles )const;
+		//can be nullptr if tile has not been loaded
+		const Tile*         getTile( sf::Vector2i positionInTiles )const;
 		//will not change the tile if tile.getID() == tileID
 		void                setTile( cCore& core, sf::Vector2i relativeTilePosition, const int tileID );
 
