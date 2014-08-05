@@ -117,6 +117,8 @@ namespace kg
 
 	void Client::m_initFromConfigFile( const ClientDatabase& database )
 	{
+		m_gui.setWindow( m_window );
+
 		sf::ContextSettings contextSettings;
 		contextSettings.antialiasingLevel = database.getAntialiasingLevel();
 

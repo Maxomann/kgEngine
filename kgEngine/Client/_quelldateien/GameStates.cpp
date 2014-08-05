@@ -157,7 +157,9 @@ namespace kg
 
 	void TestGameState::onClose( cCore& core, World& world, Camera& camera, tgui::Gui& gui )
 	{
-		REPORT_ERROR( "standart GameState should not be closed at the moment" );
+		gui.remove( m_menuBar );
+		for( const auto& el : m_guiElements )
+			el->onClose( gui.getContainer() );
 	}
 
 	int TestGameState::getID() const
