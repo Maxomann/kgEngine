@@ -2,24 +2,17 @@
 
 namespace kg
 {
-	Chunk& World::getChunk( cCore& core, const sf::Vector2i& positionInChunks )
+	Chunk* World::getChunk( cCore& core, const sf::Vector2i& positionInChunks )
 	{
 		for( auto& el : m_chunks )
 		{
 			if( el.first == std::make_pair( positionInChunks.x, positionInChunks.y ) )
 			{
-				return *el.second;
+				return el.second.get();
 			}
 		}
 
-		//Chunk needs to be constructed
-		m_chunks.emplace(
-			std::make_pair( positionInChunks.x, positionInChunks.y ),
-			std::make_unique<Chunk>( core,
-			sf::Vector2i( positionInChunks.x, positionInChunks.y ),
-			m_tileAnimations
-			) );
-		return *m_chunks.at( std::make_pair( positionInChunks.x, positionInChunks.y ) );
+		return nullptr;
 	}
 
 	void World::draw( Camera& camera )
@@ -57,7 +50,7 @@ namespace kg
 				for( int y = top; y <= bottom; ++y )
 				{
 					positionsInRect.push_back( sf::Vector2i( x, y ) );
-					getChunk( core, sf::Vector2i( x, y ) );
+					loadChunk( core, sf::Vector2i( x, y ) );
 				}
 			}
 		}
@@ -133,6 +126,26 @@ namespace kg
 	void World::m_onTilesModified( const int& callbackID, const ClientDatabase& clientDatabase )
 {
 		m_tileAnimations.clear();
+	}
+
+	Chunk& World::loadChunk( cCore& core, const sf::Vector2i& positionInChunks )
+	{
+		for( auto& el : m_chunks )
+		{
+			if( el.first == std::make_pair( positionInChunks.x, positionInChunks.y ) )
+			{
+				return *el.second.get();
+			}
+		}
+
+		//Chunk needs to be constructed
+		m_chunks.emplace(
+			std::make_pair( positionInChunks.x, positionInChunks.y ),
+			std::make_unique<Chunk>( core,
+			sf::Vector2i( positionInChunks.x, positionInChunks.y ),
+			m_tileAnimations
+			) );
+		return *m_chunks.at( std::make_pair( positionInChunks.x, positionInChunks.y ) ).get();
 	}
 
 	// 	sf::IntRect World::getAbsoluteWindowRect( const sf::RenderWindow& window, const Camera& camera )

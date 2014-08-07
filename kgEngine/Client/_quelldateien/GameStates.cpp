@@ -90,9 +90,9 @@ namespace kg
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Escape ) )
 			return CLOSE_APP;
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Subtract ) )
-			camera.zoom( 2 );
+			camera.zoom( 1.1 );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Add ) )
-			camera.zoom( 0.5 );
+			camera.zoom( 0.9 );
 
 		//MOVEMENT
 		sf::Vector2f movement(0,0);

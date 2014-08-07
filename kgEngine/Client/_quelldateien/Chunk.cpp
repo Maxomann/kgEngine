@@ -52,6 +52,7 @@ namespace kg
 
 		if( !tile || tileID != tile->getID() )
 		{
+			tile = nullptr;
 			tile = std::move( std::make_unique<Tile>(
 				core,
 				tileID,

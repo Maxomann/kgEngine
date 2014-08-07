@@ -45,7 +45,7 @@ namespace kg
 	void Client::frame( cCore& core )
 	{
 		auto frameTime = core.getFrameTimeInMilliseconds();
-		m_window.setTitle( core.getExtension<ClientDatabase>()->getWindowName() + " --- FrameTime: " + std::to_string( frameTime ) );
+		m_window.setTitle( core.getExtension<ClientDatabase>()->getWindowName() + " --- FrameTime: " + std::to_string( frameTime ) + " - " + std::to_string( World::getAbsoluteChunkPosition( m_window, m_camera ).x ) + " - " + std::to_string( World::getAbsoluteChunkPosition( m_window, m_camera ).y ) );
 
 		if( !m_isStandartGameStateLoaded )
 		{

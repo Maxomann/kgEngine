@@ -31,8 +31,9 @@ namespace kg
 			}
 			data.erase( data.begin() );
 
-
-			auto& chunk = core.getExtension<Client>()->getWorld().getChunk( core, sf::Vector2i( atoi( chunkX.c_str() ), atoi( chunkY.c_str() ) ) );
+			auto chunk = core.getExtension<Client>()->getWorld().getChunk( core, sf::Vector2i( atoi( chunkX.c_str() ), atoi( chunkY.c_str() ) ) );
+			if( !chunk )
+				return;
 
 			auto seglist = aSplitString::function( data, standartSplitChar, aSplitString::operation::REMOVE );
 			for( int x = 0; x < chunkSizeInTiles; ++x )
@@ -40,7 +41,7 @@ namespace kg
 				for( int y = 0; y < chunkSizeInTiles; ++y )
 				{
 					int id = atoi( seglist.at( x*chunkSizeInTiles + y ).c_str() );
-					chunk.setTile(core, sf::Vector2i(x,y), id);
+					chunk->setTile(core, sf::Vector2i(x,y), id);
 				}
 			}
 		}

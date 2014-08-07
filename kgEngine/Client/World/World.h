@@ -18,7 +18,10 @@ namespace kg
 	public:
 		void onInit( cCore& core );
 
-		Chunk&              getChunk( cCore& core, const sf::Vector2i& positionInChunks );
+		//returns nullptr if chunk is not loaded
+		Chunk*              getChunk( cCore& core, const sf::Vector2i& positionInChunks );
+		//returns loaded chunk. does not reload a chunk if it is already loaded
+		Chunk&				loadChunk( cCore& core, const sf::Vector2i& positionInChunks );
 		void                loadChunksInRectAndUnloadOther( cCore& core, const std::vector<sf::IntRect>& rectInPixel );
 
 		//resets the world, so information has to be reloaded from server and ClientDatabase
