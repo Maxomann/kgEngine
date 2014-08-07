@@ -38,7 +38,7 @@ namespace kg
 
 	void World::loadChunksInRectAndUnloadOther( cCore& core, const std::vector<sf::IntRect>& rectsInPixelVector )
 	{
-		std::vector<sf::Vector2i> positions;
+		std::vector<sf::Vector2i> positionsInRect;
 
 		for( const auto& rectInPixel : rectsInPixelVector )
 		{
@@ -56,7 +56,7 @@ namespace kg
 			{
 				for( int y = top; y <= bottom; ++y )
 				{
-					positions.push_back( sf::Vector2i( x, y ) );
+					positionsInRect.push_back( sf::Vector2i( x, y ) );
 					getChunk( core, sf::Vector2i( x, y ) );
 				}
 			}
@@ -65,7 +65,7 @@ namespace kg
 		std::vector<Chunkmap::iterator> chunksNotInRect;
 		for( Chunkmap::iterator it = m_chunks.begin(); it != m_chunks.end(); ++it )
 		{
-			if( !std::any_of( positions.begin(), positions.end(), [&]( sf::Vector2i& el )
+			if( !std::any_of( positionsInRect.begin(), positionsInRect.end(), [&]( sf::Vector2i& el )
 			{
 				return sf::Vector2i( it->first.first, it->first.second ) == el;
 			} ) )

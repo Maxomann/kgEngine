@@ -16,32 +16,32 @@ using namespace kg;
 
 int main()
 {
-	// 	try
-	// 	{
-	pPluginManager pluginManager;
-	pluginManager.loadPluginsFromFile( "Client.dll" );
-	pluginManager.loadPluginsFromFile( "Server.dll" );
+// 	try
+// 	{
+		pPluginManager pluginManager;
+		pluginManager.loadPluginsFromFile( "Client.dll" );
+		pluginManager.loadPluginsFromFile( "Server.dll" );
 
-	cCore application( pluginManager );
-	pluginManager.fillExtandable<cCore>( application );
-	application.initExtensions( pluginManager );
+		cCore application( pluginManager );
+		pluginManager.fillExtandable<cCore>( application );
+		application.initExtensions( pluginManager );
 
-	application.networkManager.addConnection( sf::IpAddress::LocalHost, 42000, 42000 );
+		application.networkManager.addConnection( sf::IpAddress::LocalHost, 42000, 42000 );
 
-	application.setServerIp( sf::IpAddress::LocalHost );
-	application.setServerPort( 42000 );
+		application.setServerIp( sf::IpAddress::LocalHost );
+		application.setServerPort( 42000 );
 
-	//Main loop
-	while( !application.shouldClose() )
-	{
-		application.frame();
-	}
-	// 	}
-	// 	catch( std::exception& e )
-	// 	{
-	// 		cout << e.what() << endl;
-	// 		system( "pause" );
-	// 	}
+		//Main loop
+		while( !application.shouldClose() )
+		{
+			application.frame();
+		}
+// 	}
+// 	catch( std::exception& e )
+// 	{
+// 		cout << e.what() << endl;
+// 		system( "pause" );
+// 	}
 
 	return 0;
 }

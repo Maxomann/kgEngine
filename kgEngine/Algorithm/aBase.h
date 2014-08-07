@@ -46,7 +46,6 @@ namespace kg
 	}
 
 	template<class T>
-	//MAY NOT WORK CORRECTLY!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	ALGORITHM_API sf::Vector2<T> rotatePointAroundPoint( sf::Vector2<T>pointToRotate,
 														 T degrees,
 														 sf::Vector2<T>pointToRotateAround = { 0, 0 } )

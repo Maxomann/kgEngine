@@ -129,7 +129,7 @@ namespace kg
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::R )
 			&& m_timeSinceLastResourceReload.getElapsedTime().asMilliseconds() > 200 )
 		{
-			core.getExtension<ClientDatabase>()->loadAllResources( core );
+			world.reset();
 			m_timeSinceLastResourceReload.restart();
 		}
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::P ) )

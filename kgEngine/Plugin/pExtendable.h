@@ -13,19 +13,30 @@ namespace kg
 	class pExtendable
 	{
 	protected:
+		/// The loaded extensions.
 		std::unordered_map<size_t, std::shared_ptr<pExtension>> m_extensions;
 
 	public:
-		// T=type of class that derived from pExtension
+
+		/// Adds an extension.
+		///
+		/// @author	Kay
+		/// @date	07.08.2014
+		///
+		/// @typeparam	T	type of class that derived from pExtension
+		/// @param [in,out]	extension	The extension.
 		template<class T>
 		PLUGIN_API void addExtension( std::shared_ptr<pExtension>& extension )
 		{
-			m_extensions[typeid(T).hash_code()] = extension;
+			m_extensions[typeid(T).hash_code()] = std::move(extension);
 		}
 
-		// DON'T! delete the given pointer
-		// You must not store references to the given object
-		// the given object is the instance held by the Extension, NOT the Extension itself
+		/// @author	Kay
+		/// @date	07.08.2014
+		///
+		/// @typeparam	T	Type of the Extension to get.
+		///
+		/// @return	The extension.
 		template<class T>
 		PLUGIN_API std::shared_ptr<T> getExtension()
 		{
@@ -39,23 +50,12 @@ namespace kg
 			}
 		}
 
+		/// Initializes the extensions.
+		///
+		/// @author	Kay
+		/// @date	07.08.2014
+		///
+		/// @param [in,out]	pluginManager	Manager for plug in.
 		PLUGIN_API virtual void initExtensions( pPluginManager& pluginManager ) = 0;
-	};
-
-	class PLUGIN_API pExtensionProviderInterface
-	{
-	public:
-		virtual void addExtensionTo( pExtendable& extendable )const = 0;
-	};
-
-	// T= class derived from pExtension
-	template<class T>
-	class PLUGIN_API pExtensionProvider : public pExtensionProviderInterface
-	{
-	public:
-		void addExtensionTo( pExtendable& extendable )const
-		{
-			extendable.addExtension<T>( std::static_pointer_cast< pExtension >(std::make_shared<T>()) );
-		};
 	};
 }

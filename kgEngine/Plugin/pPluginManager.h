@@ -8,30 +8,46 @@ namespace kg
 {
 	class pPluginManager
 	{
+		/// The extension provider.
 		std::unordered_map<size_t, std::vector<std::shared_ptr<pExtensionProviderInterface>>> m_extensionProvider;
 
-		// Connect function used in DLL-Files
-		// The function in your DLL file has to look like this:
-		// extern "C" __declspec(dllexport) void kgConnect( pPluginManager& pluginManager )
+		/// Connect function used in DLL-Files The function in your DLL file has to look like this:
+		/// extern "C" __declspec(dllexport) void kgConnect( pPluginManager& pluginManager )
 		typedef void( *CONNECT )(pPluginManager&);
 
 	public:
-		// DESTINATION_EXTENDABLE = type of class that the Provider should add Extensions to
-		// EXTENSION = type of the extension to add
+
+		/// Adds extension provider.
+		///
+		/// @author	Kay
+		/// @date	07.08.2014
+		///
+		/// @typeparam	DestinationExtendable	type of class that the Provider should add Extensions to
+		/// @typeparam	Extension			 	type of the extension to add
 		template<class DestinationExtendable, class Extension>
 		PLUGIN_API void addExtensionProvider()
 		{
 			m_extensionProvider[typeid(DestinationExtendable).hash_code()].push_back( std::static_pointer_cast< pExtensionProviderInterface >(std::make_shared<pExtensionProvider<Extension>>()) );
 		}
 
-		// DESTINATION_EXTENDABLE = type of class that derived from the passed extandable
+		/// @author	Kay
+		/// @date	07.08.2014
+		///
+		/// @typeparam	DestinationExtendable	type of class that derived from the passed extendable.
+		/// @param [in,out]	extendable	The extendable.
 		template<class DestinationExtendable>
-		PLUGIN_API void fillExtandable( pExtendable& extandable )
+		PLUGIN_API void fillExtandable( pExtendable& extendable )
 		{
 			for( const auto& el : m_extensionProvider[typeid(DestinationExtendable).hash_code()] )
-				el->addExtensionTo( extandable );
+				el->addExtensionTo( extendable );
 		}
 
+		/// Loads plugins from file.
+		///
+		/// @author	Kay
+		/// @date	07.08.2014
+		///
+		/// @param	path	Full pathname of the file.
 		PLUGIN_API void loadPluginsFromFile( const std::string& path );
 	};
 

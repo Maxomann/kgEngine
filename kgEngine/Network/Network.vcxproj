@@ -81,6 +81,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>D:\Coding\GitHub\TGUI-0.6.3 Visual C++12 %282013%29 - 32bit\include;D:\Coding\GitHub\rapidxml1.13\include;D:\Coding\GitHub\SFML-2.1-VS2013-32bit\include;D:\Coding\GitHub\kgEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -113,6 +114,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>D:\Coding\GitHub\TGUI-0.6.3 Visual C++12 %282013%29 - 32bit\include;D:\Coding\GitHub\rapidxml1.13\include;D:\Coding\GitHub\SFML-2.1-VS2013-32bit\include;D:\Coding\GitHub\kgEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

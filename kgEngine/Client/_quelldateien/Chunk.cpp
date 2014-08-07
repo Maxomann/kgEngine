@@ -6,7 +6,7 @@ namespace kg
 		:m_positionInChunks( positionInChunks ),
 		r_tileAnimations( tileAnimations )
 	{
-		//standart initialize fields
+		//default initialize fields
 // 		for( int x = 0; x < chunkSizeInTiles; ++x )
 // 		{
 // 			m_tiles.push_back( std::vector<std::unique_ptr<Tile> >() );

@@ -2,9 +2,9 @@
 
 namespace kg
 {
-	const char kg::Client::config_file_path[] = "config_client.txt";
+	const char Client::config_file_path[] = "config_client.txt";
 
-	kg::Client::Client()
+	Client::Client()
 		:m_gui( m_window )
 	{ }
 
@@ -32,7 +32,17 @@ namespace kg
 			CALLBACK_ID::CLIENT_DATABASE::CONFIG_FILE_MODIFIED );
 	}
 
-	void kg::Client::frame( cCore& core )
+	kg::World& Client::getWorld()
+	{
+		return m_world;
+	}
+
+	std::string Client::info() const
+	{
+		return "Build-in CLIENT plugin";
+	}
+
+	void Client::frame( cCore& core )
 	{
 		auto frameTime = core.getFrameTimeInMilliseconds();
 		m_window.setTitle( core.getExtension<ClientDatabase>()->getWindowName() + " --- FrameTime: " + std::to_string( frameTime ) );
@@ -70,7 +80,7 @@ namespace kg
 		}
 
 		//apply render distance; unload all chunks that are not in it
-		auto chunkRenderRect = m_renderDistaceInChunks;
+		auto chunkRenderRect = m_renderDistanceInChunks;
 		auto offset = m_camera.getCenter();
 		chunkRenderRect.left += offset.x;
 		chunkRenderRect.top += offset.y;
@@ -88,17 +98,6 @@ namespace kg
 		m_gui.draw();
 		m_window.display();
 	}
-
-	std::string kg::Client::info() const
-	{
-		return "Build-in CLIENT plugin";
-	}
-
-	kg::World& kg::Client::getWorld()
-	{
-		return m_world;
-	}
-
 	void Client::initExtensions( pPluginManager& pluginManager )
 	{
 		pluginManager.fillExtandable<Client>( *this );
@@ -148,10 +147,10 @@ namespace kg
 		m_camera.init( sf::Vector2u( m_window.getSize() ) );
 		//renderDistance
 		sf::Vector2i renderDistance = database.getRenderDistance();
-		m_renderDistaceInChunks.left = -renderDistance.x*chunkSizeInTiles*tileSizeInPixel;
-		m_renderDistaceInChunks.top = -renderDistance.y*chunkSizeInTiles*tileSizeInPixel;
-		m_renderDistaceInChunks.width = renderDistance.x * 2 * chunkSizeInTiles*tileSizeInPixel;
-		m_renderDistaceInChunks.height = renderDistance.y * 2 * chunkSizeInTiles*tileSizeInPixel;
+		m_renderDistanceInChunks.left = -renderDistance.x*chunkSizeInTiles*tileSizeInPixel;
+		m_renderDistanceInChunks.top = -renderDistance.y*chunkSizeInTiles*tileSizeInPixel;
+		m_renderDistanceInChunks.width = renderDistance.x * 2 * chunkSizeInTiles*tileSizeInPixel;
+		m_renderDistanceInChunks.height = renderDistance.y * 2 * chunkSizeInTiles*tileSizeInPixel;
 
 	}
 
