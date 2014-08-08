@@ -3,7 +3,7 @@
 #pragma once
 #include "../stdafx.h"
 #include "../Client.h"
-#include "../Network/Messages.h"
+#include "Messages.h"
 
 namespace kg
 {
@@ -11,78 +11,20 @@ namespace kg
 	{
 	public:
 
-		virtual void handle( cCore& core, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const
-		{
-			auto& data = std::get<3>( message );
+		virtual void handle( cCore& core, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const;
 
-			std::string chunkX;
-			std::string chunkY;
+		virtual int getMessageHandlerID() const;
 
-			while( data.at( 0 ) != standartSplitChar )
-			{
-				chunkX.push_back( data.at( 0 ) );
-				data.erase( data.begin() );
-			}
-			data.erase( data.begin() );
-			while( data.at( 0 ) != standartSplitChar )
-			{
-				chunkY.push_back( data.at( 0 ) );
-				data.erase( data.begin() );
-			}
-			data.erase( data.begin() );
-
-			auto chunk = core.getExtension<Client>()->getWorld().getChunk( core, sf::Vector2i( atoi( chunkX.c_str() ), atoi( chunkY.c_str() ) ) );
-			if( !chunk )
-				return;
-
-			auto seglist = aSplitString::function( data, standartSplitChar, aSplitString::operation::REMOVE );
-			for( int x = 0; x < chunkSizeInTiles; ++x )
-			{
-				for( int y = 0; y < chunkSizeInTiles; ++y )
-				{
-					int id = atoi( seglist.at( x*chunkSizeInTiles + y ).c_str() );
-					chunk->setTile(core, sf::Vector2i(x,y), id);
-				}
-			}
-		}
-
-		virtual int getMessageHandlerID() const
-		{
-			return MESSAGE_ID_SERVER::CHUNK_DATA_REQUEST_ANSWER;
-		}
-
-		virtual std::string info() const
-		{
-			return __CLASS__;
-		}
+		virtual std::string info() const;
 	};
 
 	class ConnectionRequestAnswerHandler : public nMessageHandler
 	{
 	public:
-		virtual void handle( cCore& core, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const
-		{
-			auto seglist = aSplitString::function( std::get<3>( message ), standartSplitChar, aSplitString::operation::REMOVE );
-			if( seglist.size() != 2 )
-				REPORT_ERROR_NETWORK( "Data transmission failed" );
+		virtual void handle( cCore& core, std::tuple<sf::IpAddress, sf::Uint16, int, std::string>& message ) const;
 
-			bool accepted = atoi( seglist.at( 0 ).c_str() );
-			if( !accepted )
-				REPORT_ERROR_NETWORK( "connection refused" );
-			core.setServerIp( std::get<0>( message ) );
-			core.setServerPort( atoi( seglist.at( 1 ).c_str() ) );
+		virtual int getMessageHandlerID() const;
 
-			core.getExtension<Client>()->getWorld().reset();
-		}
-
-		virtual int getMessageHandlerID() const
-		{
-			return MESSAGE_ID_SERVER::CONNECTION_REQUEST_ANSWER;
-		}
-
-		virtual std::string info() const
-		{
-			return __CLASS__;
-		}
+		virtual std::string info() const;
 	};
 }

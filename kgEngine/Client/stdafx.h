@@ -20,7 +20,6 @@
 #include <Algorithm/aCallbacks.h>
 #include <Core/SharedData.h>
 #include <Network/nNetworkManger.h>
-#include <Network/nTransferable.h>
 
 #include <array>
 #include <locale>

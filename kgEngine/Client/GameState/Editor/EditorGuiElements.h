@@ -22,6 +22,8 @@ namespace kg
 		virtual void onInit( cCore& core, tgui::Container& container );
 	};
 
+
+
 	CLIENT_API class TileDrawingSubWindow : public NonStaticGuiElement
 	{
 	public:
@@ -33,6 +35,8 @@ namespace kg
 
 		virtual void onClose( tgui::Container& container ) = 0;
 	};
+
+
 
 	class TileDrawingWindow : public ExtendableNonStaticGuiElement < TileDrawingWindow, TileDrawingSubWindow >
 	{

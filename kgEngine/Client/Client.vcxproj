@@ -79,6 +79,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="_quelldateien\Messages.cpp" />
+    <ClCompile Include="_quelldateien\MessageHandlers.cpp" />
+    <ClCompile Include="_quelldateien\GuiElement.cpp" />
+    <ClCompile Include="_quelldateien\EditorGuiPlugins.cpp" />
+    <ClCompile Include="_quelldateien\BrushSystem.cpp" />
     <ClCompile Include="_quelldateien\ClientDatabaseResourceUser.cpp" />
     <ClCompile Include="_quelldateien\ClientDatabase.cpp" />
     <ClCompile Include="_quelldateien\EditorGuiElements.cpp" />
@@ -96,7 +101,6 @@
     <ClCompile Include="connect.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClientDatabaseResourceUser.h" />
     <ClInclude Include="Drawing\Animation.h" />
     <ClInclude Include="Drawing\Camera.h" />
     <ClInclude Include="Client.h" />

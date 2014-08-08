@@ -8,19 +8,11 @@ namespace kg
 		sf::Vector2i m_position;
 
 	public:
-		ChunkDataRequest( const sf::Vector2i& position )
-			:m_position( position )
-		{ }
+		ChunkDataRequest( const sf::Vector2i& position );
 
-		virtual std::string getMessage()
-		{
-			return std::to_string( m_position.x ) + standartSplitChar + std::to_string( m_position.y );
-		}
+		virtual std::string getMessage();
 
-		virtual int getID()
-		{
-			return MESSAGE_ID_CLIENT::CHUNK_DATA_REQUEST;
-		}
+		virtual int getID();
 	};
 
 	class SetTilesRequest : public nMessage
@@ -32,40 +24,11 @@ namespace kg
 	public:
 		SetTilesRequest( const std::vector< const sf::Vector2i >& chunkPositionInChunks,
 						 const std::vector< const sf::Vector2i >& tilePositionRelativeToChunk,
-						 const std::vector< const int >& tileID )
-			:m_chunkPosition( chunkPositionInChunks ),
-			m_tilePosition( tilePositionRelativeToChunk ),
-			m_tileID( tileID )
-		{ }
+						 const std::vector< const int >& tileID );
 
-		virtual std::string getMessage()
-		{
-			std::string message;
+		virtual std::string getMessage();
 
-			if( m_chunkPosition.size() != m_tilePosition.size() || m_tilePosition.size() != m_tileID.size() )
-				REPORT_ERROR_NETWORK( "wrong message parameters" );
-
-			for( int i = 0; i < m_chunkPosition.size(); ++i )
-			{
-				message += std::to_string( m_chunkPosition.at(i).x );
-				message += standartSplitChar;
-				message += std::to_string( m_chunkPosition.at( i ).y );
-				message += standartSplitChar;
-				message += std::to_string( m_tilePosition.at( i ).x );
-				message += standartSplitChar;
-				message += std::to_string( m_tilePosition.at( i ).y );
-				message += standartSplitChar;
-				message += std::to_string( m_tileID.at( i ) );
-				message += standartSplitChar;
-			}
-
-			return message;
-		}
-
-		virtual int getID()
-		{
-			return MESSAGE_ID_CLIENT::SET_TILES_REQUEST;
-		}
+		virtual int getID();
 	};
 
 	class ConnectionRequest : public nMessage
@@ -76,24 +39,10 @@ namespace kg
 	public:
 		//recievePortOnClient: port the client listens to
 		//recievePortOnServer: port the server 'should' listens to & sendPort linked to recievePortOnClient by server IP
-		ConnectionRequest( sf::Uint16 recievePortOnClient, sf::Uint16 recievePortOnServer )
-			:m_recievePortOnClient( recievePortOnClient ),
-			m_recievePortOnServer( recievePortOnServer )
-		{ }
+		ConnectionRequest( sf::Uint16 recievePortOnClient, sf::Uint16 recievePortOnServer );
 
-		virtual std::string getMessage()
-		{
-			std::string message;
-			message += std::to_string( m_recievePortOnClient );
-			message += standartSplitChar;
-			message += std::to_string( m_recievePortOnServer );
+		virtual std::string getMessage();
 
-			return message;
-		}
-
-		virtual int getID()
-		{
-			return MESSAGE_ID_CLIENT::CONNECTION_REQUEST;
-		}
+		virtual int getID();
 	};
 }

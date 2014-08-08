@@ -12,11 +12,11 @@
 #include <Plugin/pPluginManager.h>
 #include <Core/SharedData.h>
 #include <Algorithm/aString.h>
-#include <Network/nTransferable.h>
 #include <Network/nNetworkManger.h>
 
 #include <string>
 #include <sstream>
+#include <array>
 
 #include <SFML/Audio.hpp>
 #include <SFML/Config.hpp>

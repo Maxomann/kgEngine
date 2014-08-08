@@ -7,7 +7,8 @@ namespace kg
 {
 	class Chunk
 	{
-		std::map< std::pair<int, int>, int > m_fields;
+		typedef std::array< std::array<int, chunkSizeInTiles>, chunkSizeInTiles > FieldContainer;
+		std::array< std::array<int, chunkSizeInTiles>, chunkSizeInTiles > m_fields;
 
 	public:
 		Chunk();
@@ -16,6 +17,6 @@ namespace kg
 
 		int getField( const sf::Vector2i position )const;
 
-		const std::map< std::pair<int, int>, int >& getFieldData()const;
+		const FieldContainer& getFieldData()const;
 	};
 }

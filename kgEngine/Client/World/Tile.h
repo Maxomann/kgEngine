@@ -6,7 +6,6 @@
 #include "../Drawing/Animation.h"
 #include "../Settings/TileSettings.h"
 #include "../ClientDatabase.h"
-#include "../ClientDatabaseResourceUser.h"
 
 
 namespace kg

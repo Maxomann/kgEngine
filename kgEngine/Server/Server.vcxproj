@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connect.h" />
+    <ClCompile Include="_quelldateien\Messages.cpp" />
+    <ClCompile Include="_quelldateien\MessageHandlers.cpp" />
     <ClCompile Include="_quelldateien\Chunk.cpp" />
     <ClCompile Include="_quelldateien\World.cpp" />
     <ClCompile Include="_quelldateien\Server.cpp" />

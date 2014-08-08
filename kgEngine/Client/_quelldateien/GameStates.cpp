@@ -95,7 +95,7 @@ namespace kg
 			camera.zoom( 0.9 );
 
 		//MOVEMENT
-		sf::Vector2f movement(0,0);
+		sf::Vector2f movement( 0, 0 );
 		if( sf::Keyboard::isKeyPressed( sf::Keyboard::Space ) )
 		{
 			if( sf::Keyboard::isKeyPressed( sf::Keyboard::W ) )

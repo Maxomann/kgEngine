@@ -8,32 +8,11 @@ namespace kg
 		std::string m_message;
 
 	public:
-		ChunkDataRequestAnswer( const sf::Vector2i& position, const Chunk& chunk )
-		{
-			m_message += std::to_string( position.x );
-			m_message += standartSplitChar;
-			m_message += std::to_string( position.y );
-			m_message += standartSplitChar;
+		ChunkDataRequestAnswer( const sf::Vector2i& position, const std::array< std::array<int, chunkSizeInTiles>, chunkSizeInTiles >& chunkData );
 
-			for( int x = 0; x < chunkSizeInTiles; ++x )
-			{
-				for( int y = 0; y < chunkSizeInTiles; ++y )
-				{
-					m_message += std::to_string( chunk.getField(sf::Vector2i(x,y)) );
-					m_message.push_back( standartSplitChar );
-				}
-			}
-		}
+		virtual std::string getMessage();
 
-		virtual std::string getMessage()
-		{
-			return m_message;
-		}
-
-		virtual int getID()
-		{
-			return MESSAGE_ID_SERVER::CHUNK_DATA_REQUEST_ANSWER;
-		}
+		virtual int getID();
 	};
 
 	class ConnectionRequestAnswer : public nMessage
@@ -42,24 +21,10 @@ namespace kg
 		sf::Uint16 m_recievePortOnServer;
 
 	public:
-		ConnectionRequestAnswer( sf::Uint16 recievePortOnServer, bool accepted = true )
-			: m_accepted( accepted ),
-			m_recievePortOnServer( recievePortOnServer )
-		{
-		}
+		ConnectionRequestAnswer( sf::Uint16 recievePortOnServer, bool accepted = true );
 
-		virtual std::string getMessage()
-		{
-			std::string message( std::to_string( m_accepted ) );
-			message += standartSplitChar;
-			message += std::to_string( m_recievePortOnServer );
+		virtual std::string getMessage();
 
-			return message;
-		}
-
-		virtual int getID()
-		{
-			return MESSAGE_ID_SERVER::CONNECTION_REQUEST_ANSWER;
-		}
+		virtual int getID();
 	};
 }

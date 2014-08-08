@@ -6,16 +6,6 @@ namespace kg
 		:m_positionInChunks( positionInChunks ),
 		r_tileAnimations( tileAnimations )
 	{
-		//default initialize fields
-// 		for( int x = 0; x < chunkSizeInTiles; ++x )
-// 		{
-// 			m_tiles.push_back( std::vector<std::unique_ptr<Tile> >() );
-// 			for( int y = 0; y < chunkSizeInTiles; ++y )
-// 			{
-// 				m_tiles.at( x ).push_back( nullptr );
-// 			}
-// 		}
-
 		//request chunkData from server
 		core.networkManager.sendMessage( std::make_shared<ChunkDataRequest>( m_positionInChunks ), core.getServerIp(), core.getServerPort() );
 	}

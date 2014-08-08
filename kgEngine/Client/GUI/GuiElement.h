@@ -10,15 +10,9 @@ namespace kg
 		bool m_shouldClose = false;
 
 	public:
-		void close()
-		{
-			m_shouldClose = true;
-		};
+		void close();
 
-		bool shouldClose()const
-		{
-			return m_shouldClose;
-		}
+		bool shouldClose()const;
 
 		virtual void onClose( tgui::Container& container ) = 0;
 

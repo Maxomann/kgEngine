@@ -22,34 +22,18 @@ namespace kg
 		//begins after mouse has been pressed down (not on GUI)
 		void begin( sf::Vector2i mousePositionInWorld,
 					sf::Vector2i chunkPosition,
-					sf::Vector2i relativeTilePosition )
-		{
-			sf::Vector2i startMousePositionInWorld = mousePositionInWorld;
-			sf::Vector2i startChunkPosition = chunkPosition;
-			sf::Vector2i startRelativeTilePosition = relativeTilePosition;
-
-			m_isActive = true;
-		};
+					sf::Vector2i relativeTilePosition );
 
 		//not called before begin()
-		virtual void cancel()
-		{
-			m_isActive = false;
-		};
+		virtual void cancel();
 
-		bool isActive()
-		{
-			return m_isActive;
-		};
+		bool isActive();
 
 		//not called before begin()
 		virtual void apply( cCore& core,
 							sf::Vector2i mousePositionInWorld,
 							sf::Vector2i chunkPosition,
-							sf::Vector2i relativeTilePosition )
-		{
-			m_isActive = false;
-		};
+							sf::Vector2i relativeTilePosition );
 
 		virtual void recalculatePreview( cCore& core,
 										 sf::Vector2i mousePositionInWorld,

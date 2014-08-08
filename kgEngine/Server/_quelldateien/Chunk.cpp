@@ -4,23 +4,23 @@ namespace kg
 {
 	Chunk::Chunk()
 	{
-		//standart initialize fields
+		//default initialize fields
 		for( int x = 0; x < chunkSizeInTiles; ++x )
 			for( int y = 0; y < chunkSizeInTiles; ++y )
-				m_fields[std::make_pair( x, y )] = NULL;
+				m_fields[x][y] = 0;
 	}
 
 	void Chunk::setField( const sf::Vector2i relativeTilePosition, int id )
 {
-		m_fields[std::make_pair( relativeTilePosition.x, relativeTilePosition.y )] = id;
+		m_fields[relativeTilePosition.x][relativeTilePosition.y] = id;
 	}
 
 	int Chunk::getField( const sf::Vector2i position )const
 	{
-		return m_fields.at( std::make_pair( position.x, position.y ) );
+		return m_fields[position.x][position.y];
 	}
 
-	const std::map< std::pair<int, int>, int >& Chunk::getFieldData() const
+	const Chunk::FieldContainer& Chunk::getFieldData() const
 	{
 		return m_fields;
 	}
