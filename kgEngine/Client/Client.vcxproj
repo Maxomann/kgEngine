@@ -79,6 +79,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="_quelldateien\EntitySettings.cpp" />
+    <ClCompile Include="_quelldateien\Entity.cpp" />
     <ClCompile Include="_quelldateien\Messages.cpp" />
     <ClCompile Include="_quelldateien\MessageHandlers.cpp" />
     <ClCompile Include="_quelldateien\GuiElement.cpp" />
@@ -118,6 +120,8 @@
     <ClInclude Include="World\Chunk.h" />
     <ClInclude Include="Network\MessageHandlers.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="World\Entity.h" />
+    <ClInclude Include="Settings\EntitySettings.h" />
     <ClInclude Include="World\Tile.h" />
     <ClInclude Include="World\World.h" />
   </ItemGroup>

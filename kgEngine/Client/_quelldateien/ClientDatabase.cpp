@@ -83,6 +83,7 @@ namespace kg
 
 	void ClientDatabase::setTile( int tileID, const TileSettings& settings )
 	{
+		m_tileList->setData( std::to_string( tileID ), "tile" + std::to_string( tileID ) + informationFileExtension );
 		m_tiles[tileID] = settings;
 		//send callbacks
 		tilesModified();

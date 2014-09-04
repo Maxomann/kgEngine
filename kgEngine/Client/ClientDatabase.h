@@ -3,16 +3,20 @@
 #pragma once
 #include "stdafx.h"
 #include "Settings/TileSettings.h"
+#include "Settings/EntitySettings.h"
 
 namespace kg
 {
 	class ClientDatabase : public pExtension, public aCallbackSender<ClientDatabase>
 	{
-		aDataByIdentifierFile*        m_tileList;
-		std::map< int, TileSettings > m_tiles;
-		std::map< int, sf::Texture >  m_tileTextures;
+		aDataByIdentifierFile*          m_tileList;
+		std::map< int, TileSettings >   m_tiles;
+		std::map< int, sf::Texture >    m_tileTextures;
 
-		aDataByIdentifierFile*        m_configFile;
+		aDataByIdentifierFile*		    m_entityList;
+		std::map< int, EntitySettings > m_entities;
+
+		aDataByIdentifierFile*          m_configFile;
 
 	public:
 		//also reload
@@ -37,6 +41,11 @@ namespace kg
 		void                               setTile( int tileID, const TileSettings& settings );
 		int                                setFirstFreeTileID( const TileSettings& settings );
 		void                               moveTileID( int from, int to );
+
+		//Entities
+		void loadEntities( cCore& core );
+		void saveEntities();
+		void entitiesModified();
 
 		//ConfigFile
 		void                               loadConfigFile( cCore& core );

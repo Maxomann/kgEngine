@@ -72,6 +72,12 @@
     <ClInclude Include="GameState\Editor\EditorGuiElements.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="World\Entity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings\EntitySettings.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connect.h">
@@ -132,6 +138,12 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="_quelldateien\Messages.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\Entity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="_quelldateien\EntitySettings.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
